@@ -1,0 +1,15 @@
+{
+  "id": "farm_plow",
+  "name_key": "recipe.farm_plow",
+  "kind": "field",
+  "action": "plow",
+  "building": "farm",
+  "zone": "field",
+  "inputs": [],
+  "duration_hours": 2.0,
+  "min_craft": 1,
+  "stat": "constitution",
+  "tool": "hoe",
+  "tool_speed": 1.25,
+  "_doc": "H12 Patrón (04d 4.22.4.1) [balance]: plows a fallow field, or clears a rotten one. The hoe in the tool slot: ×1.25 of speed."
+}

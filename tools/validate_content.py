@@ -60,15 +60,15 @@ DATA = os.path.join(ROOT, "data")
 ID_RE = re.compile(r"^[a-z][a-z0-9]*(_[a-z0-9]+)*$")
 KINDS = ["items", "recipes", "buildings"]
 CATEGORY_STACK = {"raw": 99, "material": 50, "product": 20, "tool": 1, "equipment": 1, "consumable": 10, "special": 5}
-STALLS = {"resources", "food", "materials", "armory", "clothier", "apothecary", "goods", None}  # H12: goods (enseres) [provisional]
+STALLS = {"resources", "food", "materials", "armory", "clothier", "apothecary", "goods", "livestock", None}  # H12: goods (enseres) [provisional]; H12 Patrón: livestock
 SLOTS = {"tool", "clothes", "accessory"}
 PARCEL_TYPES = {"production", "rustic", "housing", "government"}
 DIFFICULTIES = ["easy", "normal", "hard"]
 DIFF_LEVERS = {"start_debt": int, "rival_craft": int, "rival_sell_min_demand": (int, float), "buy_price_mult": (int, float),
-               "microevent_chance": (int, float)}
+               "microevent_chance": (int, float), "harvest_mult": (int, float)}
 STATS = ["charisma", "empathy", "negotiation", "arcane", "dexterity", "craft", "martial", "constitution", "rhetoric", "stealth"]
 MATCH_OPS = {"gte", "lte", "ne"}
-ZONE_KINDS = {"craft", "sales", "storage", "service"}
+ZONE_KINDS = {"craft", "sales", "storage", "service", "field", "pen"}  # H12 Patrón: field, pen
 NIGHT = {"none", "manual_only", "always", "employees"}  # posada: employees = sus empleados trabajan de noche (4.22.4.5)
 PHASES = ["dawn", "day", "dusk", "night"]
 ROAD_KINDS = {"street", "plaza", "bridge"}  # la red de calles: debe ser una sola pieza
@@ -317,7 +317,8 @@ def check_h3(items, recipes, buildings, maps, strings, rep):
         for it in ct.get("items") or []:
             if it.get("item") not in items:
                 rep.error(w, f"objeto desconocido {it.get('item')}")
-            elif not any(r.get("output", {}).get("item") == it["item"] for r in recipes.values()):
+            elif not any(r.get("output", {}).get("item") == it["item"] for r in recipes.values()) \
+                    and it["item"] not in farm_goods():
                 rep.error(w, f"ninguna receta produce {it['item']}")
             q = it.get("qty")
             if not (isinstance(q, list) and len(q) == 2 and all(isinstance(x, int) for x in q) and 1 <= q[0] <= q[1]):
@@ -1786,6 +1787,8 @@ def check_h12(items, recipes, buildings, maps, strings, rep):
             rep.error(w, f"tabla de encargos {pf.get('contracts')}: no existe o no es de {pid}")
         else:
             made = {r.get("output", {}).get("item") for r in recipes.values() if r.get("building") == pf.get("building")}
+            if any(r.get("kind") == "field" and r.get("building") == pf.get("building") for r in recipes.values()):
+                made |= farm_goods()  # H12 Patrón: the farm's fields and pen make its crops' yield and its animals' goods
             for it in ct.get("items") or []:
                 # the thief does not make what his clients ask for: he obtains it (the table says so: obtained stolen)
                 if it.get("item") not in made and ct.get("obtained") != "stolen":
@@ -1964,7 +1967,7 @@ def check_h5(items, recipes, buildings, ranks, strings, rep):
                     own = {z.get("id") for z in b.get("zones", [])}
                     if e["zone"] in own:
                         rep.error(w, f"{k}: {bid} ya tiene el puesto {e['zone']}")
-                    if e.get("like", e["zone"]) not in own:
+                    if e.get("like", e["zone"]) not in own | {z.get("like") for z in b.get("zones", []) if z.get("like")}:
                         rep.error(w, f"{k}: like {e.get('like')} no es un puesto de {bid}")
         vis = u.get("visual")
         if not isinstance(vis, dict) or set(vis) != {"interior_node", "exterior_overlay"}:
@@ -2455,6 +2458,74 @@ def check_tutorial(strings, starts, scenarios, items, buildings, maps_raw, rep):
                 rep.error(ws, "pause: true o false")
 
 
+def check_farm(items, buildings, strings, rep):
+    """H12 Patrón (04d 4.22.4.1-2): data/crops/ (sowing seasons, growth per season, grow, yield, rot_days) and
+    data/animals/ (each one an item of the same id; feed per season, produce, breed) and the pens' capacity."""
+    seasons = ["spring", "summer", "autumn", "winter"]
+    for kind in ("crops", "animals"):
+        d = os.path.join(DATA, kind)
+        if not os.path.isdir(d):
+            continue
+        for f in sorted(os.listdir(d)):
+            if not f.endswith(".json"):
+                continue
+            w = f"{kind}/{f[:-5]}"
+            x = load_json(os.path.join(d, f), rep) or {}
+            if x.get("id") != f[:-5]:
+                rep.error(w, "id distinto del nombre del fichero")
+            check_text(w, x.get("name_key"), strings, rep)
+            if kind == "crops":
+                if not x.get("sow_seasons") or any(t not in seasons for t in x["sow_seasons"]):
+                    rep.error(w, f"sow_seasons debe ser una lista de {seasons}")
+                g = x.get("growth") or {}
+                if set(g) != set(seasons) or any(not isinstance(v, (int, float)) or v < 0 for v in g.values()):
+                    rep.error(w, "growth: un número >= 0 por estación")
+                if not isinstance(x.get("grow"), (int, float)) or x["grow"] <= 0:
+                    rep.error(w, "grow debe ser > 0")
+                y = x.get("yield") or {}
+                if y.get("item") not in items or not isinstance(y.get("qty"), int) or y["qty"] < 1:
+                    rep.error(w, "yield: {item de data/items, qty >= 1}")
+                if not isinstance(x.get("rot_days"), int) or x["rot_days"] < 1:
+                    rep.error(w, "rot_days debe ser un entero >= 1")
+            else:
+                if x.get("id") not in items:
+                    rep.error(w, "un animal es también un objeto del mismo id (data/items)")
+                for sname, fd in (x.get("feed") or {}).items():
+                    if sname not in seasons or fd.get("item") not in items or not isinstance(fd.get("qty"), int):
+                        rep.error(w, f"feed.{sname}: {{item, qty}} por estación")
+                pr = x.get("produce")
+                if pr is not None and (pr.get("item") not in items or not isinstance(pr.get("qty"), int)):
+                    rep.error(w, "produce: {item, qty} o null")
+                br = x.get("breed")
+                if br is not None and (not isinstance(br.get("every_days"), int) or br["every_days"] < 1
+                                       or not isinstance(br.get("per_pair"), int)):
+                    rep.error(w, "breed: {every_days >= 1, per_pair} o null")
+    for bid, b in buildings.items():
+        if any(z.get("kind") == "pen" for z in b.get("zones", [])) and not (isinstance(b.get("pen_capacity"), int)
+                                                                         and b["pen_capacity"] >= 1):
+            rep.error(f"buildings/{bid}", "un edificio con corral (pen) necesita pen_capacity >= 1")
+
+
+def farm_goods():
+    """H12 Patrón (04d 4.22.4.1-2): what the fields and the pens give: the crops' yield, the animals and their produce."""
+    out = set()
+    for kind, keys in (("crops", ("yield",)), ("animals", ("produce",))):
+        d = os.path.join(DATA, kind)
+        if not os.path.isdir(d):
+            continue
+        for f in sorted(os.listdir(d)):
+            if not f.endswith(".json"):
+                continue
+            with open(os.path.join(d, f), encoding="utf-8") as fh:
+                x = json.load(fh)
+            if kind == "animals":
+                out.add(x.get("id"))
+            for k in keys:
+                if isinstance(x.get(k), dict) and x[k].get("item"):
+                    out.add(x[k]["item"])
+    return out
+
+
 def load_json(path, rep):
     try:
         with open(path, encoding="utf-8") as f:
@@ -2609,7 +2680,7 @@ def main():
         b = buildings.get(r.get("building"))
         if b is None:
             rep.error(w, f"edificio desconocido {r.get('building')}")
-        elif r.get("zone") not in {z.get("id") for z in b.get("zones", [])}:
+        elif r.get("zone") not in {z.get("like", z.get("id")) for z in b.get("zones", [])}:
             rep.error(w, f"el edificio {r['building']} no tiene el puesto {r.get('zone')}")
         for inp in r.get("inputs", []):
             if inp.get("item") not in items:
@@ -2627,6 +2698,22 @@ def main():
             zk = {z.get("id"): z.get("kind") for z in (b or {}).get("zones", [])}
             if b is not None and zk.get(r.get("zone")) != "service":
                 rep.error(w, f"una receta de servicio va en un puesto de kind service ({r.get('zone')} es {zk.get(r.get('zone'))})")
+        elif r.get("kind") == "field":
+            # H12 Patrón (04d 4.22.3.1, 4.22.4.1): plow, sow or harvest at a station of kind field; no output (the harvest
+            # gives the crop's yield, data/crops/)
+            crops = {f[:-5] for f in os.listdir(os.path.join(DATA, "crops")) if f.endswith(".json")} \
+                if os.path.isdir(os.path.join(DATA, "crops")) else set()
+            if r.get("action") not in ("plow", "sow", "harvest"):
+                rep.error(w, f"acción de campo desconocida {r.get('action')}")
+            if r.get("action") == "sow" and r.get("crop") not in crops:
+                rep.error(w, f"cultivo desconocido {r.get('crop')} (data/crops/)")
+            if out:
+                rep.error(w, "una receta de campo no tiene output")
+            zk = {z.get("like", z.get("id")): z.get("kind") for z in (b or {}).get("zones", [])}
+            if b is not None and zk.get(r.get("zone")) != "field":
+                rep.error(w, f"una receta de campo va en un puesto de kind field ({r.get('zone')} es {zk.get(r.get('zone'))})")
+            if r.get("tool") is not None and r["tool"] not in items:
+                rep.error(w, f"herramienta desconocida {r['tool']}")
         elif out.get("item") not in items:
             rep.error(w, f"objeto de salida desconocido {out.get('item')}")
         if r.get("stat") is not None and r["stat"] not in STATS:
@@ -2656,6 +2743,7 @@ def main():
     check_combat(items, strings, rep)
     check_games(ROOT, strings, rep, check_text)  # juegos (04f §4.26): tools/validate_games.py
     check_h12(items, recipes, buildings, maps, strings, rep)
+    check_farm(items, buildings, strings, rep)
     check_region(items, strings, rep)
     validate_fiestas.check_festivals(DATA, items, recipes, strings, check_text, load_json, rep)
     sys.path.insert(0, os.path.join(ROOT, "tools", "life"))

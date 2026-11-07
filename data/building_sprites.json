@@ -8,6 +8,8 @@
     "buildings/carpentry_back": {"footprint": [3, 4], "door": {"side": "NE", "tile": [1, -1], "px": [40, -12]}, "mirror": true, "back": "", "front": "carpentry"},
     "buildings/clinic": {"footprint": [3, 3], "door": {"side": "SE", "tile": [3, 1], "px": [39, 6]}, "mirror": true, "back": "", "front": ""},
     "buildings/den": {"footprint": [3, 3], "door": {"side": "SE", "tile": [3, 1], "px": [39, 6]}, "mirror": true, "back": "", "front": ""},
+    "buildings/farm": {"footprint": [3, 4], "door": {"side": "SW", "tile": [1, 4], "px": [-40, 12]}, "mirror": true, "back": "farm_back", "front": ""},
+    "buildings/farm_back": {"footprint": [3, 4], "door": {"side": "NE", "tile": [1, -1], "px": [40, -12]}, "mirror": true, "back": "", "front": "farm"},
     "buildings/forge": {"footprint": [3, 4], "door": {"side": "SE", "tile": [3, 2], "px": [24, 12]}, "mirror": true, "back": "forge_back", "front": ""},
     "buildings/forge_back": {"footprint": [3, 4], "door": {"side": "NW", "tile": [-1, 2], "px": [-24, -12]}, "mirror": true, "back": "", "front": "forge"},
     "buildings/house": {"footprint": [3, 3], "door": {"side": "SW", "tile": [1, 3], "px": [-39, 8]}, "mirror": true, "back": "house_back", "front": ""},

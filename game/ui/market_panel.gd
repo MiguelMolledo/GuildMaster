@@ -191,7 +191,7 @@ func _fill_buy() -> void:
 	_clear(list)
 	var rows: Array = _offers.get("buy", [])
 	_hint(SimQuery.t_("ui.market.nothing_to_buy") if rows.is_empty() else SimQuery.t_("ui.market.errand_help") % [
-		roundi(float(sim.catalog.market.get("errand", {}).get("surcharge", 0.2)) * 100.0),
+		roundi(_errand_rate() * 100.0),
 		SimQuery.duration_label(Market.errand_minutes(sim))])
 	var homes: Array = _offers.get("deliver_to", [])
 	for o: Dictionary in rows:
@@ -263,14 +263,14 @@ func _buy_row(o: Dictionary, homes: Array) -> VBoxContainer:
 	send.focus_mode = Control.FOCUS_NONE
 	send.flat = false
 	var cost := price * qty
-	var extra := Market.errand_surcharge(sim, cost)
+	var extra := Market.errand_surcharge(sim, cost, stall)
 	var to_name := SimQuery.building_label(sim.state, sim.catalog, str(homes[0])) if homes.size() == 1 else ""
 	send.text = SimQuery.t_("ui.market.send_to") % [to_name if to_name != "" else SimQuery.t_("ui.market.send_choose"), extra,
 		SimQuery.duration_label(Market.errand_minutes(sim))]
 	var send_why := _send_reason(st, cost + extra, homes, item, q, qty)
 	send.disabled = send_why != ""
 	send.tooltip_text = SimQuery.t_("reason." + send_why) if send_why != "" else SimQuery.t_("ui.market.send_tip") % [
-		roundi(float(sim.catalog.market.get("errand", {}).get("surcharge", 0.2)) * 100.0), cost + extra]
+		roundi(_errand_rate() * 100.0), cost + extra]
 	var pop := send.get_popup()
 	for i: int in homes.size():
 		pop.add_item(SimQuery.building_label(sim.state, sim.catalog, str(homes[i])), i)
@@ -493,3 +493,9 @@ func _give(o: Dictionary) -> void:
 	ViewConfig.info("MarketPanel", "order %s" % [o])
 	if order_sink.is_valid():
 		order_sink.call(o)
+
+
+## The errand's surcharge rate at this stall (H12 Patrón: the cattle fair's animals walk there for nothing).
+func _errand_rate() -> float:
+	var sdef: Dictionary = sim.catalog.market.get("stalls", {}).get(stall, {})
+	return float(sdef.get("errand_surcharge", sim.catalog.market.get("errand", {}).get("surcharge", 0.2)))

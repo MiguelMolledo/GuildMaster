@@ -65,6 +65,12 @@ func look() -> Node2D:
 	return _look
 
 
+## H12 Patrón: the name under the station with a state after it («Corral · pienso de invierno: 6 días»); "" = the name.
+func set_caption(extra: String) -> void:
+	if _label != null:
+		_label.text = title if extra == "" else "%s · %s" % [title, extra]
+
+
 func _make_label(text: String, c: Color, font_size: int) -> Label:
 	var l := Label.new()
 	l.text = text

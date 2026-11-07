@@ -1,0 +1,8 @@
+{
+  "id": "sheep",
+  "name_key": "item.sheep",
+  "_doc": "H12 Patrón (04d 4.22.4.2) [balance]: an item of the same id in the storage of a building with a pen. Grazes from spring to autumn; in winter eats wheat ×1 a head each dawn. Gives wool ×1 each dawn it is fed. Does not breed.",
+  "feed": {"winter": {"item": "wheat", "qty": 1}},
+  "produce": {"item": "wool", "qty": 1},
+  "breed": null
+}

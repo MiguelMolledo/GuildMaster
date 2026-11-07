@@ -35,4 +35,26 @@ static func classic(cat: Catalog) -> Catalog:
 	# and no houses' wages nor food (Equilibrio 15): the tests of the employees' flows count only theirs
 	if cat.town.get("households") is Dictionary:
 		cat.town["households"]["enabled"] = false
+	# nor the first days' upkeep ramp, the sword at 68 nor the free errand of the resources stall (equilibrio,
+	# 2026-11-07: the default game played as the tutorial teaches): the tests of upkeep, contracts and errands keep theirs
+	cat.accounts["upkeep_ramp"] = []
+	if cat.items().has("sword"):
+		cat.items()["sword"]["base_price"] = 65
+	(cat.market.get("stalls", {}).get("resources", {}) as Dictionary).erase("errand_surcharge")
+	return cat
+
+
+## Only the market's figures of the rule tests of selling and contracts: the sword at 65 (data/: 68 since the
+## equilibrio of 2026-11-07) and the errand's surcharge at every stall. Returns the same catalog.
+static func prices(cat: Catalog) -> Catalog:
+	if cat.items().has("sword"):
+		cat.items()["sword"]["base_price"] = 65
+	(cat.market.get("stalls", {}).get("resources", {}) as Dictionary).erase("errand_surcharge")
+	return cat
+
+
+## Without the first days' upkeep ramp (data/accounts.json upkeep_ramp, equilibrio 2026-11-07): the tests that count a
+## whole day's upkeep from the first dawn. Returns the same catalog.
+static func no_ramp(cat: Catalog) -> Catalog:
+	cat.accounts["upkeep_ramp"] = []
 	return cat

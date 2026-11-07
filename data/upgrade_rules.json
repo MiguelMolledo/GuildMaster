@@ -42,7 +42,11 @@
     "bank_amount": {"value": "mult", "stack": "all", "when": "query", "reader": "bank"},
     "bank_exact_risk": {"value": "flag", "stack": "all", "when": "query", "reader": "bank"},
     "bank_recovery": {"value": "amount", "stack": "all", "when": "query", "reader": "bank"},
-    "bank_default": {"value": "mult", "stack": "all", "when": "query", "reader": "bank"}
+    "bank_default": {"value": "mult", "stack": "all", "when": "query", "reader": "bank"},
+    "_farm_doc": "H12 Patrón (04d 4.22.7): field_yield multiplies a harvest (Fields.harvest_of), pen_capacity adds heads to the pen (Herds.capacity), market_price multiplies what the family gets at the market for the farm's goods (its crops' yield, its animals and what they produce; Fields.sale_mult): the farm's Commerce branch, which has no counter to sell from.",
+    "field_yield": {"value": "mult", "stack": "branch_top", "when": "query", "reader": "production"},
+    "pen_capacity": {"value": "amount", "stack": "all", "when": "query", "reader": "production"},
+    "market_price": {"value": "mult", "stack": "branch_top", "when": "query", "reader": "market"}
   },
   "_titles_doc": "GDD 4.12.2, lowest first. A family without a title field (until H9) is default_title. requires.title of an upgrade = the minimum title of the owner family.",
   "titles": ["common", "citizen", "patrician", "baron", "noble"],

@@ -1,0 +1,15 @@
+{
+  "id": "buy_sheep",
+  "name_key": "objective.buy_sheep",
+  "_doc": "H12 Patrón (04d 4.22.4.6): two sheep at the livestock stall, carried or sent to the farm (errand_sent counts the ones sent).",
+  "conditions": [
+    {
+      "event": "errand_sent",
+      "match": {
+        "item": "sheep",
+        "qty": {"gte": 2}
+      },
+      "count": 1
+    }
+  ]
+}

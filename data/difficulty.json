@@ -1,9 +1,69 @@
 {
-  "_doc": "Difficulty levers (GDD 4.23, D7) [balance]. Chosen when the game is created and saved in WorldState.difficulty. Each lever enters with its system; H3: start_debt (GDD 4.16, the loan of the start), rival_craft and rival_sell_min_demand (the rival smith, GDD 4.5.5: they replace the profile's figures), buy_price_mult (market purchase price). The targets of data/targets.json are those of normal. H7: microevent_chance (GDD 4.20, 4.23: x0.7 / x1 / x1.3 the daily chance of a microevent). H12.2: bank_default_mult (×0.3 / ×1 / ×1.5 the chance that a household does not pay an installment of a Banco's loan: the banker's lever, 04d 4.22.5.6). H13: ai (04c 4.21.10), read only by the hostility of the rival families (sim/ai/hostility.gd, the maps of data/ai.json hostility_maps): threshold_offset (added to the profile's rivalry_threshold), attack_cooldown_days (one attacker), player_attack_gap_days (between attacks on the player, of anyone), hostile_weight, noise (the sigma of the choice). The Rogue (H12): rogue.check_mod (added to the thief's rolls: purse, storage, flight) and rogue.fence_mult (what the fence pays).",
+  "_doc": "Difficulty levers (GDD 4.23, D7) [balance]. Chosen when the game is created and saved in WorldState.difficulty. Each lever enters with its system; H3: start_debt (GDD 4.16, the loan of the start), rival_craft and rival_sell_min_demand (the rival smith, GDD 4.5.5: they replace the profile's figures), buy_price_mult (market purchase price). The targets of data/targets.json are those of normal. H12 Patrón: harvest_mult (the yield of a harvest, Fields.harvest_of: good land or poor). H7: microevent_chance (GDD 4.20, 4.23: x0.7 / x1 / x1.3 the daily chance of a microevent). H12.2: bank_default_mult (×0.3 / ×1 / ×1.5 the chance that a household does not pay an installment of a Banco's loan: the banker's lever, 04d 4.22.5.6). H13: ai (04c 4.21.10), read only by the hostility of the rival families (sim/ai/hostility.gd, the maps of data/ai.json hostility_maps): threshold_offset (added to the profile's rivalry_threshold), attack_cooldown_days (one attacker), player_attack_gap_days (between attacks on the player, of anyone), hostile_weight, noise (the sigma of the choice). The Rogue (H12): rogue.check_mod (added to the thief's rolls: purse, storage, flight) and rogue.fence_mult (what the fence pays).",
   "default": "normal",
   "levels": {
-    "easy": {"name_key": "difficulty.easy", "bank_default_mult": 0.3, "start_debt": 100, "rival_craft": 4, "rival_sell_min_demand": 0.9, "buy_price_mult": 0.9, "microevent_chance": 0.7, "ai": {"threshold_offset": 20, "attack_cooldown_days": 16, "player_attack_gap_days": 8, "hostile_weight": 0.5, "noise": 0.2}, "rogue": {"check_mod": 5, "fence_mult": 1.1}},
-    "normal": {"name_key": "difficulty.normal", "bank_default_mult": 1.0, "start_debt": 200, "rival_craft": 5, "rival_sell_min_demand": 0.8, "buy_price_mult": 1.0, "microevent_chance": 1.0, "ai": {"threshold_offset": 0, "attack_cooldown_days": 8, "player_attack_gap_days": 2, "hostile_weight": 1.0, "noise": 0.1}, "rogue": {"check_mod": 0, "fence_mult": 1.0}},
-    "hard": {"name_key": "difficulty.hard", "bank_default_mult": 1.5, "start_debt": 300, "rival_craft": 6, "rival_sell_min_demand": 0.7, "buy_price_mult": 1.1, "microevent_chance": 1.3, "ai": {"threshold_offset": -20, "attack_cooldown_days": 2, "player_attack_gap_days": 2, "hostile_weight": 1.5, "noise": 0.03}, "rogue": {"check_mod": -5, "fence_mult": 0.85}}
+    "easy": {
+      "name_key": "difficulty.easy",
+      "start_debt": 100,
+      "rival_craft": 4,
+      "rival_sell_min_demand": 0.9,
+      "buy_price_mult": 0.9,
+      "microevent_chance": 0.7,
+      "ai": {
+        "threshold_offset": 20,
+        "attack_cooldown_days": 16,
+        "player_attack_gap_days": 8,
+        "hostile_weight": 0.5,
+        "noise": 0.2
+      },
+      "rogue": {
+        "check_mod": 5,
+        "fence_mult": 1.1
+      },
+      "harvest_mult": 1.15,
+      "bank_default_mult": 0.3
+    },
+    "normal": {
+      "name_key": "difficulty.normal",
+      "start_debt": 200,
+      "rival_craft": 5,
+      "rival_sell_min_demand": 0.8,
+      "buy_price_mult": 1.0,
+      "microevent_chance": 1.0,
+      "ai": {
+        "threshold_offset": 0,
+        "attack_cooldown_days": 8,
+        "player_attack_gap_days": 2,
+        "hostile_weight": 1.0,
+        "noise": 0.1
+      },
+      "rogue": {
+        "check_mod": 0,
+        "fence_mult": 1.0
+      },
+      "harvest_mult": 1.0,
+      "bank_default_mult": 1.0
+    },
+    "hard": {
+      "name_key": "difficulty.hard",
+      "start_debt": 300,
+      "rival_craft": 6,
+      "rival_sell_min_demand": 0.7,
+      "buy_price_mult": 1.1,
+      "microevent_chance": 1.3,
+      "ai": {
+        "threshold_offset": -20,
+        "attack_cooldown_days": 2,
+        "player_attack_gap_days": 2,
+        "hostile_weight": 1.5,
+        "noise": 0.03
+      },
+      "rogue": {
+        "check_mod": -5,
+        "fence_mult": 0.85
+      },
+      "harvest_mult": 0.85,
+      "bank_default_mult": 1.5
+    }
   }
 }

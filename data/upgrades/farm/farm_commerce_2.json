@@ -1,0 +1,34 @@
+{
+  "id": "farm_commerce_2",
+  "name_key": "upgrade.farm_commerce_2",
+  "tree": "farm",
+  "branch": "commerce",
+  "level": 2,
+  "cost": {
+    "gold": 75,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 4
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "farm_commerce_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "market_price",
+      "mult": 1.1
+    }
+  ],
+  "visual": {
+    "interior_node": "farm_fair_stand",
+    "exterior_overlay": null
+  }
+}

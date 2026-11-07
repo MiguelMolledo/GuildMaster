@@ -1,0 +1,13 @@
+{
+  "id": "farm_harvest",
+  "name_key": "recipe.farm_harvest",
+  "kind": "field",
+  "action": "harvest",
+  "building": "farm",
+  "zone": "field",
+  "inputs": [],
+  "duration_hours": 3.0,
+  "min_craft": 1,
+  "stat": "constitution",
+  "_doc": "H12 Patrón (04d 4.22.4.1) [balance]: harvests a ready field: its crop's yield into the storage (wheat ×30 × the yield upgrades × famine or good harvest; −25 % on its second day ready). If it does not fit, the station waits blocked."
+}

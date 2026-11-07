@@ -87,7 +87,7 @@ func test_errand_button_says_cost_and_time_and_why_not() -> void:
 	_stand(sim, HUGO, RESOURCES_SERVICE)
 	var p := _market(sim, "resources")
 	var send := p.row_of("iron", 0).get_node("Controls/Send") as MenuButton
-	var extra := Market.errand_surcharge(sim, Market.trade_price(sim, HUGO, "resources", "iron", 0, "buy"))
+	var extra := Market.errand_surcharge(sim, Market.trade_price(sim, HUGO, "resources", "iron", 0, "buy"), "resources")
 	check(send.text.contains("+%d" % extra) and send.text.contains(SimQuery.duration_label(Market.errand_minutes(sim))),
 		"the surcharge and the time written (%s)" % send.text)
 	p.free()

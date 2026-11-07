@@ -842,7 +842,7 @@ objective_how.forge_sword,"Pick your character and right click on your Forge. In
 objective_how.sell_in_armory,"Storage → Take the sword. Leave (Esc) and right click on the Armory; inside, click on the counter → Sell.","Almacén → Coger la espada. Sal (Esc) y clic derecho en la Armería; dentro, clic en el mostrador → Vender."
 objective_how.carpenter_hammers,"Right click on the Contract board → Accept the carpenter's. Forge 2 hammers at the Anvil, Take them from the Storage and back at the board → Deliver.","Clic derecho en el Tablón de encargos → Aceptar el del carpintero. Forja 2 martillos en el Yunque, cógelos del Almacén y en el tablón → Entregar."
 objective_how.quality_contract,"Accept a contract of «good» quality at the board. At the anvil, forge it in Live forge (heat, strike, quench well: one step up); at other stations, work carefully.","Acepta en el tablón un encargo de calidad «buena». En el yunque, fórjalo en Forja viva (calienta, bate y templa bien: sube un escalón); en otros puestos, trabaja con cuidado."
-objective_how.errand_purchase,"At a market stall, choose the quantity and «Send to… Forge»: a runner takes it to your storage (+20 %).","En un puesto del mercado, elige cantidad y «Enviar a… Forja»: un recadero lo lleva a tu almacén (+20 %)."
+objective_how.errand_purchase,"At a market stall, choose the quantity and «Send to… Forge»: a runner takes it to your storage in two hours (free at the Resources stall, +20 % at the others).","En un puesto del mercado, elige cantidad y «Enviar a… Forja»: un mozo te lo lleva al almacén en dos horas (gratis en Recursos, +20 % en los demás puestos)."
 objective_how.repay_debt,Book (L) → Debts and contracts → Pay. Sell and deliver contracts to gather the gold before day 8.,Libro (L) → Deudas y encargos → Pagar. Vende y cumple encargos para reunir el oro antes del día 8.
 objective_how.free,"Keep going: hire in Staff, fill the queue in Production and improve the forge in Upgrades.","Sigue a tu aire: contrata en Empleados, llena la cola en Producción y mejora la forja en Mejoras."
 ui.market.opens,opens at %02d:%02d,abre a las %02d:%02d
@@ -2182,7 +2182,7 @@ tutorial.market.sell,"Sell the sword: «Sell» on its row (the gold goes to the 
 tutorial.market.sell_list,"What you carry, with its price. Each sale lowers the demand; it recovers at dawn.","Lo que llevas, con su precio. Cada venta baja la demanda; al alba se recupera."
 tutorial.market.leave,"Go back out: close the counter and Exit (or Esc twice).","Sal a la calle: cierra el mostrador y Salir (o Esc dos veces)."
 tutorial.market.resources,The Resources stall sells iron and coal. Right click on it: you walk there and it opens.,El puesto de Recursos vende hierro y carbón. Clic derecho sobre él: vas y se abre.
-tutorial.market.errand,Errand: they bring it to your workshop for a surcharge and you carry no weight. Order something.,Recado: te lo llevan a tu taller por un recargo y no cargas peso. Encarga algo.
+tutorial.market.errand,"Errand: they bring it to your workshop in two hours and you carry no weight (free here, at Resources; +20 % at the other stalls). Order something.","Recado: te lo llevan a tu taller en dos horas y no cargas peso (gratis aquí, en Recursos; +20 % en los demás puestos). Encarga algo."
 tutorial.market.done,"Buy cheap, sell when the demand is high. The book (L) writes down every coin.","Compra barato, vende cuando la demanda esté alta. El libro (L) apunta cada moneda."
 tutorial.chapter.debt,Debt and account book,Deuda y libro de cuentas
 tutorial.chapter.debt.short,Debt and books,Deuda y cuentas
@@ -4385,6 +4385,84 @@ ui.arrest.fight_tip,"A duel against the guard: if he wins he escapes with a viol
 ui.arrest.bribe,Bribe (%d),Sobornar (%d)
 ui.arrest.bribe_tip,"About %d in 100 he takes it and forgets; if not, the gold is lost and bribery is added","Unas %d de cada 100 lo acepta y lo olvida; si no, pierde el oro y se suma el soborno"
 ui.new_game.preview_start.rogue_thief,"A thieves' den with a home, %d gold and %d of debt with the moneylender.","Guarida de ladrones con vivienda, %d de oro y %d de deuda con el prestamista."
+item.sheep,Sheep,Oveja
+item.pig,Pig,Cerdo
+crop.wheat,Wheat,Trigo
+building.farm,Farm,Granja
+profession.farmer,Farmer,Granjero
+start.patron_farmer,Patron · farmer,Patrón · granjero
+stall.livestock,Cattle fair,Feria de ganado
+recipe.farm_plow,Plow,Arar
+recipe.farm_sow_wheat,Sow wheat,Sembrar trigo
+recipe.farm_harvest,Harvest,Cosechar
+ui.zone.field,Field,Campo
+ui.zone.field_a,Field A,Campo A
+ui.zone.field_b,Field B,Campo B
+ui.zone.field_c,Field C,Campo C
+ui.zone.field_d,Field D,Campo D
+ui.zone.field_e,Field E,Campo E
+ui.zone.field_f,Field F,Campo F
+ui.zone.pen,Pen,Corral
+client.weaver,The weaver,La tejedora
+client.baker,The baker,El panadero
+objective.sow_fields,Sow the four fields (before the spring ends),Siembra los cuatro campos (antes de que acabe la primavera)
+objective.sell_wool,Sell wool at the market,Vende lana en el mercado
+objective.miller_wheat,Deliver the miller's wheat (20),Entrega el trigo del molinero (20)
+objective.buy_sheep,Buy two sheep at the cattle fair,Compra dos ovejas en la feria de ganado
+objective.harvest_wheat,Harvest the wheat before it rots,Cosecha el trigo antes de que se pudra
+effect.field_yield,Harvest ×{mult},Cosecha ×{mult}
+effect.pen_capacity,Pen +{amount} heads,Corral +{amount} cabezas
+effect.market_price,Farm goods sell ×{mult},Lo de la granja se vende ×{mult}
+upgrade.farm_production_1,Iron plough,Arado de hierro
+upgrade.farm_production_2,Two more fields,Dos campos más
+upgrade.farm_production_3,Bigger pen,Corral grande
+upgrade.farm_quality_1,Manure,Abono
+upgrade.farm_quality_2,Crop rotation,Rotación de cultivos
+upgrade.farm_quality_3,Select seed,Semilla selecta
+upgrade.farm_capacity_1,Granary,Granero
+upgrade.farm_capacity_2,Larger storage,Almacén ampliado
+upgrade.farm_capacity_3,Barn,Pajar
+upgrade.farm_commerce_1,Own cart,Carro propio
+upgrade.farm_commerce_2,Stand at the fair,Puesto en la feria
+upgrade.farm_commerce_3,Farm of renown,Granja de renombre
+upgrade.farm_staff_1,Farmhands' loft,Altillo de los jornaleros
+upgrade.farm_staff_2,Dining room,Comedor
+upgrade.farm_staff_3,Master farmer's house,Casa del labrador mayor
+upgrade.farm_facade_1,Stone facade,Fachada de piedra
+upgrade.farm_facade_2,Garden and plants,Jardín y plantas
+upgrade.farm_facade_3,Noble facade,Fachada noble
+upgrade.farm_security_1,Reinforced lock,Cerradura reforzada
+upgrade.farm_security_2,Hired guard,Guardia contratado
+upgrade.farm_security_3,Strongbox,Caja fuerte
+upgrade.farm_secrets_1,Double bookkeeping,Doble contabilidad
+upgrade.farm_secrets_2,Hidden passage,Pasadizo oculto
+upgrade.farm_secrets_3,Smuggling,Contrabando
+notice.field_ready,{item} of {building} is ready ({zone}): {days} days to harvest it,{item} de {building} está listo ({zone}): {days} días para cosecharlo
+notice.field_last_day,Last day to harvest {item} of {zone} ({building}): tomorrow it rots,Último día para cosechar {item} del {zone} ({building}): mañana se pudre
+notice.field_rotten,{item} of {zone} ({building}) has rotted: plow it to sow again,Se ha podrido {item} del {zone} ({building}): áralo para volver a sembrar
+notice.sowing_ends,The sowing of {item} ends today: {count} fields of {building} not sown,Hoy se acaba la siembra de {item}: {count} campos de {building} sin sembrar
+notice.herd_hungry,The animals of {building} have not eaten: they need {item} ×{qty} a day (tomorrow one dies),Los animales de {building} no han comido: necesitan {item} ×{qty} al día (mañana muere uno)
+notice.herd_feed_low,Not enough {item} in {building} for the animals tomorrow (they eat {qty}),No hay {item} bastante en {building} para los animales mañana (comen {qty})
+notice.animal_starved,A {item} of {building} has starved,Ha muerto de hambre un animal de {building} ({item})
+notice.herd_lost,{item} ×{qty} of {building} lost: the storage is full,Se ha perdido {item} ×{qty} de {building}: el almacén está lleno
+reason.field_not_fallow,The field is not fallow (plow a fallow or rotten field),El campo no está en barbecho (se ara un campo en barbecho o podrido)
+reason.field_not_plowed,Plow the field first,Primero hay que arar el campo
+reason.not_sowing_season,It is not the season to sow this,No es época de sembrar esto
+reason.unknown_crop,Unknown crop,Cultivo desconocido
+reason.field_not_ready,Nothing to harvest yet,Todavía no hay nada que cosechar
+reason.field_normal_only,A field is worked in normal mode,El campo se trabaja en modo normal
+reason.unknown_action,Unknown field work,Trabajo de campo desconocido
+reason.pen_full,The pen is full,El corral está lleno
+reason.no_pen,That building has no pen,Ese edificio no tiene corral
+ui.new_game.preview_start.patron_farmer,"A farm with a home, four plowed fields, four sheep and two pigs, %d gold and %d of debt with the moneylender.","Granja con vivienda, cuatro campos arados, cuatro ovejas y dos cerdos, %d de oro y %d de deuda con el prestamista."
+ui.farm.feed_days,Winter feed: %d days,Pienso de invierno: %d días
+ui.field.growing,Growing: %d of %d · ready in %d days,Crece: %d de %d · listo en %d días
+ui.field.ready,Ready: %d days to harvest it before it rots,Listo: %d días para cosecharlo antes de que se pudra
+ui.field.plowed_sow,"Plowed · sown today, the wheat is ready in %d days","Arado · si lo siembras hoy, el trigo está listo en %d días"
+ui.field.plowed_wait,Plowed · it is not the season to sow wheat (spring and summer),Arado · no es época de sembrar trigo (primavera y verano)
+ui.field.rotten,Rotten: plow it to sow again,Podrido: áralo para volver a sembrar
+ui.field.fallow,Fallow: plow it before sowing,En barbecho: hay que ararlo antes de sembrar
+ui.new_game.difficulty_hint_farm,Debt %d gold · harvest %d %% · market prices %d %%,Deuda %d de oro · cosecha %d %% · precios del mercado %d %%
 ui.npc.sell_merchant,Sell %s (%d),Vender %s (%d)
 ui.npc.sell_merchant_tip,"His city pays it dear: he buys it here, for less than there","Su ciudad lo paga caro: te lo compra aquí, por menos que allí"
 ui.npc.buy_merchant_tip,"Cheap in his city; he has %d left","Barato en su ciudad; le quedan %d"

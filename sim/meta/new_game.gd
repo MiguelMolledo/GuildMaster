@@ -96,6 +96,13 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 	# H12.2 / H12 (one mechanism, the manager's 2026-11-07): a start may raise another type of building on its site
 	# if it fits (the Banco on the forge's plot, the thief's den on the Consulta's): the map does not move
 	var forge := _add_building(s, catalog, sites, str(b["site"]), fam, b.get("inventory", []), str(b.get("type", "")))
+	if b.get("fields") is Dictionary:  # H12 Patrón (04d 4.22.4.6): the farm's fields as the start leaves them
+		var fields := {}
+		for z: String in (b["fields"] as Dictionary):
+			var f := Fields.blank()
+			f.merge(b["fields"][z], true)
+			fields[z] = f
+		s.buildings[forge]["fields"] = fields
 	# The rival family (GDD 4.5.5): its craft comes from the difficulty.
 	var rv: Dictionary = start.get("rival", {})
 	if not rv.is_empty():

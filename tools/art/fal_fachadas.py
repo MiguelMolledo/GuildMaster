@@ -54,6 +54,9 @@ BUILDINGS = {
                   "small stable lean-to on one side",
     "bank": "a money-changer's BANK: a two-storey house of dressed pale stone with a dark slate roof, a heavy iron-bound "
             "door, barred windows, a hanging sign with a gold coin (no letters) and a small coat of arms over the door",
+    "farm": "a FARMHOUSE: a long low farmhouse of rough stone and timber with a golden THATCHED straw roof, a "
+            "small barn wing with a big wooden double door, a hay bale and a wooden hay cart beside it, a short "
+            "wattle fence corner and sacks of grain by the entrance door (no sign, no letters)",
     "clinic": "a physician's practice: a timber-framed house with whitewashed plaster and a terracotta roof, bundles "
               "of herbs drying under the eaves, a small bench by the door and a hanging sign with a mortar and pestle "
               "(no letters on the sign)",
@@ -80,7 +83,8 @@ BACK = ("the SAME building seen from the OPPOSITE side, as if it were turned 180
 
 # Edificios nuevos sin sprite de escala B: parten del de otro con el mismo lienzo, ancla y puerta (la Taberna-Posada,
 # 3×4 casillas como la carpintería: Sprite offset (-104, -138), Door (-40, 12)).
-NEW_FROM = {"tavern_inn": os.path.join(OUT, "carpentry.png")}
+NEW_FROM = {"tavern_inn": os.path.join(OUT, "carpentry.png"),
+            "farm": os.path.join(OUT, "carpentry.png")}  # H12 Patrón: la Granja, 3×4 como la carpintería
 
 
 def base_of(bid, state=""):

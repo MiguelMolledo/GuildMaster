@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqb60u0tsin38"]
+
+[ext_resource type="Script" uid="uid://t0ln2bf6dldh" path="res://game/visuals/stations/field_look.gd" id="1_look"]
+
+[node name="Field" type="Node2D"]
+script = ExtResource("1_look")
+editor_description = "H12 Patrón: the farm's field station (docs/gdd/04d_otras_clases.md 4.22.4.8): its script draws the state of the sim (InteriorStage feeds it). Greybox until the PixelLab cycle (4.22.9)."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -16)

@@ -95,12 +95,18 @@ no está hecha: lo que aquí se llama «plan» son las tareas de `RivalAI` (`ai_
 
 - **Del jugador:** `days`, `gold_end`, `gold_min`, `net_year_<n>`, `debt_paid`, `debt_paid_day`, `title_<id>`,
   `title_<id>_day`, `title_rank`, `reputation`, `office_won_day`, `wed`, `wedding_day`, `had_child`, `children`,
-  `first_child_day`, `inherited`, `inherit_day`, `founder_death_day`, `game_over`, `hired`, `upgrades_done`,
+  `first_child_day`, `inherited`, `inherit_day`, `founder_death_day`, `game_over`, `ended_by_ai` (1 si el final que
+  hay en `state.ending` es de otra familia; el bloque `ending` del informe lo copia), `hired`, `upgrades_done`,
   `contracts_done`, `contracts_failed`, `festival_contracts`, `counter_sold`, `trips`, `caravans`, `treaties`,
   `duels_fought`, `duels_won`, `trials_as_accuser`, `trials_against`, `incidents`, `mechanics_used`,
   `mechanics_in_game`, `refused_orders`, `stalls`; con la forja, `masterworks`, `masterwork_day`, `spec_pieces`
   (piezas hechas a la variante de un encargo), `spec_mismatch` y `spec_mismatch_<por qué>` (las que no casaron:
   `quality`, `temper`, `length`, `guard`, `contract_gone`).
+- **Del tribunal y la región** (añadidas por equilibrio, 2026-11-06): `facts_vs_others` y `fact_day_vs_others` (hechos
+  públicos contra otras familias: casos para acusar) y `fact_<tipo>`; `caravan_home_value` (lo que valía en la villa la
+  carga de sus caravanas), `caravan_sold`, `caravans_ambushed`, `city_sales_gold`, `quota_units`, `quota_gold`,
+  `treaties_broken`, `treaty_costs`, `carts_bought`. Para los 3 primeros años en cualquier horizonte:
+  `masterworks_y3` y `stalls_y3`.
 - **Del motor y del bench:** `engine_errors`, `engine_warnings`, `step_ms_mean`, `step_ms_max`, `bot_ms_mean`,
   `hangs`, `ledger_mismatch`.
 - **Del ritmo:** `gap_median_s`, `gap_p90_s`, `gap_max_s`, `y1_gap_median_s`, `y1_gap_max_s`, `unlocks_off`.
