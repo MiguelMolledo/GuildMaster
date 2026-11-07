@@ -18615,6 +18615,34 @@
       "notas": "H12.2: la Consulta médica (3×3), con hierbas secándose bajo el alero, un banco y el cartel del mortero; clinic_construction.png y clinic_damaged.png. En game/visuals/buildings/clinic.tscn. Pendiente para PixelLab (15-nov): la de espaldas (clinic_back) para las ciudades generadas."
     },
     {
+     "id": "bld_den",
+     "tipo": "edificio",
+     "estado": "falta",
+     "para": [
+      "H12",
+      "den"
+     ],
+     "ruta": "assets/art/buildings/fal/den.png",
+     "origen": "",
+     "coste_gen": 0,
+     "coste_usd": 0,
+     "notas": "H12 (el Pícaro): la Guarida de ladrones (3×3, en el solar de la forja del jugador), una casa venida a menos con postigos cerrados, una trampilla al sótano y un farol apagado; con obras y dañado. Hasta entonces game/visuals/buildings/den.tscn enseña su bloque gris oscuro (placeholder visible). Como la Consulta: nano-banana-2/edit sobre una silueta de escala B (tools/art/fal_fachadas.py)."
+    },
+    {
+     "id": "icon_lockpicks",
+     "tipo": "icono",
+     "estado": "falta",
+     "para": [
+      "H12",
+      "objetos"
+     ],
+     "ruta": "assets/art/icons/lockpicks.png",
+     "origen": "",
+     "coste_gen": 0,
+     "coste_usd": 0,
+     "notas": "H12 (el Pícaro): las ganzúas del Ladrón (herramienta, +10 a robar un almacén). Hasta entonces el inventario enseña el icono genérico."
+    },
+    {
       "id": "bld_farm",
       "tipo": "edificio",
       "estado": "sprite",

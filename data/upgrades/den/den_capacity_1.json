@@ -1,0 +1,36 @@
+{
+  "id": "den_capacity_1",
+  "name_key": "upgrade.den_capacity_1",
+  "tree": "den",
+  "branch": "capacity",
+  "level": 1,
+  "cost": {
+    "gold": 50,
+    "items": [
+      {
+        "item": "iron_ingot",
+        "qty": 5
+      },
+      {
+        "item": "wood",
+        "qty": 3
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "extra_storage",
+      "amount": 5
+    }
+  ],
+  "visual": {
+    "interior_node": null,
+    "exterior_overlay": null
+  }
+}

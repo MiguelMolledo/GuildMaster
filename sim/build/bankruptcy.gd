@@ -19,7 +19,9 @@ extends RefCounted
 ##   the family puts up a workshop (Construction, after_sale.fate «rebuilds»). With a business left, normal.
 ## Only the human family's ruin ends the game (forja, Loans._seize / Emergency.ruin); the moneylender's credit before
 ## all this is the AI's economy's (plantillas, ai_credit). Memory in families[f].ai_state.bankruptcy {stage, since,
-## building}. Chronicle and notices: the sign («La forja de los Ferrer está en venta») and the fall.
+## building}. Contract with the AI's economy (manager, 2026-11-07): stage is "" | "austerity" | "for_sale", written only
+## here; while it is not "", sim/ai/economy.gd does not hire (tests/pending/test_h6_contrato_quiebra.gd, to tests/ once
+## plantillas reads it). Chronicle and notices: the sign («La forja de los Ferrer está en venta») and the fall.
 
 const NORMAL: String = ""
 const AUSTERITY: String = "austerity"

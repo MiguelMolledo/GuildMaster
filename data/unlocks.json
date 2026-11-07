@@ -361,20 +361,12 @@
       "trigger": {
         "kind": "any",
         "of": [
-          {
-            "kind": "event",
-            "event": "trial_opened",
-            "count": 1
-          },
-          {
-            "kind": "event",
-            "event": "accuse",
-            "count": 1
-          }
+          {"kind": "event", "event": "trial_opened", "count": 1},
+          {"kind": "all", "of": [{"kind": "title", "min": "citizen"}, {"kind": "event", "event": "misdeed", "match": {"seen": true}, "anyone": true, "count": 1}]}
         ]
       },
       "window": [
-        16,
+        8,
         40
       ],
       "mark": "TrialsButton",

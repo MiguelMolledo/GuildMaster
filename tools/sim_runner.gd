@@ -70,7 +70,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	"artisan_expert": BotArtisanExpert, "artisan_expert_0": BotArtisanExpert, "artisan_expert_1": BotArtisanExpert,
 	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty, "idle_town": BotIdle,
 	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert, "crook": BotArtisanExpert,
-	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade, "scholar_novice": BotScholarNovice, "patron_novice": BotPatronNovice, "tutorial_route": BotTutorialRoute,
+	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade, "scholar_novice": BotScholarNovice, "patron_novice": BotPatronNovice, "tutorial_route": BotTutorialRoute, "rogue_novice": BotRogueNovice,
 	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade, "duelist": BotDuelist,
 	"merchant": BotMerchant, "pacing": BotPacing, "gambler": BotGambler, "guard_watch": BotGuardWatch, "festive": BotFestive, "innkeeper": BotInnkeeper,
 	"idle_titles_fest": BotIdle,
@@ -83,6 +83,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	# politician: artisan_expert that runs for minor offices (H10, runs_office = 1, 40 days)
 	# crook: artisan_expert with the Secrets upgrade that ends in court (H11, crook = 1, 40 days)
 	# carpenter_novice / mason_novice / tailor_novice: the novice of any artisan trade (H12), with its --start
+	# rogue_novice: the thief of the Rogue's start (H12, --start=rogue_thief): purses, storages, the fence, the debt
 	# scholar_novice: the physician of the scholar's start (H12.2, --start=scholar_physician): patients, bandages, debt
 	# patron_novice: the farmer of the patron's start (H12 Patrón, --start=patron_farmer): fields, wool, pigs, debt
 	# tutorial_route: the default game as a novice who follows the tutorial and the objectives (verifica, 2026-11-06)

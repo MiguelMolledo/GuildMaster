@@ -1,0 +1,60 @@
+{
+  "_doc": "The thief's den (docs/gdd/04d_otras_clases.md 4.22.6, 04g_interiores.md 4.6.5): on the ground floor the back room with the engraver's bench (laundering: the workbench station) and the smuggler's cache (the storage), and the front room with the fence's table where the fence buys the loot (the fence station); upstairs, the home. Edit by hand, then python3 tools/interiors/interiores.py reglas den && python3 tools/interiors/interiores.py validar den. No painted backgrounds yet: the floors and walls of the data (greybox).",
+  "size": [9, 7],
+  "wall_height": 64,
+  "floor_height": 80,
+  "seed": 31,
+  "entrance": {"floor": 0, "tile": [0, 5], "side": "nw"},
+  "rooms": [
+    {"id": "backroom", "floor": 0, "type": "workshop", "rects": [[0, 0, 4, 3]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"},
+    {"id": "front", "floor": 0, "type": "shop", "rects": [[0, 4, 8, 6], [5, 0, 8, 3]], "floor_kind": "flagstone", "wall_style": "timber", "light": "dim_warm"},
+    {"id": "kitchen", "floor": 1, "type": "kitchen", "rects": [[0, 0, 3, 3]], "floor_kind": "planks", "wall_style": "timber", "light": "kitchen"},
+    {"id": "bedroom", "floor": 1, "type": "bedroom", "rects": [[4, 0, 8, 3]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"}
+  ],
+  "doors": [
+    {"floor": 0, "tile": [2, 4], "side": "ne"},
+    {"floor": 0, "tile": [5, 1], "side": "nw"},
+    {"floor": 1, "tile": [4, 1], "side": "nw"}
+  ],
+  "levels": [],
+  "stairs": [
+    {"id": "stairs", "floor": 0, "prop": "staircase", "tile": [8, 3], "flip": false, "from": [7, 3], "to_floor": 1, "to": [7, 2]}
+  ],
+  "stations": {
+    "forger_bench": {"floor": 0, "tile": [1, 1], "prop": "engraving_bench", "stand": [2, 1]},
+    "fence": {"floor": 0, "tile": [6, 5], "prop": "fence_table", "stand": [5, 5]},
+    "storage": {"floor": 0, "tile": [3, 0], "prop": "smuggler_cache", "stand": [3, 1]}
+  },
+  "customers": {},
+  "idle": [
+    {"floor": 1, "tile": [1, 2]},
+    {"floor": 1, "tile": [6, 2]},
+    {"floor": 0, "tile": [4, 6]}
+  ],
+  "props": [
+    {"id": "stolen_goods", "floor": 0, "tile": [0, 0]},
+    {"id": "contraband_pile", "floor": 0, "tile": [0, 2]},
+    {"id": "crate_stack", "floor": 0, "tile": [4, 2]},
+    {"id": "trapdoor", "floor": 0, "tile": [2, 2]},
+    {"id": "dice_table", "floor": 0, "tile": [7, 1]},
+    {"id": "stool", "floor": 0, "tile": [6, 1]},
+    {"id": "key_ring", "floor": 0, "tile": [6, 0], "hang": "ne"},
+    {"id": "smuggler_table", "floor": 0, "tile": [7, 5], "flip": true},
+    {"id": "kitchen_hearth", "floor": 1, "tile": [0, 1]},
+    {"id": "pantry_shelf", "floor": 1, "tile": [2, 0]},
+    {"id": "bed_single", "floor": 1, "tile": [8, 2], "flip": false},
+    {"id": "chest", "floor": 1, "tile": [5, 3]}
+  ],
+  "rules": [
+    {"rule": "on_top", "room": "front", "under": ["fence_table"], "props": ["coin_purse", "candle"], "max": 2, "chance": 1.0},
+    {"rule": "wall_fill", "room": "kitchen", "props": ["barrel", "sack"], "chance": 0.5}
+  ],
+  "upgrades": {},
+  "resolved": [
+    {"id": "candle", "floor": 0, "tile": [6, 5], "flip": false, "lift": 6, "shift": [-6, 0], "rule": "on_top", "over": "fence_table"},
+    {"id": "barrel", "floor": 1, "tile": [0, 0], "flip": false, "rule": "wall_fill"},
+    {"id": "barrel", "floor": 1, "tile": [0, 3], "flip": false, "rule": "wall_fill"},
+    {"id": "sack", "floor": 1, "tile": [1, 0], "flip": false, "rule": "wall_fill"},
+    {"id": "barrel", "floor": 1, "tile": [3, 0], "flip": true, "rule": "wall_fill"}
+  ]
+}

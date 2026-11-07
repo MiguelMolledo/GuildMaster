@@ -130,7 +130,7 @@ func refresh() -> void:
 			roundi(float(job.get("progress", 0.0)) * 100.0)]
 	elif why != "":
 		hint = _reason_line(why)
-	elif recipe_options().is_empty():
+	elif recipe_options().is_empty() and not _is_den():
 		hint = SimQuery.t_("ui.station.no_recipes")
 	(%Hint as Label).text = hint
 	(%Hint as Label).visible = hint != ""
@@ -143,8 +143,8 @@ func refresh() -> void:
 	var field := field_station()
 	if field:
 		mode = "normal"  # H12 Patrón: a field is worked in normal mode, no quality
-	(%Modes as Control).visible = actor != "" and svc == "" and not field
-	(%ModeLine as Label).visible = (actor != "" and svc == "") or field
+	(%Modes as Control).visible = actor != "" and svc == "" and not _is_den() and not field
+	(%ModeLine as Label).visible = (actor != "" and svc == "" and not _is_den()) or field
 	(%ModeLine as Label).text = field_line() if field else _mode_line()
 	_build_recipes(can_pick)
 	_show_quality()
@@ -206,6 +206,69 @@ func _build_recipes(can_pick: bool) -> void:
 	for opt: Dictionary in recipe_options():
 		list.add_child(_recipe_row(opt, can_pick))
 	_build_spec(list)
+	if _is_den() and actor != "":
+		_build_den(list)
+
+
+# --- The Rogue's den (4.22.6.4): the fence and the bench ---------------------------------------------------------------
+
+func _is_den() -> bool:
+	return sim != null and str(sim.state.buildings.get(building, {}).get("type", "")) == "den"
+
+
+## The fence: a row per stolen stack in the bag (its price each and «Vender»), what is left of today's cap; the
+## bench: «Blanquear» per stolen stack (bag or storage), off while a piece is in hand or without the dexterity.
+func _build_den(list: VBoxContainer) -> void:
+	var st := sim.state
+	var fam := str(st.characters.get(actor, {}).get("family", ""))
+	var stolen: Array = []
+	var sources: Array = [st.characters[actor].get("inventory", {})]
+	if zone == "forger_bench":
+		sources.append(st.buildings[building].get("inventory", {}))
+	for inv: Dictionary in sources:
+		for s: Dictionary in inv.get("stacks", []):
+			if Rogue.is_stolen(str(s["item"])):
+				stolen.append(s)
+	var head := Label.new()
+	head.theme_type_variation = &"DimLabel"
+	head.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	head.custom_minimum_size = Vector2(260, 0)
+	if zone == "fence":
+		var b: Variant = st.town.get("rogue")
+		var paid := int((b as Dictionary).get("fence_paid", 0)) if b is Dictionary \
+			and int((b as Dictionary).get("day", -1)) == Clock.day(int(st.clock["minute"])) else 0
+		head.text = SimQuery.t_("ui.station.fence_head") % maxi(0, int((sim.catalog.rogue.get("fence", {}) as Dictionary).get("cap", 150)) - paid)
+	else:
+		var job: Variant = st.buildings[building].get("laundering")
+		head.text = SimQuery.t_("ui.station.launder_busy") % SimQuery.item_name(sim.catalog, str((job as Dictionary)["item"])) \
+			if job is Dictionary else SimQuery.t_("ui.station.launder_head")
+	list.add_child(head)
+	if stolen.is_empty():
+		var none := Label.new()
+		none.text = SimQuery.t_("ui.station.no_stolen")
+		list.add_child(none)
+		return
+	for s: Dictionary in stolen:
+		var it := str(s["item"])
+		var q := int(s["quality"])
+		var b := Button.new()
+		b.focus_mode = Control.FOCUS_NONE
+		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		var name := "%s ×%d" % [SimQuery.item_name(sim.catalog, Rogue.clean(it)), int(s["qty"])]
+		if zone == "fence":
+			b.text = SimQuery.t_("ui.station.fence_sell") % [name, Rogue.fence_price(sim, fam, it, q)]
+			b.pressed.connect(func() -> void: _give({"type": "fence_sell", "actor": actor, "item": it, "quality": q,
+				"qty": int(s["qty"])}))
+		else:
+			var lc: Dictionary = sim.catalog.rogue.get("launder", {})
+			var why := "busy" if st.buildings[building].get("laundering") is Dictionary else ("low_dexterity" \
+				if SkillCheck.stat(sim, actor, "dexterity") < int(lc.get("min_dexterity", 5)) else "")
+			b.text = SimQuery.t_("ui.station.launder") % name
+			b.disabled = why != ""
+			b.tooltip_text = SimQuery.reason_text(why) if why != "" else SimQuery.t_("ui.station.launder_tip") % int(lc.get("minutes", 30))
+			b.pressed.connect(func() -> void: _give({"type": "launder", "actor": actor, "building": building, "item": it,
+				"quality": q}))
+		list.add_child(b)
 
 
 # --- 03b §3b.3 · made to a contract's spec ------------------------------------------------------------------------------
@@ -488,6 +551,8 @@ func service() -> String:
 func station_stat() -> String:
 	if sim == null:
 		return "craft"
+	if _is_den():  # the Rogue: the bench is deft hands, the fence's table is haggling
+		return "dexterity" if zone == "forger_bench" else "negotiation"
 	for opt: Dictionary in recipe_options():
 		return str(sim.catalog.recipes().get(str(opt.get("recipe", "")), {}).get("stat", "craft"))
 	return "craft"

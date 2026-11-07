@@ -368,7 +368,13 @@ def check_h3(items, recipes, buildings, maps, strings, rep):
             if site is None:
                 rep.error(w, f"{name}.site {b.get('site')} no es un edificio del mapa")
             elif site.get("type") != b.get("type"):
-                rep.error(w, f"{name}: tipo {b.get('type')} distinto del del mapa {site.get('type')}")
+                # H12: the player's start may raise another building of the same footprint on a plot of its map
+                # (the thief's den on the Consulta's plot; NewGame overrides the type, the map does not move)
+                fa = (buildings.get(b.get("type")) or {}).get("footprint")
+                fb = (buildings.get(site.get("type")) or {}).get("footprint")
+                if name != "building" or fa is None or fa != fb:
+                    rep.error(w, f"{name}: tipo {b.get('type')} distinto del del mapa {site.get('type')} "
+                                 "(solo el edificio del jugador, y con la misma planta)")
             for st in b.get("inventory") or []:
                 if st.get("item") not in items:
                     rep.error(w, f"{name}: objeto desconocido {st.get('item')}")
@@ -611,7 +617,7 @@ UPGRADES = {}  # H5: id -> upgrade (data/upgrades/<tree>/<id>.json), loaded firs
 EFFECT_VALUES = {"mult", "amount", "zone", "recipe", "rank", "flag"}
 EFFECT_STACKS = {"branch_top", "all"}
 EFFECT_WHEN = {"query", "complete"}
-EFFECT_READERS = {"production", "market", "counter", "staff", "inspections", "inventory", "family", "none", "inn"}
+EFFECT_READERS = {"production", "market", "counter", "staff", "inspections", "inventory", "family", "none", "inn", "rogue"}
 
 
 def load_upgrades(rep):
@@ -1783,7 +1789,8 @@ def check_h12(items, recipes, buildings, maps, strings, rep):
             if any(r.get("kind") == "field" and r.get("building") == pf.get("building") for r in recipes.values()):
                 made |= farm_goods()  # H12 Patrón: the farm's fields and pen make its crops' yield and its animals' goods
             for it in ct.get("items") or []:
-                if it.get("item") not in made:
+                # the thief does not make what his clients ask for: he obtains it (the table says so: obtained stolen)
+                if it.get("item") not in made and ct.get("obtained") != "stolen":
                     rep.error(w, f"la tabla {pf['contracts']} pide {it.get('item')} y el {pf.get('building')} no lo fabrica")
         if b is not None:
             for z in b.get("zones", []):

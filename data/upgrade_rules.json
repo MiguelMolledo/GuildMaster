@@ -7,6 +7,8 @@
     "quality_bonus": {"value": "amount", "stack": "branch_top", "when": "query", "reader": "production"},
     "price_multiplier": {"value": "mult", "stack": "branch_top", "when": "query", "reader": "market"},
     "customer_bonus": {"value": "amount", "stack": "branch_top", "when": "query", "reader": "counter"},
+    "fence_bonus": {"value": "amount", "stack": "branch_top", "when": "query", "reader": "rogue"},
+    "lock_bonus": {"value": "amount", "stack": "branch_top", "when": "query", "reader": "rogue"},
     "protection": {"value": "amount", "stack": "branch_top", "when": "query", "reader": "staff"},
     "inspection_risk": {"value": "amount", "stack": "all", "when": "query", "reader": "inspections"},
     "illegal_profit": {"value": "mult", "stack": "all", "when": "query", "reader": "counter"},

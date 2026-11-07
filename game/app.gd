@@ -70,7 +70,7 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"hud": "res://game/smoke/smoke_hud.gd", "paneles": "res://game/smoke/smoke_paneles.gd",
 	"economia": "res://game/smoke/smoke_economia.gd",
 	"menu": "res://game/smoke/smoke_menu.gd", "eventos": "res://game/smoke/smoke_eventos.gd",
-	"oficios": "res://game/smoke/smoke_oficios.gd", "erudito": "res://game/smoke/smoke_erudito.gd", "patron": "res://game/smoke/smoke_patron.gd", "social": "res://game/smoke/smoke_social.gd",
+	"oficios": "res://game/smoke/smoke_oficios.gd", "erudito": "res://game/smoke/smoke_erudito.gd", "patron": "res://game/smoke/smoke_patron.gd", "picaro": "res://game/smoke/smoke_picaro.gd", "social": "res://game/smoke/smoke_social.gd",
 	"poblacion": "res://game/smoke/smoke_poblacion.gd", "pagina": "res://game/smoke/smoke_pagina.gd",
 	"mapa": "res://game/smoke/smoke_mapa.gd", "region": "res://game/smoke/smoke_region.gd", "viajes": "res://game/smoke/smoke_viajes.gd",
 	"tutorial": "res://game/smoke/smoke_tutorial.gd", "tutorial_datos": "res://game/smoke/smoke_tutorial_datos.gd",
@@ -832,6 +832,8 @@ func open_plot(plot_id: String) -> void:
 func _on_sim_event(e: Dictionary) -> void:
 	var type := str(e.get("type", ""))
 	var actor := str(e.get("actor", ""))
+	if type == "rogue_arrest_card" and str(e.get("family", "")) == SimQuery.player_family(Game.sim.state):
+		(get_node("CardsLayer/EventCard") as Node).call("show_arrest", Game.sim, e)  # the Rogue (4.22.6.3)
 	if type in ["construction_started", "construction_done", "building_demolished", "building_bought"] \
 			and not _town_dirty:
 		_town_dirty = true   # H6: what stands in the town changed: drawn again once, after the step

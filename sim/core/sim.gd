@@ -54,6 +54,7 @@ func step(orders: Array = []) -> Array:
 	Routines.step(self)     # employees: home -> work at dawn, work -> home at dusk (real orders, Sim.give)
 	TownLife.step(self)     # H7: the townsfolk's day (trade, breaks, market, dusk activities, home at night)
 	Life.step(self)         # vida (04f 4.24): visitors, incidents, the watch, rumours (data/life/life.json enabled)
+	Rogue.step(self)        # the Rogue (4.22.6.4): laundering jobs that end
 	Households.step(self)   # Equilibrio 15: the houses' wages at dusk and food at dawn; the employees' and children's meals
 	Counter.step(self)      # H7: customers at the shop counters
 	Services.step(self)     # H12.2 (04d 4.22.3.2): the clients of the service buildings (the Consulta's patients)

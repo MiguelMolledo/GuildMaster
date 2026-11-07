@@ -70,8 +70,8 @@ func test_no_counter_no_customers() -> void:
 
 func test_nobody_at_the_counter_customer_leaves() -> void:
 	var sim := _sim()
-	var emp := _counter_emp(sim)
-	sim.state.characters[emp]["job"]["role"] = "any"
+	for e: String in Staff.employees_of(sim.state, FORGE):   # fixed stations' hands do not serve (only counter or any)
+		sim.state.characters[e]["job"]["role"] = "anvil"
 	var left := 0
 	var sold := 0
 	for i: int in 12 * 60:
@@ -97,3 +97,32 @@ func test_angry_customer_pays_less() -> void:
 	e["start"] = int(sim.state.clock["minute"]) - int(e["duration"]) / 2
 	var calm := Counter.price(sim, FORGE, emp, "sword", 0, "")
 	eq(Counter.price(sim, FORGE, emp, "sword", 0, npc), roundi(calm * 0.75), "angry customer: −25 %")
+
+
+
+## H6 · 4.7.4 (the manager's decision, 2026-11-07): with nobody in role «counter», an employee in role «any» serves the
+## counter's customer and its piece waits meanwhile (the cycle's end moves by serve_minutes).
+func test_an_any_hand_serves_and_its_piece_waits() -> void:
+	var sim := _sim()
+	var emp := _counter_emp(sim)
+	for e: String in Staff.employees_of(sim.state, FORGE):
+		sim.state.characters[e]["job"]["role"] = "anvil"
+	sim.state.characters[emp]["job"]["role"] = "any"   # the only one who may serve: an «any» hand
+	var sold := 0
+	for i: int in 12 * 60:
+		for e: Dictionary in sim.step():
+			if str(e["type"]) == "counter_sold":
+				sold += 1
+	check(sold > 0, "with one «any» hand the counter sells (%d)" % sold)
+	var bld := str(sim.state.characters[emp]["job"]["building"])
+	eq(Counter.server_of(sim, bld) if str(sim.state.characters[emp].get("location", "")) == bld else emp, emp,
+		"it is who serves")
+	var zone := ""
+	for z: String in sim.state.buildings[bld]["zones"]:
+		zone = z
+		break
+	sim.state.buildings[bld]["zones"][zone]["job"] = {"actor": emp, "recipe": "x", "mode": "normal", "start": 0, "end": 100}
+	sim.state.characters[emp]["station"] = zone
+	Counter.pause_for(sim, bld, emp, 10)
+	eq(int(sim.state.buildings[bld]["zones"][zone]["job"]["end"]), 110, "its piece ends 10 minutes later")
+	sim.state.buildings[bld]["zones"][zone]["job"] = null

@@ -131,6 +131,7 @@ static func _serve(sim: Sim, now: int, cfg: Dictionary) -> void:
 			continue
 		if not t.has("served_at"):
 			t["served_at"] = now + int(cfg.get("serve_minutes", 10))
+			pause_for(sim, bld, server, int(cfg.get("serve_minutes", 10)))   # an "any" hand leaves its piece meanwhile
 		if now < int(t["served_at"]):
 			continue
 		var item := best_product(sim, bld)
@@ -146,18 +147,42 @@ static func _serve(sim: Sim, now: int, cfg: Dictionary) -> void:
 		sell(sim, bld, id, server, item, 0.0)
 
 
-## Who serves at `bld`'s counter: the occupant of the counter station (family or employee) or an active employee with
-## role counter inside ("" if nobody).
+## Who serves at `bld`'s counter: the occupant of the counter station (family or employee), an active employee with
+## role counter inside, or else (GDD 4.7.4, the manager's decision 2026-11-07: the rule is fixed, not the text) an
+## active employee with role "any" inside: it leaves its piece paused while it serves (Counter.pause_for) and goes
+## back to it. "" if nobody.
 static func server_of(sim: Sim, bld: String) -> String:
 	var st := sim.state
 	var occ := str(st.buildings[bld].get("zones", {}).get("counter", {}).get("occupant", ""))
 	if occ != "" and str(st.characters.get(occ, {}).get("location", "")) == bld:
 		return occ
+	var any := ""
 	for e: String in Staff.employees_of(st, bld):
 		var ch: Dictionary = st.characters[e]
-		if str(ch["job"].get("role", "")) == "counter" and Staff.is_active(sim, e) and str(ch.get("location", "")) == bld:
+		if not Staff.is_active(sim, e) or str(ch.get("location", "")) != bld:
+			continue
+		var role := str(ch["job"].get("role", ""))
+		if role == "counter":
 			return e
-	return ""
+		if role == "any" and any == "":
+			any = e
+	return any
+
+
+## An "any" hand that serves a customer pauses its piece: the cycle at its station ends `minutes` later (H6 · 4.7.4).
+static func pause_for(sim: Sim, bld: String, server: String, minutes: int) -> void:
+	var ch: Dictionary = sim.state.characters.get(server, {})
+	if ch.is_empty() or not ch.get("job") is Dictionary or str(ch["job"].get("role", "")) != "any":
+		return
+	var zone := str(ch.get("station", ""))
+	var z: Dictionary = sim.state.buildings[bld].get("zones", {}).get(zone, {})
+	var job: Variant = z.get("job")
+	if not job is Dictionary or str((job as Dictionary).get("actor", "")) != server or (job as Dictionary).get("result") is Dictionary:
+		return
+	job["end"] = int(job["end"]) + minutes
+	var w: Variant = (job as Dictionary).get("window")
+	if w is Array:
+		job["window"] = [int(w[0]) + minutes, int(w[1]) + minutes]
 
 
 ## The product (category product) of most value in `bld`'s storage: {item, quality} or {}.
