@@ -19034,33 +19034,35 @@
       "origen": "fal: nano-banana-2/edit sobre la silueta de la armería de escala B (assets/art/buildings/escala_b/bank.png, copia de armory.png) + image2pixel a escala 4 (tools/art/fal_fachadas.py); obras y dañado con /edit",
       "coste_gen": 0,
       "coste_usd": 0.25,
-      "notas": "H12.2: el Banco (3×4, en el solar de la forja del jugador), de piedra con tejado de pizarra, el cartel de la moneda; bank_construction.png y bank_damaged.png. En game/visuals/buildings/bank.tscn. Para PixelLab (15-nov): sin los escudos apoyados que hereda de la armería, y la de espaldas.",
-     "id": "bld_den",
-     "tipo": "edificio",
-     "estado": "falta",
-     "para": [
-      "H12",
-      "den"
-     ],
-     "ruta": "assets/art/buildings/fal/den.png",
-     "origen": "",
-     "coste_gen": 0,
-     "coste_usd": 0,
-     "notas": "H12 (el Pícaro): la Guarida de ladrones (3×3, en el solar de la forja del jugador), una casa venida a menos con postigos cerrados, una trampilla al sótano y un farol apagado; con obras y dañado. Hasta entonces game/visuals/buildings/den.tscn enseña su bloque gris oscuro (placeholder visible). Como la Consulta: nano-banana-2/edit sobre una silueta de escala B (tools/art/fal_fachadas.py)."
+      "notas": "H12.2: el Banco (3×4, en el solar de la forja del jugador), de piedra con tejado de pizarra, el cartel de la moneda; bank_construction.png y bank_damaged.png. En game/visuals/buildings/bank.tscn. Para PixelLab (15-nov): sin los escudos apoyados que hereda de la armería, y la de espaldas."
     },
     {
-     "id": "icon_lockpicks",
-     "tipo": "icono",
-     "estado": "falta",
-     "para": [
-      "H12",
-      "objetos"
-     ],
-     "ruta": "assets/art/icons/lockpicks.png",
-     "origen": "",
-     "coste_gen": 0,
-     "coste_usd": 0,
-     "notas": "H12 (el Pícaro): las ganzúas del Ladrón (herramienta, +10 a robar un almacén). Hasta entonces el inventario enseña el icono genérico."
+      "id": "bld_den",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "H12",
+        "den"
+      ],
+      "ruta": "assets/art/buildings/fal/den.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "H12 (el Pícaro): la Guarida de ladrones (3×3, en el solar de la forja del jugador), una casa venida a menos con postigos cerrados, una trampilla al sótano y un farol apagado; con obras y dañado. Hasta entonces game/visuals/buildings/den.tscn enseña su bloque gris oscuro (placeholder visible). Como la Consulta: nano-banana-2/edit sobre una silueta de escala B (tools/art/fal_fachadas.py)."
+    },
+    {
+      "id": "icon_lockpicks",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "H12",
+        "objetos"
+      ],
+      "ruta": "assets/art/icons/lockpicks.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "H12 (el Pícaro): las ganzúas del Ladrón (herramienta, +10 a robar un almacén). Hasta entonces el inventario enseña el icono genérico."
     }
   ]
 }
