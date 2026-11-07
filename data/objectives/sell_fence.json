@@ -1,0 +1,11 @@
+{
+  "id": "sell_fence",
+  "name_key": "objective.sell_fence",
+  "conditions": [
+    {
+      "event": "fence_sold",
+      "match": {},
+      "count": 1
+    }
+  ]
+}

@@ -22238,6 +22238,7 @@
  },
  {
   "fecha": "2026-11-06T12:59:21",
+  "fecha": "2026-11-06T15:43:48",
   "tanda": "interiores",
   "pieza": "interiores",
   "modelo": "fal-ai/nano-banana-2/edit",
@@ -22355,6 +22356,10 @@
  },
  {
   "fecha": "2026-11-06T13:01:56",
+  "que": "fondo den planta 0 (v1)"
+ },
+ {
+  "fecha": "2026-11-06T15:44:14",
   "tanda": "interiores",
   "pieza": "interiores",
   "modelo": "fal-ai/nano-banana-2/edit",
@@ -22459,7 +22464,8 @@
   "modelo": "fal-ai/image2pixel",
   "imagenes": 1,
   "usd": 0.0002,
-  "que": "image2pixel e2_bank_s16.png"
+  "que": "image2pixel e2_bank_s16.png",
+  "que": "fondo den planta 1 (v1)"
  },
  {
   "fecha": "2026-11-06T10:17:18",

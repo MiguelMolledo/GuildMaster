@@ -1,0 +1,11 @@
+{
+  "id": "thief",
+  "name_key": "profession.thief",
+  "class": "rogue",
+  "order": 0,
+  "building": "den",
+  "tool": "lockpicks",
+  "start": "rogue_thief",
+  "contracts": "thief",
+  "_doc": "The thief, the Rogue's start (04d 4.22.6.11, O2 a): the den, its tool (lockpicks) and its start. Its contracts: a discreet client's (data/contracts/thief.json), clean pieces only."
+}

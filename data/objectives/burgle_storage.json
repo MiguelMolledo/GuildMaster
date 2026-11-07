@@ -1,0 +1,11 @@
+{
+  "id": "burgle_storage",
+  "name_key": "objective.burgle_storage",
+  "conditions": [
+    {
+      "event": "burgle_done",
+      "match": {},
+      "count": 1
+    }
+  ]
+}

@@ -224,7 +224,7 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 		"debt_paid_day": -1, "office_won_day": -1, "ending_day": -1, "masterworks": 0, "masterworks_y3": 0, "masterwork_day": -1,
 		"spec_pieces": 0, "spec_mismatch": 0, "gold_min": Money.gold(st, fam),
 		"facts_vs_others": 0, "fact_day_vs_others": -1, "caravan_home_value": 0, "caravan_sold": 0,
-		"caravans_ambushed": 0, "city_sales_gold": 0, "quota_units": 0, "quota_gold": 0, "treaties_broken": 0,
+		"caravans_ambushed": 0, "city_sales_gold": 0, "quota_units": 0, "quota_gold": 0, "quota_home_value": 0, "treaties_broken": 0,
 		"treaty_costs": 0, "carts_bought": 0}
 	for t: String in sim.catalog.title_ladder():
 		m["title_%s_day" % t] = -1
@@ -387,6 +387,9 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 					m["quota_units"] = int(m["quota_units"]) + int(e.get("quota", 0))
 					var qt := Treaties.quota_of(sim, str(e.get("city", "")), fam, str(e.get("item", "")))
 					m["quota_gold"] = int(m["quota_gold"]) + int(e.get("quota", 0)) * int(qt.get("price", 0))
+					if int(e.get("quota", 0)) > 0:  # what those swords were worth at home now (the normal ones first)
+						m["quota_home_value"] = int(m["quota_home_value"]) + int(Market.sell_preview(sim, str(bot.get("ACTOR")),
+							"armory", str(e.get("item", "")), Inventory.NORMAL, int(e.get("quota", 0)))["total"])
 				"treaty_broken":
 					m["treaties_broken"] = int(m["treaties_broken"]) + 1
 					m["treaty_costs"] = int(m["treaty_costs"]) + int(e.get("penalty", 0))
@@ -574,6 +577,11 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 	rep["chaos"] = rt
 	for k: String in ["roundtrips", "roundtrip_mismatch", "gold_negative", "off_map", "load_errors"]:
 		m[k] = int(rt[k])
+	# Equilibrio 7b: the treaty against selling the same swords at home (the fees, the cart and the fines paid)
+	var cart_price := int(sim.catalog.trade.get("caravans", {}).get("cart_price", 120))
+	m["treaty_net"] = int(m["quota_gold"]) - int(m["quota_home_value"]) - int(m["treaty_costs"]) \
+		- int(m["carts_bought"]) * cart_price if int(m["treaties"]) > 0 else 0
+	m["treaty_paid"] = 1 if int(m["treaties"]) > 0 and int(m["treaty_net"]) > 0 else 0
 	# the bot's own measures (festivals, courtship, incidents) and its report
 	if bot.has_method("measures"):
 		var bm: Dictionary = bot.call("measures", sim)

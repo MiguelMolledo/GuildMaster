@@ -93,6 +93,8 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 	if str(pr.get("title", "")) != "" and str(pr.get("title", "")) != str(s.families[fam].get("title", "")):
 		s.families[fam]["title"] = str(pr["title"])  # H12.2: the banker starts a Citizen (the title of a Banco)
 	var b: Dictionary = start["building"]
+	# H12.2 / H12 (one mechanism, the manager's 2026-11-07): a start may raise another type of building on its site
+	# if it fits (the Banco on the forge's plot, the thief's den on the Consulta's): the map does not move
 	var forge := _add_building(s, catalog, sites, str(b["site"]), fam, b.get("inventory", []), str(b.get("type", "")))
 	# The rival family (GDD 4.5.5): its craft comes from the difficulty.
 	var rv: Dictionary = start.get("rival", {})

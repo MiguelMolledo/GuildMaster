@@ -2827,7 +2827,7 @@ unlock.family_trade.desc,With a spouse or a cart the business grows beyond your 
 unlock.offices,offices and treaties,los cargos y los tratados
 unlock.offices.desc,"As citizens you may run for the minor offices of the council and sign a quota treaty: power is also a trade.","Como ciudadanos podéis presentaros a los cargos menores del concejo y firmar una cuota: el poder también es un oficio."
 unlock.court,the court,el tribunal
-unlock.court.desc,Somebody went to court. Win witnesses before the hearing: whoever weighs more wins.,Alguien ha ido a juicio. Gana testigos antes de la vista: gana quien más pese.
+unlock.court.desc,The court: as a Citizen you can take a public fact against another family to trial (a misdeed someone saw). Win witnesses before the hearing: whoever weighs more wins.,El tribunal: como Ciudadano puedes llevar a juicio un hecho público contra otra familia (una falta que alguien vio). Gana testigos antes de la vista: gana quien más pese.
 unlock.masterwork,the masterwork,la obra maestra
 unlock.masterwork.desc,"Three decisions right at the forge. With Craft 7 or more, a piece forged well may come out a masterwork, with its name in the chronicle.","Tres decisiones bien en la forja. Con Artesanía 7 o más, una pieza bien forjada puede salir obra maestra, con su nombre en la crónica."
 unlock.heir,the heir,el heredero
@@ -4298,6 +4298,93 @@ ui.npc.buy_ware_tip,The peddler has %d left today,Al buhonero le quedan %d hoy
 ui.order.buy_from_peddler,Buy from the peddler,Comprar al buhonero
 reason.not_a_peddler,Sells nothing,No vende nada
 ui.city.feast_offer,"%s · %s","%s · %s"
+item.lockpicks,Lockpicks,Ganzúas
+charge.petty_theft,Pickpocketing,Robo de bolsa
+charge.theft,Burglary,Robo en un edificio
+charge.receiving,Receiving stolen goods,Receptación
+notice.rogue_arrested,The watch has arrested {name} ({charge}); {seized} stolen pieces seized: trial pending,La guardia ha detenido a {name} ({charge}); requisa {seized} piezas robadas: tiene juicio
+notice.rogue_purse,Somebody picked your purse in the street: {gold} gold,Te han robado la bolsa en la calle: {gold} de oro
+notice.rogue_burgled,Thieves broke into your storage at night: {count} pieces gone,Unos ladrones han entrado de noche en tu almacén: faltan {count} piezas
+reason.bad_target,Not somebody to rob,No es alguien a quien robar
+reason.wrong_time,Not at this hour,No a esta hora
+reason.already_picked,Already robbed today,Ya le has robado hoy
+reason.nothing_to_steal,Nothing to steal,No hay nada que robar
+reason.recently_robbed,Robbed recently: they are on guard,Lo robaron hace poco: están en guardia
+reason.no_fence,No fence here,Aquí no hay perista
+reason.fence_full,The fence has spent enough today,El perista ya ha gastado bastante hoy
+reason.no_den,Only in your den,Solo en tu guarida
+reason.low_dexterity,Not deft enough,Te falta destreza
+ui.order.pickpocket,Pick a purse,Robar una bolsa
+ui.order.burgle,Break into a storage,Robar un almacén
+ui.order.fence_sell,Sell to the fence,Vender al perista
+ui.order.launder,Launder a piece,Blanquear una pieza
+notice.rogue_caught,The watch has caught {name} ({charge}): answer before half an hour,La guardia ha pillado a {name} ({charge}): responde antes de media hora
+charge.resisting,Resisting the watch,Resistencia a la guardia
+reason.no_arrest,Nobody is arresting him,Nadie le está deteniendo
+reason.bad_choice,Not an answer,No es una respuesta
+ui.order.arrest_response,Answer the watch,Responder a la guardia
+building.den,Thieves' den,Guarida de ladrones
+profession.thief,Thief,Ladrón
+upgrade.den_capacity_1,Hidden cellar,Sótano escondido
+upgrade.den_capacity_2,Bigger cellar,Sótano grande
+upgrade.den_capacity_3,Smugglers' vault,Bóveda de contrabandistas
+upgrade.den_commerce_1,Fence's table,Mesa del perista
+upgrade.den_commerce_2,Known buyers,Compradores de confianza
+upgrade.den_commerce_3,Fence of renown,Perista de renombre
+upgrade.den_facade_1,Plain front,Fachada discreta
+upgrade.den_facade_2,Respectable front,Fachada respetable
+upgrade.den_facade_3,Merchant's front,Fachada de comerciante
+upgrade.den_production_1,Washing tub,Barreño de lavar
+upgrade.den_production_2,Engraver's bench,Banco de grabador
+upgrade.den_production_3,Forger's workshop,Taller de falsario
+upgrade.den_quality_1,Fine lockpicks,Ganzúas finas
+upgrade.den_quality_2,Lock collection,Colección de cerraduras
+upgrade.den_quality_3,Master picklock,Maestro ganzúa
+upgrade.den_secrets_1,Double bookkeeping,Doble contabilidad
+upgrade.den_secrets_2,Hidden passage,Pasadizo oculto
+upgrade.den_secrets_3,Smuggling,Contrabando
+upgrade.den_security_1,Reinforced lock,Cerradura reforzada
+upgrade.den_security_2,Lookout,Vigía
+upgrade.den_security_3,Strongbox,Caja fuerte
+upgrade.den_staff_1,Gang's room,Cuarto de la banda
+upgrade.den_staff_2,Common table,Mesa común
+upgrade.den_staff_3,Master thief's den,Guarida de maestro
+effect.fence_bonus,The fence pays more,El perista paga más
+effect.lock_bonus,Locks open easier,Las cerraduras ceden antes
+client.discreet_buyer,A discreet buyer,Un comprador discreto
+client.pawnbroker,The pawnbroker,El prestamista de prendas
+client.collector,A collector,Un coleccionista
+start.rogue_thief,Thief,Ladrón
+objective.pick_purse,Pick a purse in the street without being seen,Roba una bolsa en la calle sin que te vean
+objective.sell_fence,Sell something to the fence,Véndele algo al perista
+objective.burgle_storage,Get into a storage at night,Entra de noche en un almacén
+objective.launder_piece,Launder a piece at your den,Blanquea una pieza en tu guarida
+objective.underworld_known,Make a name in the underworld (5 jobs),Hazte un nombre en los bajos fondos (5 golpes)
+notice.rogue_denounced,{name} has been denounced for {charge}: the town may take it to court,A {name} le han denunciado por {charge}: la villa puede llevarlo a juicio
+ui.npc.pickpocket,Pick the purse,Robar la bolsa
+ui.npc.pickpocket_tip,"About %d in 100 he does not notice; if he does, he will denounce you, and a guard in view arrests you","Unas %d de cada 100 no se da cuenta; si se da, te denunciará, y un guardia a la vista te detiene"
+hud.burgle,Break in,Robar el almacén
+hud.burgle_tip,Its lock: %d. About %d in 100 your stealth opens it (lockpicks help); the noise may bring the watch,Su cerradura: %d. Unas %d de cada 100 tu sigilo la abre (las ganzúas ayudan); el ruido puede atraer a la guardia
+ui.station.fence_head,The fence buys stolen goods at half price; today he still pays %d,El perista compra lo robado a mitad de precio; hoy aún paga %d
+ui.station.fence_sell,Sell %s (%d each),Vender %s (%d cada uno)
+ui.station.launder_head,"The bench takes the mark off a stolen piece: clean, it sells anywhere","El banco quita la marca a una pieza robada: limpia, se vende en cualquier sitio"
+ui.station.launder_busy,Laundering a %s,Blanqueando: %s
+ui.station.launder,Launder %s,Blanquear %s
+ui.station.launder_tip,One piece every %d minutes,Una pieza cada %d minutos
+ui.station.no_stolen,No stolen goods,No llevas nada robado
+ui.zone.forger_bench,Engraver's bench,Banco del falsario
+ui.zone.fence,The fence's table,Mesa del perista
+ui.arrest.title,The watch!,¡La guardia!
+ui.arrest.body,The guard %s has caught %s: %s. What does he do?,El guardia %s ha pillado a %s: %s. ¿Qué hace?
+ui.arrest.surrender,Surrender,Rendirse
+ui.arrest.surrender_tip,A trial with the guard as witness; what he carries stolen is seized,"Juicio, con el guardia de testigo; le requisan lo robado que lleva"
+ui.arrest.flee,Run,Huir
+ui.arrest.flee_tip,"About %d in 100 he gets away (the fact stays public); else, arrested and resisting too","Unas %d de cada 100 escapa (el hecho queda público); si no, detenido y además resistencia"
+ui.arrest.fight,Fight,Luchar
+ui.arrest.fight_tip,"A duel against the guard: if he wins he escapes with a violent crime on his name; if he loses, the trial and a fright","Un duelo contra el guardia: si gana, escapa con un delito violento a su nombre; si pierde, juicio y un buen susto"
+ui.arrest.bribe,Bribe (%d),Sobornar (%d)
+ui.arrest.bribe_tip,"About %d in 100 he takes it and forgets; if not, the gold is lost and bribery is added","Unas %d de cada 100 lo acepta y lo olvida; si no, pierde el oro y se suma el soborno"
+ui.new_game.preview_start.rogue_thief,"A thieves' den with a home, %d gold and %d of debt with the moneylender.","Guarida de ladrones con vivienda, %d de oro y %d de deuda con el prestamista."
 ui.npc.sell_merchant,Sell %s (%d),Vender %s (%d)
 ui.npc.sell_merchant_tip,"His city pays it dear: he buys it here, for less than there","Su ciudad lo paga caro: te lo compra aquí, por menos que allí"
 ui.npc.buy_merchant_tip,"Cheap in his city; he has %d left","Barato en su ciudad; le quedan %d"
