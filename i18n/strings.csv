@@ -4213,8 +4213,18 @@ ui.npc.buy_ware_tip,The peddler has %d left today,Al buhonero le quedan %d hoy
 ui.order.buy_from_peddler,Buy from the peddler,Comprar al buhonero
 reason.not_a_peddler,Sells nothing,No vende nada
 ui.city.feast_offer,"%s · %s","%s · %s"
+ui.npc.sell_merchant,Sell %s (%d),Vender %s (%d)
+ui.npc.sell_merchant_tip,"His city pays it dear: he buys it here, for less than there","Su ciudad lo paga caro: te lo compra aquí, por menos que allí"
+ui.npc.buy_merchant_tip,"Cheap in his city; he has %d left","Barato en su ciudad; le quedan %d"
+ui.order.sell_to_merchant,Sell to the merchant,Vender al mercader
+ui.order.buy_from_merchant,Buy from the merchant,Comprar al mercader
+reason.not_wanted,He does not buy that,Eso no lo compra
+reason.merchant_full,He has bought enough of it,Ya ha comprado bastante de eso
+reason.merchant_purse,His purse is empty,No le queda oro
 notice.misdeed_seen,"The {family} were seen at it: {what}. A public fact the court can try.","A los {family} los han visto: {what}. Es un hecho público que se puede llevar al tribunal."
 misdeed.false_weights,false weights at the market,pesos falsos en el mercado
 misdeed.unpaid_supplier,a supplier left unpaid,un proveedor sin pagar
 misdeed.contraband,contraband,contrabando
 tutorial.hint.night_skip,Night: the market is closed until dawn. «Skip until…» (») by the clock: choose dawn and the night goes by at ×8 (any notice stops it).,Es de noche: el mercado cierra hasta el amanecer. «Saltar hasta…» (») junto al reloj: elige el amanecer y la noche pasa a ×8 (cualquier aviso la para).
+notice.plots.ai_for_sale,"{building} is for sale: {price} (its family cannot keep it)","{building} está en venta: {price} (su familia no puede mantenerlo)"
+notice.plots.ai_fallen,"{family} have lost their last business: they look for work","{family} ha perdido su último negocio: busca trabajo"

@@ -56,9 +56,11 @@ static func budget(sim: Sim, fam: String) -> int:
 	return Construction.budget(sim, fam)
 
 
-## The candidate the family takes today ({} if none): Construction.choose's rules (a family that sold its workshop
-## needs one, whatever its score; a second building waits for ai.expand), with the scores weighed by its profile.
+## The candidate the family takes today ({} if none): Construction.choose's rules (nothing in bankruptcy; a family
+## that sold its workshop needs one, whatever its score; a second building waits for ai.expand), with the scores weighed by its profile.
 static func choose(sim: Sim, fam: String) -> Dictionary:
+	if Bankruptcy.stage(sim, fam) != Bankruptcy.NORMAL:
+		return {}   # in austerity or with the «Se vende» sign: it builds nothing (04c 4.21.6.3)
 	var homeless := Construction._homeless(sim, fam)
 	var fate := str(sim.state.families[fam].get("after_sale", {}).get("fate", ""))
 	if homeless and fate != "" and fate != "rebuilds":
