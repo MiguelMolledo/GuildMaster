@@ -248,6 +248,8 @@ func _buy_row(o: Dictionary, homes: Array) -> VBoxContainer:
 	bottom.add_child(qty_l)
 	var plus := _button("Plus", "+", func() -> void: set_qty(item, q, qty + 1))
 	plus.disabled = st == "ok" and qty >= max_qty
+	if plus.disabled:   # an off button says why (verificación A7; jugador J: coal's «+» said nothing)
+		plus.tooltip_text = SimQuery.t_("ui.market.plus_max") % max_qty
 	bottom.add_child(plus)
 	var total_l := Label.new()
 	total_l.text = SimQuery.t_("ui.market.total") % (price * qty)

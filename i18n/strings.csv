@@ -4393,3 +4393,4 @@ misdeed.contraband,contraband,contrabando
 tutorial.hint.night_skip,Night: the market is closed until dawn. «Skip until…» (») by the clock: choose dawn and the night goes by at ×8 (any notice stops it).,Es de noche: el mercado cierra hasta el amanecer. «Saltar hasta…» (») junto al reloj: elige el amanecer y la noche pasa a ×8 (cualquier aviso la para).
 notice.plots.ai_for_sale,"{building} is for sale: {price} (its family cannot keep it)","{building} está en venta: {price} (su familia no puede mantenerlo)"
 notice.plots.ai_fallen,"{family} have lost their last business: they look for work","{family} ha perdido su último negocio: busca trabajo"
+ui.market.plus_max,"That is the most you can buy now: %d (your gold, what you can carry or what the stall has)","Es lo más que puedes comprar ahora: %d (lo que llega tu oro, lo que puedes cargar o lo que hay)"

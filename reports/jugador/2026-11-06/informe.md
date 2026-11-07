@@ -34,6 +34,20 @@ python3 tools/verifica/jugador_bloques.py         # regenera los bloques 06-15
 >
 > El #1 sigue abierto para equilibrio.
 
+> [!NOTE]
+> **Repetida con el arreglo del novato de equilibrio** (main d723ea72, 2026-11-07, misma semilla y misma ruta):
+> - **El novato paga la deuda antes del día 8**: el día 3 con la primera ruta y el día 5 con la que compra hierro
+>   según su bolsa.
+> - Acaba el año en el día 9 con 81 de oro, sin prórroga ni ruina, y ningún tramo pasa de 30 s sin decisión (el
+>   máximo son 24 s).
+> - En 10 días: ventas 650 + encargos 157 frente a compras 377, mantenimiento 130, sueldo 49 y la deuda 200.
+>
+> Dos hallazgos nuevos de UI, arreglados:
+> - Con el oro justo, el panel de Mejoras proponía por defecto «Doble contabilidad» (rama Secretos, ilegal): era la
+>   única que se podía pagar sin materiales, y el novato que sigue el tutorial la compraba. Ahora propone una mejora
+>   honrada aunque no llegue (Comprar dice qué falta); Secretos solo cuando no hay otra.
+> - El «+» del puesto, apagado en el máximo, no decía por qué. Ahora lo dice.
+
 ## Ritmo (03b §3b.6: mediana < 30 s entre decisiones, máximo < 60 s)
 
 Tramos sin decisión, en segundos reales a la velocidad que llevaba el jugador (×2 o ×4; 1 día = 5 min a ×1):

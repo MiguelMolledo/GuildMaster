@@ -274,7 +274,7 @@
     {
       "id": "h_espera_mercado",
       "say": "De noche el puesto cierra: esperar a que abra (×4)",
-      "when": "q.storage('iron') < 4 and q.gold() >= 60 and not q.market_open('resources')",
+      "when": "q.storage('iron') < 4 and q.gold() >= 30 and not q.market_open('resources')",
       "key": "@speed_3",
       "until": "q.market_open('resources')",
       "timeout": 120
@@ -282,7 +282,7 @@
     {
       "id": "h_hierro_falta",
       "say": "Queda poco hierro: al puesto de Recursos con recado",
-      "when": "q.storage('iron') < 4 and q.gold() >= 60",
+      "when": "q.storage('iron') < 4 and q.gold() >= 30",
       "world": {
         "service": "resources"
       },
@@ -292,6 +292,7 @@
     },
     {
       "id": "h_hierro_mas",
+      "say": "Tantos como dé el oro (4, u 8 con la bolsa llena)",
       "when": "q.visible('MarketPanel')",
       "click": {
         "within": {
@@ -300,7 +301,19 @@
         },
         "node": "Plus"
       },
-      "times": 7
+      "times": 3
+    },
+    {
+      "id": "h_hierro_mas_8",
+      "when": "q.visible('MarketPanel') and q.gold() >= 90",
+      "click": {
+        "within": {
+          "within": "BuyList",
+          "prefix": "iron_"
+        },
+        "node": "Plus"
+      },
+      "times": 4
     },
     {
       "id": "h_hierro_enviar",
@@ -677,6 +690,13 @@
       },
       "until": "q.interior() == ''",
       "timeout": 20
+    },
+    {
+      "id": "pasa_el_dia",
+      "say": "Sin nada más que hacer, el reloj corre (×4) hasta la siguiente media jornada",
+      "key": "@speed_3",
+      "until": "q.minute() >= q.was('minute') + 360",
+      "timeout": 90
     },
     {
       "id": "fin",
