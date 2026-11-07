@@ -1,0 +1,11 @@
+{
+  "id": "ledger_book_tool",
+  "name_key": "item.ledger_book_tool",
+  "gender": "m",
+  "category": "tool",
+  "weight": 2.0,
+  "max_stack": 1,
+  "base_price": 40,
+  "market_stall": null,
+  "slot": "tool"
+}

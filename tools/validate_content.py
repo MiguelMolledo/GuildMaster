@@ -368,13 +368,13 @@ def check_h3(items, recipes, buildings, maps, strings, rep):
             if site is None:
                 rep.error(w, f"{name}.site {b.get('site')} no es un edificio del mapa")
             elif site.get("type") != b.get("type"):
-                # H12: the player's start may raise another building of the same footprint on a plot of its map
-                # (the thief's den on the Consulta's plot; NewGame overrides the type, the map does not move)
-                fa = (buildings.get(b.get("type")) or {}).get("footprint")
-                fb = (buildings.get(site.get("type")) or {}).get("footprint")
-                if name != "building" or fa is None or fa != fb:
+                # H12.2 / H12: the player's start may raise another type of building on its site if its footprint fits
+                # in the site's (the Banco on the forge's plot, the thief's den on the Consulta's; NewGame._add_building)
+                fs = (buildings.get(site.get("type")) or {}).get("footprint") or [0, 0]
+                fb = (buildings.get(b.get("type")) or {}).get("footprint") or [99, 99]
+                if name != "building" or fb[0] > fs[0] or fb[1] > fs[1]:
                     rep.error(w, f"{name}: tipo {b.get('type')} distinto del del mapa {site.get('type')} "
-                                 "(solo el edificio del jugador, y con la misma planta)")
+                                 "(solo el edificio del jugador, y si su planta cabe en el solar)")
             for st in b.get("inventory") or []:
                 if st.get("item") not in items:
                     rep.error(w, f"{name}: objeto desconocido {st.get('item')}")
@@ -617,7 +617,8 @@ UPGRADES = {}  # H5: id -> upgrade (data/upgrades/<tree>/<id>.json), loaded firs
 EFFECT_VALUES = {"mult", "amount", "zone", "recipe", "rank", "flag"}
 EFFECT_STACKS = {"branch_top", "all"}
 EFFECT_WHEN = {"query", "complete"}
-EFFECT_READERS = {"production", "market", "counter", "staff", "inspections", "inventory", "family", "none", "inn", "rogue"}
+EFFECT_READERS = {"production", "market", "counter", "staff", "inspections", "inventory", "family", "none", "inn", "bank",
+                  "rogue"}
 
 
 def load_upgrades(rep):

@@ -1,0 +1,37 @@
+{
+  "id": "bank_capacity_3",
+  "name_key": "upgrade.bank_capacity_3",
+  "tree": "bank",
+  "branch": "capacity",
+  "level": 3,
+  "cost": {
+    "gold": 375,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 10
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "bank_capacity_2"
+    ],
+    "stat": {
+      "id": "negotiation",
+      "min": 5
+    },
+    "title": null
+  },
+  "build_days": 1.5,
+  "effects": [
+    {
+      "kind": "extra_storage",
+      "amount": 10
+    }
+  ],
+  "visual": {
+    "interior_node": "bank_vault_door",
+    "exterior_overlay": null
+  }
+}

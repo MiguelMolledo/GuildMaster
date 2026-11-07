@@ -52,6 +52,8 @@ BUILDINGS = {
                   "windows, a wide open door at the same place as the reference's door, a hanging wooden sign with a "
                   "painted tankard (no letters), barrels and a bench outside, upper-floor windows for the rooms and a "
                   "small stable lean-to on one side",
+    "bank": "a money-changer's BANK: a two-storey house of dressed pale stone with a dark slate roof, a heavy iron-bound "
+            "door, barred windows, a hanging sign with a gold coin (no letters) and a small coat of arms over the door",
     "farm": "a FARMHOUSE: a long low farmhouse of rough stone and timber with a golden THATCHED straw roof, a "
             "small barn wing with a big wooden double door, a hay bale and a wooden hay cart beside it, a short "
             "wattle fence corner and sacks of grain by the entrance door (no sign, no letters)",

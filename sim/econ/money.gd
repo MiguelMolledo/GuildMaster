@@ -31,8 +31,14 @@ const JUSTICE: String = "justice"
 const FAMILY: String = "family"
 const DONATIONS: String = "donations"
 const GAMES: String = "games"            # 04f §4.26: games, bets and competition prizes (sim/games/)
+# H12.2 (04d 4.22.5.6): the banker's books (sim/econ/bank.gd). bank_lent: what it lends and what comes back of it (the
+# capital: not an income nor an expense); interest: what it earns; bank_losses: what is lost of a loan in default.
+const BANK_LENT: String = "bank_lent"
+const INTEREST: String = "interest"
+const BANK_LOSSES: String = "bank_losses"
 const CATEGORIES: Array[String] = [MARKET_SALES, CONTRACTS, LOANS, COUNTER_SALES, EVENTS, PROPERTY, OFFICES, SERVICES,
-	LOOT, PURCHASES, ERRANDS, UPKEEP, WAGES, UPGRADES, FINES, TITLES, POLITICS, TAXES, JUSTICE, FAMILY, DONATIONS, GAMES]
+	LOOT, PURCHASES, ERRANDS, UPKEEP, WAGES, UPGRADES, FINES, TITLES, POLITICS, TAXES, JUSTICE, FAMILY, DONATIONS, GAMES,
+	BANK_LENT, INTEREST, BANK_LOSSES]
 
 
 ## The gold of a family (0 if it does not exist).

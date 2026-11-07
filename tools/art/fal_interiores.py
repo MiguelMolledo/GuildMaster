@@ -99,6 +99,10 @@ ROOMS = {
                "with a big stone mortar and pestle and herbs, a tall apothecary shelf of glass jars, bottles and clay "
                "pots, a wicker basket of rolled linen bandages, a copper washbasin on a stand, bundles of herbs drying "
                "from the beams, a parchment chart of the human body on the wall, a waiting bench by the door"),
+    "bank": ("a medieval money-changer's bank", "a long carved wooden banking counter with a brass balance scale, stacks "
+             "of coins and an open ledger, a heavy iron-bound strongbox and an iron vault door in the back, a tall "
+             "cabinet of ledgers and rolled contracts, a writing desk with a quill and a candle, a bench for the clients "
+             "to wait, a rich rug, a banner with a coin emblem"),
     "church": ("the interior of a small village church", "a stone altar with a white cloth, candles and a cross, rows "
                "of wooden pews, a pulpit, a stained glass window casting coloured light, stone columns, a baptismal "
                "font, flowers"),

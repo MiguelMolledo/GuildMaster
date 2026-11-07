@@ -70,7 +70,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	"artisan_expert": BotArtisanExpert, "artisan_expert_0": BotArtisanExpert, "artisan_expert_1": BotArtisanExpert,
 	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty, "idle_town": BotIdle,
 	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert, "crook": BotArtisanExpert,
-	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade, "scholar_novice": BotScholarNovice, "rogue_novice": BotRogueNovice, "patron_novice": BotPatronNovice, "tutorial_route": BotTutorialRoute,
+	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade, "scholar_novice": BotScholarNovice, "banker_novice": BotBankerNovice, "rogue_novice": BotRogueNovice, "patron_novice": BotPatronNovice, "tutorial_route": BotTutorialRoute,
 	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade, "duelist": BotDuelist,
 	"merchant": BotMerchant, "pacing": BotPacing, "gambler": BotGambler, "guard_watch": BotGuardWatch, "festive": BotFestive, "innkeeper": BotInnkeeper,
 	"idle_titles_fest": BotIdle,
@@ -85,6 +85,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	# carpenter_novice / mason_novice / tailor_novice: the novice of any artisan trade (H12), with its --start
 	# rogue_novice: the thief of the Rogue's start (H12, --start=rogue_thief): purses, storages, the fence, the debt
 	# scholar_novice: the physician of the scholar's start (H12.2, --start=scholar_physician): patients, bandages, debt
+	# banker_novice: the banker of the scholar's start (H12.2, --start=scholar_banker): lends to A and B, claims defaults
 	# patron_novice: the farmer of the patron's start (H12 Patrón, --start=patron_farmer): fields, wool, pigs, debt
 	# tutorial_route: the default game as a novice who follows the tutorial and the objectives (verifica, 2026-11-06)
 	# kin_trader: idle from the scenario kin_trader: a family member with Trade supplies the forge (H14, 2 days)
@@ -202,7 +203,10 @@ func _init() -> void:
 					print("sim_runner: %s: %s" % [label, r["error"]])
 					quit(2)
 					return
-				runs.append(_run(Sim.new(r["state"], cat), bot, bot_id, s, days, flows))
+				# H12.2: a bot measures its own goldflow windows when it has some (the banker excludes the capital it
+				# lends, the others only the debt); without any, all of them as before
+				var own := flows.filter(func(fl: Dictionary) -> bool: return str(fl.get("bot", "")) == bot_id)
+				runs.append(_run(Sim.new(r["state"], cat), bot, bot_id, s, days, own if not own.is_empty() else flows))
 			var t: Dictionary = (targets.get(bot_id, {}) as Dictionary).duplicate(true)
 			for fl: Dictionary in flows:  # the goldflow window of this bot (GDD 4.19: the mean over the seeds)
 				if str(fl.get("bot", "")) == bot_id and days >= int(fl["window_days"][1]):

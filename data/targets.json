@@ -28,6 +28,7 @@
     "mason_novice",
     "tailor_novice",
     "scholar_novice",
+    "banker_novice",
     "patron_novice",
     "artisan_expert",
     "artisan_expert_0",
@@ -275,6 +276,31 @@
       ]
     }
   },
+  "banker_novice": {
+    "_doc": "H12.2 (10/H12 «Cada profesión tiene un bot que gana dinero con ella»; docs/gdd/04d_otras_clases.md 4.22.5.8): BotBankerNovice (sim/bots/bot_banker_novice.gd) in a new game as scholar_banker, Normal: it lends to the households of risk A and B at their maximum interest, turns down C, claims the collateral of a default at once and pays the start's debt. Its net gold per day (without the debt nor the capital lent and returned: bank_lent) goes in goldflow.start_banker, the band of the start. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=scholar_banker --bots=banker_novice --difficulty=easy,normal,hard --days=10 --seeds=30 (in run_all, step banker, 10 seeds). gold_day3 / gold_day10 are wide: the banker starts with 3.000 and lends most of it.",
+    "days": [
+      10,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "gold_day10": [
+      0,
+      4000
+    ],
+    "_share": {
+      "debt_paid": [
+        0.9,
+        null
+      ]
+    }
+  },
   "rogue_novice": {"_doc": "H12 (10/H12 «Cada profesión tiene un bot que gana dinero con ella»; docs/gdd/04d_otras_clases.md 4.22.6.14): BotRogueNovice (sim/bots/bot_rogue_novice.gd) in a new game as rogue_thief, Normal, with the living town (the watch is its risk): purses by day among those who do not see him coming, one storage at night out of the guards' sight, the loot to the fence and the bench, the debt. The same start as the forge (30 gold, the start's debt) and the same window as the trades; its net gold per day goes in goldflow.start_thief. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=rogue_thief --bots=rogue_novice --difficulty=easy,normal,hard --days=10 --seeds=5 (in run_all, step rogue, 10 seeds). Medido (2026-11-06, 10 semillas, con main f68fe5cc): neto/día en Normal 48,7 [30,0-61,6]; easy 58,6 > normal 48,7 > hard 40,4 (data/difficulty.json rogue: the check modifier and the fence's price); deuda saldada 5/5; ~50 bolsas y ~5 almacenes en 10 días, el perista ~140; juicios por robos denunciados en 1 de 5 semillas (prosecute 0,03 al día).", "days": [10, null], "refused_orders": [0, 0], "ledger_mismatch": [0, 0], "gold_day10": [10, 1100], "_share": {"debt_paid": [0.9, null]}},
   "mason_novice": {
     "_doc": "H12 (10/H12 «Cada profesión tiene un bot que gana dinero con ella»): BotArtisanTrade (sim/bots/bot_artisan_trade.gd, the novice of any trade) in a new game as artisan_mason, Normal. The same start as the forge (30 gold, 200 of debt before day 8) and the same targets as artisan_novice; its net gold per day goes in goldflow.start_mason. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_mason --bots=mason_novice --difficulty=easy,normal,hard --days=10 --seeds=30 (in run_all, step mason, 10 seeds). Medido (2026-11-03, con el rival de su mismo oficio junto a la plaza, 30 semillas): neto/día en Normal 38,0 [21,3-51,8], deuda saldada 30/30; orden de dificultad easy 38,9 > normal 38,0 > hard 36,4 (por poco: la piedra es barata y el ×0,9/×1,1 del precio apenas mueve); el rival acaba el día 10 con ~175-215 de oro.",
@@ -447,6 +473,22 @@
         "loans"
       ],
       "_doc": "H12.2: the start of the physician (scholar_physician), the same window and range as the forge's start (GDD 4.19 «Inicio (H3)», O3 a of 04d)."
+    },
+    "start_banker": {
+      "bot": "banker_novice",
+      "window_days": [
+        1,
+        8
+      ],
+      "net_per_day": [
+        25,
+        60
+      ],
+      "exclude_categories": [
+        "loans",
+        "bank_lent"
+      ],
+      "_doc": "H12.2: the start of the banker (scholar_banker), the band of the start (O3 a of 04d, the manager's 2026-11-06): its net gold per day without the debt and without the capital lent and returned (bank_lent: what it lends is not an expense nor what comes back an income; the interest and the losses do count)."
     },
     "start_thief": {"bot": "rogue_novice", "window_days": [1, 8], "net_per_day": [25, 60], "exclude_categories": ["loans"], "_doc": "H12 (the Rogue): the start of the thief (rogue_thief), the same window and range as the forge's start (GDD 4.19 «Inicio (H3)», O3 a of 04d)."},
     "start_tailor": {

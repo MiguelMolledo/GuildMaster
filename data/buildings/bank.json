@@ -1,0 +1,31 @@
+{
+  "id": "bank",
+  "name_key": "building.bank",
+  "category": "workshop",
+  "parcel_type": "production",
+  "footprint": [
+    3,
+    4
+  ],
+  "build_cost": 300,
+  "build_days": 2,
+  "upkeep": 15,
+  "storage_stacks": 6,
+  "base_employees": 1,
+  "zones": [
+    {
+      "id": "desk",
+      "kind": "service"
+    },
+    {
+      "id": "storage",
+      "kind": "storage"
+    }
+  ],
+  "upgrade_tree": "bank",
+  "night_production": "none",
+  "includes_housing": true,
+  "tool": "ledger_book_tool",
+  "min_title": "citizen",
+  "_doc": "H12.2 (04d 4.22.5.6): the banker's Banco. desk: where the banker reviews the applications and keeps the book (its panel, BankPanel); storage: the vault (the «contract»s that make a loan notarial). 3×4 on the player forge's plot until the EA map (the 4×5 of 4.22.5 does not fit a plot of town_e). min_title: citizen to own it (4.22.5). upkeep 15 [balance]."
+}

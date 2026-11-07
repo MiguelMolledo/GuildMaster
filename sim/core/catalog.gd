@@ -66,6 +66,7 @@ var portrait_pool: Dictionary = {}
 var inn: Dictionary = {}
 var construction: Dictionary = {}  # data/construction.json: H6, plots and construction (04 §4.9, §4.9.1)
 var services: Dictionary = {}
+var bank: Dictionary = {}        # data/bank.json: the Banco of the banker (H12.2, 04d 4.22.5.6)
 var rogue: Dictionary = {}  # data/rogue.json (the Rogue, 4.22.6)
 const STOLEN: String = "@stolen"  # the mark of stolen goods (4.22.6.4)
 var errors: PackedStringArray = []  # files that could not be read
@@ -125,6 +126,7 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 		"menu": c._load_json(root_dir.path_join("inn/menu.json")),
 		"clientele": c._load_json(root_dir.path_join("inn/clientele.json"))}
 	c.services = c._load_json(root_dir.path_join("services.json"))
+	c.bank = c._load_json(root_dir.path_join("bank.json"))
 	c.rogue = c._load_json(root_dir.path_join("rogue.json"))  # the Rogue: the thief (4.22.6.4)
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:

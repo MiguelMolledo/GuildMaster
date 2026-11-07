@@ -92,6 +92,7 @@ static func order_repay(sim: Sim, o: Dictionary) -> Dictionary:
 	if not Money.can_pay(st, fam, pay):
 		return Orders.fail("not_enough_gold")
 	Money.change(sim, fam, -pay, Money.LOANS, id, "", actor)
+	pay_lender(sim, id, pay)
 	loan["outstanding"] = int(loan["outstanding"]) - pay
 	_pay_installments(loan, pay)
 	sim.events.append({"type": "loan_payment", "actor": actor, "family": fam, "loan": id, "amount": pay,
@@ -118,8 +119,8 @@ static func step(sim: Sim) -> void:
 	ids.sort()
 	for id: String in ids:
 		var loan: Dictionary = st.loans[id]
-		if not is_open(loan):
-			continue
+		if not is_open(loan) or Bank.is_household(loan):
+			continue  # H12.2: a household's loan from a Banco is paid from outside (Bank)
 		var due := next_due(loan)
 		if now >= due:
 			if str(loan["state"]) == ACTIVE:
@@ -186,6 +187,23 @@ static func _pay_installments(loan: Dictionary, pay: int) -> void:
 			loan["warned"] = []
 
 
+## H12.2: what a family pays (or has seized) on a Banco's loan goes to its banker (Bank): the principal part to
+## bank_lent, the rest to interest. Nothing for the loans of the town (the start's debt, fines, the moneylender).
+static func pay_lender(sim: Sim, id: String, amount: int) -> void:
+	var loan: Dictionary = sim.state.loans.get(id, {})
+	var to := str(loan.get("lender_family", ""))
+	if amount <= 0 or to == "" or not sim.state.families.has(to):
+		return
+	var split := Bank.principal_part(loan, amount)
+	if int(split[0]) > 0:
+		Money.change(sim, to, int(split[0]), Money.BANK_LENT, id, str(loan.get("bank", "")))
+	if int(split[1]) > 0:
+		Money.change(sim, to, int(split[1]), Money.INTEREST, id, str(loan.get("bank", "")))
+	loan["principal_left"] = maxi(0, int(loan.get("principal_left", 0)) - int(split[0]))
+	sim.events.append({"type": "installment_paid", "family": to, "loan": id, "amount": amount, "to_bank": true,
+		"principal": int(split[0]), "interest": int(split[1]), "why": "family", "borrower_family": str(loan["family"])})
+
+
 ## The moneylender's terms (data/accounts.json "moneylender").
 static func moneylender(sim: Sim) -> Dictionary:
 	return sim.catalog.accounts.get("moneylender", {})
@@ -237,8 +255,9 @@ static func order_request(sim: Sim, o: Dictionary) -> Dictionary:
 		return Orders.fail("no_family")
 	if not Kin.is_adult(sim, actor):
 		return Orders.fail("too_young")
-	if str(o.get("lender", "moneylender")) != "moneylender":
-		return Orders.fail("unknown_lender")  # the Banks of the families come with the banker (4.22.5.6)
+	var lender := str(o.get("lender", "moneylender"))
+	if lender != "moneylender":
+		return _request_bank(sim, o, fam, actor, lender)  # H12.2: a family's application to a Banco (Bank)
 	var cfg := moneylender(sim)
 	var term := int(o.get("term_days", 0))
 	if not term in (cfg.get("terms_days", [8, 16]) as Array).map(func(x: Variant) -> int: return int(x)):
@@ -275,6 +294,33 @@ static func order_request(sim: Sim, o: Dictionary) -> Dictionary:
 	if OS.is_debug_build():
 		print("[Loans] el prestamista presta %d a %s (%s): debe %d en %d cuotas, %d días (interés %.3f)" % [amount, fam,
 			id, int(q["owed"]), inst.size(), term, float(q["interest"])])
+	return Orders.ok()
+
+
+## H12.2 (04d 4.22.5.6): request_loan with lender = a Banco: the application waits there (Bank.family_application)
+## and its owner decides (an AI owner at dawn). Reasons: unknown_lender, own_bank, bad_term, bad_amount, in_default,
+## already_asked (an application of the family waits there).
+static func _request_bank(sim: Sim, o: Dictionary, fam: String, actor: String, bld: String) -> Dictionary:
+	var st := sim.state
+	if not st.buildings.has(bld) or str(st.buildings[bld].get("type", "")) != "bank" \
+			or str(st.buildings[bld].get("owner", "")) == "":
+		return Orders.fail("unknown_lender")
+	if str(st.buildings[bld]["owner"]) == fam:
+		return Orders.fail("own_bank")
+	var term := int(o.get("term_days", 0))
+	if not term in (Bank.cfg(sim).get("applications", {}).get("terms", [4, 8, 12, 16]) as Array).map(
+			func(x: Variant) -> int: return int(x)):
+		return Orders.fail("bad_term")
+	var amount := int(o.get("amount", 0))
+	if amount < int(moneylender(sim).get("min_amount", 20)):
+		return Orders.fail("bad_amount")
+	for id: String in of_family(sim, fam):
+		if str(st.loans[id].get("state", "")) == EXTENDED:
+			return Orders.fail("in_default")
+	for a: Dictionary in Bank.applications(st, bld):
+		if str(a["borrower_family"]) == fam:
+			return Orders.fail("already_asked")
+	Bank.family_application(sim, bld, fam, actor, amount, term)
 	return Orders.ok()
 
 
@@ -368,6 +414,7 @@ static func _seize(sim: Sim, id: String) -> void:
 	var take := mini(maxi(0, Money.gold(st, fam)), owed)
 	if take > 0:
 		Money.change(sim, fam, -take, Money.LOANS, id)
+		pay_lender(sim, id, take)
 		owed -= take
 	var items: Array = []
 	var bld := str(loan.get("building", ""))
@@ -383,6 +430,7 @@ static func _seize(sim: Sim, id: String) -> void:
 				continue
 			var units := mini(int(s["qty"]), ceili(float(owed) / price))
 			Inventory.remove(inv, item, q, units)
+			pay_lender(sim, id, mini(units * price, owed))
 			owed -= units * price
 			items.append({"item": item, "quality": q, "qty": units, "value": units * price})
 	loan["outstanding"] = maxi(0, owed)

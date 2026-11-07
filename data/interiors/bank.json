@@ -1,0 +1,79 @@
+{
+  "_doc": "The banker's Banco (docs/gdd/04d_otras_clases.md 4.22.5.6, 04g_interiores.md 4.6.5): ground floor with the banking hall (the counter, the banker's desk behind it, the ledgers, the clients' bench) and the stone vault (the strongbox: the storage, where a «contract» makes a loan notarial); upstairs, the home. Edit by hand, then python3 tools/interiors/interiores.py reglas bank && python3 tools/interiors/interiores.py validar bank.",
+  "size": [10, 8],
+  "wall_height": 64,
+  "floor_height": 80,
+  "center_offset": [-32, 0],
+  "seed": 29,
+  "entrance": {"floor": 0, "tile": [0, 5], "side": "nw"},
+  "rooms": [
+    {"id": "hall", "floor": 0, "type": "shop", "rects": [[0, 0, 6, 7], [7, 4, 9, 7]], "floor_kind": "rug", "wall_style": "timber", "light": "warm"},
+    {"id": "vault", "floor": 0, "type": "storage", "rects": [[7, 0, 9, 3]], "floor_kind": "flagstone", "wall_style": "stone", "light": "dim_warm"},
+    {"id": "kitchen", "floor": 1, "type": "kitchen", "rects": [[0, 0, 2, 3]], "floor_kind": "planks", "wall_style": "timber", "light": "kitchen"},
+    {"id": "bedroom", "floor": 1, "type": "bedroom", "rects": [[3, 0, 5, 3]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"}
+  ],
+  "doors": [
+    {"floor": 0, "tile": [7, 2], "side": "nw"},
+    {"floor": 1, "tile": [3, 2], "side": "nw"}
+  ],
+  "levels": [],
+  "stairs": [
+    {"id": "stairs", "floor": 0, "prop": "staircase", "tile": [0, 3], "flip": false, "from": [1, 3], "to_floor": 1, "to": [1, 3]}
+  ],
+  "stations": {
+    "desk": {"floor": 0, "tile": [4, 1], "prop": "banker_desk", "stand": [4, 2]},
+    "storage": {"floor": 0, "tile": [9, 0], "prop": "iron_strongbox", "stand": [8, 0]}
+  },
+  "customers": {},
+  "idle": [
+    {"floor": 1, "tile": [1, 2]},
+    {"floor": 1, "tile": [4, 2]},
+    {"floor": 0, "tile": [2, 4]}
+  ],
+  "props": [
+    {"id": "bank_counter", "floor": 0, "tile": [5, 3], "flip": true},
+    {"id": "ledger_cabinet", "floor": 0, "tile": [1, 0], "flip": true},
+    {"id": "client_bench", "floor": 0, "tile": [4, 6], "flip": true},
+    {"id": "balance_table", "floor": 0, "tile": [6, 0]},
+    {"id": "scroll_basket", "floor": 0, "tile": [3, 0]},
+    {"id": "coin_chest", "floor": 0, "tile": [9, 2]},
+    {"id": "money_bags", "floor": 0, "tile": [7, 0]},
+    {"id": "standing_lantern", "floor": 0, "tile": [0, 7]},
+    {"id": "banner_wall", "floor": 0, "tile": [5, 0], "hang": "ne"},
+    {"id": "kitchen_hearth", "floor": 1, "tile": [0, 1]},
+    {"id": "pantry_shelf", "floor": 1, "tile": [2, 0]},
+    {"id": "bed_double", "floor": 1, "tile": [5, 2], "flip": false},
+    {"id": "chest", "floor": 1, "tile": [3, 3]}
+  ],
+  "rules": [
+    {"rule": "on_top", "room": "hall", "under": ["bank_counter"], "props": ["coin_pile", "ledger_book", "candle"], "max": 2, "chance": 1.0},
+    {"rule": "wall_fill", "room": "vault", "props": ["sack", "crate", "barrel"], "chance": 0.4},
+    {"rule": "wall_fill", "room": "kitchen", "props": ["barrel", "sack", "big_jar"], "chance": 0.5}
+  ],
+  "upgrades": {
+    "upgrade_storage_shelves": [{"id": "iron_strongbox", "floor": 0, "tile": [9, 1]}],
+    "bank_ledgers": [{"id": "scroll_basket", "floor": 0, "tile": [8, 3]}],
+    "bank_vault_door": [{"id": "iron_strongbox", "floor": 0, "tile": [9, 3]}],
+    "bank_clerk_desk": [{"id": "banker_desk", "floor": 0, "tile": [2, 1]}],
+    "bank_branch": [{"id": "client_bench", "floor": 0, "tile": [2, 7], "flip": true}],
+    "bank_exchange": [{"id": "balance_table", "floor": 0, "tile": [6, 6]}],
+    "bank_report": [{"id": "open_book", "floor": 0, "tile": [3, 1]}],
+    "bank_guarantees": [{"id": "money_bags", "floor": 0, "tile": [7, 3]}],
+    "bank_bonds": [{"id": "coin_chest", "floor": 0, "tile": [8, 6]}],
+    "bank_sign": [{"id": "shield_crest", "floor": 0, "tile": [3, 0], "hang": "ne"}],
+    "upgrade_double_ledger": [{"id": "double_ledger", "floor": 0, "tile": [1, 6]}],
+    "upgrade_hidden_passage": [{"id": "hidden_passage", "floor": 0, "tile": [7, 7]}],
+    "upgrade_smuggler_cache": [{"id": "smuggler_cache", "floor": 0, "tile": [9, 6]}],
+    "upgrade_strongbox": [{"id": "strongbox", "floor": 1, "tile": [5, 0]}],
+    "upgrade_bunks": [{"id": "bunk_bed", "floor": 1, "tile": [4, 0], "flip": true}],
+    "upgrade_dining_table": [{"id": "dining_table", "floor": 1, "tile": [1, 1], "flip": false}],
+    "upgrade_master_bench": [{"id": "lectern", "floor": 0, "tile": [6, 7]}]
+  },
+  "resolved": [
+    {"id": "candle", "floor": 0, "tile": [5, 3], "flip": true, "lift": 29, "shift": [18, -9], "rule": "on_top", "over": "bank_counter"},
+    {"id": "candle", "floor": 0, "tile": [5, 3], "flip": true, "lift": 29, "shift": [2, -1], "rule": "on_top", "over": "bank_counter"},
+    {"id": "sack", "floor": 0, "tile": [7, 1], "flip": true, "rule": "wall_fill"},
+    {"id": "barrel", "floor": 1, "tile": [0, 0], "flip": false, "rule": "wall_fill"},
+    {"id": "sack", "floor": 1, "tile": [0, 2], "flip": true, "rule": "wall_fill"}
+  ]
+}

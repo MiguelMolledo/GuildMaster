@@ -90,15 +90,12 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 	_set_kin(s, catalog, hero, int(pr.get("age", 20)), str(start.get("class", "artisan")),
 		str(start.get("profession", "")), c["visual"])
 	s.families[fam]["class"] = str(start.get("class", "artisan"))
+	if str(pr.get("title", "")) != "" and str(pr.get("title", "")) != str(s.families[fam].get("title", "")):
+		s.families[fam]["title"] = str(pr["title"])  # H12.2: the banker starts a Citizen (the title of a Banco)
 	var b: Dictionary = start["building"]
-	var psites := sites
-	if str(b.get("type", "")) != "" and str(b.get("type", "")) != str(sites.get(str(b["site"]), {}).get("type", "")):
-		# H12 (the Rogue): a start may raise another building of the same size on a plot of its map (the thief's den
-		# on the Consulta's plot): the map keeps one site per plot, so its plots and doors do not move
-		psites = sites.duplicate()
-		psites[str(b["site"])] = (sites[str(b["site"])] as Dictionary).duplicate()
-		psites[str(b["site"])]["type"] = str(b["type"])
-	var forge := _add_building(s, catalog, psites, str(b["site"]), fam, b.get("inventory", []))
+	# H12.2 / H12 (one mechanism, the manager's 2026-11-07): a start may raise another type of building on its site
+	# if it fits (the Banco on the forge's plot, the thief's den on the Consulta's): the map does not move
+	var forge := _add_building(s, catalog, sites, str(b["site"]), fam, b.get("inventory", []), str(b.get("type", "")))
 	if b.get("fields") is Dictionary:  # H12 Patrón (04d 4.22.4.6): the farm's fields as the start leaves them
 		var fields := {}
 		for z: String in (b["fields"] as Dictionary):
@@ -453,9 +450,11 @@ static func _set_kin(s: WorldState, catalog: Catalog, chr: String, age: int, cha
 
 
 static func _add_building(s: WorldState, catalog: Catalog, sites: Dictionary, site: String, owner: String,
-		items: Array) -> String:
+		items: Array, type: String = "") -> String:
 	var m: Dictionary = sites[site]
-	var id := make_building(s, catalog, str(m["type"]), m["origin"], m["door"], owner)
+	if type == "":
+		type = str(m["type"])  # H12.2: a start may build another type on its site (the Banco on the forge's plot)
+	var id := make_building(s, catalog, type, m["origin"], m["door"], owner)
 	for it: Dictionary in items:
 		Inventory.add(s.buildings[id]["inventory"], catalog, str(it["item"]), int(it.get("quality", 0)), int(it.get("qty", 0)))
 	return id

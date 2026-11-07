@@ -1,0 +1,31 @@
+{
+  "id": "bank_quality_1",
+  "name_key": "upgrade.bank_quality_1",
+  "tree": "bank",
+  "branch": "quality",
+  "level": 1,
+  "cost": {
+    "gold": 75,
+    "items": [
+      {
+        "item": "iron",
+        "qty": 3
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "bank_exact_risk"
+    }
+  ],
+  "visual": {
+    "interior_node": "bank_report",
+    "exterior_overlay": null
+  }
+}

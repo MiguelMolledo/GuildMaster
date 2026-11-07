@@ -22424,5 +22424,230 @@
   "imagenes": 1,
   "usd": 0.08,
   "que": "fondo farm planta 0 (v1)"
+ },
+ {
+  "fecha": "2026-11-06T12:59:21",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia bank_a (19 s)"
+ },
+ {
+  "fecha": "2026-11-06T12:59:49",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g30_l_bank_a (4 piezas, 12 s)"
+ },
+ {
+  "fecha": "2026-11-06T12:59:49",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g31_s_bank_a (6 piezas, 12 s)"
+ },
+ {
+  "fecha": "2026-11-06T13:00:11",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0034,
+  "que": "image2pixel banker_desk_s10.png"
+ },
+ {
+  "fecha": "2026-11-06T13:00:11",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0033,
+  "que": "image2pixel bank_counter_s5.png"
+ },
+ {
+  "fecha": "2026-11-06T13:00:14",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel coin_chest_s14.png"
+ },
+ {
+  "fecha": "2026-11-06T13:00:15",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel ledger_cabinet_s4.png"
+ },
+ {
+  "fecha": "2026-11-06T13:00:17",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel iron_strongbox_s10.png"
+ },
+ {
+  "fecha": "2026-11-06T13:00:18",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel vault_door_wall_s4.png"
+ },
+ {
+  "fecha": "2026-11-06T13:00:19",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel balance_table_s11.png"
+ },
+ {
+  "fecha": "2026-11-06T13:00:21",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel client_bench_s4.png"
+ },
+ {
+  "fecha": "2026-11-06T13:00:22",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel scroll_basket_s11.png"
+ },
+ {
+  "fecha": "2026-11-06T13:00:25",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel money_bags_s12.png"
+ },
+ {
+  "fecha": "2026-11-06T13:01:56",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo bank planta 0 (v1)"
+ },
+ {
+  "fecha": "2026-11-06T13:02:11",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo bank planta 1 (v1)"
+ },
+ {
+  "fecha": "2026-11-06T13:02:38",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo bank planta 0 (v2)"
+ },
+ {
+  "fecha": "2026-11-06T13:03:33",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "bank"
+ },
+ {
+  "fecha": "2026-11-06T13:03:49",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0021,
+  "que": "image2pixel bank_s4.png"
+ },
+ {
+  "fecha": "2026-11-06T13:04:13",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "bank_construction"
+ },
+ {
+  "fecha": "2026-11-06T13:04:18",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel bank_construction_s4.png"
+ },
+ {
+  "fecha": "2026-11-06T13:04:35",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "bank_damaged"
+ },
+ {
+  "fecha": "2026-11-06T13:04:40",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel bank_damaged_s4.png"
+ },
+ {
+  "fecha": "2026-11-06T13:09:16",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "e2"
+ },
+ {
+  "fecha": "2026-11-06T13:09:41",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0038,
+  "que": "image2pixel e2_ledger_book_tool_s16.png"
+ },
+ {
+  "fecha": "2026-11-06T13:09:44",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel e2_bank_s16.png"
  }
 ]

@@ -1,0 +1,34 @@
+{
+  "id": "bank_capacity_2",
+  "name_key": "upgrade.bank_capacity_2",
+  "tree": "bank",
+  "branch": "capacity",
+  "level": 2,
+  "cost": {
+    "gold": 120,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 8
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "bank_capacity_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "extra_storage",
+      "amount": 6
+    }
+  ],
+  "visual": {
+    "interior_node": "bank_ledgers",
+    "exterior_overlay": null
+  }
+}

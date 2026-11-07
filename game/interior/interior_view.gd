@@ -124,6 +124,11 @@ func upgrade_panel() -> UpgradePanel:
 
 
 ## Posada (04f §4.27): the Taberna-Posada's panel (Clientela, Carta, Habitaciones, Turno) and its room layer.
+## H12.2: the Banco's panel (04d 4.22.5.7).
+func bank_panel() -> BankPanel:
+	return get_node("%BankPanel")
+
+
 func inn_panel() -> InnPanel:
 	return get_node("%InnPanel")
 
@@ -142,6 +147,9 @@ func _bind() -> void:
 	(%UpgradesButton as Button).toggled.connect(func(on: bool) -> void: show_upgrades(on))
 	(%InnButton as Button).toggled.connect(func(on: bool) -> void: show_inn(on))
 	ManageSlot.join(inn_panel())
+	(%BankButton as Button).toggled.connect(func(on: bool) -> void: show_bank(on))
+	ManageSlot.join(bank_panel())
+	bank_panel().closed.connect(func() -> void: (%BankButton as Button).set_pressed_no_signal(false))
 	inn_panel().closed.connect(func() -> void: (%InnButton as Button).set_pressed_no_signal(false))
 	(%ExitButton as Button).pressed.connect(request_exit)
 	production_panel().panel_requested.connect(func(p: String) -> void:
@@ -230,6 +238,7 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	for n: String in ["StorageButton", "ProductionButton", "StaffButton", "UpgradesButton"]:
 		(get_node("%" + n) as Button).set_pressed_no_signal(false)
 	_setup_inn(s, bld, who)
+	_setup_bank(s, bld, who)
 	sync()
 	ViewConfig.info("Interior", "setup (building=%s, manage=%s, size=%s, door=%s, stations=%d, selected=%s)" % [bld,
 		manage_mode, size_tiles, door_tile, _stations.size(), who])
@@ -262,6 +271,27 @@ func _setup_inn(s: Sim, bld: String, who: String) -> void:
 		var sv := station_view("bar")
 		if sv != null and text != "":
 			sv.flash(text))
+
+
+## H12.2: a Banco gets its panel (BankPanel, the button «Banco»); any other building hides them.
+func _setup_bank(s: Sim, bld: String, who: String) -> void:
+	var is_bank := str(s.state.buildings.get(bld, {}).get("type", "")) == "bank"
+	(%BankButton as Button).visible = is_bank
+	(%BankButton as Button).set_pressed_no_signal(false)
+	(%BankButton as Button).text = SimQuery.t_("ui.interior.bank")
+	(%BankButton as Button).tooltip_text = SimQuery.t_("ui.interior.bank_tip")
+	bank_panel().order_sink = _give
+	bank_panel().close()
+	if is_bank:
+		bank_panel().setup(s, bld, who)
+
+
+func show_bank(on: bool) -> void:
+	(%BankButton as Button).set_pressed_no_signal(on)
+	if on:
+		bank_panel().open()
+	else:
+		bank_panel().close()
 
 
 ## The Taberna-Posada's panel (posada, 04f §4.27).

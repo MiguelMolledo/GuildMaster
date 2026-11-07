@@ -3,6 +3,7 @@
   "scenes": {
     "buildings/armory": {"footprint": [3, 4], "door": {"side": "SW", "tile": [1, 4], "px": [-8, 0]}, "mirror": true, "back": "armory_back", "front": ""},
     "buildings/armory_back": {"footprint": [3, 4], "door": {"side": "NE", "tile": [1, -1], "px": [8, 0]}, "mirror": true, "back": "", "front": "armory"},
+    "buildings/bank": {"footprint": [3, 4], "door": {"side": "SW", "tile": [1, 4], "px": [-40, 12]}, "mirror": true, "back": "", "front": ""},
     "buildings/carpentry": {"footprint": [3, 4], "door": {"side": "SW", "tile": [1, 4], "px": [-40, 12]}, "mirror": true, "back": "carpentry_back", "front": ""},
     "buildings/carpentry_back": {"footprint": [3, 4], "door": {"side": "NE", "tile": [1, -1], "px": [40, -12]}, "mirror": true, "back": "", "front": "carpentry"},
     "buildings/clinic": {"footprint": [3, 3], "door": {"side": "SE", "tile": [3, 1], "px": [39, 6]}, "mirror": true, "back": "", "front": ""},

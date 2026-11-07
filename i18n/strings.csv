@@ -4207,6 +4207,91 @@ spectacle.arm_wrestling,Arm wrestling,Pulso
 reason.already_played,Already played,Ya la has jugado
 reason.already_bet,Already bet,Ya has apostado
 ui.order.festival_give_gift,Give a Christmas gift,Hacer un regalo de Navidad
+building.bank,Bank,Banco
+profession.banker,Banker,Banquero
+start.scholar_banker,Scholar · banker,Erudito · banquero
+item.ledger_book_tool,Bound ledger,Libro mayor
+ui.zone.desk,Desk,Mesa del banquero
+lender.bank,The Bank,El Banco
+ledger.cat.bank_lent,Capital lent,Capital prestado
+ledger.cat.interest,Interest,Intereses
+ledger.cat.bank_losses,Losses on loans,Pérdidas de préstamos
+objective.grant_loan,"Grant your first loan to a household (Bank, Applications)","Concede tu primer préstamo a una familia del pueblo (Banco, Solicitudes)"
+objective.collect_installment,Collect three installments,Cobra tres cuotas
+objective.reject_bad,Turn down a risky application (bad solvency),Rechaza una solicitud de mala solvencia
+objective.claim_collateral_obj,Claim the collateral of a loan in default,Reclama la garantía de un préstamo en impago
+notice.bank_default,"{family} did not pay their installment: {amount} owed (Bank, Portfolio)","{family} no ha pagado su cuota: deben {amount} (Banco, Cartera)"
+notice.bank_late_paid,{family} paid late: {amount} with the surcharge,{family} paga tarde: {amount} con el recargo
+notice.bank_loan_granted,The Bank lends you {amount}: you owe {owed} in {installments} installments over {days} days,El Banco te presta {amount}: debes {owed} en {installments} cuotas en {days} días
+notice.bank_rejected,The Bank turned down your application of {amount},El Banco ha rechazado tu solicitud de {amount}
+reason.unknown_application,That application is gone,Esa solicitud ya no está
+reason.bad_interest,The interest must be above 0,El interés tiene que ser mayor que 0
+reason.too_expensive,More interest than they accept,Más interés del que aceptan
+reason.family_debt,A family's loan follows the debt rules: no collateral to claim,El préstamo de una familia sigue las reglas de las deudas: no hay garantía que reclamar
+reason.not_defaulted,The loan is not in default,El préstamo no está en impago
+reason.too_soon,Too soon: wait a day of default,Demasiado pronto: espera un día de impago
+reason.own_bank,You cannot ask your own Bank,No puedes pedir a tu propio Banco
+ui.order.grant_loan,Grant a loan,Conceder un préstamo
+ui.order.reject_application,Turn down an application,Rechazar una solicitud
+ui.order.claim_collateral,Claim a collateral,Reclamar una garantía
+upgrade.bank_capacity_1,Larger vault,Cámara ampliada
+upgrade.bank_capacity_2,Ledger room,Sala de libros
+upgrade.bank_capacity_3,Vault door,Puerta de la cámara
+upgrade.bank_commerce_1,Bank sign,Rótulo del Banco
+upgrade.bank_commerce_2,Waiting bench,Banco de espera
+upgrade.bank_commerce_3,Renowned house,Casa de renombre
+upgrade.bank_facade_1,Stone facade,Fachada de piedra
+upgrade.bank_facade_2,Garden,Jardín
+upgrade.bank_facade_3,Noble facade,Fachada noble
+upgrade.bank_production_1,Clerk,Contable
+upgrade.bank_production_2,Branch office,Sucursal
+upgrade.bank_production_3,Money-changer's house,Casa de cambio
+upgrade.bank_quality_1,Solvency report,Informe de solvencia
+upgrade.bank_quality_2,Guarantees,Avales
+upgrade.bank_quality_3,Bonds,Fianzas
+upgrade.bank_secrets_1,Double bookkeeping,Doble contabilidad
+upgrade.bank_secrets_2,Hidden passage,Pasadizo oculto
+upgrade.bank_secrets_3,Smuggling,Contrabando
+upgrade.bank_security_1,Reinforced lock,Cerradura reforzada
+upgrade.bank_security_2,Hired guard,Guardia contratado
+upgrade.bank_security_3,Strongbox,Caja fuerte
+upgrade.bank_staff_1,Clerk's room,Cuarto del escribiente
+upgrade.bank_staff_2,Dining room,Comedor
+upgrade.bank_staff_3,Master's office,Despacho de maestro
+effect.bank_applications,Loan applications ×{mult},Solicitudes de préstamo ×{mult}
+effect.bank_extra_applications,+{amount} application a day,+{amount} solicitud al día
+effect.bank_amount,Larger loans ×{mult},Préstamos mayores ×{mult}
+effect.bank_exact_risk,See the exact chance of default,Ves la probabilidad exacta de impago
+effect.bank_recovery,Recovery of a default +{amount},Recuperación de un impago +{amount}
+effect.bank_default,Defaults ×{mult},Impagos ×{mult}
+ui.interior.bank,Bank,Banco
+ui.interior.bank_tip,"Applications, portfolio and defaults of the Bank","Solicitudes, cartera e impagos del Banco"
+ui.bank.tab.applications,Applications,Solicitudes
+ui.bank.tab.portfolio,Portfolio,Cartera
+ui.bank.tab.defaults,Defaults,Impagos
+ui.bank.hint.applications,Lend at most what they accept; a «contract» in the vault makes the loan notarial (60 % back if they default).,Presta como mucho lo que aceptan; un «contrato» en la cámara hace el préstamo notarial (recuperas el 60 % si no pagan).
+ui.bank.hint.portfolio,The households pay every 2 days; a family's loan follows the debt rules.,Las familias del pueblo pagan cada 2 días; el préstamo de una familia jugadora sigue las reglas de las deudas.
+ui.bank.hint.defaults,"Claim the collateral a day after the default, or wait: each day 20 % that they pay with a surcharge.","Reclama la garantía un día después del impago, o espera: cada día, un 20 % de que paguen con recargo."
+ui.bank.figures,Gold %d · lent %d · interest %d · losses %d,Oro %d · prestado %d · intereses %d · pérdidas %d
+ui.bank.the_family,The %s,Los %s
+ui.bank.a_family,a family,familia
+ui.bank.asks,%s ask for %d over %d days,%s piden %d a %d días
+ui.bank.risk_line,%s · they accept up to %d %% a year,%s · aceptan hasta el %d %% anual
+ui.bank.risk.A,Good solvency,Buena solvencia
+ui.bank.risk.B,Fair,Regular
+ui.bank.risk.C,Poor,Mala
+ui.bank.interest,%d %% a year: they owe %d,%d %% anual: deben %d
+ui.bank.grant,Grant,Conceder
+ui.bank.reject,Turn down,Rechazar
+ui.bank.no_applications,No application waits: they come at dawn.,No espera ninguna solicitud: llegan al amanecer.
+ui.bank.loan_line,%s · %d at %d %% · owe %d,%s · %d al %d %% · deben %d
+ui.bank.next,Next installment %d before %s,Próxima cuota %d antes de %s
+ui.bank.notarized,notarial,notarial
+ui.bank.extended,in its extension,en prórroga
+ui.bank.no_loans,No loan running.,Ningún préstamo en curso.
+ui.bank.default_line,%s do not pay: %d owed since %s,%s no pagan: deben %d desde %s
+ui.bank.claim,Claim the collateral: %d back,Reclamar la garantía: recuperas %d
+ui.bank.no_defaults,Nobody owes you in default.,Nadie te debe en impago.
 ui.plots.location_is,%s situation,Situación %s
 ui.npc.buy_ware,Buy %s (%d),Comprar %s (%d)
 ui.npc.buy_ware_tip,The peddler has %d left today,Al buhonero le quedan %d hoy

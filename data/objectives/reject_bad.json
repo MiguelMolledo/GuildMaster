@@ -1,0 +1,13 @@
+{
+  "id": "reject_bad",
+  "name_key": "objective.reject_bad",
+  "conditions": [
+    {
+      "event": "application_rejected",
+      "match": {
+        "risk": "C"
+      },
+      "count": 1
+    }
+  ]
+}

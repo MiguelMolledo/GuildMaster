@@ -597,6 +597,12 @@ Loan {
 Cuenta de referencia: 800 de capital prestado a 25 % anual medio con 7 % de impago y 50 % de recuperación rinden
 ~19 %/año ≈ 19 oro/día. **La banca es tardía** (4.2.1): rinde con capital, no con trabajo.
 
+**Hecho en H12.2 (2026-11-06)** y lo que precisa (`docs/decisiones.json`): inicio `scholar_banker` (Ciudadano, **3.000 de
+capital** [balance], la deuda de la dificultad) con el Banco **3×4 en el solar de la forja** (4×5 no cabe en `town_e`);
+3 solicitudes al día de 250-700 a 4/8/12 días (una por hogar) [balance]; lo recuperado de un impago cubre primero el
+capital; libro con `bank_lent` (capital, fuera del neto), `interest` y `bank_losses`. Bot `banker_novice` en la banda de
+inicio 25-60 sin contar el capital prestado.
+
 #### 4.22.5.7 Interfaz
 
 | Qué | Dónde | Estado |
