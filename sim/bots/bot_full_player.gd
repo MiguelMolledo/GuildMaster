@@ -59,6 +59,10 @@ var _calls: Dictionary = {}           # festival matches it was called to and pl
 var goals: int = 1                    # trials (BOT_VARS=goals=0): 0 = never leaves the business for a goal
 var quota_caravans: int = 1          # equilibrio (BOT_VARS=quota_caravans=0): 0 = signs and breaks the quota, as before
 var builds: int = 1                   # H6 (BOT_VARS=builds=0): 0 = never opens a second workshop on a plot, as before
+var facades: int = 1                  # Barón (BOT_VARS=facades=0): 0 = never buys the facades (+10/+20/+30 reputation)
+var bonuses_all: int = 1              # Barón (BOT_VARS=bonuses_all=0): 0 = bonuses only at the forge, as before
+const FACADES: Array = ["forge_facade_1", "forge_facade_2", "forge_facade_3"]
+const FACADE_SPARE: int = 300         # gold kept on top of the reserve and the facade's price
 var branch: BotBranch = BotBranch.new()  # H6: the second workshop (a forge on a free plot) when it pays
 var titles_early: int = 1             # Equilibrio 3 (BOT_VARS=titles_early=0): 0 = asks Citizen after the plan, as before
 var focus: String = "business"        # what the head's body does: business | court | duel | travel
@@ -867,7 +871,45 @@ func _next_upgrade(sim: Sim) -> String:
 		return ""
 	if why_not.get("upgrades", "") == "not_unlocked":
 		why_not.erase("upgrades")
-	return super._next_upgrade(sim)
+	var id := super._next_upgrade(sim)
+	if id != "" or facades != 1 or not _plan_done(sim):
+		return id
+	if Upgrades.under_works(sim.state, FORGE) or _now(sim) < _works_end + WORKS_GAP_DAYS * Clock.MINUTES_PER_DAY:
+		return ""
+	# Barón (the manager's decision, 2026-11-07): with the plan done and gold to spare, the facades (reputation)
+	for f: String in FACADES:
+		var s := Upgrades.status_of(sim, ACTOR, FORGE, f)
+		if s == "owned":
+			continue
+		if s in ["available", "missing_materials", "not_enough_gold"] \
+				and Money.gold(sim.state, _fam_id) >= _reserve(sim) + _upgrade_gold(sim, f) + FACADE_SPARE:
+			return f
+		return ""
+	return ""
+
+
+## Barón (the manager's decision, 2026-11-07): the bonus keeps every employee of the family loyal (>= LOYAL), the
+## tavern's and the second workshop's too (their rumours cost reputation, data/employees.json bands); the forge's
+## first, as before.
+func _bonus(sim: Sim) -> Dictionary:
+	var o := super._bonus(sim)
+	if not o.is_empty() or bonuses_all != 1:
+		return o
+	var st := sim.state
+	var ids: Array = st.buildings.keys()
+	ids.sort()
+	for b: String in ids:
+		if b == FORGE or str(st.buildings[b].get("owner", "")) != _fam_id:
+			continue
+		for e: Dictionary in Staff.employees(sim, b):
+			var c := str(e["character"])
+			if not bool(e["active"]) or int(e["loyalty"]) >= LOYAL or int(_bonus_day.get(c, -1)) == _today(sim):
+				continue
+			if Money.gold(st, _fam_id) < RESERVE + int(sim.catalog.employees.get("bonus_gold", 5)):
+				return {}
+			_bonus_day[c] = _today(sim)
+			return {"type": "bonus", "actor": ACTOR, "employee": c}
+	return {}
 
 
 ## The next decision of the head's live cycle, played well (as BotPacing): the recipe's colour, its template (with the
