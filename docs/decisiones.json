@@ -1561,6 +1561,12 @@
       "tema": "Jugador completo · la ruina de una familia IA acaba la partida del jugador · resuelto",
       "decision": "Resuelto en main (tomada «La ruina de una familia IA no acaba la partida (construido)»): state.ending solo con la ruina de una familia humana.",
       "por_que": "Medido por quien lo construyó con full_player, 5 años × 4 semillas: fin de partida por la ruina de una IA de 3/4 a 0/4. El informe de full_player lo vigila con ended_by_ai."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "Desbloqueo del heredero: con el primogénito a los 16 o al nombrar heredero (construido)",
+      "decision": "Opción (b), decidida por el manager por delegación del owner. El desbloqueo «heir» de data/unlocks.json llega con lo primero de: el hijo vivo mayor del cabeza cumple 16 (disparador nuevo child_age {min} en sim/pacing/unlocks.gd), el jugador nombra heredero (evento heir_designated) o, si el cabeza muere antes, la herencia (evento inheritance, el disparador de antes). La ventana [150, 250] no cambia. Texto unlock.heir.desc y fila «Generación 2» de 03b al día. Pruebas: tests/test_unlock_heir.gd (nombrar, cumpleaños, herencia y una gemela de test_the_memo_changes_nothing en el cumpleaños).",
+      "por_que": "Que se aprenda a preparar la herencia antes de la muerte y no después (03b, «Generación 2»). Medido: full_player --generation, semilla 1, sobre d723ea72: antes «heir» el día 376 (tarde, la muerte del fundador); ahora el día 26 (temprano: el bot nombra heredero en cuanto nace el primogénito, el día 27 del informe); refused_orders 0, engine_errors 0, las demás dianas igual. Sin el nombramiento del bot llegaría con el primogénito a los 16, el día ~155, dentro de la ventana. Ritmo (pacing, 5 semillas × 8 días): 0 fallos. reports/full_player_ref/full_player_heir_b.json."
     }
   ],
   "pendientes": [
@@ -1673,9 +1679,9 @@
       "opciones": "Propuesta: (1) full_player title_patrician_day [1, 40] por semilla con _needs_days 40 (solo lo juzgan la generación y las partidas de 5 años); (2) full_player rep_y5 (reputación al final del año 5) [250, —] con _needs_days 40; (3) Barón sin banda hasta (d), el segundo taller que compense. Ninguna se mueve sin el visto bueno."
     },
     {
-      "tema": "Jugador completo · el desbloqueo del heredero llega fuera de su ventana",
-      "detalle": "full_player --generation, semilla 1, sobre 1314e214 (main 541c6dcc): el fundador muere a los 67 años el día 377 y el desbloqueo «heir» de data/unlocks.json llega el día índice 376, con la ventana [150, 250] (03b: «Generación 2 · ~17 h»). El fundador empieza con 20 años y la muerte llega entre los 55 y los 75 (data/family.json death), es decir, entre los días ~280 y ~440: la ventana supone una muerte antes de lo que da la regla. Es la única diana que falla en la generación (unlocks_off = 1); refused_orders 0. reports/full_player_ref/full_player_gen_fix.json.",
-      "opciones": "(a) ventana del heredero [270, 450] (la de la regla de muerte) · (b) que el desbloqueo llegue antes, por la edad del primogénito (16) o al designar heredero · (c) dejar fuera de unlocks_off los desbloqueos de generación"
+      "tema": "Jugador completo · el bot nombra heredero al nacer el primogénito y el desbloqueo «heir» llega antes de su ventana",
+      "detalle": "Con la decisión (b), full_player --generation, semilla 1: el bot nombra heredero el día 27, en cuanto nace el primer hijo (sim/bots/bot_full_player.gd, la familia), y «heir» se abre el día 26 (índice), con la ventana [150, 250]: unlocks_off = 1 (verdict early). El fundador no puede morir antes de los 55 (día ~280), así que nombrar a un recién nacido no le protege de nada. Sin ese nombramiento, child_age lo abre el día ~155 (dentro).",
+      "opciones": "(a) el bot nombra heredero cuando hay a quién elegir: el primogénito cumple 16, o el fundador entra en la edad de morir (55), lo primero · (b) la ventana del heredero empieza con el primer hijo: [20, 250] · (c) dejarlo: un jugador real también puede nombrarlo al nacer"
     }
   ],
   "proximos_pasos": [

@@ -2831,7 +2831,7 @@ unlock.court.desc,The court: as a Citizen you can take a public fact against ano
 unlock.masterwork,the masterwork,la obra maestra
 unlock.masterwork.desc,"Three decisions right at the forge. With Craft 7 or more, a piece forged well may come out a masterwork, with its name in the chronicle.","Tres decisiones bien en la forja. Con Artesanía 7 o más, una pieza bien forjada puede salir obra maestra, con su nombre en la crónica."
 unlock.heir,the heir,el heredero
-unlock.heir.desc,"The new head forges with their own Craft, learned with you.","El nuevo cabeza forja con su propia Artesanía, aprendida contigo."
+unlock.heir.desc,"Your eldest is grown, or you named an heir: prepare the inheritance. Whoever follows you forges with their own Craft, learned with you.","Tu primogénito ya es mayor o has nombrado heredero: prepara la herencia. Quien te siga forja con su propia Artesanía, aprendida contigo."
 objective.hire_apprentice,Hire an apprentice and give them a queue,Contrata a un aprendiz y ponle una cola
 objective.outsell_rival,Outsell the rival smith one day,Gana al rival en ventas un día
 objective.first_upgrade,Make your first upgrade,Haz tu primera mejora

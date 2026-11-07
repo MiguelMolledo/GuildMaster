@@ -126,7 +126,7 @@ Recordatorio: 1 año = 8 días = 40 min reales.
 | Año 3 · 2 h | **Cargos** (concejal), **tratados** (con Patricio), **torneo** | título | «Gana una elección», «Firma un tratado» |
 | Año 2-5 · desde Ciudadano | **Tribunal**: acusar con un hecho público (una falta vista de otra familia, 4.12.5.1), y los **secuestros** | Ciudadano y una falta vista de otra familia, o un juicio contra ti | «Lleva a juicio al rival» |
 | Cuando salga (años 3-5 jugando bien) | **Obra maestra** con nombre | la primera obra maestra (Artesanía ≥ 7, las tres decisiones bien y 30 piezas perfectas de esa receta) | «Forja una obra maestra» |
-| Generación 2 · ~17 h | **Heredero**: el hijo forja con su propia Artesanía (aprendida contigo) | muerte o retiro | metas de dinastía (4.17) |
+| Generación 2 · ~17 h | **Heredero**: el hijo forja con su propia Artesanía (aprendida contigo); se aprende a preparar la herencia antes de la muerte | el primogénito cumple 16 o nombras heredero, lo que pase antes (si el cabeza muere antes, la herencia) | metas de dinastía (4.17) |
 
 **Cómo se ve el desbloqueo:** una carta del kit de página («Nuevo: la feria»), una marca en el HUD en el botón o
 panel nuevo, el capítulo del tutorial (si están activadas las pistas) y una meta en la zona de objetivos.

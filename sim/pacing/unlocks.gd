@@ -243,6 +243,8 @@ static func _holds(sim: Sim, fam: String, id: String, t: Dictionary, leaf: Array
 		"age":
 			var head := str(st.families.get(fam, {}).get("head", ""))
 			return st.characters.has(head) and Kin.age(sim, head) >= int(t.get("min", 0))
+		"child_age":
+			return _eldest_child_age(sim, fam) >= int(t.get("min", 0))
 		"event":
 			var i: int = leaf[0]
 			leaf[0] = i + 1
@@ -287,6 +289,18 @@ static func _count_event(sim: Sim, fam: String, id: String, i: int, t: Dictionar
 			continue
 		c[i] = int(c[i]) + 1
 	return int(c[i]) >= int(t.get("count", 1))
+
+
+## The age of the head's eldest living child (-1 without one). It only moves at a day change (ages are whole days)
+## or with another head, both in the signature: no memo leaf of its own.
+static func _eldest_child_age(sim: Sim, fam: String) -> int:
+	var st := sim.state
+	var head := str(st.families.get(fam, {}).get("head", ""))
+	var best := -1
+	for c: Variant in st.characters.get(head, {}).get("children", []):
+		if Kin.alive(st, str(c)):
+			best = maxi(best, Kin.age(sim, str(c)))
+	return best
 
 
 ## Units sold at the market today by each family; at the day change, a human family that sold more than the rival
