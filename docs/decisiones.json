@@ -1465,6 +1465,12 @@
       "tema": "Jugador completo · el mostrador con un solo empleado no compensa (resuelto)",
       "decision": "Resuelto: counter_shop (equilibrio, cdca6e52) vende 5,0-6,6 veces el salario con un empleado en el mostrador, y desde a1ca9062 (posada, 4.7.4) un empleado en rol «cualquiera» despacha si no hay nadie en «counter», así que con un único empleado el mostrador vende.",
       "por_que": "Medido; ya no hay nada que decidir."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "Mostrador (4.7.4): un «cualquiera» despacha si no hay nadie en «counter»",
+      "decision": "Counter.server_of: el ocupante del puesto del mostrador, si no un empleado activo dentro en rol «counter», y si no un empleado activo dentro en rol «cualquiera», que deja su pieza en pausa mientras despacha (el final de su ciclo se retrasa serve_minutes, Counter.pause_for) y vuelve a ella. Con un único empleado el mostrador vende. Medido antes y después (novice, expert, cast, carpenter, mason, tailor, scholar, counter_shop, full_player): idénticos; ninguna banda se mueve.",
+      "por_que": "Decisión del manager por delegación del owner: se arregla la regla, no el texto (GDD 4.7.4 ya lo decía). Lo destapó el segundo taller de full_player (H6): con un solo empleado forjando, 131 clientes se fueron sin comprar."
     }
   ],
   "pendientes": [
@@ -1565,6 +1571,11 @@
       "tema": "Diversión y ritmo (03b §3b.7, O-D1–O-D5)",
       "detalle": "Se construye con las recomendaciones: Forja viva de 3 decisiones con Resolver sin jugar; desbloqueos por hito y calendario con carta; Saltar hasta…; obras maestras con nombre; encargos con especificaciones.",
       "opciones": "Ver 03b §3b.7."
+    },
+    {
+      "tema": "Jugador completo · la reputación frena a Patricio y a Barón a 5 años (palancas propuestas)",
+      "detalle": "Medido (full_player, 5 años, semillas 1-3, sin segundo taller; reputación sumada por motivo y año del registro): fin del año 3 ≈ 120 (21-28 el año 1, 51-71 el año 2, 22-37 el año 3) y fin del año 5 97 / 75 / 141; Patricio pide 200 y Barón 500. 03b no fija día para Barón (la decisión Equilibrio 4: alcanzable en una generación); 03b sí pone los tratados «con Patricio» en el año 3, así que a Patricio le faltan unos 80 al final del año 3. Fuentes que suman: patrocinio de fiestas 8-18/año, encargos 8-14, duelo ganado 10, pasiva por negocio con empleados 7-9, ventas (justa y de calidad, tope 1/día cada una) 11-16, cargo 5. Lo que resta: rumores de empleados poco leales (lealtad 40-69) −20 a −32/año en los años 4-5. Y en las semillas 1 y 2 el bot se atasca desde el día ~25 (el cabeza parado por cola vacía 378 h en la semilla 1): sin encargos ni ventas, los años 4-5 dan −8 a −23. El bot no compra la Fachada (+10, +20, +30 = +60 por 375 de oro), que no está en su plan de mejoras aunque le sobra oro.",
+      "opciones": "Palancas, de más barata a más cara, con lo que se espera: (a) en el bot: las tres fachadas en su plan cuando le sobre el oro (+60 una vez, años 3-4); (b) en el bot: el atasco del día 25 (cola vacía) y las primas a empleados para mantener la lealtad ≥ 70 (quita −20 a −32/año y recupera las fuentes de los años 4-5, ~+30/año); (c) regla: la pasiva por negocio con empleados también para la taberna (+8/año; hoy solo talleres); (d) H6: un segundo taller que compense suma su pasiva (+8/año). Estimación con (a) + (b): reputación del año 5 de 97 / 75 / 141 a ~210 / ~190 / ~250 (Patricio en el año 4-5); Barón (500) sigue para la segunda mitad de la generación. Se mide con full_player a 5 años y una generación antes de mover ninguna banda."
     }
   ],
   "proximos_pasos": [
