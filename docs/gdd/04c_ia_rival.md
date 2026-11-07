@@ -286,6 +286,12 @@ vuelve a montar taller (`Construction`, after_sale «rebuilds»); al terminar la
 de todo esto, el crédito de la economía (`ai_credit`, plantillas); la ruina de una familia IA no acaba la partida
 (forja: `Loans._seize`, `Emergency.ruin`). Aviso al jugador del cartel y de la caída, y a la crónica.
 
+**Contrato con la economía de la IA** (decisión del manager, 2026-11-07): `families[f].ai_state.bankruptcy.stage` es
+`""` (normal), `"austerity"` o `"for_sale"`, y solo lo escribe `Bankruptcy`. Mientras no sea `""`, la economía
+(`sim/ai/economy.gd`, plantillas) **no contrata**; la quiebra no mira las contrataciones. La prueba
+(`tests/pending/test_h6_contrato_quiebra.gd`: el mismo estado contrata con la etapa vacía y no en austeridad ni con el
+cartel) pasa a `tests/` cuando la parte de plantillas esté en main.
+
 #### 4.21.6.4 Familia (H8)
 
 | Candidata | Regla |
