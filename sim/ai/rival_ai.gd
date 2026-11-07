@@ -569,6 +569,8 @@ static func _t_buy(sim: Sim, fam: String, actor: String, home: String, profile: 
 static func buy_needs(sim: Sim, fam: String, actor: String, home: String, profile: Dictionary,
 		ai: Dictionary) -> Dictionary:
 	var need := {}
+	if AIEconomy.on(sim) and str(sim.state.buildings.get(home, {}).get("state", "normal")) != "normal":
+		return need  # H13: a damaged workshop cannot work: its gold goes to the repair, not to inputs
 	if bool(ai.get("recovering", false)):  # 4.25.4: just one cycle of the cheapest sellable piece
 		var cheap := str(ai.get("recipe", ""))
 		if cheap != "":

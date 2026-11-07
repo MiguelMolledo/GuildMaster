@@ -1,0 +1,15 @@
+{
+  "id": "zoom_rotulos",
+  "title": "Rótulos con zoom",
+  "about": "La plaza al atardecer (corrillos, frases, burbujas) a ×1 y a ×2: los carteles, los nombres, las frases y las burbujas guardan su tamaño en pantalla y no se amontonan; las frases largas van en dos líneas.",
+  "start": {"scenario": "plaza_dusk"},
+  "covers": [],
+  "steps": [
+    {"id": "plaza_x1", "say": "La plaza a ×1", "wait": 1.0},
+    {"id": "x2", "say": "x2: la rueda acerca", "wheel": {"up": true, "times": 1}, "expect": ["q.zoom() == 2"]},
+    {"id": "plaza_x2", "say": "A ×2: los rótulos del mismo tamaño en pantalla", "wait": 1.0},
+    {"id": "corrillos", "say": "Corrillos: frases y burbujas", "key": "@speed_3", "until": "q.hour() >= 19", "timeout": 20, "fast": 4},
+    {"id": "corrillos_x2", "wait": 1.0},
+    {"id": "x1", "say": "La rueda aleja: ×1", "wheel": {"up": false, "times": 1}, "expect": ["q.zoom() == 1"]}
+  ]
+}

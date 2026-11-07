@@ -4291,6 +4291,14 @@ ui.field.plowed_wait,Plowed · it is not the season to sow wheat (spring and sum
 ui.field.rotten,Rotten: plow it to sow again,Podrido: áralo para volver a sembrar
 ui.field.fallow,Fallow: plow it before sowing,En barbecho: hay que ararlo antes de sembrar
 ui.new_game.difficulty_hint_farm,Debt %d gold · harvest %d %% · market prices %d %%,Deuda %d de oro · cosecha %d %% · precios del mercado %d %%
+ui.npc.sell_merchant,Sell %s (%d),Vender %s (%d)
+ui.npc.sell_merchant_tip,"His city pays it dear: he buys it here, for less than there","Su ciudad lo paga caro: te lo compra aquí, por menos que allí"
+ui.npc.buy_merchant_tip,"Cheap in his city; he has %d left","Barato en su ciudad; le quedan %d"
+ui.order.sell_to_merchant,Sell to the merchant,Vender al mercader
+ui.order.buy_from_merchant,Buy from the merchant,Comprar al mercader
+reason.not_wanted,He does not buy that,Eso no lo compra
+reason.merchant_full,He has bought enough of it,Ya ha comprado bastante de eso
+reason.merchant_purse,His purse is empty,No le queda oro
 notice.misdeed_seen,"The {family} were seen at it: {what}. A public fact the court can try.","A los {family} los han visto: {what}. Es un hecho público que se puede llevar al tribunal."
 misdeed.false_weights,false weights at the market,pesos falsos en el mercado
 misdeed.unpaid_supplier,a supplier left unpaid,un proveedor sin pagar

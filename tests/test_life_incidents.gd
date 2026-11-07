@@ -163,3 +163,35 @@ func test_off_no_incidents() -> void:
 	for i: int in 180:
 		for e: Dictionary in sim.step():
 			check(not str(e.get("type", "")).begins_with("incident"), "no incidents with the life off")
+
+
+## verifica #20 (owner's decision): a brawl of others is a plain notice, urgent only when it touches the family; its
+## card times out (the default comes) and the card that waited for room in the stack goes with it.
+func test_a_brawl_of_others_is_a_plain_notice() -> void:
+	var sim := _sim("life_altercation")
+	var e := _until(sim, "incident_card", 30, "altercation")
+	check(not e.is_empty(), "the brawl's card")
+	var inc := Incidents.find(sim.state, str(e["incident"]))
+	check(not Incidents.touches_family(sim, inc, FAM), "nobody of the family fights")
+	eq(str(e.get("severity", "")), Notices.WARNING, "a plain notice, not urgent")
+	var n: Dictionary = sim.state.notices[sim.state.notices.size() - 1]
+	eq(str(n["key"]), "notice.life.altercation", "the notice is the brawl's")
+	eq(str(n["severity"]), Notices.WARNING, "in the book as a plain notice")
+	var fighter := str((inc["people"] as Array)[0])
+	var was := str(sim.state.characters[fighter].get("family", ""))
+	sim.state.characters[fighter]["family"] = FAM
+	check(Incidents.touches_family(sim, inc, FAM), "one of ours fights: it touches the family (urgent)")
+	sim.state.characters[fighter]["family"] = was
+	var expires := int(inc["card"]["expires"])
+	check(expires - int(sim.state.clock["minute"]) <= DAY, "the card times out by the next day")
+	for i: int in expires - int(sim.state.clock["minute"]) + 1:
+		sim.step()
+	check(Incidents.cards_for(sim.state, FAM).is_empty(), "timed out: no card waits")
+
+
+func test_a_waiting_card_is_withdrawn() -> void:
+	var card := PageCard.new()
+	PageCard._waiting.append([card, {"title": "Pelea en la calle"}])
+	card.withdraw()
+	check(not PageCard._waiting.any(func(p: Array) -> bool: return p[0] == card), "out of the waiting line")
+	card.free()
