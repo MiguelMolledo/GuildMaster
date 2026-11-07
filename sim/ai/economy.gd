@@ -227,7 +227,8 @@ static func _manage(sim: Sim, fam: String, head: String, home: String, profile: 
 	var rid := str(st.families[fam].get("ai_state", {}).get("recipe", ""))
 	var maxe := int(profile.get("max_employees", c.get("max_employees", 1)))
 	if staff.size() < maxe and today >= int(c.get("hire_after_days", 2)) and rid != "" \
-			and (hist.size() < 2 or trend >= 0) and Staff.free_slots(st, home) > 0:
+			and (hist.size() < 2 or trend >= 0) and Staff.free_slots(st, home) > 0 \
+			and Bankruptcy.stage(sim, fam) == Bankruptcy.NORMAL:  # H6 contract: no hiring in austerity or for sale
 		var cand := _cheapest(sim, head, home)
 		if cand != "" and gold >= reserve(sim, fam, profile) + Staff.wage(sim, cand) * int(c.get("buffer_days", 6)) \
 				and _pays(sim, fam, home, profile, rid, Staff.wage(sim, cand)):
