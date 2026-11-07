@@ -27,6 +27,16 @@ static func roll(sim: Sim, key: String, actor_stat: int, target_stat: int, modif
 	return {"success": success, "critical": critical, "roll": d100, "threshold": threshold}
 
 
+## The chance (0-1) that roll() succeeds for these stats: the threshold, with the criticals at both ends (for the
+## tooltips that show a probability: the Rogue's arrest card).
+static func chance(sim: Sim, actor_stat: int, target_stat: int, modifiers: int = 0) -> float:
+	var cfg: Dictionary = sim.catalog.town.get("skill_check", {})
+	var threshold := int(cfg.get("base", 50)) + (actor_stat - target_stat) * int(cfg.get("step", 5)) + modifiers
+	var lo := int(cfg.get("critical_success", 5))
+	var hi := int(cfg.get("critical_fail", 96)) - 1
+	return clampi(threshold, lo, hi) / 100.0
+
+
 ## A stat of a character (5 if it has none).
 static func stat(sim: Sim, chr: String, name: String) -> int:
 	return int(sim.state.characters.get(chr, {}).get("stats", {}).get(name, 5))

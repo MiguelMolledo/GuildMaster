@@ -220,6 +220,7 @@
       ]
     }
   },
+  "rogue_novice": {"_doc": "H12 (10/H12 «Cada profesión tiene un bot que gana dinero con ella»; docs/gdd/04d_otras_clases.md 4.22.6.14): BotRogueNovice (sim/bots/bot_rogue_novice.gd) in a new game as rogue_thief, Normal, with the living town (the watch is its risk): purses by day among those who do not see him coming, one storage at night out of the guards' sight, the loot to the fence and the bench, the debt. The same start as the forge (30 gold, the start's debt) and the same window as the trades; its net gold per day goes in goldflow.start_thief. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=rogue_thief --bots=rogue_novice --difficulty=easy,normal,hard --days=10 --seeds=5 (in run_all, step rogue, 10 seeds). Medido (2026-11-06, 10 semillas, con main f68fe5cc): neto/día en Normal 48,7 [30,0-61,6]; easy 58,6 > normal 48,7 > hard 40,4 (data/difficulty.json rogue: the check modifier and the fence's price); deuda saldada 5/5; ~50 bolsas y ~5 almacenes en 10 días, el perista ~140; juicios por robos denunciados en 1 de 5 semillas (prosecute 0,03 al día).", "days": [10, null], "refused_orders": [0, 0], "ledger_mismatch": [0, 0], "gold_day10": [10, 1100], "_share": {"debt_paid": [0.9, null]}},
   "mason_novice": {
     "_doc": "H12 (10/H12 «Cada profesión tiene un bot que gana dinero con ella»): BotArtisanTrade (sim/bots/bot_artisan_trade.gd, the novice of any trade) in a new game as artisan_mason, Normal. The same start as the forge (30 gold, 200 of debt before day 8) and the same targets as artisan_novice; its net gold per day goes in goldflow.start_mason. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_mason --bots=mason_novice --difficulty=easy,normal,hard --days=10 --seeds=30 (in run_all, step mason, 10 seeds). Medido (2026-11-03, con el rival de su mismo oficio junto a la plaza, 30 semillas): neto/día en Normal 38,0 [21,3-51,8], deuda saldada 30/30; orden de dificultad easy 38,9 > normal 38,0 > hard 36,4 (por poco: la piedra es barata y el ×0,9/×1,1 del precio apenas mueve); el rival acaba el día 10 con ~175-215 de oro.",
     "days": [
@@ -377,6 +378,7 @@
       ],
       "_doc": "H12.2: the start of the physician (scholar_physician), the same window and range as the forge's start (GDD 4.19 «Inicio (H3)», O3 a of 04d)."
     },
+    "start_thief": {"bot": "rogue_novice", "window_days": [1, 8], "net_per_day": [25, 60], "exclude_categories": ["loans"], "_doc": "H12 (the Rogue): the start of the thief (rogue_thief), the same window and range as the forge's start (GDD 4.19 «Inicio (H3)», O3 a of 04d)."},
     "start_tailor": {
       "bot": "tailor_novice",
       "window_days": [
@@ -729,7 +731,7 @@
     }
   },
   "merchant": {
-    "_doc": "Viajes (docs/gdd/09b_region.md §9b.5): bot merchant (sim/bots/bot_merchant.gd) en el escenario travel_start (two_employees, la familia ciudadana, 900 de oro más, 6 espadas), 16 días (2 años). Compra un carro y manda una caravana escoltada a Peñarroja a por hierro y carbón; el cabeza lleva espadas a Bellcaire una vez para abrir mercado; después las caravanas llevan las espadas de la forja a Bellcaire y el cabeza vuelve solo para entregar un encargo o firmar la cuota de espadas cuando su reputación allí lo permite. Mide que viajes, caravanas, el mercado de fuera y los tratados aguantan días sin órdenes rechazadas y sin descuadre del libro. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=travel_start --bots=merchant --days=16 --seeds=10 (paso merchant de la QA). Medido (2026-11-04, 10 semillas): llegadas fuera 1,8 (1-2), caravanas de vuelta 4,1 (3-5), ventas fuera 612 de oro (422-891), tratado firmado en 8/10 (la cuota de 4 espadas por estación se rompe en 8/10: las caravanas no llegan; el castigo funciona), asaltos 0,3 al viajero y 0,8 a las caravanas, oro final 567 (411-…). Banda propuesta.",
+    "_doc": "Viajes (docs/gdd/09b_region.md §9b.5): bot merchant (sim/bots/bot_merchant.gd) en el escenario travel_start (two_employees, la familia ciudadana, 900 de oro más, 6 espadas), 16 días (2 años). Compra un carro y manda una caravana escoltada a Peñarroja a por hierro y carbón; el cabeza lleva espadas a Bellcaire una vez para abrir mercado; después las caravanas llevan las espadas de la forja a Bellcaire y el cabeza vuelve solo para entregar un encargo o firmar la cuota de espadas cuando su reputación allí lo permite. Mide que viajes, caravanas, el mercado de fuera y los tratados aguantan días sin órdenes rechazadas y sin descuadre del libro. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=travel_start --bots=merchant --days=16 --seeds=10 (paso merchant de la QA). Medido (2026-11-04, 10 semillas): llegadas fuera 1,8 (1-2), caravanas de vuelta 4,1 (3-5), ventas fuera 612 de oro (422-891), tratado firmado en 8/10 (la cuota de 4 espadas por estación se rompe en 8/10: las caravanas no llegan; el castigo funciona), asaltos 0,3 al viajero y 0,8 a las caravanas, oro final 567 (411-…). Banda propuesta. Forja (2026-11-06, Equilibrio 7b, decisión del manager): la cuota paga ×1,5 y se firma antes; ventas fuera 710 → 858 de media (639-1.080), el techo de la media pasa de 900 a 1.100 (el alza es buscada).",
     "days": [
       16,
       null
@@ -757,7 +759,7 @@
     "_mean": {
       "trv_city_sales_gold": [
         450,
-        900
+        1100
       ],
       "trv_caravans_back": [
         3,
@@ -939,7 +941,7 @@
     }
   },
   "full_player": {
-    "_doc": "Jugador completo (docs/gdd/07_testing.md §7.4): sim/bots/bot_full_player.gd en una partida nueva real (artisan_blacksmith, Normal, reparto fijo) con todo encendido (eventos, vida, fiestas, viajes, duelo; posada, juegos y Forja viva cuando estén en el juego), por tools/full_player.gd (no por sim_runner: no apaga nada). Ritual: godot --headless --path . -s tools/full_player.gd -- --years=3 --seeds=3 (≈3 min por semilla); en run_all, paso full (1 año, 1 semilla); de noche, python3 tools/qa/noche.py (3 años × 5 semillas, una generación × 2 y el caótico). _needs_days: las medidas que un año no juzga. Medido (2026-11-05, 3 semillas × 3 años): deuda saldada los días 3-6; Ciudadano los días 19-24 (03b lo espera en el año 2: llega tarde, la reputación de 80 marca el paso); boda en 3/3 (días 14-22), hijo en 1/3; neto/día del año 1 27-75; 0 órdenes rechazadas, 0 errores del motor, paso medio 2,2-2,5 ms (peor 86-170 ms). Una generación (semilla 1, 383 días): el fundador muere a los 67 años el día 377 y hereda el primogénito (heredero designado el día 27), 6 hijos en dos generaciones, Patricio el día 36 y nunca Barón (pide 3 negocios), 56 854 de oro al final, 52 duelos (21 ganados), 0 errores. Bandas [provisional]: las de hijos y título, tras las 5 semillas de la noche. Rivales y pueblo (tools/full_watch.gd, docs/contratos/informe_jugador_completo.md): ver _proposed_doc. Revisión del worker de equilibrio (2026-11-06, encargo del manager), medido con el full_player de jugador juntado con equilibrio (3 años × 4 semillas): Ciudadano los días 11-14, así que vuelve la diana por semilla [1, 20] y la media pasa de [9, 24] a [9, 16] (Equilibrio 3: año 2); unlocks_off 0 en 4/4 (mejoras con la deuda saldada, rival [2, 3], cargos con Ciudadano desde el año 3), así que vuelve de _proposed a diana [0, 0]; los empleados y los niños con hambre salen 0 % (la bolsa de los hogares, Equilibrio 15), así que pasan de _proposed a diana [0, 0,5].",
+    "_doc": "Jugador completo (docs/gdd/07_testing.md §7.4): sim/bots/bot_full_player.gd en una partida nueva real (artisan_blacksmith, Normal, reparto fijo) con todo encendido (eventos, vida, fiestas, viajes, duelo; posada, juegos y Forja viva cuando estén en el juego), por tools/full_player.gd (no por sim_runner: no apaga nada). Ritual: godot --headless --path . -s tools/full_player.gd -- --years=3 --seeds=3 (≈3 min por semilla); en run_all, paso full (1 año, 1 semilla); de noche, python3 tools/qa/noche.py (3 años × 5 semillas, una generación × 2 y el caótico). _needs_days: las medidas que un año no juzga. Medido (2026-11-05, 3 semillas × 3 años): deuda saldada los días 3-6; Ciudadano los días 19-24 (03b lo espera en el año 2: llega tarde, la reputación de 80 marca el paso); boda en 3/3 (días 14-22), hijo en 1/3; neto/día del año 1 27-75; 0 órdenes rechazadas, 0 errores del motor, paso medio 2,2-2,5 ms (peor 86-170 ms). Una generación (semilla 1, 383 días): el fundador muere a los 67 años el día 377 y hereda el primogénito (heredero designado el día 27), 6 hijos en dos generaciones, Patricio el día 36 y nunca Barón (pide 3 negocios), 56 854 de oro al final, 52 duelos (21 ganados), 0 errores. Bandas [provisional]: las de hijos y título, tras las 5 semillas de la noche. Rivales y pueblo (tools/full_watch.gd, docs/contratos/informe_jugador_completo.md): ver _proposed_doc. Revisión del worker de equilibrio (2026-11-06, encargo del manager), medido con el full_player de jugador juntado con equilibrio (3 años × 4 semillas): Ciudadano los días 11-14, así que vuelve la diana por semilla [1, 20] y la media pasa de [9, 24] a [9, 16] (Equilibrio 3: año 2); unlocks_off 0 en 4/4 (mejoras con la deuda saldada, rival [2, 3], cargos con Ciudadano desde el año 3), así que vuelve de _proposed a diana [0, 0]; los empleados y los niños con hambre salen 0 % (la bolsa de los hogares, Equilibrio 15), así que pasan de _proposed a diana [0, 0,5]. Forja (2026-11-06, decisión del manager por delegación del owner), medido con full_player 3 años × 8 semillas: facts_vs_others (hechos públicos contra otras familias, Equilibrio 6) 1-6 por semilla y trials_as_accuser 1-5, diana [1, —] por semilla en 3 años; caravans 3,0 de media (0-4), diana de media [1, —]; treaty_paid (1 si el tratado deja neto positivo: cuota cobrada − su valor en casa − firmas − carros − multas, treaty_net) en 5/8, diana: al menos la mitad de las semillas; forasteros: 4,9-6,1 al día por las fiestas y las ferias, y 2,7-3,3 en los días sin fiesta (visitors_quiet_day, los 2-4 de 4.24): visitors_per_day pasa de [2, 6] a [2, 7] y visitors_quiet_day [2, 4].",
     "_needs_days": {
       "debt_paid": 8,
       "debt_paid_day": 8,
@@ -965,7 +967,11 @@
       "masterworks_y3": 24,
       "trips": 24,
       "treaties": 24,
-      "stalls_y3": 24
+      "stalls_y3": 24,
+      "facts_vs_others": 24,
+      "trials_as_accuser": 24,
+      "caravans": 24,
+      "treaty_paid": 24
     },
     "refused_orders": [
       0,
@@ -1049,7 +1055,7 @@
     ],
     "visitors_per_day": [
       2,
-      6
+      7
     ],
     "ai_contracts_accepted": [
       10,
@@ -1099,6 +1105,10 @@
       "net_year_3": [
         25,
         null
+      ],
+      "caravans": [
+        1,
+        null
       ]
     },
     "_share": {
@@ -1111,6 +1121,10 @@
         null
       ],
       "had_child": [
+        0.5,
+        null
+      ],
+      "treaty_paid": [
         0.5,
         null
       ]
@@ -1130,7 +1144,19 @@
         4
       ]
     },
-    "_bands_doc": "Bandas tras el equilibrio (aprobadas por el manager el 2026-11-06, docs/decisiones.json): medido con full_player 3 años × 4 semillas antes (b0616e72) y después (1f39d995) del equilibrio, reports/full_player_ref/propuesta_bandas_equilibrio.md (tools/full_compare.py). Después: deuda los días 2-3, Ciudadano 11-14, boda 12-14, hijo 3/4, neto del año 1 51,6-66,9 y del año 3 17,3-88,1, 23-27 mecánicas, hueco del año 1 mediana 4,4-4,6 s y máximo 15-29 s, obras maestras 0-1, un viaje y la cuota en las 4, 3-4 atascos, hambre de empleados y niños 0-0,007. masterworks_y3 y stalls_y3 cuentan los 3 primeros años (la generación también las cumple). Las tres de la IA rival siguen en _proposed hasta H13."
+    "_bands_doc": "Bandas tras el equilibrio (aprobadas por el manager el 2026-11-06, docs/decisiones.json): medido con full_player 3 años × 4 semillas antes (b0616e72) y después (1f39d995) del equilibrio, reports/full_player_ref/propuesta_bandas_equilibrio.md (tools/full_compare.py). Después: deuda los días 2-3, Ciudadano 11-14, boda 12-14, hijo 3/4, neto del año 1 51,6-66,9 y del año 3 17,3-88,1, 23-27 mecánicas, hueco del año 1 mediana 4,4-4,6 s y máximo 15-29 s, obras maestras 0-1, un viaje y la cuota en las 4, 3-4 atascos, hambre de empleados y niños 0-0,007. masterworks_y3 y stalls_y3 cuentan los 3 primeros años (la generación también las cumple). Las tres de la IA rival siguen en _proposed hasta H13.",
+    "visitors_quiet_day": [
+      2,
+      4
+    ],
+    "facts_vs_others": [
+      1,
+      null
+    ],
+    "trials_as_accuser": [
+      1,
+      null
+    ]
   },
   "chaos_player": {
     "_doc": "Jugador caótico (docs/gdd/07_testing.md §7.4): sim/bots/bot_chaos_player.gd, la misma partida que full_player con decisiones al azar y una orden válida al azar cada ~40 minutos de juego (sesgo hacia los sistemas menos tocados; hasta saldar la deuda inicial, solo órdenes que no gastan). Guarda y carga cada día y sigue con lo cargado. Diana: nada se rompe: 0 errores del motor, 0 pasos de más de 2 s, ida y vuelta del guardado idéntica, nunca oro negativo ni nadie fuera del mapa, el libro cuadra. Ritual: godot --headless --path . -s tools/full_player.gd -- --bot=chaos_player --years=3 --seeds=3; en run_all, paso chaos (1 año, 1 semilla). Medido (2026-11-05, 2 semillas × 3 años): 24 idas y vueltas por semilla sin diferencias, 0 errores; una semilla se queda sin oro ni existencias el día 8 y ya no se recupera (bloqueo blando, docs/decisiones.json).",

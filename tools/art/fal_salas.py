@@ -55,10 +55,13 @@ HANG = {  # lo que cuelga de las paredes exteriores del fondo, por tipo de sala
 REF_OF = {"forge": {0: "forge_b", 1: "house_b"}, "armory": {0: "armory_a"}, "carpentry": {0: "carpentry_b", 1: "house_b"},
           "masonry": {0: "masonry_a"}, "tailor_shop": {0: "tailor_shop_b", 1: "house_b"}, "house": {0: "house_b", 1: "house_a"},
           "town_hall": {0: "town_hall_b"}, "court": {0: "court_a"},
-          "tavern_inn": {-1: "tavern_b", 0: "tavern_a", 1: "house_b"}, "clinic": {0: "clinic_a", 1: "house_b"}}
+          "tavern_inn": {-1: "tavern_b", 0: "tavern_a", 1: "house_b"}, "clinic": {0: "clinic_a", 1: "house_b"},
+          "den": {0: "house_b", 1: "house_b"}}
 HANG_OF = {  # H12.2: what hangs in a room of a building whose trade is not the forge's (by room type)
     "clinic": {"workshop": "bundles of drying herbs, a small shelf of jars and bottles, a lantern",
                "shop": "a leaded window with daylight, a small shelf with jars, a hanging lantern"},
+    "den": {"workshop": "a ring of old keys, a dim lantern, a sack in a corner, a shuttered window",  # H12: the thief's den
+            "shop": "a small shuttered window, a hanging lantern, a worn curtain"},
 }
 
 
