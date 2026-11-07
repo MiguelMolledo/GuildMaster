@@ -30,7 +30,9 @@ func test_every_building_and_station_has_its_scene() -> void:
 		for z: Dictionary in zones:
 			var m := room.get_node_or_null("Stations/" + str(z["id"]))
 			check(m is Marker2D, "%s: a Marker2D for the station %s" % [id, z["id"]])
-			check(VisualPaths.has_scene("stations", str(z["id"])), "stations/%s.tscn" % z["id"])
+			# H12 Patrón: a zone that works as another (field_a like field) may use the scene of its like
+			check(VisualPaths.has_scene("stations", str(z["id"])) or VisualPaths.has_scene("stations", str(z.get("like", ""))),
+				"stations/%s.tscn" % z["id"])
 		check(room.get_node_or_null("Kit") is GreyboxKit, "%s: the room's kit (size and door)" % id)
 		room.free()
 

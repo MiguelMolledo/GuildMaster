@@ -52,7 +52,7 @@ static func order_buy(sim: Sim, o: Dictionary) -> Dictionary:
 		why = _errand_reason(sim, actor, to, item, quality, qty)
 		if why != "":
 			return Orders.fail(why)
-		var surcharge := errand_surcharge(sim, cost)
+		var surcharge := errand_surcharge(sim, cost, stall)
 		if not Money.can_pay(st, fam, cost + surcharge):
 			return Orders.fail("not_enough_gold")
 		return _send_errand(sim, actor, fam, stall, to, item, quality, qty, cost, surcharge)
@@ -72,7 +72,8 @@ static func order_buy(sim: Sim, o: Dictionary) -> Dictionary:
 
 ## {"type": "sell", "actor", "stall", "item", "quality", "qty"}. Never more than the actor carries (not_enough).
 ## Pays unit by unit: each unit at price(sell) with the demand left by the previous one, which then drops
-## drop_per_unit (the same as selling them one at a time). market_sold.price = the first unit's, total = the sum.
+## drop_per_unit × the item's demand_weight (H12, 04d 4.22.3.4: Catalog.demand_weight, 1 by default) (the same as
+## selling them one at a time). market_sold.price = the first unit's, total = the sum.
 ## Reasons: unknown_actor, dead, unknown_stall, not_at_stall, market_closed, unknown_item, wrong_stall, bad_quality,
 ## bad_quantity, not_enough, no_family.
 static func order_sell(sim: Sim, o: Dictionary) -> Dictionary:
@@ -98,7 +99,7 @@ static func order_sell(sim: Sim, o: Dictionary) -> Dictionary:
 	# Unit by unit: each unit is paid at the demand left by the one before (selling 10 at once = 10 sales of 1).
 	var unit := trade_price(sim, actor, stall, item, quality, "sell")
 	var total := 0
-	var drop := float(_demand_cfg(sim).get("drop_per_unit", 0.05))
+	var drop := float(_demand_cfg(sim).get("drop_per_unit", 0.05)) * sim.catalog.demand_weight(item)
 	for n: int in qty:
 		total += trade_price(sim, actor, stall, item, quality, "sell")
 		_set_demand(sim, item, demand(sim, item) - drop, false)
@@ -241,6 +242,10 @@ static func price(sim: Sim, item: String, quality: int, side: String) -> int:
 ## Without a keeper or emotions it is exactly price().
 static func trade_price(sim: Sim, actor: String, stall: String, item: String, quality: int, side: String) -> int:
 	var p := price(sim, item, quality, side)
+	if side == "sell" and sim.state.characters.has(actor):  # H12 Patrón: the farm's Commerce branch (market_price)
+		var fm := Fields.sale_mult(sim, Money.family_of(sim.state, actor), item)
+		if fm != 1.0:
+			p = roundi(float(p) * fm)
 	var keeper := TownLife.stall_keeper(sim.state, sim.catalog, stall)
 	if keeper == "" or not sim.state.characters.has(actor):
 		return p
@@ -255,7 +260,7 @@ static func sell_preview(sim: Sim, actor: String, stall: String, item: String, q
 	var table: Dictionary = sim.state.market.get("demand", {})
 	var had := table.has(item)
 	var before := float(table.get(item, 0.0))
-	var drop := float(_demand_cfg(sim).get("drop_per_unit", 0.05))
+	var drop := float(_demand_cfg(sim).get("drop_per_unit", 0.05)) * sim.catalog.demand_weight(item)
 	var prices: Array = []
 	var total := 0
 	for n: int in maxi(0, qty):
@@ -300,9 +305,12 @@ static func sell_price_at(sim: Sim, item: String, quality: int, d: float) -> int
 	return p
 
 
-## The surcharge of an errand over a purchase of `cost` gold: round(cost × errand.surcharge).
-static func errand_surcharge(sim: Sim, cost: int) -> int:
-	return roundi(cost * float(sim.catalog.market.get("errand", {}).get("surcharge", 0.2)))
+## The surcharge of an errand over a purchase of `cost` gold: round(cost × errand.surcharge); H12 Patrón: a stall's own
+## errand_surcharge if it has one (livestock: 0, the animals walk there, 04d 4.22.4.2).
+static func errand_surcharge(sim: Sim, cost: int, stall: String = "") -> int:
+	var sdef: Dictionary = sim.catalog.market.get("stalls", {}).get(stall, {})
+	var rate := float(sdef.get("errand_surcharge", sim.catalog.market.get("errand", {}).get("surcharge", 0.2)))
+	return roundi(cost * rate)
 
 
 ## Minutes an errand takes to arrive (errand.hours of game time; H13: × the events' errands effect, cut routes).
@@ -371,7 +379,8 @@ static func max_buy(sim: Sim, actor: String, stall: String, item: String, qualit
 	var lo := 0
 	while lo < hi:  # largest n in [0, hi] that fits and is affordable (both are monotonic in n)
 		var mid := (lo + hi + 1) / 2
-		if _fits(sim, actor, to, item, quality, mid) and (to == "" or mid * unit + errand_surcharge(sim, mid * unit) <= gold):
+		if _fits(sim, actor, to, item, quality, mid) and _pen_reason(sim, to, item, mid) == "" \
+				and (to == "" or mid * unit + errand_surcharge(sim, mid * unit, stall) <= gold):
 			lo = mid
 		else:
 			hi = mid - 1
@@ -482,7 +491,21 @@ static func _errand_reason(sim: Sim, actor: String, to: String, item: String, qu
 		return why
 	if not _fits(sim, actor, to, item, quality, qty):
 		return "storage_full"
-	return ""
+	return _pen_reason(sim, to, item, qty)
+
+
+## H12 Patrón (04d 4.22.4.2): an animal sent to a building goes to its pen: "no_pen" if it has none, "pen_full" if the
+## herd, the animals on their way and `qty` exceed its capacity; "" otherwise (and for anything that is not an animal).
+static func _pen_reason(sim: Sim, to: String, item: String, qty: int) -> String:
+	if to == "" or not sim.catalog.animals().has(item):
+		return ""
+	if not Herds.has_pen(sim, to):
+		return "no_pen"
+	var coming := 0
+	for d: Dictionary in sim.state.deliveries:
+		if str(d.get("to", "")) == to and sim.catalog.animals().has(str(d.get("item", ""))):
+			coming += int(d.get("qty", 0))
+	return "pen_full" if Herds.head_count(sim, to) + coming + qty > Herds.capacity(sim, to) else ""
 
 
 ## Whether `qty` fits: in the actor's bag (to == ""), or in the storage of `to` after the errands on their way to it.

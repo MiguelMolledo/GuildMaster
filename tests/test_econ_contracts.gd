@@ -1,8 +1,9 @@
 extends "res://tests/test_case.gd"
+const Pins = preload("res://tests/balance_pins.gd")
 ## NPC contracts (GDD 4.5.6, docs/contratos/h3_mercado.md): board, accept, deliver, abandon, expiry, warnings, save.
 ## The rival is switched off here (no ai_profile) so it does not take the contracts of the test.
 
-var cat := Catalog.load_from()
+var cat := Pins.prices(Catalog.load_from())  # the sword at 65: see tests/balance_pins.gd
 
 const HUGO := "chr_0001"
 const ELENA := "chr_0002"

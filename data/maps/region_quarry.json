@@ -32,7 +32,7 @@
   "..###=##PPPPPPPPPPPPP##w.PPP===.####....",
   "..###=.PPPPPP#PPPPPPP.w...##=...........",
   "..###==PPPPPPPPPPPP=Pw...###==###......T",
-  ".........SPPPPPPPPP=w=######.=###....TTT",
+  ".........SPPPPPPPPS=w=######.=###....TTT",
   ".....###.PPPPPPPPPP=w=######==###....TTT",
   ".....###.PNPPPPPPPP===...###.==......TTT",
   "TT...###.PPPPPPPPPP======###..=.....TTTT",
@@ -113,6 +113,16 @@
    ],
    "service": [
     10,
+    26
+   ]
+  },
+  "apothecary": {
+   "tile": [
+    18,
+    26
+   ],
+   "service": [
+    17,
     26
    ]
   }
@@ -222,6 +232,17 @@
    "door": [
     34,
     10
+   ]
+  },
+  "player_clinic": {
+   "type": "clinic",
+   "origin": [
+    18,
+    12
+   ],
+   "door": [
+    19,
+    15
    ]
   },
   "player_forge": {
@@ -1391,7 +1412,8 @@
    "artisan_blacksmith",
    "artisan_carpenter",
    "artisan_mason",
-   "artisan_tailor"
+   "artisan_tailor",
+   "scholar_physician"
   ],
   "style": "B",
   "rivers": [],
@@ -1471,13 +1493,13 @@
     19,
     15
    ],
-   "location": 0.72
+   "location": 0.73
   },
   {
    "id": "plot_02",
    "state": "ruin",
    "side": "inside",
-   "zone": "housing",
+   "zone": "production",
    "origin": [
     22,
     26
@@ -1509,7 +1531,7 @@
     20,
     22
    ],
-   "location": 0.72
+   "location": 0.71
   },
   {
    "id": "plot_04",
@@ -1517,18 +1539,18 @@
    "side": "inside",
    "zone": "production",
    "origin": [
-    6,
-    22
+    13,
+    34
    ],
    "size": [
-    2,
-    2
+    3,
+    4
    ],
    "front": [
-    7,
-    24
+    13,
+    33
    ],
-   "location": 0.69
+   "location": 0.55
   },
   {
    "id": "plot_05",
@@ -1536,40 +1558,97 @@
    "side": "inside",
    "zone": "housing",
    "origin": [
-    16,
-    8
+    17,
+    30
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    17,
+    33
+   ],
+   "location": 0.52
+  },
+  {
+   "id": "plot_06",
+   "state": "lot",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    8,
+    10
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    8,
+    13
+   ],
+   "location": 0.44
+  },
+  {
+   "id": "plot_07",
+   "state": "lot",
+   "side": "inside",
+   "zone": "production",
+   "origin": [
+    1,
+    26
+   ],
+   "size": [
+    4,
+    3
+   ],
+   "front": [
+    2,
+    29
+   ],
+   "location": 0.4
+  },
+  {
+   "id": "plot_08",
+   "state": "lot",
+   "side": "outside",
+   "zone": "rustic",
+   "origin": [
+    27,
+    13
    ],
    "size": [
     3,
     2
    ],
    "front": [
-    16,
-    10
-   ],
-   "location": 0.51
-  },
-  {
-   "id": "plot_06",
-   "state": "lot",
-   "side": "outside",
-   "zone": "rustic",
-   "origin": [
-    28,
-    13
-   ],
-   "size": [
-    2,
-    2
-   ],
-   "front": [
-    28,
+    27,
     15
    ],
    "location": 0.56
   },
   {
-   "id": "plot_07",
+   "id": "plot_09",
+   "state": "lot",
+   "side": "outside",
+   "zone": "housing",
+   "origin": [
+    32,
+    30
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    31,
+    30
+   ],
+   "location": 0.45
+  },
+  {
+   "id": "plot_10",
    "state": "lot",
    "side": "outside",
    "zone": "rustic",
@@ -1588,7 +1667,7 @@
    "location": 0.35
   },
   {
-   "id": "plot_08",
+   "id": "plot_11",
    "state": "lot",
    "side": "outside",
    "zone": "rustic",
@@ -1607,7 +1686,7 @@
    "location": 0.35
   },
   {
-   "id": "plot_09",
+   "id": "plot_12",
    "state": "business",
    "side": "inside",
    "zone": "production",
@@ -1623,12 +1702,12 @@
     19,
     15
    ],
-   "location": 0.72,
+   "location": 0.73,
    "site": "player_forge",
    "for_sale": false
   },
   {
-   "id": "plot_10",
+   "id": "plot_13",
    "state": "business",
    "side": "inside",
    "zone": "production",
@@ -1649,7 +1728,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_11",
+   "id": "plot_14",
    "state": "business",
    "side": "inside",
    "zone": "production",
@@ -1670,7 +1749,7 @@
    "for_sale": true
   },
   {
-   "id": "plot_12",
+   "id": "plot_15",
    "state": "business",
    "side": "inside",
    "zone": "production",
@@ -1691,7 +1770,7 @@
    "for_sale": true
   },
   {
-   "id": "plot_13",
+   "id": "plot_16",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -1712,7 +1791,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_14",
+   "id": "plot_17",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -1733,7 +1812,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_15",
+   "id": "plot_18",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -1754,7 +1833,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_16",
+   "id": "plot_19",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -1775,7 +1854,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_17",
+   "id": "plot_20",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -1791,33 +1870,12 @@
     31,
     32
    ],
-   "location": 0.4,
+   "location": 0.39,
    "site": "house_04",
    "for_sale": false
   },
   {
-   "id": "plot_18",
-   "state": "business",
-   "side": "outside",
-   "zone": "production",
-   "origin": [
-    36,
-    14
-   ],
-   "size": [
-    3,
-    3
-   ],
-   "front": [
-    37,
-    17
-   ],
-   "location": 0.37,
-   "site": "workshop_tailor",
-   "for_sale": false
-  },
-  {
-   "id": "plot_19",
+   "id": "plot_21",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -1836,11 +1894,33 @@
    "location": 0.36,
    "site": "house_06",
    "for_sale": false
+  },
+  {
+   "id": "plot_22",
+   "state": "business",
+   "side": "outside",
+   "zone": "production",
+   "origin": [
+    36,
+    14
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    37,
+    17
+   ],
+   "location": 0.36,
+   "site": "workshop_tailor",
+   "for_sale": false
   }
  ],
  "decor": {
   "_doc": "Cosmetic dressing of the map made by tools/city/ciudad.py (vestir/generar), read only by WorldView (game/): the sim never reads it. kind house|yard|single: a filler lot (its tiles at..at+size); house: facing = the side of its door [dc, dr], flip = mirrored; lantern/prop/fence: one prop on tile `at`, off = pixel shift from the tile's centre. site: the item belongs to that map site (buildings of data/maps): a lot with site is the look of the site's footprint in a game without that building (drawn only then), a prop with site (a workshop's barrels) is drawn only with that building. Re-run the tool after editing rows or buildings.",
   "items": [
+   {"kind": "house", "id": "house_block", "at": [16, 8], "size": [3, 2], "facing": [0, 1], "height": 48},
    {"kind": "house", "id": "house_block", "at": [13, 11], "size": [4, 2], "facing": [0, -1], "height": 43, "color": "#7c776e"},
    {"kind": "yard", "id": "yard_crates", "at": [12, 11]},
    {"kind": "yard", "id": "yard_sacks", "at": [12, 12]},
@@ -1849,6 +1929,7 @@
    {"kind": "yard", "id": "yard_cart", "at": [22, 12]},
    {"kind": "yard", "id": "yard_plot", "at": [22, 16]},
    {"kind": "yard", "id": "yard_plot", "at": [22, 17]},
+   {"kind": "house", "id": "house_block", "at": [6, 22], "size": [2, 2], "facing": [0, 1], "height": 40},
    {"kind": "yard", "id": "yard_sacks", "at": [6, 21]},
    {"kind": "yard", "id": "yard_barrels", "at": [7, 21]},
    {"kind": "house", "id": "lot_house_e_back", "at": [32, 21], "size": [3, 3], "flip": true, "facing": [-1, 0]},
@@ -1890,6 +1971,7 @@
    {"kind": "prop", "id": "barrel", "at": [1, 17], "off": [-13, 7], "site": "workshop_masonry"},
    {"kind": "prop", "id": "crate", "at": [38, 16], "off": [-13, 7], "site": "workshop_tailor"},
    {"kind": "prop", "id": "grain_sack", "at": [36, 16], "off": [-13, 7], "site": "workshop_tailor"},
+   {"kind": "prop", "id": "cart", "at": [18, 25]},
    {"kind": "prop", "id": "crate", "at": [8, 22]},
    {"kind": "prop", "id": "grain_sack", "at": [14, 19]},
    {"kind": "prop", "id": "cart", "at": [8, 26]},

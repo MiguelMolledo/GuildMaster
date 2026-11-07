@@ -1,0 +1,14 @@
+{
+  "id": "farm_sow_wheat",
+  "name_key": "recipe.farm_sow_wheat",
+  "kind": "field",
+  "action": "sow",
+  "crop": "wheat",
+  "building": "farm",
+  "zone": "field",
+  "inputs": [{"item": "wheat", "qty": 5}],
+  "duration_hours": 1.0,
+  "min_craft": 1,
+  "stat": "constitution",
+  "_doc": "H12 Patrón (04d 4.22.4.1) [balance]: sows wheat in a plowed field in a sowing season of data/crops/wheat.json; the seed (wheat ×5) is taken from the storage when it starts and comes back if the work is interrupted."
+}

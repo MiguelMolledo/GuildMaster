@@ -1,0 +1,11 @@
+{
+  "id": "sell_wool",
+  "name_key": "objective.sell_wool",
+  "conditions": [
+    {
+      "event": "market_sold",
+      "match": {"item": "wool"},
+      "count": 1
+    }
+  ]
+}

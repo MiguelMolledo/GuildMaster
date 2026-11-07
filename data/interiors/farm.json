@@ -1,0 +1,80 @@
+{
+  "_doc": "H12 Patrón (docs/gdd/04d_otras_clases.md 4.22.4.1-2, 4.22.4.8; 04g_interiores.md 4.6.5): the Granja. The yard (earth) holds the fields field_a..field_d (field_e and field_f come with the upgrade «Dos campos más») and the pen with its trough; the stations have no library piece: their look is game/visuals/stations/field.tscn and pen.tscn, which draw the state of the sim (the crop by stage, the animals). The barn keeps the storage (sacks of grain); the house, the home. Edit by hand, then python3 tools/interiors/interiores.py reglas farm && python3 tools/interiors/interiores.py validar farm.",
+  "size": [10, 9],
+  "wall_height": 64,
+  "floor_height": 80,
+  "seed": 31,
+  "entrance": {"floor": 0, "tile": [0, 8], "side": "nw"},
+  "rooms": [
+    {"id": "yard", "floor": 0, "type": "yard", "rects": [[0, 0, 6, 8]], "floor_kind": "earth", "wall_style": "timber", "light": "cool"},
+    {"id": "barn", "floor": 0, "type": "storage", "rects": [[7, 0, 9, 3]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"},
+    {"id": "house", "floor": 0, "type": "kitchen", "rects": [[7, 4, 9, 8]], "floor_kind": "flagstone", "wall_style": "stone", "light": "kitchen"}
+  ],
+  "doors": [
+    {"floor": 0, "tile": [7, 2], "side": "nw"},
+    {"floor": 0, "tile": [7, 6], "side": "nw"},
+    {"floor": 0, "tile": [8, 4], "side": "ne"}
+  ],
+  "levels": [],
+  "stairs": [],
+  "stations": {
+    "field_a": {"floor": 0, "tile": [1, 1], "stand": [2, 1]},
+    "field_b": {"floor": 0, "tile": [4, 1], "stand": [5, 1]},
+    "field_c": {"floor": 0, "tile": [1, 3], "stand": [2, 3]},
+    "field_d": {"floor": 0, "tile": [4, 3], "stand": [5, 3]},
+    "field_e": {"floor": 0, "tile": [1, 5], "stand": [2, 5]},
+    "field_f": {"floor": 0, "tile": [4, 5], "stand": [5, 5]},
+    "pen": {"floor": 0, "tile": [3, 7], "stand": [3, 6]},
+    "storage": {"floor": 0, "tile": [9, 0], "prop": "sack_pile", "stand": [8, 1]}
+  },
+  "customers": {},
+  "idle": [
+    {"floor": 0, "tile": [8, 6]},
+    {"floor": 0, "tile": [6, 7]},
+    {"floor": 0, "tile": [8, 2]}
+  ],
+  "props": [
+    {"id": "stone_trough", "floor": 0, "tile": [5, 7]},
+    {"id": "water_barrel", "floor": 0, "tile": [6, 0]},
+    {"id": "log_pile", "floor": 0, "tile": [0, 0]},
+    {"id": "sack", "floor": 0, "tile": [9, 1]},
+    {"id": "sack_pile", "floor": 0, "tile": [9, 2]},
+    {"id": "crate_stack", "floor": 0, "tile": [7, 0]},
+    {"id": "kitchen_hearth", "floor": 0, "tile": [9, 4]},
+    {"id": "dining_table", "floor": 0, "tile": [9, 6], "flip": false},
+    {"id": "bed_double", "floor": 0, "tile": [9, 8], "flip": false},
+    {"id": "chest", "floor": 0, "tile": [7, 8]}
+  ],
+  "rules": [
+    {"rule": "wall_fill", "room": "barn", "props": ["sack", "barrel", "wicker_basket"], "chance": 0.5},
+    {"rule": "scatter", "room": "yard", "props": ["bucket", "water_pail"], "count": 2},
+    {"rule": "hang", "room": "house", "props": ["herbs_hanging", "onion_string"], "count": 2}
+  ],
+  "upgrades": {
+    "farm_iron_plough": [{"id": "chopping_block", "floor": 0, "tile": [0, 2]}],
+    "farm_fields_2": [],
+    "farm_pen_2": [{"id": "stone_trough", "floor": 0, "tile": [6, 8]}],
+    "farm_manure": [{"id": "wicker_basket", "floor": 0, "tile": [0, 4]}],
+    "farm_rotation": [{"id": "apple_basket", "floor": 0, "tile": [3, 0]}],
+    "farm_select_seed": [{"id": "sack", "floor": 0, "tile": [9, 3]}],
+    "farm_granary": [{"id": "sack_pile", "floor": 0, "tile": [7, 3]}],
+    "farm_barn": [{"id": "crate_stack", "floor": 0, "tile": [8, 0]}],
+    "upgrade_storage_shelves": [{"id": "pantry_shelf", "floor": 0, "tile": [7, 1]}],
+    "farm_cart": [{"id": "barrel", "floor": 0, "tile": [6, 3]}],
+    "farm_fair_stand": [{"id": "crate", "floor": 0, "tile": [6, 4]}],
+    "farm_brand": [{"id": "banner_stand", "floor": 0, "tile": [6, 5]}],
+    "upgrade_double_ledger": [{"id": "double_ledger", "floor": 0, "tile": [7, 7]}],
+    "upgrade_hidden_passage": [{"id": "hidden_passage", "floor": 0, "tile": [0, 7]}],
+    "upgrade_smuggler_cache": [{"id": "smuggler_cache", "floor": 0, "tile": [0, 6]}],
+    "upgrade_strongbox": [{"id": "strongbox", "floor": 0, "tile": [7, 4]}],
+    "upgrade_bunks": [{"id": "bunk_bed", "floor": 0, "tile": [8, 8], "flip": false}],
+    "upgrade_dining_table": [{"id": "stool", "floor": 0, "tile": [7, 5]}],
+    "upgrade_master_bench": [{"id": "lectern", "floor": 0, "tile": [8, 5]}]
+  },
+  "resolved": [
+    {"id": "bucket", "floor": 0, "tile": [2, 8], "flip": false, "rule": "scatter"},
+    {"id": "water_pail", "floor": 0, "tile": [2, 0], "flip": false, "rule": "scatter"},
+    {"id": "herbs_hanging", "floor": 0, "tile": [9, 4], "flip": true, "hang": "ne", "rule": "hang"},
+    {"id": "herbs_hanging", "floor": 0, "tile": [7, 4], "flip": true, "hang": "ne", "rule": "hang"}
+  ]
+}

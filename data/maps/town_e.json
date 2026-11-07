@@ -30,7 +30,7 @@
   ".#####.=.#####.PPPPPPPPPP#####.=#####...",
   ".#####.=.#####.PNPPPPPPPP#####.=#####...",
   ".......=.###...PPPPPPPPPP###...=...ww...",
-  ".......=.......PPPPPPPPPP......=...ww...",
+  ".......=.......PPPPPPPSPP......=...ww...",
   ".......=.......................=...ww...",
   ".......=.#####...######..#####.=...ww...",
   ".ffffff=f#####...######..#####.=...ww...",
@@ -125,6 +125,16 @@
     23,
     20
    ]
+  },
+  "livestock": {
+   "tile": [
+    22,
+    24
+   ],
+   "service": [
+    22,
+    23
+   ]
   }
  },
  "board": {
@@ -213,6 +223,17 @@
   },
   "player_clinic": {
    "type": "clinic",
+   "origin": [
+    25,
+    20
+   ],
+   "door": [
+    26,
+    19
+   ]
+  },
+  "player_homestead": {
+   "type": "farm",
    "origin": [
     25,
     20
@@ -1254,7 +1275,7 @@
    "side": "inside",
    "zone": "production",
    "origin": [
-    20,
+    17,
     9
    ],
    "size": [
@@ -1262,10 +1283,10 @@
     3
    ],
    "front": [
-    20,
+    17,
     12
    ],
-   "location": 0.63
+   "location": 0.62
   },
   {
    "id": "plot_02",
@@ -1419,7 +1440,7 @@
     10,
     19
    ],
-   "location": 0.68,
+   "location": 0.67,
    "site": "rival_forge",
    "for_sale": false
   },
@@ -1440,7 +1461,7 @@
     33,
     18
    ],
-   "location": 0.63,
+   "location": 0.62,
    "site": "house_e_north",
    "for_sale": false
   },
@@ -1745,7 +1766,7 @@
    {"kind": "yard", "id": "yard_plot", "at": [11, 11]},
    {"kind": "yard", "id": "yard_plot", "at": [12, 11]},
    {"kind": "yard", "id": "yard_plot", "at": [13, 11]},
-   {"kind": "house", "id": "lot_house_c", "at": [17, 9], "size": [3, 3], "flip": false, "facing": [0, 1]},
+   {"kind": "house", "id": "lot_house_f", "at": [20, 9], "size": [3, 3], "flip": false, "facing": [0, 1]},
    {"kind": "yard", "id": "yard_plot", "at": [17, 8]},
    {"kind": "yard", "id": "yard_plot", "at": [18, 8]},
    {"kind": "yard", "id": "yard_plot", "at": [19, 8]},
@@ -1861,11 +1882,11 @@
    {"kind": "prop", "id": "crate", "at": [14, 16]},
    {"kind": "prop", "id": "grain_sack", "at": [18, 13]},
    {"kind": "prop", "id": "cart", "at": [14, 20]},
+   {"kind": "prop", "id": "cart", "at": [22, 25]},
    {"kind": "prop", "id": "cart", "at": [21, 13]},
    {"kind": "prop", "id": "cart", "at": [15, 13]},
    {"kind": "prop", "id": "bench", "at": [17, 24], "off": [-10, 5], "flip": true},
    {"kind": "prop", "id": "bench", "at": [19, 19], "off": [10, -5], "flip": true},
-   {"kind": "prop", "id": "bench", "at": [24, 24], "off": [-10, 5], "flip": true},
    {"kind": "fence", "id": "fence", "at": [1, 27], "off": [14, -7]},
    {"kind": "fence", "id": "fence", "at": [1, 27], "off": [-14, -7], "flip": true},
    {"kind": "fence", "id": "fence", "at": [2, 27], "off": [14, -7]},

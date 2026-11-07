@@ -6,7 +6,8 @@ const FAM: String = "fam_0001"
 const HERO: String = "chr_0001"
 const FORGE: String = "bld_0001"
 
-var cat := Catalog.load_from()
+const Pins = preload("res://tests/balance_pins.gd")
+var cat := Pins.no_ramp(Catalog.load_from())  # a whole day's upkeep from day 1: see tests/balance_pins.gd
 
 
 ## A new forge game with its start loan paid, no gold and nothing in the storage nor the bags.
