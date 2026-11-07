@@ -8,7 +8,9 @@ extends PanelContainer
 ##       carried weight with its bar (amber at 90 %, red at 100 %); the bag as squares (ItemSlot), a click on a thing
 ##       with a slot equips it (equip); and what all of it is worth today at the market.
 ##   Routine: the routine editor (RoutineEditor, forja_interior.md §4.5).
-## Only gives orders (equip / unequip / set_schedule); the sim decides.
+## Sleep and food (GDD 4.2.6): a row under the header with rest and hunger, the state (Cansado, Rendido, Hambriento),
+## the Rutina switch (set_needs_routine) and «Comer» at home or at the tavern (eat, after walking there).
+## Only gives orders (equip / unequip / set_schedule / set_needs_routine / eat); the sim decides.
 
 signal closed
 signal tree_requested
@@ -36,6 +38,10 @@ func setup(s: Sim, who: String) -> void:
 		(%KinAiButton as Button).pressed.connect(func() -> void: kin_ai_requested.emit(actor))
 		(%InvTab as Button).pressed.connect(show_tab.bind("inventory"))
 		(%RoutineTab as Button).pressed.connect(show_tab.bind("routine"))
+		(%RoutineCheck as CheckBox).toggled.connect(func(on: bool) -> void:
+			_give({"type": "set_needs_routine", "actor": actor, "character": actor, "on": on}))
+		(%EatButton as Button).pressed.connect(eat_at.bind("home"))
+		(%TavernButton as Button).pressed.connect(eat_at.bind("tavern"))
 	sim = s
 	actor = who
 	(%TreeButton as Button).text = SimQuery.t_("ui.character.tree_short")
@@ -43,6 +49,12 @@ func setup(s: Sim, who: String) -> void:
 	(%CourtButton as Button).text = SimQuery.t_("ui.family.court")
 	(%KinAiButton as Button).text = SimQuery.t_("ui.kin_ai.button")
 	(%KinAiButton as Button).tooltip_text = SimQuery.t_("ui.kin_ai.button_tip")
+	(%RoutineCheck as CheckBox).text = SimQuery.t_("ui.needs.routine")
+	(%RoutineCheck as CheckBox).tooltip_text = SimQuery.t_("ui.needs.routine_tip")
+	(%EatButton as Button).text = SimQuery.t_("ui.needs.eat_home")
+	(%EatButton as Button).tooltip_text = SimQuery.t_("ui.needs.eat_home_tip")
+	(%TavernButton as Button).text = SimQuery.t_("ui.needs.eat_tavern")
+	(%TavernButton as Button).tooltip_text = SimQuery.t_("ui.needs.eat_tavern_tip")
 	(%InvTab as Button).text = SimQuery.t_("ui.character.inventory")
 	(%RoutineTab as Button).text = SimQuery.t_("ui.routine.title")
 	var editor := %RoutineEditor as RoutineEditor
@@ -111,6 +123,55 @@ func _refresh_family() -> void:
 			int(sim.state.offices[str(where["office"])]["seats"][int(where["index"])].get("until", 0)) + 1]
 	(%AgeLabel as Label).text = line
 	(%CourtButton as Button).visible = Kin.is_adult(sim, actor) and Kin.is_single(sim.state, actor)
+	_refresh_needs()
+
+
+## Sleep and food: rest, hunger and the state; the Rutina switch (controlled ones); «Comer» while it may eat.
+func _refresh_needs() -> void:
+	var v := Needs.view(sim, actor)
+	var row := %NeedsRow as Control
+	row.visible = bool(v.get("tracked", false))
+	if not row.visible:
+		return
+	(%NeedsLabel as Label).text = SimQuery.needs_line(v)
+	(%NeedsLabel as Label).tooltip_text = SimQuery.t_("ui.needs.tip")
+	var check := %RoutineCheck as CheckBox
+	check.visible = Needs.is_controlled(sim, actor)
+	check.set_pressed_no_signal(bool(v.get("routine", true)))
+	var busy := Needs.is_exhausted(sim.state, actor) or str(v.get("act", "")) == "eat"
+	(%EatButton as Button).disabled = busy or Kin.home_of(sim, actor) == ""
+	(%TavernButton as Button).disabled = busy or NeedsRoutine.nearest_tavern(sim, actor) == ""
+
+
+## «Comer»: at home (walks home first) or at the nearest tavern's door (walks there), then eats (queued after the walk).
+func eat_at(place: String) -> void:
+	if sim == null or actor == "":
+		return
+	var ch: Dictionary = sim.state.characters.get(actor, {})
+	var loc := str(ch.get("location", ""))
+	if place == "home":
+		var home := Kin.home_of(sim, actor)
+		if home == "":
+			return
+		if loc != home:
+			if loc != "":
+				_give({"type": "exit_building", "actor": actor})
+			_give({"type": "enter_building", "actor": actor, "building": home, "queued": loc != ""})
+			_give({"type": "eat", "actor": actor, "place": "home", "queued": true})
+		else:
+			_give({"type": "eat", "actor": actor, "place": "home"})
+		return
+	var inn := NeedsRoutine.nearest_tavern(sim, actor)
+	if inn == "":
+		return
+	var door: Array = sim.state.buildings[inn].get("door", [])
+	if NeedsRoutine.tavern_near(sim, actor) == inn:
+		_give({"type": "eat", "actor": actor, "place": "tavern"})
+		return
+	if loc != "":
+		_give({"type": "exit_building", "actor": actor})
+	_give({"type": "move_to", "actor": actor, "tile": door, "queued": loc != ""})
+	_give({"type": "eat", "actor": actor, "place": "tavern", "queued": true})
 
 
 func refresh(force: bool = false) -> void:

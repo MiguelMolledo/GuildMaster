@@ -111,6 +111,10 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Schedules.order_set(sim, order)
 		"set_directives":
 			return Schedules.order_set_directives(sim, order)
+		"eat":  # sleep and food (GDD 4.2.6, sim/family/needs_routine.gd)
+			return NeedsRoutine.order_eat(sim, order)
+		"set_needs_routine":
+			return NeedsRoutine.order_set_routine(sim, order)
 		# H7 · the living town (sim/town/*.gd, docs/contratos/h7_ciudad.md)
 		"npc_talk":
 			return NpcActions.order(sim, order, "talk")
@@ -261,6 +265,7 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role", "queue_add", "queue_remove",
 	"queue_move", "queue_loop", "queue_pause", "repay_loan", "read_notices", "abandon_contract", "buy_upgrade",
 	"designate_heir", "school_choice", "assign_building", "close_dynasty", "set_schedule", "set_directives",
+	"set_needs_routine",
 	"resolve_microevent", "run_for_office", "use_office_power", "accuse", "trial_cross", "trial_rest", "trial_verdict",
 	"duel_answer", "duel_withdraw", "duel_move", "duel_auto",
 	"buy_cart", "caravan_send", "propose_town_treaty", "cancel_treaty", "travel", "return", "city_buy", "city_sell",

@@ -61,7 +61,7 @@ func test_needs_come_first() -> void:
 	var st := sim.state
 	var wife := str(st.characters[HERO]["spouse"])
 	sim.run_minutes(90)
-	eq(str(st.characters[wife]["ai"].get("doing", "")), "home", "hungry and tired: home before trading")
+	eq(str(st.characters[wife]["ai"].get("doing", "")), "eat", "hungry and tired: home to eat before trading")
 	eq(str(st.characters[wife]["ai"].get("why", "")), "need_hunger", "because of hunger, the lowest")
 	eq(Inventory.count(st.buildings[FORGE]["inventory"], "iron"), 0, "no trading meanwhile")
 

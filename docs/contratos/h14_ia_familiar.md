@@ -101,6 +101,10 @@ Las de siempre: `move_to`, `enter_building`, `exit_building`, `buy`, `sell`, `tr
   no tiene necesidades que se muevan: no hay órdenes de comer ni dormir y el bot novato, que trabaja 22 h al día, perdía
   10 de oro neto al día en el año 1 (de 54,7 a 44,2) por la moral; igual que H8 dejó al fundador sin rutina para no
   mover H3-H5. Enfermedad por necesidades: no (POST-MVP, como dice 4.2.6).
+  **Sustituido el 2026-11-07 (dormir y comer, GDD 4.2.6):** todos los adultos de la familia humana mueven sus
+  necesidades, también el fundador sin rutina; a los controlados solo les cuentan hambre y descanso, el descanso se
+  recupera durmiendo (no estando en casa) y el hambre con la cena de una noche en casa o la orden `eat`; la Rutina
+  (`needs_routine`) los acuesta y les da de comer. Ver `sim/family/needs_routine.gd`.
 - **Todas las cifras** de necesidades, moral y comercio.
 - **Comerciar compra las materias de las recetas del edificio asignado** y vende el excedente de productos; no compra
   herramientas ni mejoras.

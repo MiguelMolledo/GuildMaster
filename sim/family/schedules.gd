@@ -39,6 +39,7 @@ static func note_manual(sim: Sim, o: Dictionary) -> void:
 		sim.events.append({"type": "routine_paused", "character": str(ch["id"])})
 		if OS.is_debug_build():
 			print("[Schedules] %s: orden manual %s, la rutina espera" % [ch["id"], type])
+	ch["routine"]["last_manual"] = int(sim.state.clock["minute"])  # NeedsRoutine: a manual order rules over the Rutina
 	ch["routine"]["manual_until"] = int(sim.state.clock["minute"]) \
 		+ int(sim.catalog.family.get("routine", {}).get("manual_grace_minutes", 60))
 	ch["routine"].erase("retry_at")
@@ -86,14 +87,21 @@ static func _step_one(sim: Sim, chr: String, phase: String, now: int) -> void:
 	if not ch.get("routine") is Dictionary:
 		ch["routine"] = {}
 	var r: Dictionary = ch["routine"]
+	NeedsRoutine.update_want(sim, chr, r, phase, now)  # sleep and food (GDD 4.2.6)
+	if NeedsRoutine.forced(sim, chr, r, now):
+		return  # Rendido, or a meal / a sleep in course
 	if bool(r.get("manual", false)):
-		if not _idle(sim, chr) or now < int(r.get("manual_until", 0)):
+		var taken := NeedsRoutine.supersedes(sim, chr, r) and (_idle(sim, chr) or (str(ch.get("location", "")) != ""
+			and Production.job_zone(sim, chr, str(ch["location"])) != ""))  # the order (or the cycle) predates the want
+		if not taken and (not _idle(sim, chr) or now < int(r.get("manual_until", 0))):
 			return
 		r["manual"] = false
 		r.erase("manual_until")
 		sim.events.append({"type": "routine_resumed", "character": chr})
 		if OS.is_debug_build():
 			print("[Schedules] %s vuelve a su rutina (%s)" % [chr, phase])
+	if NeedsRoutine.drive(sim, chr, r, now):
+		return  # the Rutina: home to sleep at night, to eat at midday
 	var slot := current_slot(sim, chr, phase)
 	if slot.is_empty() or str(slot.get("action", "")) == "idle":
 		return

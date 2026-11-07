@@ -41,6 +41,7 @@ const GOLD_ICON: String = "icon_oro"
 # 1 · card
 @onready var _card: PanelContainer = %Card
 @onready var _group_bar: HBoxContainer = %GroupBar
+var _needs_minute: int = -1  # sleep and food: the minute the group's needs bars were drawn
 @onready var _name_label: Label = %NameLabel
 @onready var _gold_icon: TextureRect = %GoldIcon
 @onready var _family_gold: Label = %GoldLabel
@@ -718,10 +719,13 @@ func _refresh_family(sim: Sim) -> void:
 	var title := Titles.current(sim, fam)
 	var gold := Money.gold(sim.state, fam)
 	var rep := Reputation.of(sim.state, fam)
-	var sig := "%s|%s|%d|%s|%d" % [fam, who, gold, title, rep]
+	var states := Needs.states(sim, who) if who != "" else []  # sleep and food: Cansado, Rendido, Hambriento
+	var sig := "%s|%s|%d|%s|%d|%s" % [fam, who, gold, title, rep, states]
 	if sig != _card_sig:
 		_card_sig = sig
 		_name_label.text = str(sim.state.characters.get(who, {}).get("name", ""))
+		if not states.is_empty():
+			_name_label.text += " · " + SimQuery.needs_states_text({"states": states})
 		if fam == _gold_family and _gold_shown >= 0 and gold != _gold_shown:
 			UiAnim.gold_change(_family_gold, _gold_shown, gold)   # counts and «+42» rises (00 §8)
 		else:
@@ -1314,6 +1318,7 @@ func _refresh_group(sim: Sim) -> void:
 	var sig := "%s|%s|%s|%s|%s|%s" % [group, who, heir, group.map(func(c: String) -> Variant: return sim.state.characters[c].get("visual")),
 		group.map(func(c: String) -> bool: return Tribunal.is_banished(sim.state, c) or Region.is_away(sim.state, c)), counts]
 	if sig == _group_sig:
+		_refresh_needs_bars(sim)
 		return
 	_group_sig = sig
 	for c: Node in _group_bar.get_children():
@@ -1335,7 +1340,23 @@ func _refresh_group(sim: Sim) -> void:
 			f.tooltip_text = tr("hud.away_tip") % tr(str(Region.settlement(sim, where).get("name_key", where)))
 		f.clicked.connect(func(id: String) -> void: select_requested.emit(id))
 		f.double_clicked.connect(func(id: String) -> void: focus_requested.emit(id))
+		var nb := NeedsBars.new()  # sleep and food (GDD 4.2.6): rest and hunger next to the portrait
+		nb.name = "Needs%d" % (i + 1)
+		nb.set_meta("character", str(group[i]))
+		_group_bar.add_child(nb)
 	_group_bar.visible = group.size() > 0
+	_refresh_needs_bars(sim, true)
+
+
+## The rest and hunger bars of the group (once per game minute: they change by the hour; at once when rebuilt).
+func _refresh_needs_bars(sim: Sim, force: bool = false) -> void:
+	var m := int(sim.state.clock["minute"])
+	if m == _needs_minute and not force:
+		return
+	_needs_minute = m
+	for c: Node in _group_bar.get_children():
+		if c is NeedsBars:
+			(c as NeedsBars).show_view(Needs.view(sim, str(c.get_meta("character", ""))))
 
 
 ## The i-th person of the group (0-based), if any: selected.

@@ -21,16 +21,18 @@ func test_needs_change_by_the_hour() -> void:
 	var sim := _sim("kin_trader")
 	var st := sim.state
 	st.characters[HERO]["location"] = FORGE
-	check(not Needs.tracked(sim, HERO), "Hugo without a routine (only manual orders): his needs stay still")
-	st.characters[HERO]["schedule"] = {"dawn": {"action": "rest"}, "day": {"action": "rest"}, "dusk": {"action": "rest"},
-		"night": {"action": "rest"}}
-	check(Needs.tracked(sim, HERO), "with a routine they move")
+	check(Needs.tracked(sim, HERO), "Hugo without a programmable routine: his needs move too (sleep and food)")
+	eq(Needs.moving_ids(sim, HERO), ["hunger", "rest"], "a controlled one: only hunger and rest count")
+	st.clock["minute"] = 9 * Clock.MINUTES_PER_DAY + 10 * 60  # 10:00, awake at home
 	var n0: Dictionary = Needs.of(sim, HERO).duplicate()
-	eq(Needs.situation(sim, HERO), "home", "Hugo idle in the forge (his home)")
+	eq(Needs.situation(sim, HERO), "home", "Hugo idle in the forge (his home) by day")
 	sim.run_minutes(60)
 	var n1: Dictionary = Needs.of(sim, HERO)
-	eq(int(n1["hunger"]), mini(100, int(n0["hunger"]) + 12), "at home: +12 hunger an hour")
-	eq(int(n1["fun"]), int(n0["fun"]) - 1, "fun drops 1 an hour")
+	eq(int(n1["hunger"]), int(n0["hunger"]) - 3, "awake: -3 hunger an hour")
+	eq(int(n1["rest"]), int(n0["rest"]) - 4, "awake: -4 rest an hour")
+	eq(int(n1["fun"]), int(n0["fun"]), "a controlled one: fun stays still")
+	var wife := _wife(sim)
+	check(Needs.moving_ids(sim, wife).size() == 4, "the AI spouse moves the four")
 	check(not Needs.tracked(sim, "chr_0002"), "the rival smith has no needs (only the human family)")
 	var c: String = Population.townsfolk(st)[0]
 	check(not Needs.tracked(sim, c), "nor the townsfolk")
@@ -39,24 +41,32 @@ func test_needs_change_by_the_hour() -> void:
 func test_morale_and_productivity() -> void:
 	var sim := _sim("kin_trader")
 	var st := sim.state
-	st.characters[HERO]["needs"] = {"hunger": 80, "rest": 80, "social": 80, "fun": 80}
-	eq(Needs.morale(sim, HERO), 80, "the mean")
-	near(Needs.productivity(sim, HERO), 1.0, 0.0001, "full speed")
-	st.characters[HERO]["needs"] = {"hunger": 0, "rest": 0, "social": 0, "fun": 0}
-	near(Needs.productivity(sim, HERO), 0.8, 0.0001, "morale 0: x0.8")
-	st.characters[HERO]["needs"] = {"hunger": 20, "rest": 20, "social": 20, "fun": 20}
-	near(Needs.productivity(sim, HERO), 0.9, 0.0001, "morale 20: halfway to full_at 40")
+	var wife := _wife(sim)
+	st.characters[wife]["needs"] = {"hunger": 80, "rest": 80, "social": 80, "fun": 80}
+	eq(Needs.morale(sim, wife), 80, "the mean")
+	near(Needs.productivity(sim, wife), 1.0, 0.0001, "full speed")
+	st.characters[wife]["needs"] = {"hunger": 50, "rest": 50, "social": 0, "fun": 0}
+	near(Needs.productivity(sim, wife), 0.8 + 0.2 * 25.0 / 40.0, 0.0001, "the AI: morale 25 slows it down")
+	st.characters[HERO]["needs"] = {"hunger": 80, "rest": 80, "social": 0, "fun": 0}
+	eq(Needs.morale(sim, HERO), 80, "a controlled one: morale of hunger and rest only")
+	near(Needs.productivity(sim, HERO), 1.0, 0.0001, "social and fun do not slow the player down")
+	st.characters[HERO]["needs"] = {"hunger": 80, "rest": 20, "social": 80, "fun": 80}
+	eq(Needs.states(sim, HERO), ["tired"], "rest under 30: tired")
+	near(Needs.productivity(sim, HERO), 0.75, 0.0001, "tired: x0.75")
+	st.characters[HERO]["needs"] = {"hunger": 20, "rest": 20, "social": 80, "fun": 80}
+	eq(Needs.states(sim, HERO), ["tired", "hungry"], "and hungry")
+	near(Needs.productivity(sim, HERO), 0.75 * 0.85, 0.0001, "tired and hungry: x0.6375")
 	var inv: Dictionary = st.buildings[FORGE]["inventory"]
 	Inventory.add(inv, cat, "iron", 0, 4)
 	Inventory.add(inv, cat, "coal", 0, 4)
 	st.characters[HERO]["location"] = FORGE
-	st.characters[HERO]["schedule"] = Schedules.default_schedule(sim, HERO)
+	st.characters[HERO]["needs"] = {"hunger": 80, "rest": 20, "social": 80, "fun": 80}
 	var r := Orders.apply(sim, {"type": "work_at", "actor": HERO, "building": FORGE, "zone": "furnace",
 		"recipe": "forge_ingot", "mode": "normal"})
 	check(r["ok"], "works (%s)" % r["reason"])
 	var job: Dictionary = st.buildings[FORGE]["zones"]["furnace"]["job"]
 	var full := Production.owner_cycle_minutes(sim, FORGE, cat.recipes()["forge_ingot"], "normal")
-	eq(int(job["end"]) - int(job["start"]), roundi(float(full) / 0.9), "a slower cycle with morale 20")
+	eq(int(job["end"]) - int(job["start"]), roundi(float(full) / 0.75), "a slower cycle when tired")
 
 
 func test_events_raise_social() -> void:

@@ -603,3 +603,49 @@ func menu() -> bool:
 func focus() -> String:
 	var f := drv.root.gui_get_focus_owner()
 	return str(f.name) if f != null else ""
+
+
+# --- sleep and food (GDD 4.2.6) ---------------------------------------------------------------------------------------
+
+## A need of the active person (rest, hunger...).
+func need(k: String) -> int:
+	return int(Needs.of(sim(), who()).get(k, 0)) if who() != "" else 0
+
+
+## Its states now: ["tired", "hungry"...].
+func needs_states() -> Array:
+	return Needs.states(sim(), who()) if who() != "" else []
+
+
+func exhausted() -> bool:
+	return who() != "" and Needs.is_exhausted(st(), who())
+
+
+## What it is doing for its needs this hour: sleep, eat, work, home...
+func situation() -> String:
+	return Needs.situation(sim(), who()) if who() != "" else ""
+
+
+func routine_on() -> bool:
+	return who() != "" and NeedsRoutine.on(sim(), who())
+
+
+func eating() -> bool:
+	return who() != "" and NeedsRoutine.eating(sim(), who())
+
+
+func phase() -> String:
+	return Clock.phase(minute(), sim().catalog.time)
+
+
+## The family has a notice of `key` (notice.<key>) in its log.
+func notice(key: String) -> bool:
+	for n: Dictionary in st().notices:
+		if str(n.get("key", "")) == "notice." + key and str(n.get("family", "")) == fam():
+			return true
+	return false
+
+
+## The name in the HUD card (with the state: «Hugo · Cansado»).
+func card_name() -> String:
+	return (app.hud().get_node("%NameLabel") as Label).text

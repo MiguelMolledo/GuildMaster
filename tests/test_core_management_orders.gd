@@ -1,10 +1,11 @@
 extends "res://tests/test_case.gd"
 ## Management orders (hire, bonus, queue_*...) act at once and never touch the signer's order queue.
+const Pins = preload("res://tests/balance_pins.gd")
 
 
 func _sim() -> Sim:
 	var r := NewGame.from_scenario("two_employees", 1)
-	return Sim.new(r["state"], Catalog.load_from())
+	return Sim.new(r["state"], Pins.no_player_needs(Catalog.load_from()))
 
 
 func test_live_management_order_keeps_the_walk() -> void:

@@ -266,7 +266,7 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 		if generation and tail_until >= 0 and now >= tail_until:
 			break
 		var t0 := Time.get_ticks_usec()
-		var given: Array = bot.orders(sim)
+		var given: Array = NeedsRoutine.bot_filter(sim, bot.orders(sim))  # sleep and food: with the Rutina on
 		var t1 := Time.get_ticks_usec()
 		var ev := sim.step(given)
 		var t2 := Time.get_ticks_usec()

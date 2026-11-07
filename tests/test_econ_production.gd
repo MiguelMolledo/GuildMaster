@@ -9,7 +9,7 @@ const TOMAS: String = "chr_0003"
 const MARTA: String = "chr_0004"
 const FORGE: String = "bld_0001"
 
-var cat := Pins.classic(Catalog.load_from())  # pre-H5 figures: see tests/balance_pins.gd
+var cat := Pins.no_player_needs(Pins.classic(Catalog.load_from()))  # pre-H5 figures: see tests/balance_pins.gd
 
 
 ## The town_e_start scenario with `who` already inside the forge (placed by hand: entering is tested by «edificio»).

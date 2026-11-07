@@ -155,7 +155,7 @@ func _fill_needs(nv: Dictionary) -> void:
 		box.remove_child(c)
 		c.queue_free()
 	var needs: Dictionary = nv.get("needs", {})
-	for k: Variant in sim.catalog.family.get("needs", {}).get("ids", []):
+	for k: Variant in nv.get("moving", sim.catalog.family.get("needs", {}).get("ids", [])):  # a controlled one: hunger, rest
 		box.add_child(_bar("N_" + str(k), SimQuery.t_("need." + str(k)), int(needs.get(str(k), 0))))
 	var m := int(nv.get("morale", 0))
 	box.add_child(_bar("Morale", SimQuery.t_("ui.kin_ai.morale"), m))

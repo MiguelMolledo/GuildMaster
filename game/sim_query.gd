@@ -846,3 +846,22 @@ static func town_state_text(sim: Sim, chr: String) -> String:
 ## The text of an active microevent with its parameters (names, building, item).
 static func microevent_text(sim: Sim, view: Dictionary) -> String:
 	return notice_text(sim.state, sim.catalog, {"key": str(view.get("text_key", "")), "params": view.get("params", {})})
+
+
+## Sleep and food (GDD 4.2.6): «Descanso 64 · Hambre 80 · Cansado» from Needs.view (the states in words; durmiendo /
+## comiendo while it does).
+static func needs_line(v: Dictionary) -> String:
+	var n: Dictionary = v.get("needs", {})
+	var parts: Array = [t_("ui.needs.bars_tip") % [int(n.get("rest", 0)), int(n.get("hunger", 0))]]
+	for s: Variant in v.get("states", []):
+		parts.append(t_("ui.needs.state." + str(s)))
+	if str(v.get("act", "")) == "eat" or str(v.get("situation", "")) == "eat":
+		parts.append(t_("ui.needs.eating"))
+	elif str(v.get("situation", "")) == "sleep":
+		parts.append(t_("ui.needs.sleeping"))
+	return " · ".join(parts)
+
+
+## The states of a character in words for the HUD card («Cansado», «Rendido · Hambriento»), "" if none.
+static func needs_states_text(v: Dictionary) -> String:
+	return " · ".join((v.get("states", []) as Array).map(func(s: Variant) -> String: return t_("ui.needs.state." + str(s))))

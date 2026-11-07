@@ -324,7 +324,7 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 			"duels_refused", "brawls"]:  # duelo (docs/contratos/duelo.md)
 		m[k] = 0
 	for i: int in days * Clock.MINUTES_PER_DAY:
-		for e: Dictionary in sim.step(bot.orders(sim)):
+		for e: Dictionary in sim.step(NeedsRoutine.bot_filter(sim, bot.orders(sim))):  # the bots play with the Rutina on
 			match str(e["type"]):
 				"duel_challenged":
 					if str(e.get("family", "")) == player:

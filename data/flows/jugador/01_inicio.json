@@ -12,6 +12,7 @@
     {"id": "zoom", "say": "La rueda acerca", "wheel": {"up": true, "times": 2}, "until": "q.tut() != 'first_steps:zoom'", "timeout": 4},
     {"id": "elegir", "say": "Tu protagonista: Siguiente", "click": {"via": "Tutorial", "node": "Button_next"}, "until": "q.tut() != 'first_steps:select'", "timeout": 4},
     {"id": "grupo", "click": {"via": "Tutorial", "node": "Button_next"}, "until": "q.tut() != 'first_steps:group'", "timeout": 4},
+    {"id": "necesidades", "say": "Las barritas de descanso y hambre: Siguiente", "click": {"via": "Tutorial", "node": "Button_next"}, "until": "q.tut() != 'first_steps:needs'", "timeout": 4},
     {"id": "reloj", "click": {"via": "Tutorial", "node": "Button_next"}, "until": "q.tut() != 'first_steps:clock'", "timeout": 4},
     {"id": "reanudar", "say": "Espacio: que corra el tiempo", "key": "Space", "until": "q.tut() != 'first_steps:resume'", "timeout": 4},
     {"id": "velocidad", "say": "Mayús+2: ×2", "key": "@speed_2", "until": "q.tut() != 'first_steps:speed'", "timeout": 4},

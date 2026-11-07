@@ -425,7 +425,7 @@ static func _add_character(s: WorldState, catalog: Catalog, fam: String, name: S
 		"town": {}, "banished_until": -1, "ai": {}, "needs": {}}
 	var start := int(catalog.family.get("needs", {}).get("start", 80))  # H14 (GDD 4.2.6)
 	for k: Variant in catalog.family.get("needs", {}).get("ids", ["hunger", "rest", "social", "fun"]):
-		s.characters[id]["needs"][str(k)] = start
+		s.characters[id]["needs"][str(k)] = int(catalog.family.get("needs", {}).get("start_of", {}).get(str(k), start))
 	var n := id.get_slice("_", 1).to_int()  # H8: tones and age until _set_kin gives the real ones
 	s.characters[id].merge(Kin.character_fields(Kin.birth_day_for(SaveFile.MIGRATION_AGE, int(s.clock["minute"]),
 		catalog.time), "artisan", "", n % int(catalog.family.get("visual", {}).get("hair_tones", 6)),

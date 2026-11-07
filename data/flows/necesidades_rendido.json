@@ -1,0 +1,19 @@
+{
+  "id": "necesidades_rendido",
+  "title": "Sin Rutina hasta quedar Rendido",
+  "about": "Con la Rutina apagada en la ficha el personaje no se va a dormir: el descanso baja, avisa antes («se está cansando»), queda Cansado y al llegar a 0 Rendido: lo deja todo, no obedece, se va a casa a dormir y vuelve a estar disponible al llegar a 50.",
+  "start": {"scenario": "town_e_start", "at": "08:00"},
+  "covers": ["set_needs_routine", "move_to"],
+  "steps": [
+    {"id": "ficha", "say": "I abre la ficha", "key": "@inventory", "expect": ["q.visible('CharacterPanel')", "q.routine_on()"]},
+    {"id": "rutina_off", "say": "Quita «Rutina»", "click": {"node": "RoutineCheck"}, "expect": ["q.order('set_needs_routine')", "not q.routine_on()"]},
+    {"id": "cerrar_ficha", "say": "Esc cierra la ficha", "key": "Escape", "expect": ["not q.visible('CharacterPanel')"]},
+    {"id": "velocidad", "say": "Mayús+3: ×4", "key": "@speed_3", "expect": ["q.speed() == 4"]},
+    {"id": "aviso", "say": "Despierto todo el día y la noche: antes de cansarse, avisa", "until": "q.notice('rest_low')", "timeout": 180, "fast": 8, "expect": ["q.need('rest') < 40", "not q.exhausted()"]},
+    {"id": "cansado", "say": "Por debajo de 30: Cansado, también en la tarjeta", "until": "'tired' in q.needs_states()", "timeout": 60, "fast": 8, "expect": ["q.notice('tired')", "q.card_name().find(' · ') >= 0"]},
+    {"id": "rendido", "say": "A 0: Rendido", "until": "q.exhausted()", "timeout": 120, "fast": 8, "expect": ["q.notice('exhausted')", "'exhausted' in q.needs_states()"]},
+    {"id": "no_obedece", "say": "Clic derecho en una calle: no obedece (rendido)", "world": {"tile": [21, 16]}, "button": "right", "expect": ["q.order('move_to')", "q.refused().find('exhausted') >= 0"], "soft": true},
+    {"id": "duerme", "say": "Se va solo a casa a dormir", "until": "q.situation() == 'sleep'", "timeout": 60, "fast": 6, "expect": ["q.location() == q.own('forge')"]},
+    {"id": "recupera", "say": "Al llegar a 50 vuelve a estar disponible", "until": "not q.exhausted()", "timeout": 120, "fast": 8, "expect": ["q.need('rest') >= 50"]}
+  ]
+}

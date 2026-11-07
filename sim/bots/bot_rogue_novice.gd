@@ -11,6 +11,7 @@ const ID: String = "rogue_novice"
 const PICKS_PER_DAY: int = 8
 const SEEK_TILES: int = 14
 const DEBT_RESERVE: int = 20
+const BURGLE_HOURS: int = 2  # sleep and food: the night's burglary only in its first hours, then home to sleep
 
 var fam: String = ""
 var me: String = ""
@@ -57,16 +58,21 @@ func orders(sim: Sim) -> Array:
 		return [o]
 	var ph := Clock.phase(int(st.clock["minute"]), sim.catalog.time)
 	var den := Rogue.den_of(st, fam)
-	if _carries_stolen(sim) and (ph in ["dawn", "night"] and _burgled_night == day or ph == "dawn" \
+	var night := _night(sim)  # sleep and food: one burglary a night (the night spans midnight), then to bed
+	if _carries_stolen(sim) and (ph in ["dawn", "night"] and _burgled_night == night or ph == "dawn" \
 			or (ph == "dusk" and _picks >= PICKS_PER_DAY)):
 		return _at_den(sim, den)
 	if ph in ["day", "dusk"] and _picks < PICKS_PER_DAY:
 		o = _pick(sim)
 		if not o.is_empty():
 			return [o]
-	if ph == "night" and _burgled_night != day:
+	if ph == "night" and _burgled_night != night \
+			and int(st.clock["minute"]) - NeedsRoutine.night_start(sim, int(st.clock["minute"])) > BURGLE_HOURS * 60:
+		_burgled_night = night  # sleep and food: no storage within the first hours of the night: to bed (the Rutina)
+	if ph == "night" and _burgled_night != night:
 		o = _burgle(sim)
 		if not o.is_empty():
+			o["manual"] = true  # sleep and food: the night's burglary is ordered over the Rutina (NeedsRoutine.bot_filter)
 			return [o]
 	if _carries_stolen(sim) or str(ch.get("location", "")) != den:
 		return _at_den(sim, den)
@@ -167,15 +173,20 @@ func _burgle(sim: Sim) -> Dictionary:
 			best = b
 			best_v = v
 	if best == "":
-		_burgled_night = Clock.day(int(st.clock["minute"]))  # nothing worth it tonight
+		_burgled_night = _night(sim)  # nothing worth it tonight
 		return {}
 	if str(ch.get("location", "")) != "":
 		return {"type": "exit_building", "actor": me}
 	var door: Array = st.buildings[best]["door"]
 	if Life.dist(here, door) <= 1:
-		_burgled_night = Clock.day(int(st.clock["minute"]))
+		_burgled_night = _night(sim)
 		return {"type": "burgle", "actor": me, "building": best}
 	return _move(sim, door)
+
+
+## The night of now: the day it began (after midnight, still the night before).
+func _night(sim: Sim) -> int:
+	return Clock.day(int(sim.state.clock["minute"]) - 6 * 60)
 
 
 func _store_value(sim: Sim, b: String) -> int:

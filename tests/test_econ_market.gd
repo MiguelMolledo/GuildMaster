@@ -13,7 +13,7 @@ const DAY: int = 600          # day 0, 10:00 (spring: day phase from 420 to 1140
 const NIGHT_STARTS: int = 1260
 const NEXT_DAWN: int = 1440 + 300
 
-var cat := Pins.classic(Catalog.load_from())  # pre-H5 figures: see tests/balance_pins.gd
+var cat := Pins.no_player_needs(Pins.classic(Catalog.load_from()))  # pre-H5 figures, the founder without sleep and food: see tests/balance_pins.gd
 
 
 ## town_e_start by day, without the rival AI (so nobody else sells or buys while a test runs).
@@ -404,7 +404,7 @@ func test_bot_smith_buys_at_the_market() -> void:
 	var errands := 0
 	var swords := 0
 	for i: int in 3 * Clock.MINUTES_PER_DAY:
-		for e: Dictionary in sim.step(bot.orders(sim)):
+		for e: Dictionary in sim.step(NeedsRoutine.bot_filter(sim, bot.orders(sim))):
 			match str(e["type"]):
 				"order_refused":
 					if str(e["actor"]) == HUGO:

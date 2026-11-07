@@ -4,11 +4,12 @@ extends "res://tests/test_case.gd"
 ## orders, serving by hand and by the staff, the bill and the tip, close at 02:00 with its summary and the fame), the
 ## beds (paid on arrival, dirty at dawn, made by hand or by the maid), the spoilage, the licence, the clientele's
 ## reasons, the shifts of the staff, save v19 and the determinism.
+const Pins = preload("res://tests/balance_pins.gd")
 
 const FAM: String = "fam_0001"
 const HERO: String = "chr_0001"
 
-var cat := Catalog.load_from()
+var cat := Pins.no_player_needs(Catalog.load_from())  # the founder without sleep and food (GDD 4.2.6: its own tests)
 
 
 func _start() -> Sim:

@@ -303,6 +303,8 @@ static func _repeat_or_idle(sim: Sim, bld_id: String, zone: String, actor: Strin
 	if why == "":
 		why = may_work(sim, actor, bld_id)
 	var recipe: Dictionary = sim.catalog.recipes().get(recipe_id, {})
+	if why == "" and not _is_employee_at(sim, actor, bld_id):  # sleep and food: Rendido, or the Rutina wants it home
+		why = NeedsRoutine.stop_repeat(sim, actor, _cycle_length(sim, bld_id, actor, recipe, mode, spec))
 	if why == "":
 		why = _lock_reason(sim, ch, bld, recipe)
 	if why == "":
@@ -425,6 +427,8 @@ static func may_work(sim: Sim, actor: String, bld_id: String) -> String:
 	if Upgrades.blocks(sim.state, bld_id):
 		return "under_works"  # H5 (GDD 4.8): closed works (Equilibrio 9: only a save from before; data otherwise)
 	var ch: Dictionary = sim.state.characters.get(actor, {})
+	if Needs.is_exhausted(sim.state, actor):
+		return "exhausted"  # Rendido (GDD 4.2.6): no work until rest is back at states.exhausted.until
 	if str(ch.get("controlled_by", "")) == "human":
 		return ""
 	var phase := Clock.phase(int(sim.state.clock["minute"]), sim.catalog.time)

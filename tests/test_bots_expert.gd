@@ -2,8 +2,9 @@ extends "res://tests/test_case.gd"
 ## H5 · bot artisan_expert (sim/bots/bot_artisan_expert.gd) and the measures of tools/sim_runner.gd it feeds.
 
 
-## A real new game in Normal: in 8 days the expert pays the debt, hires, fills the queue and starts an upgrade of
-## the production branch, with no refused order and the book adding up.
+## A real new game in Normal: in 10 days (8 before sleep and food, GDD 4.2.6: seed 1 now pays on day 5 and gives the
+## queue's first unit on day 8 at dawn) the expert pays the debt, hires, fills the queue and starts an upgrade of the
+## production branch, with no refused order and the book adding up. It plays with the Rutina on (bot_filter).
 func test_expert_runs_the_forge() -> void:
 	var cat := Catalog.load_from()
 	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)
@@ -13,8 +14,8 @@ func test_expert_runs_the_forge() -> void:
 	var seen := {}
 	var refused: Array = []
 	var gold0 := Money.gold(sim.state, "fam_0001") - Ledger.total(sim.state, "fam_0001")
-	for i: int in 8 * Clock.MINUTES_PER_DAY:
-		for e: Dictionary in sim.step(bot.orders(sim)):
+	for i: int in 10 * Clock.MINUTES_PER_DAY:
+		for e: Dictionary in sim.step(NeedsRoutine.bot_filter(sim, bot.orders(sim))):
 			var t := str(e["type"])
 			if t == "order_refused":
 				refused.append("%s %s" % [e["order"], e["reason"]])

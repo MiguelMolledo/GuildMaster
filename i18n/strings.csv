@@ -1437,7 +1437,7 @@ ui.kin_ai.rate_full,Works at full speed,Trabaja a ritmo normal
 ui.kin_ai.rate_slow,Works at %d %% (low morale),Trabaja al %d %% (moral baja)
 help.kin_ai,Family AI,IA de la familia
 help.kin_ai_directives,"«AI» in a person's sheet or the family tree: tick and order their directives (work, trade, socialize, have fun). They follow them in the Free slots of their routine; the spouse, all day. Trade buys the raw materials the forge lacks and sells the surplus","«IA» en la ficha de una persona o en el árbol: marca y ordena sus directivas (trabajar, comerciar, sociabilizar, divertirse). Las siguen en las franjas Libre de su rutina; la pareja, todo el día. Comerciar compra las materias que le faltan a la forja y vende lo que sobra"
-help.kin_ai_needs,"Hunger and rest recover at home without working, social talking, fun on a bench. Low needs come first and lower morale: with low morale they work slower. Notices warn of exhaustion and low morale","El hambre y el descanso se recuperan en casa sin trabajar, lo social hablando, la diversión en un banco. Las necesidades bajas van primero y bajan la moral: con moral baja trabajan más despacio. Los avisos te dicen si alguien está agotado o desanimado"
+help.kin_ai_needs,"Rest comes back sleeping at home, hunger eating at home (or with the dinner of a night at home), social talking, fun on a bench. Low needs come first and lower morale: with low morale they work slower. Notices warn of exhaustion and low morale","El descanso se recupera durmiendo en casa, el hambre comiendo en casa (o con la cena de una noche en casa), lo social hablando, la diversión en un banco. Las necesidades bajas van primero y bajan la moral: con moral baja trabajan más despacio. Los avisos te dicen si alguien está agotado o desanimado"
 ui.kin_ai.why_need_hunger,hungry,tiene hambre
 ui.kin_ai.why_need_rest,tired,está cansado
 ui.kin_ai.why_need_social,lonely,se siente solo
@@ -4393,3 +4393,35 @@ misdeed.contraband,contraband,contrabando
 tutorial.hint.night_skip,Night: the market is closed until dawn. «Skip until…» (») by the clock: choose dawn and the night goes by at ×8 (any notice stops it).,Es de noche: el mercado cierra hasta el amanecer. «Saltar hasta…» (») junto al reloj: elige el amanecer y la noche pasa a ×8 (cualquier aviso la para).
 notice.plots.ai_for_sale,"{building} is for sale: {price} (its family cannot keep it)","{building} está en venta: {price} (su familia no puede mantenerlo)"
 notice.plots.ai_fallen,"{family} have lost their last business: they look for work","{family} ha perdido su último negocio: busca trabajo"
+notice.exhausted,{name} is worn out: they drop what they are doing and go home to sleep (no work until rested),{name} está rendido: deja lo que hace y se va a casa a dormir (no trabaja hasta descansar)
+notice.tired,{name} is tired: works slower (×0.75). Sleep at home tonight,"{name} está cansado: trabaja más despacio (×0,75). Que duerma en casa esta noche"
+notice.rest_low,"{name} is getting tired: they should sleep soon, or they will slow down",{name} se está cansando: que duerma pronto o empezará a ir más despacio
+notice.hungry,{name} is hungry: works slower (×0.85). Eat at home or at the tavern,"{name} tiene hambre: trabaja más despacio (×0,85). Que coma en casa o en la taberna"
+notice.hunger_low,"{name} is getting hungry: a meal at home, or a night at home with its dinner","{name} empieza a tener hambre: una comida en casa, o una noche en casa con su cena"
+reason.exhausted,Worn out: sleeping until rested,Rendido: duerme hasta descansar
+reason.not_home,Only at home,Solo en casa
+reason.no_home,No home to go to,No tiene casa
+reason.not_at_tavern,Go to the tavern's door first,Primero ve a la puerta de la taberna
+reason.working,Working at a station,Está trabajando en un puesto
+reason.bad_place,Not a place to eat,No es un sitio para comer
+reason.routine_sleep,Bedtime (the Rutina),Hora de dormir (la Rutina)
+reason.routine_eat,Lunchtime (the Rutina),Hora de comer (la Rutina)
+ui.needs.routine,Routine,Rutina
+ui.needs.routine_tip,"On: they go home to sleep at night and to eat at midday when hungry, without being told. A manual order always rules. Off: you decide (and pay for it in rest)","Encendida: se va a dormir a casa de noche y a comer al mediodía si tiene hambre, sin que se lo pidas. Una orden tuya siempre manda. Apagada: decides tú (y lo pagas en descanso)"
+ui.needs.eat_home,Eat,Comer
+ui.needs.eat_home_tip,"An hour's meal at home, free (+60 hunger)","Una hora de comida en casa, gratis (+60 de hambre)"
+ui.needs.eat_tavern,Tavern,Taberna
+ui.needs.eat_tavern_tip,"An hour's meal at the tavern: 1 gold, +60 hunger and some company","Una hora de comida en la taberna: 1 de oro, +60 de hambre y algo de compañía"
+ui.needs.bars_tip,Rest %d · Hunger %d,Descanso %d · Hambre %d
+ui.needs.state.tired,Tired,Cansado
+ui.needs.state.exhausted,Worn out,Rendido
+ui.needs.state.hungry,Hungry,Hambriento
+ui.needs.eating,eating,comiendo
+ui.needs.sleeping,asleep,durmiendo
+ui.needs.tip,"Rest drops awake (faster working at night) and comes back sleeping at home; hunger, with the dinner of a night at home or a meal. Under 30: Tired (×0.75) or Hungry (×0.85). At 0 rest: Worn out, sleeps until 50","El descanso baja despierto (más rápido trabajando de noche) y se recupera durmiendo en casa; el hambre, con la cena de una noche en casa o comiendo. Por debajo de 30: Cansado (×0,75) o Hambriento (×0,85). Con el descanso a 0: Rendido, duerme hasta 50"
+ui.kin_ai.doing_eat,eating,comiendo
+ui.kin_ai.doing_sleep,sleeping,durmiendo
+ui.kin_ai.why_exhausted,worn out,rendido
+tutorial.first_steps.needs,"Next to each portrait, two small bars: rest (blue) and hunger (gold). With the Routine on (the person's sheet) they sleep at home at night and eat at midday on their own; working all night tires them, and worn out they drop everything to sleep.","Junto a cada retrato, dos barritas: descanso (azul) y hambre (dorado). Con la Rutina encendida (en la ficha) duermen en casa de noche y comen al mediodía solos; trabajar toda la noche cansa, y rendidos lo dejan todo para dormir."
+ui.order.eat,Eat,Comer
+ui.order.set_needs_routine,Switch the Routine,Cambiar la Rutina

@@ -2,10 +2,11 @@ extends "res://tests/test_case.gd"
 ## The Rogue's first trade, the thief (docs/gdd/04d_otras_clases.md §4.22.6.4): picking a purse by day, robbing a
 ## storage at night, stolen goods (<item>@stolen) that no stall takes, the fence with its daily cap, laundering at the
 ## den, the underworld, and the watch that arrests whoever it sees (a trial with the guard as witness).
+const Pins = preload("res://tests/balance_pins.gd")
 
 const DAY: int = 1440
 
-var cat := Catalog.load_from()
+var cat := Pins.no_player_needs(Catalog.load_from())  # the founder without sleep and food (GDD 4.2.6: its own tests)
 
 
 func _game() -> Sim:

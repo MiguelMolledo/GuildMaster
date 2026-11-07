@@ -58,3 +58,12 @@ static func prices(cat: Catalog) -> Catalog:
 static func no_ramp(cat: Catalog) -> Catalog:
 	cat.accounts["upkeep_ramp"] = []
 	return cat
+
+
+## `cat` without sleep and food for the controlled characters (GDD 4.2.6): the H14 rule (a controlled one without a
+## programmable routine moves no needs, no Rutina). For the tests of other rules that play the founder for days with
+## manual orders (cycles, the queue, the shops' hours); the needs have their own tests (test_family_sleep_food).
+## Returns the same catalog.
+static func no_player_needs(cat: Catalog) -> Catalog:
+	cat.family["needs"]["controlled"] = false
+	return cat

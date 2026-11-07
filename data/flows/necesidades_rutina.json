@@ -1,0 +1,19 @@
+{
+  "id": "necesidades_rutina",
+  "title": "Dormir y comer con la Rutina",
+  "about": "Un día entero con la Rutina encendida (por defecto): las barras de descanso y hambre junto al retrato, la ficha con el estado y el interruptor, «Comer» en casa, y de noche se va solo a dormir a la forja y amanece descansado sin que se le dé ninguna orden.",
+  "start": {"scenario": "town_e_start", "at": "11:30"},
+  "covers": ["eat", "exit_building", "enter_building"],
+  "steps": [
+    {"id": "barras", "say": "Junto al retrato, dos barritas: descanso y hambre", "expect": ["q.visible('Needs1')", "q.routine_on()"]},
+    {"id": "ficha", "say": "I abre la ficha: la línea de descanso y hambre, la Rutina encendida", "key": "@inventory", "expect": ["q.visible('CharacterPanel')", "q.visible('NeedsRow')", "q.drv.node('RoutineCheck').button_pressed", "q.drv.node('NeedsLabel').text != ''"]},
+    {"id": "comer", "say": "«Comer»: va a casa (la forja) y come una hora", "click": {"node": "EatButton"}, "until": "q.eating()", "timeout": 40, "fast": 4, "expect": ["q.order('eat')", "q.location() == q.own('forge')"]},
+    {"id": "comido", "say": "Espera a que acabe de comer", "until": "not q.eating()", "timeout": 60, "fast": 6, "expect": ["q.need('hunger') >= 90"]},
+    {"id": "cerrar_ficha", "say": "Esc cierra la ficha", "key": "Escape", "expect": ["not q.visible('CharacterPanel')"]},
+    {"id": "velocidad", "say": "Mayús+3: ×4", "key": "@speed_3", "expect": ["q.speed() == 4"]},
+    {"id": "noche", "say": "Sin tocar nada, hasta la noche", "until": "q.phase() == 'night'", "timeout": 120, "fast": 6},
+    {"id": "a_dormir", "say": "La Rutina lo lleva a dormir a la forja", "until": "q.situation() == 'sleep'", "timeout": 60, "fast": 6, "expect": ["q.location() == q.own('forge')", "not q.exhausted()"]},
+    {"id": "amanece", "say": "Duerme toda la noche: al amanecer, descansado", "until": "q.phase() == 'dawn'", "timeout": 120, "fast": 6, "expect": ["q.need('rest') >= 90", "q.needs_states() == []"]},
+    {"id": "mediodia", "say": "Y el día siguiente, hasta el mediodía, sin cansancio ni hambre", "until": "q.phase() == 'day' and q.hour() >= 12", "timeout": 120, "fast": 6, "expect": ["q.needs_states() == []", "not q.notice('exhausted')"]}
+  ]
+}

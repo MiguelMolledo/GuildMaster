@@ -53,6 +53,14 @@
       "advance": "next"
     },
     {
+      "id": "needs",
+      "text": "tutorial.first_steps.needs",
+      "target": {
+        "ui": "GroupBar"
+      },
+      "advance": "next"
+    },
+    {
       "id": "clock",
       "text": "tutorial.first_steps.clock",
       "target": {

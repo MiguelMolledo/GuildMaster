@@ -20,6 +20,8 @@ func test_three_work_a_whole_day_without_orders() -> void:
 	var st := sim.state
 	var group := Kin.group(st, FAM)
 	eq(group.size(), 3, "three controlled")
+	for c: String in group:  # fed and rested (sleep and food: a hungry one stops at midday to eat)
+		st.characters[c]["needs"] = {"hunger": 100, "rest": 100, "social": 80, "fun": 80}
 	var done := {}
 	var refused := 0
 	var at_noon := {}

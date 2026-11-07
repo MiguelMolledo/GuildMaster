@@ -56,7 +56,7 @@
     "max": 3
   },
   "routine": {
-    "_doc": "Rutina programable (4.10.8): franjas = fases del día; acciones work | rest | free. default: la rutina de quien entra en el grupo al cumplir 16 (Día = Trabajar en su edificio asignado; el resto, Libre). La del fundador de una partida nueva empieza vacía (null) [provisional, para no cambiar el balance de H3-H5]: se activa en la ficha. ai_rest_phases: fases en que un familiar con IA (la pareja, los adultos fuera del grupo) descansa en vez de seguir su directiva [provisional, hasta las necesidades POST-MVP]. retry_minutes: tras una orden rechazada. manual_grace_minutes: tras la última orden manual, la rutina espera al menos esto aunque el personaje ya esté libre (para encadenar órdenes a mano: salir y luego ir a un sitio) [provisional].",
+    "_doc": "Rutina programable (4.10.8): franjas = fases del día; acciones work | rest | free. default: la rutina de quien entra en el grupo al cumplir 16 (Día = Trabajar en su edificio asignado; el resto, Libre). La del fundador de una partida nueva empieza vacía (null) [provisional, para no cambiar el balance de H3-H5]: se activa en la ficha. ai_rest_phases: fases en que un familiar con IA (la pareja, los adultos fuera del grupo) descansa (duerme, GDD 4.2.6) en vez de seguir su directiva [provisional]. retry_minutes: tras una orden rechazada. manual_grace_minutes: tras la última orden manual, la rutina espera al menos esto aunque el personaje ya esté libre (para encadenar órdenes a mano: salir y luego ir a un sitio) [provisional].",
     "actions": ["work", "rest", "free"],
     "default": {"dawn": {"action": "free"}, "day": {"action": "work"}, "dusk": {"action": "free"}, "night": {"action": "free"}},
     "ai_rest_phases": ["night"],
@@ -70,19 +70,30 @@
     "default": ["work"]
   },
   "needs": {
-    "_doc": "Necesidades (GDD 4.2.6, H14) [provisional, balance: el GDD no da cifras]: enteros 0-100 de los adultos de la familia humana, cambian al cambiar de hora según dónde y qué hace (per_hour): home = en casa sin trabajar; work = trabajando (work_night de noche); social = en una actividad social o conversando; leisure = en ocio; base = lo demás. events: lo que suma cada evento de la hora (conversar, saludar, comerciar). low: la IA atiende primero la necesidad más baja por debajo de low, hasta que llega a recover_to; critical: aviso de agotado.",
+    "_doc": "Necesidades (GDD 4.2.6, H14; dormir y comer, 2026-11-07) [balance]: enteros 0-100 de los adultos de la familia humana, cambian al cambiar de hora según dónde y qué hace (per_hour): sleep = durmiendo (en casa de noche sin trabajar, o con un sueño en curso: Rendido o la IA a descansar); work = trabajando (work_night de noche); social = en una actividad social o conversando; leisure = en ocio; base = lo demás (despierto). Los personajes controlados solo mueven controlled_ids (hambre y descanso); los familiares IA, todas. controlled: false vuelve a la regla de H14 (un controlado sin rutina programable no mueve sus necesidades y no hay Rutina): solo para las pruebas de reglas de otros sistemas (tests/balance_pins.gd no_player_needs). start / start_of: valor inicial (start_of por necesidad). events: lo que suma cada evento de la hora (conversar, saludar, comerciar). low: la IA atiende primero la necesidad más baja por debajo de low, hasta que llega a recover_to; critical: aviso de agotado (familiares IA). states: Cansado (tired) y Hambriento (hungry) por debajo de below trabajan con work_mult (la duración del ciclo se divide); Rendido (exhausted) al llegar a at: deja lo que hace, va a casa a dormir y no trabaja ni obedece órdenes hasta until. warn: aviso de «pronto» al bajar de ese valor (una vez al día). meal: comer dura minutes y sube hunger; en la taberna cuesta tavern_price (a la familia dueña, si la hay) y sube tavern_social; tavern_tiles: distancia a su puerta. routine: la Rutina del personaje controlado (needs_routine, encendida por defecto): de noche a dormir a casa; al mediodía (lunch_from_hour-lunch_to_hour) a comer a casa si el hambre baja de lunch_below. finish_minutes: al llegar la noche, un ciclo al que le quede más que esto se para (las entradas vuelven al almacén) y antes de la noche no se repite uno que acabaría más tarde que la noche + esto. wake_at: al amanecer, quien sigue durmiendo con menos descanso que esto duerme hasta llegar a él.",
     "ids": ["hunger", "rest", "social", "fun"],
+    "controlled": true,
+    "controlled_ids": ["hunger", "rest"],
     "start": 80,
+    "start_of": {"hunger": 100, "rest": 100},
     "per_hour": {
-      "hunger": {"base": -2, "home": 12},
-      "rest": {"base": -2, "work_night": -3, "home": 8},
+      "hunger": {"base": -3, "sleep": 6},
+      "rest": {"base": -4, "work_night": -6, "sleep": 13},
       "social": {"base": -1, "social": 8},
       "fun": {"base": -1, "leisure": 12}
     },
     "events": {"npc_action": {"social": 10}, "greeted": {"social": 5}, "market_sold": {"social": 4}, "market_bought": {"social": 4}},
     "low": 30,
     "recover_to": 70,
-    "critical": 15
+    "critical": 15,
+    "states": {
+      "tired": {"need": "rest", "below": 30, "work_mult": 0.75},
+      "hungry": {"need": "hunger", "below": 30, "work_mult": 0.85},
+      "exhausted": {"need": "rest", "at": 0, "until": 50}
+    },
+    "warn": {"rest": 40, "hunger": 40},
+    "meal": {"minutes": 60, "hunger": 60, "tavern_price": 1, "tavern_social": 10, "tavern_tiles": 3},
+    "routine": {"lunch_from_hour": 12, "lunch_to_hour": 15, "lunch_below": 60, "finish_minutes": 60, "wake_at": 70}
   },
   "morale": {
     "_doc": "Moral (GDD 4.2.6) = media de las necesidades. productivity: con moral >= full_at un familiar trabaja a ritmo normal; por debajo, la duración de su ciclo se divide por un multiplicador que baja en línea hasta min_mult con moral 0. low: aviso de moral baja [provisional, balance].",

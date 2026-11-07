@@ -58,6 +58,14 @@ static func step_one(sim: Sim, chr: String, r: Dictionary, now: int) -> void:
 			"fun":
 				if _leisure(sim, chr, now):
 					return
+			"hunger":  # sleep and food: a meal at home (NeedsRoutine)
+				_note(sim, chr, "eat", "need_hunger")
+				NeedsRoutine.go_eat(sim, chr, r, now)
+				return
+			"rest":  # a sleep at home until recover_to
+				_note(sim, chr, "sleep", "need_rest")
+				NeedsRoutine.go_sleep(sim, chr, r, now, int(nc.get("recover_to", 70)))
+				return
 		Schedules._rest(sim, chr, r, now)
 		_note(sim, chr, "home", "need_" + need)
 		return

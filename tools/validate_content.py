@@ -1470,7 +1470,8 @@ def check_h11_scenario(w, d, rep):
         rep.error(w, "justice.facts debe ser una lista")
 
 
-H14_NOTICES = ["kin_exhausted", "kin_low_morale", "forge_short", "kin_supplied"]
+H14_NOTICES = ["kin_exhausted", "kin_low_morale", "forge_short", "kin_supplied",
+               "exhausted", "tired", "rest_low", "hungry", "hunger_low"]  # sleep and food (GDD 4.2.6)
 
 
 def check_h14(strings, rep):
@@ -1504,6 +1505,33 @@ def check_h14(strings, rep):
     if not (isinstance(n.get("critical"), int) and isinstance(n.get("low"), int) and isinstance(n.get("recover_to"), int)
             and n["critical"] < n["low"] < n["recover_to"] <= 100):
         rep.error(w, "needs: critical < low < recover_to <= 100")
+    # sleep and food (GDD 4.2.6): controlled_ids, states, meal, routine
+    if not set(n.get("controlled_ids") or []) <= set(ids) or not n.get("controlled_ids"):
+        rep.error(w, "needs.controlled_ids: necesidades conocidas (hambre y descanso)")
+    for k, v in (n.get("start_of") or {}).items():
+        if k not in ids or not isinstance(v, int) or not 0 <= v <= 100:
+            rep.error(w, f"needs.start_of.{k}: necesidad conocida y entero 0-100")
+    st = n.get("states") or {}
+    for s_id in ("tired", "hungry"):
+        d = st.get(s_id) or {}
+        if d.get("need") not in ids or not isinstance(d.get("below"), int) or not 0 < float(d.get("work_mult", 0)) <= 1:
+            rep.error(w, f"needs.states.{s_id}: need, below (entero) y 0 < work_mult <= 1")
+        check_text(w, f"ui.needs.state.{s_id}", strings, rep)
+    ex = st.get("exhausted") or {}
+    if not (isinstance(ex.get("at"), int) and isinstance(ex.get("until"), int) and ex["at"] < ex["until"] <= 100):
+        rep.error(w, "needs.states.exhausted: at < until <= 100")
+    check_text(w, "ui.needs.state.exhausted", strings, rep)
+    m = n.get("meal") or {}
+    for k in ("minutes", "hunger", "tavern_price", "tavern_social", "tavern_tiles"):
+        if not isinstance(m.get(k), int) or m[k] < 0:
+            rep.error(w, f"needs.meal.{k} debe ser un entero >= 0")
+    rc = n.get("routine") or {}
+    if not (isinstance(rc.get("lunch_from_hour"), int) and isinstance(rc.get("lunch_to_hour"), int)
+            and 0 <= rc["lunch_from_hour"] < rc["lunch_to_hour"] <= 24 and isinstance(rc.get("lunch_below"), int)
+            and isinstance(rc.get("finish_minutes"), int) and isinstance(rc.get("wake_at"), int)):
+        rep.error(w, "needs.routine: lunch_from_hour < lunch_to_hour (horas), lunch_below y finish_minutes enteros")
+    for r_id in ("exhausted", "not_home", "no_home", "not_at_tavern", "working", "bad_place", "routine_sleep", "routine_eat"):
+        check_text("i18n/reason", "reason." + r_id, strings, rep)
     p = (fam.get("morale") or {}).get("productivity") or {}
     if not (0 < float(p.get("min_mult", 0)) <= 1 and 0 < int(p.get("full_at", 0)) <= 100):
         rep.error(w, "morale.productivity: 0 < min_mult <= 1 y 0 < full_at <= 100")

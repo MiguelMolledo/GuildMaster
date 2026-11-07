@@ -22,6 +22,12 @@ Se adopta tal cual el sistema de **rituales** de Wizards Broke It. Nada se da po
 
 Los bots juegan **dando órdenes**, igual que la UI. Sirven para medir el balance y para detectar bloqueos.
 
+**Duermen y comen** (GDD 4.2.6, 2026-11-07): juegan como un jugador con la Rutina encendida. Los que corren por
+`sim_runner`, `full_player` o `Sim.run_minutes(…, bot)` pasan por `NeedsRoutine.bot_filter`, que quita las órdenes
+(salvo las de gestión que no lo mueven) a un personaje que duerme, come, está Rendido o al que la Rutina lleva a casa;
+así nadie trabaja 24 h al día. Las pruebas que llaman a `sim.step(bot.orders(sim))` a mano juegan sin filtro (un
+jugador que manda trabajar de noche: la orden manual manda).
+
 | Bot | Qué hace | Para medir |
 |---|---|---|
 | `idle` | No hace nada | Que el mundo sigue solo (NPC, mercado, días, herrero rival) y nada se rompe; que el oro solo baja por mantenimiento y deuda. |
@@ -208,7 +214,10 @@ persona, puesto—, `station` / `door` en una sala, `inn` —`guest` o `bed`— 
 `spin`, `popup`, `wheel`, `pan`, `restart` —otro escenario a mitad de flujo—), una espera
 (`until` con `timeout` y `fast`, un acelerón del reloj del arnés, nunca una orden), `expect`, `when` (solo si se
 cumple), `soft` (si falla, sigue). Los flujos `teclas` (cada tecla en la ciudad y dentro: qué hace, si no hace nada o
-si choca) y `esc` (cada pantalla se cierra con Esc) dan la cobertura de teclas.
+si choca) y `esc` (cada pantalla se cierra con Esc) dan la cobertura de teclas. Dormir y comer (4.2.6):
+`necesidades_rutina` (un día entero con la Rutina: las barras, la ficha, «Comer», a dormir solo y amanecer
+descansado) y `necesidades_rendido` (la Rutina apagada hasta quedar Rendido: aviso, Cansado en la tarjeta, Rendido no
+obedece, se va a dormir y vuelve a 50).
 
 **Escenarios de los flujos**: cuando ninguna partida de las que ya hay llega a una orden, el flujo empieza en un
 escenario hecho para él por `tools/scenarios/make_verifica_scenarios.gd` (cada uno sale de un escenario que ya existe o

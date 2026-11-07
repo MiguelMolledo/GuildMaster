@@ -163,9 +163,50 @@ Con D1(b) un año son 8 días: un recién nacido llega a los 16 en ~10 h 40 real
 
 **Probabilidad de muerte** [propuesta, el actual no la tenía cerrada]: a partir de 55 años, `p_anual = 0,02 × 1,25^(edad - 55) × (1 - (constitucion - 5) × 0,05)`, tirada una vez al cambiar de año. Con Constitución 5: ~10 % a los 62, ~33 % a los 68.
 
-#### 4.2.6 Necesidades [POST-MVP]
+#### 4.2.6 Necesidades: dormir y comer
 
-Hambre, descanso, social y diversión (0-100). Si se descuidan bajan la **moral** → baja la productividad → riesgo de enfermedad. La IA de familiares las equilibra con su directiva. No entra en el MVP, pero el modelo de datos del personaje debe admitirlas.
+Hambre, descanso, social y diversión (0-100, `data/family.json` → `needs`). Para no convertirlo en un juego de
+supervivencia (The Guild 3 quitó hambre y sed por microgestión; en The Guild II se dormía en casa para recuperarse),
+al **personaje que controla el jugador solo le cuentan dos: Descanso y Hambre** (owner, 2026-11-07: «si no tienen que
+dormir nunca puedo trabajar 24-7… al menos dormir y quizás comer de vez en cuando»). Social y diversión siguen como
+estaban para los familiares IA (H14: moral = media, productividad hasta ×0,8). Las cifras son [balance].
+
+**Descanso**
+- Baja despierto, −4 por hora; trabajando de noche, −6 (×1,5). Desde lleno da para ~25 h despierto (16 h de día y
+  unas 6 de noche trabajando: una noche en vela entera lo deja a cero al amanecer).
+- Se recupera **durmiendo en casa** (+13 por hora: ~8 h lo llenan). Duerme quien está en casa de noche sin trabajar,
+  o con un sueño en curso (Rendido, o un familiar IA que se va a descansar). Sin casa, donde esté.
+- Por debajo de 30, **Cansado**: trabaja ×0,75 (la duración del ciclo se divide). Antes, por debajo de 40, avisa:
+  «se está cansando: que duerma pronto».
+- A 0, **Rendido**: deja lo que hace (para el ciclo; D11 devuelve las entradas), se va solo a casa a dormir, no
+  obedece órdenes ni puede trabajar hasta tener 50. Aviso urgente.
+
+**Hambre**
+- Baja −3 por hora despierto. Se come de dos formas: **la cena va incluida al dormir en casa** (+6 por hora de sueño
+  en casa) o con la orden **Comer** (1 h, +60): en casa gratis, o a la puerta de una Taberna-Posada por 1 moneda (a la
+  familia dueña) y +10 de social.
+- Por debajo de 30, **Hambriento**: trabaja ×0,85 (con Cansado, ×0,64). Nunca mata ni enferma.
+- Así, quien duerme cada noche en casa casi nunca tiene que pensar en comer.
+
+**Sin microgestión: la Rutina.** Cada personaje controlado tiene el interruptor **Rutina** en su ficha, encendido por
+defecto: de noche lo manda a dormir a casa y al mediodía (12-15 h) a comer si el hambre baja de 60, sin que se lo
+pidas. Antes de la noche no repite un ciclo que acabaría más de una hora después de que empiece; al llegar la noche,
+un ciclo al que le quede más de una hora se para (las entradas vuelven al almacén) y uno más corto se acaba. **Una
+orden manual siempre manda**: la que se da con la Rutina queriendo algo se cumple (trabajar de noche a mano repite
+toda la noche, pagándolo en descanso); al acabarla, vuelve la Rutina. Quien la apague decide él y lo paga en descanso.
+Si su rutina programable (4.10.8) pone Trabajar de noche, la Rutina no lo acuesta; si pone Descansar, descansa ella.
+
+**Familiares.** Los familiares controlados y los IA usan las mismas reglas: los IA duermen de noche (`ai_rest_phases`)
+y, con hambre o descanso bajos, comen o duermen en casa antes que seguir su directiva (4.10.6).
+
+**Interfaz.** Dos barritas junto a cada retrato del grupo (descanso azul, hambre dorado; rojas por debajo de 30, con
+las cifras y el estado en el tooltip); el estado (Cansado, Rendido, Hambriento) junto al nombre en la tarjeta del HUD y
+en la ficha, con el interruptor Rutina y los botones Comer y Taberna; una línea del tutorial (Primeros pasos) lo
+explica. Sim: `sim/family/needs.gd` y `sim/family/needs_routine.gd`; órdenes `eat` y `set_needs_routine`.
+
+Los bots juegan como un jugador con la Rutina encendida (`NeedsRoutine.bot_filter`: no dan órdenes a un personaje
+mientras duerme, come o la Rutina lo lleva). Las partidas viejas cargan sin versión nueva: los campos nuevos
+(`needs_routine`, `vitals`) faltan y valen lo de por defecto (Rutina encendida, sin nada en curso).
 
 ### 4.3 Objetos e inventario
 
@@ -293,7 +334,7 @@ Modificadores: herramienta adecuada +10 % de subir un nivel; mejoras de rama Cal
 - Trabajar en un puesto = consumir las entradas al **empezar** el ciclo, producir al **terminar**. Si se interrumpe, las entradas **se devuelven** al almacén del edificio (D11); si no caben, quedan en el inventario de quien trabajaba o, si tampoco, en el suelo del puesto hasta que alguien las recoja.
 - Si el almacén está lleno, el puesto se bloquea y avisa.
 - **Auto-repetición:** quien trabaja repite la receta mientras haya entradas, salvo que se le ordene parar.
-- **Restricción nocturna:** los empleados no trabajan de noche. El jugador sí puede trabajar a mano de noche en Forja/Horno.
+- **Restricción nocturna:** los empleados no trabajan de noche. El jugador sí puede trabajar a mano de noche en Forja/Horno, pagándolo en descanso (×1,5) y con su Rutina queriendo llevarlo a dormir salvo que se lo mande a mano (4.2.6).
 - Requisitos para producir: edificio en estado Normal (ni en obras ni dañado), alguien en el puesto, entradas suficientes, hueco en el almacén.
 
 #### 4.4.4 Cadenas de producción (EA)
@@ -763,7 +804,7 @@ Para no microgestionar a 3 personajes a la vez, cada personaje controlado tiene 
 - Se edita en la ficha del personaje (retrato del HUD → *Rutina*). Por defecto: Día = Trabajar en su edificio asignado; el resto, Libre.
 - La rutina se traduce en **las mismas órdenes** que daría el jugador (`MoveTo`, `EnterBuilding`, `WorkAt`); el sim la guarda en el personaje (`schedule`) y se serializa.
 - **Una orden manual manda sobre la rutina:** el personaje cumple su cola de órdenes (4.1, pausa activa) y, al vaciarla, vuelve a la franja que toque.
-- De noche los familiares pueden tener Trabajar (como el jugador, 4.4.3); los empleados no. Cuando entren las necesidades [POST-MVP], trabajar de noche costará descanso.
+- De noche los familiares pueden tener Trabajar (como el jugador, 4.4.3); los empleados no. Trabajar de noche cuesta descanso (×1,5, 4.2.6); con Trabajar en la franja de Noche, la Rutina no los acuesta.
 
 #### 4.10.9 Identidad visual de la familia
 

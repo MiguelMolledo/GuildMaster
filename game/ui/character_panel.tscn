@@ -58,6 +58,39 @@ size_flags_vertical = 0
 focus_mode = 0
 text = "x"
 
+[node name="NeedsRow" type="HBoxContainer" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="NeedsLabel" type="Label" parent="VBox/NeedsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"DimLabel"
+text = "--"
+clip_text = true
+
+[node name="RoutineCheck" type="CheckBox" parent="VBox/NeedsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "--"
+
+[node name="EatButton" type="Button" parent="VBox/NeedsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"BodyButton"
+text = "--"
+
+[node name="TavernButton" type="Button" parent="VBox/NeedsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"BodyButton"
+text = "--"
+
 [node name="Tabs" type="HBoxContainer" parent="VBox"]
 layout_mode = 2
 theme_override_constants/separation = 2

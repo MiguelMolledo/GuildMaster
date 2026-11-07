@@ -22,6 +22,10 @@ func step(orders: Array = []) -> Array:
 	for o: Dictionary in orders:
 		if record:
 			recording.append({"minute": int(state.clock["minute"]), "order": o.duplicate(true)})
+		if NeedsRoutine.refuses(self, o):  # Rendido (GDD 4.2.6): it sleeps, it does not obey
+			events.append({"type": "order_refused", "order": str(o.get("type", "")), "actor": str(o.get("actor", "")),
+				"reason": "exhausted"})
+			continue
 		Schedules.note_manual(self, o)  # H8: a manual order rules over the routine until the character is idle again
 		_give(o)
 	# The AI families give their orders like a bot, after the outside ones and on the same state (H3, GDD 4.5.5).
@@ -136,10 +140,11 @@ func _apply_now(o: Dictionary) -> void:
 			"reason": r["reason"]})
 
 
-## Runs `minutes` steps. `bot` (optional) gives the orders of each step: an object with orders(sim) -> Array.
+## Runs `minutes` steps. `bot` (optional) gives the orders of each step: an object with orders(sim) -> Array; it plays
+## like a player with the Rutina on (NeedsRoutine.bot_filter: no orders to a character the needs have).
 func run_minutes(minutes: int, bot: Object = null) -> void:
 	for i: int in minutes:
-		step(bot.orders(self) if bot != null else [])
+		step(NeedsRoutine.bot_filter(self, bot.orders(self)) if bot != null else [])
 
 
 func run_days(days: int, bot: Object = null) -> void:

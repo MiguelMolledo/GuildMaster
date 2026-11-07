@@ -9,7 +9,7 @@ const PLAYER: String = "chr_0001"
 const JOAN: String = "chr_0007"    # journeyman, craft 5, role anvil
 const AGNES: String = "chr_0008"   # apprentice, craft 2, role furnace
 
-var cat := Pins.classic(Catalog.load_from())  # pre-H5 figures: see tests/balance_pins.gd
+var cat := Pins.no_player_needs(Pins.classic(Catalog.load_from()))  # pre-H5 figures: see tests/balance_pins.gd
 
 
 func _sim(id: String = "two_employees") -> Sim:

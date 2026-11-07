@@ -3,12 +3,13 @@ extends "res://tests/test_case.gd"
 ## is owed to the town as a Loan with a term (GDD 4.16's entity: warnings, extension, seizure). Before, a smith fined
 ## with no stock stayed at 0 gold forever (the crook bot, seed 7). Here a broke forge with the double accounting is
 ## fined and the expert bot still buys iron and works.
+const Pins = preload("res://tests/balance_pins.gd")
 
 const FAM: String = "fam_0001"
 const HERO: String = "chr_0001"
 const FORGE: String = "bld_0001"
 
-var cat := Catalog.load_from()
+var cat := Pins.no_player_needs(Catalog.load_from())  # the founder without sleep and food (GDD 4.2.6: its own tests)
 
 
 func _broke() -> Sim:

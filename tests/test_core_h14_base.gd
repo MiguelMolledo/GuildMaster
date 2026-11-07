@@ -37,7 +37,7 @@ func test_v11_save_migrates_to_v12() -> void:
 
 func test_round_trip_and_new_game() -> void:
 	var st: WorldState = NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)["state"]
-	eq(st.characters[HERO]["needs"], {"hunger": 80, "rest": 80, "social": 80, "fun": 80}, "a new game: needs.start")
+	eq(st.characters[HERO]["needs"], {"hunger": 100, "rest": 100, "social": 80, "fun": 80}, "a new game: needs.start (start_of: rested and fed, GDD 4.2.6)")
 	var sim := Sim.new(st, cat)
 	st.characters[HERO]["needs"]["fun"] = 12
 	st.characters[HERO]["ai"] = {"doing": "trade", "why": "directive"}

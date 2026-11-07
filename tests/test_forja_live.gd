@@ -3,11 +3,12 @@ extends "res://tests/test_case.gd"
 ## bench (playing well gives more quality, not playing gives what mode normal gives, playing badly loses: O-C10),
 ## masterworks with a name in the chronicle, what a family learns, the grace at the end of the cycle, save/load mid
 ## cycle, specs that do not move state.rng, delivering with the pieces made to the spec, and the v20 migration.
+const Pins = preload("res://tests/balance_pins.gd")
 
 const HUGO: String = "chr_0001"
 const FORGE: String = "bld_0001"
 
-var cat := Catalog.load_from()
+var cat := Pins.no_player_needs(Catalog.load_from())  # the founder without sleep and food (GDD 4.2.6: its own tests)
 
 
 func _sim(seed: int = 7) -> Sim:
