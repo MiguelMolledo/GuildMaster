@@ -772,6 +772,38 @@ quita el sufijo para peso, pila y precio; `Inventory` no cambia (la pila es `(id
   [balance]; una familia IA, con la regla mínima: paga si su honestidad < 0 y el cargo es medio o más. Si no paga, el
   espía puede hacer público el hecho. El chantaje crea un hecho `extortion` (media) visto por la víctima.
 
+> [!NOTE]
+> **Construido (2026-11-07, segunda profesión del Pícaro).** `sim/rogue/spy.gd` (clase `Spy`), cifras en
+> `data/rogue.json` `spy`; inicio `rogue_spy` (la Guarida en el solar de la Consulta, como el Ladrón; la deuda del
+> inicio sin tocar), oficio `data/professions/spy.json`, bot `spy_novice` (paso `spy` de run_all).
+> - **Espiar** (`spy`): desde 2 casillas de la puerta de un edificio ajeno, en la calle, 2 h. De noche (y al
+>   atardecer) un guardia que le vea le detiene por «merodear» (`trespass`, leve) con la carta de la detención. Al
+>   acabar, SkillCheck(sigilo, 5 + Seguridad) + el modificador de la dificultad: un informe en `families[].intel`
+>   (oro ±5 %, lo que guarda su almacén y sus secretos). Sin `Watch.observe` completo todavía: la regla del guardia
+>   que ve es la del Ladrón.
+> - **Secretos:** cada mejora de Secretos es un hecho oculto (`tax_evasion`, o `smuggling` con beneficio ilegal); el
+>   25 % de los hogares que no juega nadie guarda uno (`tax_evasion` 40 %, `smuggling` 30 %, `adultery` 30 %),
+>   tirado una vez por familia con su propia clave (sin estado nuevo). El adulterio **no se juzga** (`trial: false` en
+>   `data/justice.json`: ni se acusa ni se inventa).
+> - **Encargos de espionaje:** no van en el tablón (la tabla `data/contracts/spy.json` no tiene objetos); los pasa el
+>   perista de la Guarida. Uno al amanecer, hasta 2 abiertos, 30-60 de oro [balance], 3 días; se entregan con un
+>   informe de esa familia hecho **después de publicarse** (sin paso de «aceptar»). Piden fama 10 en los bajos fondos
+>   y **la Guarida cuenta 10** (sus contactos): el inicio no sube la fama sin tocar `new_game.gd`.
+> - **Chantaje:** una vez por estación cada secreto; pide máx(20 ; 10 % del oro de la víctima). Un hogar paga con
+>   70 % si el cargo es medio o más; una familia IA, si su honestidad < 0. **Quien paga calla** (el hecho `extortion`
+>   no lo ve nadie: denunciarlo sacaría su secreto); quien no paga lo ve y puede denunciarlo al amanecer. Sin oro no
+>   se le puede chantajear. **Destapar** un secreto lo hace público y le cuesta 10 de reputación a esa familia.
+> - **Interfaz:** «Espiar» en el panel de un edificio ajeno (con su probabilidad), junto a «Robar el almacén»; en la
+>   mesa del perista, los encargos (Entregar el informe) y los secretos (Chantajear · Destapar). La fachada de la
+>   Guarida y los iconos (ganzúas, espiar, expedientes, chantaje) ya son de fal.
+> - **Bot `spy_novice`:** de día, el encargo abierto (el edificio menos guardado de esa familia), si no, las casas
+>   del pueblo por sus secretos; chantajea los de cargo medio; nunca de noche; paga la deuda. 10 semillas × 10 días:
+>   Fácil 45,4 > Normal 40,6 [23,4-61,4] > Difícil 32,2 netos/día (`intel_mult` en `data/difficulty.json`: lo que
+>   pagan los encargos y piden los chantajes); deuda saldada 10/10 en Fácil y Normal, 4/10 en Difícil; 0,2 juicios
+>   por partida (chantajes rechazados que se denuncian).
+> - **Pendiente:** vender informes, que la IA espíe y chantajee al jugador (la carta `answer_blackmail`), la vista de
+>   expedientes fuera de la Guarida.
+
 #### 4.22.6.6 Bandido y rescates (cadena CRIMINAL)
 
 - El Nido tiene un puesto exterior **`road`** enlazado a un tramo de camino del mapa (`roads`). Quien hace

@@ -163,6 +163,14 @@ ICONS.update({  # H12.2 · el Erudito (04d 4.22.5): el médico y los préstamos
     "bank": ("ui/icons/icon_bank.png", "a small stack of gold coins in front of a little iron-bound strongbox"),
     "loan": ("ui/icons/icon_loan.png", "a small leather purse of gold coins on a parchment with a red wax seal"),
 })
+ICONS.update({  # H12 · el Pícaro (04d 4.22.6): las ganzúas del Ladrón y el Espía (espiar, expedientes, chantaje)
+    "lockpicks": ("icons/lockpicks.png", "a thief's set of lockpicks: three thin bent steel picks and a small tension "
+                                         "wrench on an iron ring, fanned out diagonally, a tiny leather strap"),
+    "spy": ("ui/icons/icon_spy.png", "a single watchful eye peering through an old iron keyhole plate, dark around it"),
+    "intel": ("ui/icons/icon_intel.png", "a closed leather dossier folder tied with a cord, a few parchment pages "
+                                         "sticking out and a small black ink blot on the cover"),
+    "blackmail": ("ui/icons/icon_blackmail.png", "a folded letter sealed with BLACK wax, a small dagger lying across it"),
+})
 
 GRIDS = {"i1": ["saw", "steel", "chest", "cabinet"], "i2": ["cart_wheel", "ashlar", "grindstone", "trough"],
          "i3": ["millstone", "statue", "gavel", "ballot_box"], "i4": ["reputation", "menu", "save", "load"],
@@ -183,14 +191,18 @@ GRIDS = {"i1": ["saw", "steel", "chest", "cabinet"], "i2": ["cart_wheel", "ashla
          "j3": ["game_race", "game_bulls", "trait_water_tempered", "trait_air_cooled"],
          "j4": ["game_azar", "game_sortija"],
          "e1": ["salve", "doctor_bag", "patient", "loan"],
-         "e2": ["ledger_book_tool", "bank"]}  # j4: el azar salía sin puntos y la anilla no se veía (el cubilete
+         "e2": ["ledger_book_tool", "bank"],
+         "p1": ["lockpicks", "spy", "intel", "blackmail"],
+         "p2": ["lockpicks"]}  # p2: the ring of p1 came out as a white blob  # j4: el azar salía sin puntos y la anilla no se veía (el cubilete
 #   de esa rejilla salió boca arriba: se dibuja con Pillow, tools/art/juegos_taberna.py cubilete)  # repetidas: el arancel no se leía y el aliento era una mancha  # repetida: la de i2 salió ilegible (la última rejilla manda)
 REDO_2 = {
     "tariff": "a toll gate: a horizontal red and white striped wooden barrier pole on a post, with a small stack "
               "of gold coins in front of it",
     "duel_breath": "three curved pale blue wind swirls, like a gust of breath, clearly drawn lines",
 }
-REDO = {"grindstone": "an upright round grey grinding stone wheel mounted on its axle in a simple wooden A-frame "
+REDO = {"lockpicks": "a rolled-up brown leather tool pouch lying diagonally, open at one end, with four thin dark "
+                     "steel lockpicks with bent hooked tips sticking out of it, clearly metal picks",
+        "grindstone": "an upright round grey grinding stone wheel mounted on its axle in a simple wooden A-frame "
                       "stand, a crank handle on the axle, seen from the side, clearly a wheel"}
 POS = ["Top-left", "Top-right", "Bottom-left", "Bottom-right"]
 SIZE = {"dice_cup": 24}

@@ -49,6 +49,24 @@
       "por_que": "Encargo del manager (2026-11-06): empezar el Pícaro por su primera profesión jugable, decidiendo dentro de 04d."
     },
     {
+      "fecha": "2026-11-07",
+      "tema": "Pícaro: el Espía, segunda profesión jugable (construido)",
+      "decision": "Inicio rogue_spy en la Guarida (el mismo solar y la misma deuda que el Ladrón): espiar 2 h desde la puerta de un edificio ajeno da un informe (oro ±5 %, almacén, secretos); los encargos de espionaje los pasa el perista de la Guarida (no el tablón), se entregan con un informe hecho después de publicarse, sin paso de aceptar; chantaje una vez por estación; destapar cuesta 10 de reputación. Bot spy_novice: Normal 40,6 netos/día, Fácil 45,4 > Normal 40,6 > Difícil 32,2.",
+      "por_que": "Encargo del manager (2026-11-07): el Espía como segunda profesión del Pícaro, con su bot en la banda 25-60."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "Pícaro: la Guarida cuenta como contactos para los encargos",
+      "decision": "Los encargos de espionaje piden fama 10 en los bajos fondos (4.22.6.5); la Guarida suma 10 a esa cuenta (sus contactos), así el Espía puede trabajar desde el primer día sin que el inicio suba la fama.",
+      "por_que": "El inicio no tiene campo de fama y new_game.gd no se toca mientras interiores une el mecanismo de «el inicio levanta otro tipo de edificio»."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "Pícaro: quien paga el chantaje calla; el adulterio no se juzga",
+      "decision": "El chantaje crea el hecho extortion (4.22.6.5), pero si la víctima paga no lo ve nadie (denunciarlo sacaría su propio secreto); si no paga lo ve y puede denunciarlo al amanecer como un robo. Sin oro no se le puede chantajear. El adulterio es un cargo con trial: false: sirve para chantajear y destapar, nunca para acusar ni inventar.",
+      "por_que": "Sin esto, cada chantaje acababa denunciado (relación −20 → 90 % al amanecer) y el oficio no daba de vivir; el GDD ya dice «el adulterio, sin juicio»."
+    },
+    {
       "fecha": "2026-11-06",
       "tema": "Pícaro: la dificultad del Ladrón",
       "decision": "data/difficulty.json levels.*.rogue: check_mod (+5 / 0 / −5 a las tiradas de bolsa, almacén y huida) y fence_mult (1,1 / 1 / 0,85 de lo que paga el perista). Sin ellas la dificultad solo movía la deuda, que el neto no cuenta, y Difícil ganaba como Normal.",

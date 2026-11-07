@@ -4478,3 +4478,41 @@ misdeed.contraband,contraband,contrabando
 tutorial.hint.night_skip,Night: the market is closed until dawn. «Skip until…» (») by the clock: choose dawn and the night goes by at ×8 (any notice stops it).,Es de noche: el mercado cierra hasta el amanecer. «Saltar hasta…» (») junto al reloj: elige el amanecer y la noche pasa a ×8 (cualquier aviso la para).
 notice.plots.ai_for_sale,"{building} is for sale: {price} (its family cannot keep it)","{building} está en venta: {price} (su familia no puede mantenerlo)"
 notice.plots.ai_fallen,"{family} have lost their last business: they look for work","{family} ha perdido su último negocio: busca trabajo"
+charge.trespass,trespass,merodear
+charge.extortion,extortion,extorsión
+charge.adultery,adultery,adulterio
+profession.spy,Spy,Espía
+start.rogue_spy,Spy,Espía
+client.informer,An informer,Un soplón
+objective.spy_report,Spy a building of another family until you have a report,Espía un edificio de otra familia hasta tener un informe
+objective.spy_job,Deliver a spying job at the fence of your den,Entrega un encargo de espionaje al perista de tu Guarida
+objective.spy_secret,Find a secret while spying,Descubre un secreto espiando
+objective.blackmail_paid,Get a family to pay for your silence,Consigue que una familia pague por tu silencio
+notice.spy_failed,{name} watched the {family} for two hours and learnt nothing,{name} ha vigilado a los {family} dos horas y no ha sacado nada
+notice.spy_done,{name} has a report on the {family} ({secrets} secrets): it is at the fence of your den,{name} tiene un informe de los {family} ({secrets} secretos): lo verás en la mesa del perista de tu Guarida
+notice.blackmail_paid,The {family} pay {gold} for your silence,Los {family} pagan {gold} por tu silencio
+notice.blackmail_refused,The {family} do not pay: they may go to the watch,Los {family} no pagan: pueden ir a la guardia
+rep.reason.secret_exposed,A secret told around,Un secreto que corre por la villa
+reason.unknown_job,That job is gone,Ese encargo ya no está
+reason.not_at_den,Deliver it at the fence of your den,Se entrega al perista de tu Guarida
+reason.no_report,You have no report on them yet: spy one of their buildings,Aún no tienes un informe suyo: espía uno de sus edificios
+reason.blackmailed_this_season,Already squeezed this season,Ya les apretaste esta estación
+reason.nothing_to_pay,They have nothing to pay with,No tienen con qué pagar
+hud.spy,Spy,Espiar
+hud.spy_tip,"From its door, %d hours. About %d in 100 you come back with a report (its Security makes it harder); by night the watch may catch you","Desde su puerta, %d horas. Unas %d de cada 100 vuelves con un informe (su Seguridad lo pone difícil); de noche la guardia puede pillarte"
+ui.order.spy,Spy a building,Espiar un edificio
+ui.order.deliver_intel,Deliver a report,Entregar un informe
+ui.order.blackmail,Blackmail,Chantajear
+ui.order.expose_fact,Tell a secret,Destapar un secreto
+ui.station.spy_jobs_head,"The fence also passes spying jobs: a report on a family, made after the job came","El perista también pasa encargos de espionaje: un informe de una familia, hecho después del encargo"
+ui.station.spy_no_jobs,No spying jobs today,Hoy no hay encargos de espionaje
+ui.station.spy_deliver,Deliver the report on the %s (%d),Entregar el informe de los %s (%d)
+ui.station.spy_job,"Job: the %s (%d), until day %d","Encargo: los %s (%d), hasta el día %d"
+ui.station.spy_deliver_tip,The client pays on the spot,El cliente paga en el acto
+ui.station.spy_secrets_head,Your secrets: what your spies saw and nobody knows,Tus secretos: lo que han visto tus espías y nadie sabe
+ui.station.spy_no_secrets,No secrets yet: spy the houses of the town,Aún no tienes secretos: espía las casas de la villa
+ui.station.spy_blackmail,Blackmail the %s: %s (%d),Chantajear a los %s: %s (%d)
+ui.station.spy_blackmail_tip,Once a season. Who pays keeps quiet; who does not may go to the watch,"Una vez por estación. Quien paga calla; quien no, puede ir a la guardia"
+ui.station.spy_expose,Tell it,Destapar
+ui.station.spy_expose_tip,The whole town will know: that family loses %d of reputation,Lo sabrá toda la villa: esa familia pierde %d de reputación
+ui.new_game.preview_start.rogue_spy,"A thieves' den with a home, %d gold and %d of debt with the moneylender.","Guarida de ladrones con vivienda, %d de oro y %d de deuda con el prestamista."

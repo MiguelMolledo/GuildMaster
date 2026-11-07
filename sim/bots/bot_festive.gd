@@ -19,18 +19,24 @@ func orders(sim: Sim) -> Array:
 	_watch(sim)
 	var out: Array = []
 	var fam := _fam(sim)
-	for inst: Dictionary in Festivals.announced(sim) + Festivals.active(sim):  # the court (owner, 2026-11-05)
-		var key := "court|" + str(inst["id"])
-		if _sponsored.has(key):
-			continue
-		_sponsored[key] = true
-		if not FestivalCourt.effect(sim, inst, "contest").is_empty() and \
-				not FestivalCourt.trade_items(sim, fam).is_empty() and \
-				not FestivalCourt.best_piece(sim, fam, ACTOR, FestivalCourt.trade_items(sim, fam)).is_empty():
-			out.append({"type": "festival_enter_contest", "actor": ACTOR, "festival": str(inst["id"])})
-		if not FestivalCourt.effect(sim, inst, "town_gift").is_empty() and \
-				not FestivalCourt.best_piece(sim, fam, ACTOR, Festivals.rules(sim).get("gift", {}).get("items", [])).is_empty():
-			out.append({"type": "festival_offer_gift", "actor": ACTOR, "festival": str(inst["id"])})
+	# The court (owner, 2026-11-05): the fair's contest and the town's gift each take a piece of the bag when the order
+	# applies. One such order a minute: the next waits a minute, when the bag already lacks the held piece, so the gift
+	# only goes if a piece is left (jugador: entering the contest and offering the gift in the same minute with the same
+	# piece left the gift refused).
+	var holding := false
+	for inst: Dictionary in Festivals.announced(sim) + Festivals.active(sim):
+		for kind: String in ["contest", "town_gift"]:
+			var key := "court|%s|%s" % [kind, inst["id"]]
+			if _sponsored.has(key) or FestivalCourt.effect(sim, inst, kind).is_empty() or holding:
+				continue
+			_sponsored[key] = true
+			var allowed: Array = FestivalCourt.trade_items(sim, fam) if kind == "contest" \
+				else Festivals.rules(sim).get("gift", {}).get("items", [])
+			if allowed.is_empty() or FestivalCourt.best_piece(sim, fam, ACTOR, allowed).is_empty():
+				continue
+			out.append({"type": "festival_enter_contest" if kind == "contest" else "festival_offer_gift", "actor": ACTOR,
+				"festival": str(inst["id"])})
+			holding = true
 	for inst: Dictionary in Festivals.announced(sim):
 		var id := str(inst["id"])
 		if _sponsored.has(id) or str(Festivals.def_of(sim, str(inst["def"])).get("size", "")) != "big":

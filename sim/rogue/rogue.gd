@@ -607,6 +607,7 @@ static func step(sim: Sim) -> void:
 	var st := sim.state
 	var now := int(st.clock["minute"])
 	_arrest_timeouts(sim)
+	Spy.step(sim)  # the second trade: the spy (sim/rogue/spy.gd)
 	for e: Dictionary in sim.events:
 		if str(e.get("type", "")) == "phase_changed" and str(e.get("phase", "")) == "dawn":
 			_dawn(sim)

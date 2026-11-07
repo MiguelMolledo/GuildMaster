@@ -1,0 +1,27 @@
+{
+  "id": "spy",
+  "profession": "spy",
+  "_doc": "The spy's board table (04d 4.22.6.5): no items. A spy does not deliver goods: his jobs (a report on a family) are passed by the fence of his den (data/rogue.json spy.jobs, sim/rogue/spy.gd); the board posts nothing for him.",
+  "obtained": "intel",
+  "clients": [
+    {
+      "id": "informer",
+      "name_key": "client.informer"
+    }
+  ],
+  "items": [],
+  "min_qualities": [
+    1,
+    1
+  ],
+  "deadline_days": [
+    2,
+    4
+  ],
+  "premium": 0.0,
+  "reward_reputation": 0,
+  "reward_relation": 0,
+  "fail_reputation": 0,
+  "fail_relation": 0,
+  "client_cooldown_days": 8
+}

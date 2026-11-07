@@ -1,0 +1,13 @@
+{
+  "id": "blackmail_paid",
+  "name_key": "objective.blackmail_paid",
+  "conditions": [
+    {
+      "event": "blackmail_done",
+      "match": {
+        "paid": true
+      },
+      "count": 1
+    }
+  ]
+}

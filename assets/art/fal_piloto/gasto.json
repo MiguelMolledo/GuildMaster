@@ -22649,5 +22649,122 @@
   "imagenes": 1,
   "usd": 0.0002,
   "que": "image2pixel e2_bank_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T06:06:18",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "den"
+ },
+ {
+  "fecha": "2026-11-07T06:06:25",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0007,
+  "que": "image2pixel den_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T06:06:49",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "den_construction"
+ },
+ {
+  "fecha": "2026-11-07T06:06:56",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0007,
+  "que": "image2pixel den_construction_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T06:07:14",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "den_damaged"
+ },
+ {
+  "fecha": "2026-11-07T06:07:20",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0006,
+  "que": "image2pixel den_damaged_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T06:08:06",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "p1"
+ },
+ {
+  "fecha": "2026-11-07T06:08:18",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel p1_lockpicks_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T06:08:23",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel p1_spy_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T06:08:27",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel p1_intel_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T06:08:31",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel p1_blackmail_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T06:08:54",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "p2"
+ },
+ {
+  "fecha": "2026-11-07T06:09:05",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0008,
+  "que": "image2pixel p2_lockpicks_s16.png"
  }
 ]

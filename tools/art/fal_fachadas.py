@@ -63,6 +63,10 @@ BUILDINGS = {
     "tailor_shop": "a tailor's shop: timber-framed with a terracotta roof, clothes hanging on a rail in the open "
                    "shop front and a hanging sign with a pair of scissors (replace the word on the sign with the "
                    "scissors symbol)",
+    "den": "a thieves' den: a run-down, shabby timber-framed house with cracked, peeling grey plaster and a sagging "
+           "dark slate roof with a few missing tiles, closed wooden shutters on every window, a low narrow door, a "
+           "wooden cellar trapdoor on the ground beside the wall, an unlit iron lantern, a couple of old crates and a "
+           "sack against the wall; no sign, no letters; dim and suspicious but not ruined",
 }
 
 
