@@ -64,18 +64,19 @@ func sim_profile(p: String) -> Dictionary:
 	return cat.ai_profiles().get(p, {})
 
 
-func test_vilarrasa_keeps_its_rivals_and_no_hostility() -> void:
+func test_vilarrasa_has_its_rivals_with_the_hostility_of_04c() -> void:
+	# the manager, 2026-11-07 (the AI that competes): Vilarrasa runs the hostility too, its rival starts at 30
 	var sim := Sim.new(NewGame.from_start(cat, START, "normal", {"cast": "fixed"}, 1)["state"], cat)
 	var profiles: Array = []
 	for f: String in _ai(sim.state):
 		profiles.append(str(sim.state.families[f]["ai_profile"]))
 	profiles.sort()
 	eq(profiles, ["rival_artisan", "rival_artisan", "rival_artisan", "rival_smith"], "Vilarrasa's four, as always")
-	check(not Hostility.on(sim), "no hostility in town_e")
-	for i: int in 60:
-		sim.step()
-	check(not sim.state.town.has("rivalry"), "nothing written")
-	check(Hostility.may_accuse(sim, "fam_0002"), "Ferrer accuses there by its own rule, as always")
+	check(Hostility.on(sim), "hostility in town_e")
+	check(not AIEconomy.on(sim), "the economy with management stays in Bellcaire (the player's clientele, exp1)")
+	eq(Hostility.value(sim.state, "fam_0002", "fam_0001"), 30, "Ferrer starts at 30 towards the newcomer")
+	var easy := NewGame.from_start(cat, START, "easy", {"cast": "fixed"}, 1)["state"] as WorldState
+	eq(Hostility.value(easy, "fam_0002", "fam_0001"), 15, "Easy: half (ai.rival_to_player_mult)")
 
 
 func test_the_rivalry_rises_with_the_market_and_wears_off() -> void:

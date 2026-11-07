@@ -1,8 +1,9 @@
 {
-  "_doc": "H13 (04c 4.21.7-4.21.9) [balance]: las cifras globales de la IA de las familias rivales que no dependen del perfil. hostility_maps: los mapas donde corren la rivalidad y los ataques (sim/ai/hostility.gd); en los demás (Vilarrasa y sus dianas) la IA es la de siempre. rivalry: cuánto sube y baja la rivalidad dirigida (4.21.8.1). attack: la puerta de ataque y la elección (4.21.8.2, 4.21.5). price_war, sabotage: los ataques de la lista cerrada que existen en este hito (4.21.9.1); el juicio usa accuse_rule del perfil. Las palancas de dificultad van en el bloque ai de data/difficulty.json (4.21.10).",
-  "hostility_maps": ["region_capital"],
+  "_doc": "H13 (04c 4.21.7-4.21.9) [balance]: las cifras globales de la IA de las familias rivales que no dependen del perfil. hostility_maps: los mapas donde corren la rivalidad y los ataques (sim/ai/hostility.gd): Bellcaire y, desde 2026-11-07 (la IA que compite, decisión del manager), Vilarrasa. rivalry.start_by_map: la rivalidad con la que el rival del inicio mira al recién llegado en ese mapa si el inicio no trae la suya (Vilarrasa 30, como Bellcaire), × ai.rival_to_player_mult de la dificultad. rivalry: cuánto sube y baja la rivalidad dirigida (4.21.8.1). attack: la puerta de ataque y la elección (4.21.8.2, 4.21.5). price_war, sabotage: los ataques de la lista cerrada que existen en este hito (4.21.9.1); el juicio usa accuse_rule del perfil. Las palancas de dificultad van en el bloque ai de data/difficulty.json (4.21.10).",
+  "hostility_maps": ["region_capital", "town_e"],
   "rivalry": {
     "max": 100,
+    "start_by_map": {"town_e": 30},
     "market_days": 3,
     "market_share": 0.4,
     "market_rise": 1,

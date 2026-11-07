@@ -111,15 +111,16 @@ func test_the_ids_of_the_blacksmith_start_do_not_move() -> void:
 		check(int(f.get_slice("_", 1)) > 2 + 8, "%s: added after the townsfolk" % f)
 
 
-func test_competitors_follow_the_difficulty_and_never_ask_for_titles() -> void:
+func test_competitors_follow_the_difficulty_and_climb() -> void:
 	for lvl: String in ["easy", "hard"]:
 		var st: WorldState = NewGame.from_start(cat, "artisan_blacksmith", lvl, {"cast": "fixed"}, 1)["state"]
 		for f: String in _ai_families(st):
 			eq(int(st.characters[str(st.families[f]["head"])]["stats"]["craft"]),
 				int(cat.difficulty_levels(lvl)["rival_craft"]), "%s %s: craft of the difficulty" % [lvl, f])
 	var prof: Dictionary = cat.ai_profiles()["rival_artisan"]
-	check(not bool(prof["title_rule"]["requests"]) and not bool(prof["office_rule"]["runs"])
-		and not bool(prof["accuse_rule"]["accuses"]), "no titles, offices nor accusations (04c pending)")
+	check(bool(prof["title_rule"]["requests"]) and bool(prof["office_rule"]["runs"])
+		and bool(prof["accuse_rule"]["accuses"]) and bool(prof["accuse_rule"]["real_facts"]),
+		"04c (manager, 2026-11-07): titles, offices and accusations with real facts")
 
 
 func test_the_board_draws_from_the_players_trade() -> void:

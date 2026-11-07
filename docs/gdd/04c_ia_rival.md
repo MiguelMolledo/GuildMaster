@@ -320,6 +320,16 @@ Las familias IA cortejan a NPC de la ciudad, no a miembros de la familia del jug
 
 Una sola candidata: pedir el siguiente título (`request_title`) cuando se cumplen los requisitos de 4.12.2 y queda la reserva después de pagar. Mientras tanto, el avance de título empuja a las demás candidatas (Fachada, reputación, segundo negocio) según el peso de título del perfil. La IA respeta la aprobación por afinidad del Alcalde o Concejal como el jugador.
 
+**Lo construido** (plantillas, 2026-11-07, decisión del manager; `sim/ai/ascent.gd`): con la reputación de su siguiente
+título corta, una familia cuyo perfil pide títulos encarga la **siguiente Fachada** de su taller (`buy_upgrade`; +10 y
++20 de reputación las dos primeras) en cuanto, pagada con sus materiales al precio del mercado, le queda el precio del
+título más `gold_reserve` y `facade_keep`; compra los materiales con sus insumos. La **dificultad** escala lo que guarda
+tras un título, una candidatura o una fachada (`data/difficulty.json` `ai.ascent.spare_mult`: Fácil 1,5, Normal 1,
+Difícil 0,6). Los competidores de oficio (`rival_artisan`) piden títulos, se presentan a inspector de mercado o
+recaudador y acusan solo con hechos reales. La hostilidad corre también en Vilarrasa, con la rivalidad inicial 30 del
+rival del inicio (`data/ai.json` `rivalry.start_by_map`, × `ai.rival_to_player_mult`: Fácil 0,5); la economía con
+gestión sigue solo en Bellcaire.
+
 #### 4.21.6.6 Política (H10)
 
 - **Presentarse** (`run_for_office`): elige el cargo con mejor `peso_cargo × P(ganar) × valor del cargo` que su título permite, antes de que empiece la estación de campaña. Nivel de campaña según presupuesto y aversión al riesgo.

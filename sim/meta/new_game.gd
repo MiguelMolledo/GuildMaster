@@ -127,6 +127,9 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 		var rbld := _add_building(s, catalog, sites, str(rb["site"]), rfam, rb.get("inventory", []))
 		s.characters[rchr]["location"] = rbld
 		var r0 := int(start.get("rival_to_player", 0))  # H13: a city's rival starts with an eye on the newcomer
+		if r0 <= 0:  # its town's (data/ai.json rivalry.start_by_map: Vilarrasa), on the hostility maps
+			r0 = int(catalog.ai_rules.get("rivalry", {}).get("start_by_map", {}).get(s.map_id, 0))
+		r0 = roundi(r0 * float(levers.get("ai", {}).get("rival_to_player_mult", 1.0)))  # 04c 4.21.10: Easy less
 		if r0 > 0:
 			Hostility.book(s)["values"][rfam + "|" + fam] = r0
 	# The public buildings of the map (owner "" in the map), sorted by site.

@@ -19,6 +19,8 @@ extends RefCounted
 ## The checks before an order are the same queries the UI uses (Market.offers, Production.recipe_options,
 ## Contracts.board_view rules), so it gives no orders that would be refused; if the same order would be given twice
 ## with nothing changed, the task is dropped (guard). It never hires, upgrades nor goes bankrupt (H6).
+## 04c 4.21.6.5 (AIAscent): while the reputation of its next title is short, the task "facade" orders the next facade
+## of its workshop once its materials (bought with the inputs) are there, keeping its gold.
 ## H9 [provisional, until 04c is approved]: with the profile's title_rule.requests, the task "title" goes first in the
 ## plan whenever the family meets its next title's requirements and keeps title_rule.spare_gold after paying it: it
 ## walks to the town hall's service tile and gives request_title (docs/contratos/h9_titulos.md).
@@ -146,6 +148,9 @@ static func _decide(sim: Sim, fam: String, actor: String, home: String, profile:
 		plan.append("office")
 	if ph != Production.NIGHT and wants_title(sim, fam, profile):
 		plan.append("title")
+	ai["facade"] = AIAscent.facade(sim, fam, actor, home, profile)  # 04c 4.21.6.5: the title's advance
+	if ph != Production.NIGHT and str(ai["facade"]) != "":
+		plan.append("facade")
 	if ph != Production.NIGHT:
 		if bool(profile.get("accepts_contracts", false)) or not Contracts.accepted_of(sim, fam).is_empty():
 			plan.append("contracts")
@@ -251,6 +256,14 @@ static func _task(sim: Sim, task: String, fam: String, actor: String, home: Stri
 			return _t_home(sim, actor, home)
 		"title":
 			return _t_title(sim, fam, actor, profile)
+		"facade":  # 04c 4.21.6.5: the works of its facade once its materials are in the workshop
+			var fid := str(ai.get("facade", ""))
+			if fid == "" or Upgrades.status_of(sim, actor, home, fid) != "available" \
+					or AIAscent.facade(sim, fam, actor, home, profile) != fid:
+				return {}
+			if OS.is_debug_build():
+				print("[RivalAI] %s encarga %s para su reputación (oro %d)" % [fam, fid, Money.gold(sim.state, fam)])
+			return {"type": "buy_upgrade", "actor": actor, "building": home, "upgrade": fid}
 		"accuse":
 			if not Hostility.may_accuse(sim, fam):
 				return {}
@@ -311,8 +324,9 @@ static func office_to_run(sim: Sim, fam: String, actor: String, profile: Diction
 			return ""
 	var level := str(rule.get("level", "basic"))
 	var cost := int(sim.catalog.politics.get("elections", {}).get("levels", {}).get(level, {}).get("gold", 0))
-	if Money.gold(sim.state, fam) < cost + int(rule.get("spare_gold", 0)) + AIEconomy.spare_floor(sim, fam, profile):
-		return ""  # H13: on the economy maps the spare gold is over its reserve (AIEconomy.spare_floor)
+	if Money.gold(sim.state, fam) < cost + roundi(int(rule.get("spare_gold", 0)) * AIAscent.spare_mult(sim)) \
+			+ AIEconomy.spare_floor(sim, fam, profile):
+		return ""  # H13: on the economy maps over its reserve (AIEconomy.spare_floor); × the difficulty's scale
 	for office: Variant in rule.get("offices", []):
 		if Elections.run_status(sim, actor, str(office), level) == "":
 			return str(office)
@@ -323,7 +337,8 @@ static func office_to_run(sim: Sim, fam: String, actor: String, profile: Diction
 static func wants_title(sim: Sim, fam: String, profile: Dictionary) -> bool:
 	var rule: Dictionary = profile.get("title_rule", {})
 	return bool(rule.get("requests", false)) and Titles.ready(sim, fam,
-		int(rule.get("spare_gold", 0)) + AIEconomy.spare_floor(sim, fam, profile))  # H13: over its reserve
+		roundi(int(rule.get("spare_gold", 0)) * AIAscent.spare_mult(sim))
+		+ AIEconomy.spare_floor(sim, fam, profile))  # H13: over its reserve; × the difficulty's scale (AIAscent)
 
 
 ## H9: to the town hall and request_title; {} when it is no longer ready (granted, or something changed).
@@ -587,6 +602,11 @@ static func buy_needs(sim: Sim, fam: String, actor: String, home: String, profil
 		var minutes := work_minutes_per_day(sim, profile) * int(profile.get("buy_days", 1))
 		_add_inputs(sim, need, rid, AIEconomy.cycles_for(sim, fam, home, rid,
 			minutes / Production.cycle_minutes(sim.catalog, r, _mode(profile))))  # H13: what the market takes
+	var fid := str(ai.get("facade", ""))
+	if fid != "" and not bool(ai.get("recovering", false)):  # 04c 4.21.6.5: the materials of its facade
+		var mats := AIAscent.materials(sim, home, fid)
+		for item: String in mats:
+			need[item] = int(need.get(item, 0)) + int(mats[item]) + Inventory.count(_storage(sim, home), item)
 	if not bool(ai.get("recovering", false)):
 		AIEconomy.hands_needs(sim, fam, home, profile, need)  # H13: the spouse's and the employees' inputs
 		AIEconomy.make_or_buy(sim, actor, home, need)  # H13: the raw materials of what it makes cheaper itself

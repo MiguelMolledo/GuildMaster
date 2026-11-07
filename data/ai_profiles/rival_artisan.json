@@ -3,12 +3,12 @@
   "_doc": "H12: the competitor workshops of the other artisan trades (carpenter, mason, tailor). The rival smith's simple AI (RivalAI, GDD 4.5.5) with the same figures; it neither asks for titles, runs for office nor accuses (those rules are provisional until 04c is approved and stay with the rival smith).",
   "weights": {
     "gold": 1.0,
-    "title": 0.0,
-    "office": 0.0
+    "title": 0.3,
+    "office": 0.2
   },
   "aggression": 0.0,
   "risk_aversion": 0.5,
-  "rivalry_threshold": 0,
+  "rivalry_threshold": 60,
   "preferred_professions": [
     "carpenter",
     "mason",
@@ -29,12 +29,12 @@
   "max_contracts": 1,
   "accepts_scripted_contracts": false,
   "title_rule": {
-    "requests": false,
+    "requests": true,
     "spare_gold": 100
   },
   "office_rule": {
-    "runs": false,
-    "offices": [],
+    "runs": true,
+    "offices": ["market_inspector", "tax_collector"],
     "level": "basic",
     "spare_gold": 50
   },
@@ -44,7 +44,7 @@
     "diplomacy": 10
   },
   "accuse_rule": {
-    "accuses": false,
+    "accuses": true,
     "real_facts": true,
     "fabricate_max_honesty": -30,
     "fabricate_charge": "minor_fraud",

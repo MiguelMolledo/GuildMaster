@@ -1134,6 +1134,10 @@
       10,
       null
     ],
+    "ai_titled_families": [
+      1,
+      null
+    ],
     "wedding_day": [
       1,
       20
@@ -1206,12 +1210,8 @@
         null
       ]
     },
-    "_proposed_doc": "Dianas que pide el owner (2026-11-05) para los rivales y el pueblo, propuestas tras medir; hoy fallan y se informan sin tumbar la QA (summary.json proposed_misses): una familia IA sube de título en 3 años, se presenta a un cargo, no pasa más de 4 días sin oro (hoy 15-21 de 24: las carreras de encargos de fiesta la dejan a 0 y por debajo de su reserva no vuelve a comprar), y los empleados y los niños del pueblo no pasan hambre más de la mitad de las horas (hoy 65-82 % y 88 %). Medido (2026-11-05, 3 semillas × 3 años, full_player e idle_player): 0 títulos, 0 cargos y 0 ataques de la IA; 17-35 encargos aceptados por la IA; 0 órdenes de la IA rechazadas; la guardia llega siempre (mediana 0 min, máx 8); 4,5-5,7 forasteros al día; 14-16 vecinos al final; ningún vecino atascado. Pasan a dianas cuando H6 (04c) y la vida los arreglen. En una generación (semilla 2, 351 días) las cuatro familias IA pasan ~340 días sin oro y paradas; el pueblo crece de 16 a 32 vecinos (el tope de la vida) con 45 nacimientos y 25 muertes, y la guardia llega a las 362 llamadas. had_child (un hijo en 3 años) sale de las dianas: con la boda entre los días 14 y 22 y el 10 % diario de 4.10.3 se espera en ~35 % de las semillas, y con 3 semillas sale 0/3 o 1/3 según el día exacto de la boda (la taberna lo movió un día en la semilla 2). Se juzga en la generación (hijos siempre) y, con más semillas, con mean_children. Con la forja (2026-11-05): title_citizen_day por semilla sale de las dianas (una semilla se queda en 79 de reputación de los 80 de Ciudadano; quedan la media y la proporción) y unlocks_off (desbloqueos fuera de su ventana de 03b ±1 día, la diana del bot pacing) entra como propuesta: con el experto «mejoras» llega el día 7 (ventana 3-5) y Ciudadano y cargos tarde o nunca.",
+    "_proposed_doc": "Dianas que pide el owner (2026-11-05) para los rivales y el pueblo, propuestas tras medir; hoy fallan y se informan sin tumbar la QA (summary.json proposed_misses): una familia IA sube de título en 3 años, se presenta a un cargo, no pasa más de 4 días sin oro (hoy 15-21 de 24: las carreras de encargos de fiesta la dejan a 0 y por debajo de su reserva no vuelve a comprar), y los empleados y los niños del pueblo no pasan hambre más de la mitad de las horas (hoy 65-82 % y 88 %). Medido (2026-11-05, 3 semillas × 3 años, full_player e idle_player): 0 títulos, 0 cargos y 0 ataques de la IA; 17-35 encargos aceptados por la IA; 0 órdenes de la IA rechazadas; la guardia llega siempre (mediana 0 min, máx 8); 4,5-5,7 forasteros al día; 14-16 vecinos al final; ningún vecino atascado. Pasan a dianas cuando H6 (04c) y la vida los arreglen. En una generación (semilla 2, 351 días) las cuatro familias IA pasan ~340 días sin oro y paradas; el pueblo crece de 16 a 32 vecinos (el tope de la vida) con 45 nacimientos y 25 muertes, y la guardia llega a las 362 llamadas. had_child (un hijo en 3 años) sale de las dianas: con la boda entre los días 14 y 22 y el 10 % diario de 4.10.3 se espera en ~35 % de las semillas, y con 3 semillas sale 0/3 o 1/3 según el día exacto de la boda (la taberna lo movió un día en la semilla 2). Se juzga en la generación (hijos siempre) y, con más semillas, con mean_children. Con la forja (2026-11-05): title_citizen_day por semilla sale de las dianas (una semilla se queda en 79 de reputación de los 80 de Ciudadano; quedan la media y la proporción) y unlocks_off (desbloqueos fuera de su ventana de 03b ±1 día, la diana del bot pacing) entra como propuesta: con el experto «mejoras» llega el día 7 (ventana 3-5) y Ciudadano y cargos tarde o nunca. Desde 2026-11-07 (la IA que compite, plantillas: sim/ai/ascent.gd y la hostilidad en Vilarrasa) ai_titled_families es diana real (1-3 en las 4 semillas de full_player, 1-4 en idle_player); ai_office_runs (0 en la semilla 3 de full_player: el título llega el día 22-24, con la inscripción cerrada) y ai_broke_days_max (8 en la semilla 2) siguen propuestas.",
     "_proposed": {
-      "ai_titled_families": [
-        1,
-        null
-      ],
       "ai_office_runs": [
         1,
         null

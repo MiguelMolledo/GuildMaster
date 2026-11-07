@@ -2,7 +2,8 @@ extends "res://tests/test_case.gd"
 ## H11 criterion (10, fila H11): «en el sim, una familia IA acusa al jugador solo con motivo real o con pruebas
 ## fabricadas si su honestidad es baja». The rival's minimal rule (data/ai_profiles/rival_smith.json accuse_rule,
 ## provisional until 04c): a public fact not yet tried against the player's family, or fabricated if honesty <= -30;
-## never in the first year; once a year.
+## never in the first year; once a year. (On the hostility maps, Vilarrasa included since 2026-11-07, the accusation
+## also needs the hostility to ask for it: Hostility.may_accuse.)
 
 const FAM: String = "fam_0001"
 const HERO: String = "chr_0001"
@@ -12,6 +13,9 @@ var cat := Catalog.load_from()
 
 
 func _sim(day: int) -> Sim:
+	# the rule on its own: since 2026-11-07 Vilarrasa runs 04c's hostility too, and there the accusation goes out when
+	# an accuse attack asks (Hostility.may_accuse; tests/test_h13_rivales.gd); here the hostility is off for town_e
+	cat.ai_rules["hostility_maps"] = ["region_capital"]
 	var sim := Sim.new(NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)["state"], cat)
 	sim.state.families[RIVAL_FAM]["title"] = "citizen"
 	sim.state.families[RIVAL_FAM]["gold"] = 0  # no campaign, no title: only the accusation is on its mind
