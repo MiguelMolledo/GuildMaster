@@ -1567,6 +1567,11 @@
       "tema": "Jugador completo · la taberna arranca con pérdidas (sin juzgar aún)",
       "detalle": "Comprada desde Ciudadano (días 20-24), en los pocos días que quedan hasta el final de los 3 años la taberna de full_player (llevada por la cónyuge con BotInnkeeper) pierde entre 115 y 334 de oro/día de operación: la existencia inicial, los primeros salarios y pocas noches. En una semilla anterior, comprada el día 20, ganaba 61/día de operación. Tres años no bastan para saber si compensa: se mide en la generación de la noche. Cifra nueva (medido con full_player, 3 años × 4 semillas, sobre 1f39d995 (reports/full_player_ref/full_player_despues_eq.json; antes: full_player_antes_eq.json sobre b0616e72)): comprada desde Ciudadano, la taberna pierde en las 4 (bot_inn_net_day de −26 a −89 de oro/día) y el neto del año 2 queda en 1,4 de media. El manager lo ha pasado a equilibrio y plantillas.",
       "opciones": "(a) esperar a la generación · (b) un escenario largo de full_player con la taberna desde el año 2"
+    },
+    {
+      "tema": "Jugador completo · la ruina de una familia IA acaba la partida del jugador",
+      "detalle": "Medido con full_player, 3 años × 4 semillas, sobre 5fa3548b (main c34e6fa6): en 2 de 4 semillas la partida del jugador termina al cerrar el año 3 (minuto 34560) porque se arruina una familia IA: fam_0012 (cantero, rival_artisan) en la semilla 1 y fam_0002 (herrero rival) en la 2. Las dos tenían un préstamo del concejo (lender town, sin kind) de 22-27 de oro que vencía al cerrar el año, con 0-5 de oro. sim/econ/loans.gd solo libra el crédito de la economía IA (Bellcaire) y el préstamo de urgencia con algo que embargar; cualquier otra ruina pone state.ending y lanza game_over, aunque la familia sea IA. Va contra la decisión tomada «La ruina de una familia IA no acaba la partida» (2026-11-06). El jugador completo y los demás bots dejan de jugar en cuanto state.ending no está vacío, como lo haría la UI. Partidas guardadas: reports/full_player_c34/saves/1_fin.json y 2_fin.json (en el worktree de jugador). Medida nueva en el informe: ended_by_ai.",
+      "opciones": "(a) Loans: la ruina de una familia que no es humana nunca pone state.ending (embargo y sigue, como el crédito de la IA) · (b) el concejo no presta a las familias IA (o les perdona la deuda) · (c) los dos"
     }
   ],
   "proximos_pasos": [

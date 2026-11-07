@@ -95,7 +95,8 @@ no está hecha: lo que aquí se llama «plan» son las tareas de `RivalAI` (`ai_
 
 - **Del jugador:** `days`, `gold_end`, `gold_min`, `net_year_<n>`, `debt_paid`, `debt_paid_day`, `title_<id>`,
   `title_<id>_day`, `title_rank`, `reputation`, `office_won_day`, `wed`, `wedding_day`, `had_child`, `children`,
-  `first_child_day`, `inherited`, `inherit_day`, `founder_death_day`, `game_over`, `hired`, `upgrades_done`,
+  `first_child_day`, `inherited`, `inherit_day`, `founder_death_day`, `game_over`, `ended_by_ai` (1 si el final que
+  hay en `state.ending` es de otra familia; el bloque `ending` del informe lo copia), `hired`, `upgrades_done`,
   `contracts_done`, `contracts_failed`, `festival_contracts`, `counter_sold`, `trips`, `caravans`, `treaties`,
   `duels_fought`, `duels_won`, `trials_as_accuser`, `trials_against`, `incidents`, `mechanics_used`,
   `mechanics_in_game`, `refused_orders`, `stalls`; con la forja, `masterworks`, `masterwork_day`, `spec_pieces`
