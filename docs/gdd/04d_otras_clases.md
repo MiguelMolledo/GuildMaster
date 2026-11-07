@@ -553,7 +553,9 @@ Loan {
   si era notarial y el 30 % si no [balance], en 1 día y sin juicio (procedimiento ejecutivo). O esperar: cada día sin
   reclamar, 20 % de que pague con un recargo del 10 % [balance].
 - **Impago de una familia jugadora** (humana o IA): las reglas de 4.16 (prórroga de 1 estación con +25 %, embargo).
-  Lo embargado va al Banquero (`lender_family`), no fuera. Si el deudor no quiere pagar un notarial, `claim_collateral`
+  Lo embargado va al Banquero (`lender_family`), no fuera. Solo la ruina de la familia **humana** acaba la partida: una
+  familia IA arruinada queda embargada y sigue (su quiebra es la de 4.21.6.3, H6). Antes, la ruina de una IA con un
+  préstamo del prestamista acababa la partida del jugador (full_player a 5 años: el día 25 en 3 de 4 semillas). Si el deudor no quiere pagar un notarial, `claim_collateral`
   abre juicio de H11 con el cargo `debt_default` (leve), cuya condena es la garantía.
 - **Prestamista de la ciudad** (`request_loan` con `lender: "moneylender"`, en el Ayuntamiento): cualquier familia
   puede pedir hasta el 50 % de su patrimonio estimado (oro + edificios), plazo 8 o 16 días, 25 % anual, garantía un
