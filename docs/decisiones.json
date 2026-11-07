@@ -1438,6 +1438,18 @@
     },
     {
       "fecha": "2026-11-07",
+      "tema": "Mostrador: un empleado en rol «cualquiera» atiende si no hay nadie en «counter» (4.7.4)",
+      "decision": "Se arregla el código para cumplir el GDD: deja su pieza en pausa, despacha y vuelve. Con un único empleado el mostrador vende. Lo hace posada, midiendo counter_shop, artisan_* y full_player antes y después.",
+      "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Un mostrador que no vende con tu único empleado parece un fallo; el texto del GDD es lo que espera el jugador."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "Equilibrio · bandas ajenas para que la partida por defecto salga siguiendo el tutorial",
+      "decision": "artisan_novice oro del día 10 hasta 600 (antes 540) e innkeeper explotación diaria hasta 120 (antes 100), con el recado sin recargo solo en Recursos, la espada a 68 y la rampa de mantenimiento 25/50/75 % los días 1-3. Difícil, con deuda de 300, paga a tiempo el 27 %: aceptado, siempre que el que no paga tenga la prórroga y no la ruina directa.",
+      "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». La ruta del tutorial pasa del 17 % al 93 % de deudas pagadas a tiempo en Normal; el techo del novato sigue impidiendo que sea un paseo."
+    },
+    {
+      "fecha": "2026-11-07",
       "tema": "Mostrador (4.7.4): un «cualquiera» despacha si no hay nadie en «counter»",
       "decision": "Counter.server_of: el ocupante del puesto del mostrador, si no un empleado activo dentro en rol «counter», y si no un empleado activo dentro en rol «cualquiera», que deja su pieza en pausa mientras despacha (el final de su ciclo se retrasa serve_minutes, Counter.pause_for) y vuelve a ella. Con un único empleado el mostrador vende. Medido antes y después (novice, expert, cast, carpenter, mason, tailor, scholar, counter_shop, full_player): idénticos; ninguna banda se mueve.",
       "por_que": "Decisión del manager por delegación del owner: se arregla la regla, no el texto (GDD 4.7.4 ya lo decía). Lo destapó el segundo taller de full_player (H6): con un solo empleado forjando, 131 clientes se fueron sin comprar."
