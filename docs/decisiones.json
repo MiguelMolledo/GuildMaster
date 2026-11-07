@@ -1548,7 +1548,7 @@
       "fecha": "2026-11-07",
       "tema": "Jugador completo · bandas de Patricio y de la reputación (aplicadas)",
       "decision": "data/targets.json full_player: title_patrician_day [1, 40] por semilla y rep_y5 (reputación al cerrar el año 5, nueva medida de tools/full_player.gd) [250, —], las dos con _needs_days 40: solo las juzgan las partidas de 5 años y la generación. Barón sin banda.",
-      "por_que": "Aprobadas por el manager por delegación del owner (2026-11-07) tras medir las palancas (a)-(c)."
+      "por_que": "Decisión del manager por delegación del owner («analiza una a una y toma la mejor decision», 2026-11-07): aprobadas tal cual se propusieron tras medir las palancas (a)-(c) de Barón (Patricio los días 31-35 a 5 años y 31-34 en la generación, rep_y5 281-317). Barón sigue sin banda."
     },
     {
       "fecha": "2026-11-07",
@@ -1561,6 +1561,18 @@
       "tema": "Jugador completo · la ruina de una familia IA acaba la partida del jugador · resuelto",
       "decision": "Resuelto en main (tomada «La ruina de una familia IA no acaba la partida (construido)»): state.ending solo con la ruina de una familia humana.",
       "por_que": "Medido por quien lo construyó con full_player, 5 años × 4 semillas: fin de partida por la ruina de una IA de 3/4 a 0/4. El informe de full_player lo vigila con ended_by_ai."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "Un «cualquiera» ocioso cede el puesto a uno de rol fijo (construido)",
+      "decision": "Se daba: tras un ciclo el empleado se queda en su puesto (Production guarda el ocupante) y WorkQueue._free_station solo daba un puesto libre o el propio, así que un «cualquiera» ocioso en el único yunque dejaba sin trabajo al de rol yunque (test_queue_station_yield: Agnès, «cualquiera» y oficio 2, parada en el yunque; Joan, rol yunque y oficio 5, no forjaba nunca la espada; ni después de que ella hiciera su martillo). Ahora, sin puesto libre de su tipo, el de rol fijo toma el primero (por id) que ocupe un «cualquiera» ocioso del mismo edificio, que se queda libre dentro y toma otro puesto cuando haya trabajo para él (evento station_yielded). Nunca un trabajo en curso ni el puesto de alguien de la familia. GDD 4.7.4.",
+      "por_que": "De proximos_pasos; decisión del manager por delegación del owner («analiza una a una y toma la mejor decision», 2026-11-07): si se da, el de rol libre cede el puesto al de rol fijo que solo puede trabajar ahí."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "Jugador completo · el heredero que no podía entrar tras la muerte del fundador (resuelto)",
+      "decision": "En las generaciones de posada sobre 089668b3 y e619d0b6, el heredero (chr_0189) acumulaba 11 517 entradas rechazadas (enter_building, inside_other_building) en los 6 días tras la muerte del fundador (día 377). Sobre main c9cc435a (con «el heredero que sale antes de entrar» de jugador, d723ea72) ya no pasa: full_player, una generación, semilla 1: el fundador muere el día 377 y hereda ese día, refused_orders 0, game_over 0; además Patricio el día 27, Barón el día 58 y rep_y5 366 (reports/full_player_ref/full_player_heredero_main_gen.json).",
+      "por_que": "Encargo del manager (2026-11-07): comprobarlo sobre main y, si ya no pasa, apuntarlo como resuelto."
     }
   ],
   "pendientes": [
@@ -1668,11 +1680,6 @@
       "opciones": "Ver 03b §3b.7."
     },
     {
-      "tema": "Jugador completo · bandas de Patricio y de la reputación (propuestas, sin aplicar)",
-      "detalle": "Tras las fachadas, las primas y la pasiva de la taberna (posada, 2026-11-07), medido con full_player a 5 años × 3 semillas y una generación: Patricio los días 32-36 (y 34 en la generación), reputación del año 5 282-301. La QA de cada sello juega 1 año y la de la noche 3 años y la generación ×2: Patricio no se juzga en 3 años.",
-      "opciones": "Propuesta: (1) full_player title_patrician_day [1, 40] por semilla con _needs_days 40 (solo lo juzgan la generación y las partidas de 5 años); (2) full_player rep_y5 (reputación al final del año 5) [250, —] con _needs_days 40; (3) Barón sin banda hasta (d), el segundo taller que compense. Ninguna se mueve sin el visto bueno."
-    },
-    {
       "tema": "Jugador completo · el desbloqueo del heredero llega fuera de su ventana",
       "detalle": "full_player --generation, semilla 1, sobre 1314e214 (main 541c6dcc): el fundador muere a los 67 años el día 377 y el desbloqueo «heir» de data/unlocks.json llega el día índice 376, con la ventana [150, 250] (03b: «Generación 2 · ~17 h»). El fundador empieza con 20 años y la muerte llega entre los 55 y los 75 (data/family.json death), es decir, entre los días ~280 y ~440: la ventana supone una muerte antes de lo que da la regla. Es la única diana que falla en la generación (unlocks_off = 1); refused_orders 0. reports/full_player_ref/full_player_gen_fix.json.",
       "opciones": "(a) ventana del heredero [270, 450] (la de la regla de muerte) · (b) que el desbloqueo llegue antes, por la edad del primogénito (16) o al designar heredero · (c) dejar fuera de unlocks_off los desbloqueos de generación"
@@ -1681,7 +1688,6 @@
   "proximos_pasos": [
     "H5 · Mejoras (en curso): empieza por game/visuals/ (decisiones A-C) y el validador sin rutas en data/.",
     "Revisar en H5 la diana del rival y el balance con bots (D14).",
-    "Empleado «cualquiera» ocioso puede bloquear un puesto a otro de rol fijo.",
     "Peor paso del bench al primer atardecer: 8,2-9,6 ms (diana 8).",
     "La batería de tests tarda ~75 s por la prueba de equivalencia del A* (16 000 pares): reducirla si molesta.",
     "Prueba de kit de ciudad con PixelLab cuando se renueven los créditos (2026-11-15), con el visto bueno del owner.",

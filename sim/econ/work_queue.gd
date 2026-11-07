@@ -249,6 +249,33 @@ static func _free_station(sim: Sim, bld: String, kind: String, chr: String, reci
 		var occ := str(zones[z].get("occupant", ""))
 		if (occ == "" or occ == chr) and not zones[z].get("job") is Dictionary:
 			return z
+	return _yielded_station(sim, bld, kind, chr, recipe) if _role(sim, chr) == kind else ""
+
+
+## A fixed role can only work at its kind of station (BUG-023), while an «any» hand stays at the station of its last
+## cycle (Production keeps the occupant): with no station of `kind` free, the first one (by id) held by an idle «any»
+## employee of this building (no job there) is given up to `chr` (the «any» hand stands free in the building and takes
+## another station when there is work for it). Never a family member's station nor one with work running. "" if none.
+static func _yielded_station(sim: Sim, bld: String, kind: String, chr: String, recipe: Dictionary) -> String:
+	var st := sim.state
+	var zones: Dictionary = st.buildings[bld].get("zones", {})
+	var field := Fields.is_field(recipe)
+	for z: String in _sorted_keys(zones):
+		if Upgrades.zone_kind(sim, bld, z) != kind or zones[z].get("job") is Dictionary:
+			continue
+		if field and Fields.reason(sim, bld, z, recipe) != "":
+			continue
+		var occ := str(zones[z].get("occupant", ""))
+		if occ == "" or occ == chr or not st.characters.has(occ) or not Staff.works_at(st, occ, bld) \
+				or Buildings.owns(st, occ, bld) or _role(sim, occ) != "any":
+			continue
+		zones[z]["occupant"] = ""
+		if str(st.characters[occ].get("station", "")) == z:
+			st.characters[occ]["station"] = ""
+		sim.events.append({"type": "station_yielded", "building": bld, "zone": z, "employee": occ, "to": chr})
+		if OS.is_debug_build():
+			print("[WorkQueue] %s: %s (rol any, ocioso) cede el puesto %s a %s (rol %s)" % [bld, occ, z, chr, kind])
+		return z
 	return ""
 
 
