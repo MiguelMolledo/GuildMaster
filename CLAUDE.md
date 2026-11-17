@@ -56,6 +56,16 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
 - Escenas nuevas de `game/visuals/` se copian de las existentes (Feet, Top, Greybox) y se revisan en la galería.
 - Si el owner tiene abierta en Godot una escena que vas a tocar, avísale: al guardar pisaría tu cambio.
 
+## Arte: buscar antes de generar
+
+Antes de generar o dibujar arte (PixelLab, fal o a mano), busca en el catálogo común de los proyectos del owner:
+`python3 ~/Code/arte-comun/tools/arte.py buscar <qué> [--tipo prop|tile|edificio|personaje|vegetacion] [--neutro]`
+(español o inglés), y mira candidatos con `arte.py hoja <qué> -o /tmp/x.png`. Antes de usar una pieza de otro proyecto,
+pasa `arte.py compat <id> --con <este proyecto>` (escala, luz, contorno, paleta); tráela con
+`arte.py copiar <id> <este repo> <ruta>` y pega la línea de procedencia que imprime en el MANIFEST o inventario de arte
+(coste: 0 generaciones). Nunca escales por factores no enteros. Si añades arte nuevo a este repo, `arte.py indexar` lo
+incorpora al catálogo. Guía completa: ~/Code/arte-comun/README.md.
+
 ## Godot
 - Binario: `/opt/homebrew/bin/godot` (4.7.2). El alias `godot` del shell puede apuntar a otro: usa la ruta completa.
 - Solo sintaxis de Godot 4, tipado estático siempre. Sin ternario `?:` (usa `a if c else b`).
