@@ -7,6 +7,12 @@
     "min_height": 60
   },
   "camera_speed": 480,
+  "walk_keys": {
+    "_doc": "WorldView.key_walk: WASD walks the selected person. ahead: tiles of route given at a time (the order is given again when one is left; letting go stops on the tile being entered). The camera goes after the walker: follow_rate = share of the distance left it covers per second (exponential), follow_lift = px above the feet it centres on.",
+    "ahead": 3,
+    "follow_rate": 6,
+    "follow_lift": 16
+  },
   "character": {
     "width": 14,
     "outline": "#1e1812",

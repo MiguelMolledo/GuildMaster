@@ -128,3 +128,152 @@ func test_empty_town_view_has_no_map() -> void:
 	eq(v.objects().get_child_count(), 0, "nothing to draw")
 	eq(v.first_selectable(), "", "nobody to select")
 	v.free()
+
+
+## --- Walking with the keys (WASD, WorldView.key_walk): a move_to with its own route ---
+
+func _keys_view(at: Vector2i) -> Array:
+	var v := _view()
+	var got: Array = []
+	v.order_sink = func(o: Dictionary) -> void: got.append(o)
+	v.state.characters["chr_0001"]["position"] = [at.x, at.y]
+	v.state.characters["chr_0001"]["path"] = []
+	v.select("chr_0001")
+	return [v, got]
+
+
+## Gives the view's pending orders to a sim and runs `steps` minutes.
+func _run(v: WorldView, got: Array, steps: int = 1) -> Array:
+	var sim := Sim.new(v.state, cat)
+	var events: Array = sim.step(got.duplicate(true))
+	got.clear()
+	for i: int in steps - 1:
+		events.append_array(sim.step([]))
+	return events
+
+
+func test_keys_walk_the_selected_person() -> void:
+	var a := _keys_view(Vector2i(22, 19))  # the plaza: open ground all around
+	var v: WorldView = a[0]
+	var got: Array = a[1]
+	check(v.key_walk(Vector2i(0, -1)), "the keys have somebody to walk")
+	eq(got.size(), 1, "one order")
+	eq(str(got[0]["type"]), "move_to", "a move_to")
+	eq(got[0]["route"], [[21, 18], [20, 17], [19, 16]], "W = up the screen = a diagonal of the grid, three tiles ahead")
+	eq(got[0]["tile"], [19, 16], "its tile is the end of the route")
+	v.key_walk(Vector2i(0, -1))
+	eq(got.size(), 1, "the same route is not given twice")
+	var ev := _run(v, got)
+	check(not ev.any(func(e: Dictionary) -> bool: return e["type"] == "order_refused"), "the sim takes the route")
+	eq(v.state.characters["chr_0001"]["path"], [[21, 18], [20, 17], [19, 16]], "and walks exactly it")
+	v.key_walk(Vector2i(0, -1))
+	eq(got.size(), 0, "walking it already: no new order")
+	v.free()
+
+
+func test_keys_two_keys_walk_along_the_grid() -> void:
+	var a := _keys_view(Vector2i(22, 19))
+	var v: WorldView = a[0]
+	var got: Array = a[1]
+	v.key_walk(Vector2i(1, -1))  # W+D: up-right on screen = a row less
+	eq(got[0]["route"], [[22, 18], [22, 17], [22, 16]], "W+D walks north-east along the grid")
+	got.clear()
+	v.key_walk(Vector2i.ZERO)
+	v.key_walk(Vector2i(1, 1))   # S+D
+	eq(got[got.size() - 1]["route"][0], [23, 19], "S+D walks south-east along the grid")
+	v.free()
+
+
+func test_keys_slide_along_a_wall() -> void:
+	var a := _keys_view(Vector2i(7, 14))  # the west street (col 7), grass on both sides... a house block at cols 1-5
+	var v: WorldView = a[0]
+	var got: Array = a[1]
+	v.state.characters["chr_0001"]["position"] = [6, 16]  # grass beside the houses of cols 1-5, rows 15-17
+	v.key_walk(Vector2i(-1, 0))  # A = left on screen = (-1, +1) of the grid: the house is in the way of the diagonal
+	eq(got.size(), 1, "an order")
+	eq(got[0]["route"][0], [6, 17], "slides down the wall instead of stopping")
+	v.free()
+
+
+func test_keys_stop_when_let_go() -> void:
+	var a := _keys_view(Vector2i(22, 19))
+	var v: WorldView = a[0]
+	var got: Array = a[1]
+	v.key_walk(Vector2i(1, -1))
+	v.key_walk(Vector2i.ZERO)  # a tap: let go before the sim took the order
+	eq(got.size(), 2, "the route and its cut")
+	eq(got[1]["route"], [[22, 18]], "a tap walks one tile")
+	_run(v, got)
+	eq(v.state.characters["chr_0001"]["path"], [[22, 18]], "one tile left to walk")
+	check(not v.key_walking, "the keys no longer drive")
+	_run(v, got, 3)
+	eq(v.state.characters["chr_0001"]["position"], [22, 18], "there")
+	v.key_walk(Vector2i.ZERO)
+	eq(got.size(), 0, "nothing more to cut")
+	v.free()
+
+
+func test_keys_turn_on_the_tile_being_entered() -> void:
+	var a := _keys_view(Vector2i(22, 19))
+	var v: WorldView = a[0]
+	var got: Array = a[1]
+	v.key_walk(Vector2i(1, -1))
+	_run(v, got)  # on its way to (22, 18), a minute in
+	var progress := int(v.state.characters["chr_0001"]["move_progress"])
+	v.key_walk(Vector2i(1, 1))  # S+D now: a column more
+	eq(got.size(), 1, "the turn is an order")
+	eq(got[0]["route"], [[22, 18], [23, 18], [24, 18], [25, 18]], "it finishes the step and turns there")
+	_run(v, got)
+	eq(progress, 1, "half the step done when the keys turned")
+	eq(v.state.characters["chr_0001"]["position"], [22, 18], "the step under way went on (no restart)")
+	eq(v.state.characters["chr_0001"]["path"], [[23, 18], [24, 18], [25, 18]], "and the turn follows")
+	v.free()
+
+
+func test_keys_extend_the_route_when_one_tile_is_left() -> void:
+	var a := _keys_view(Vector2i(10, 18))  # the main street, east
+	var v: WorldView = a[0]
+	var got: Array = a[1]
+	v.key_walk(Vector2i(1, 1))
+	eq(got[0]["route"], [[11, 18], [12, 18], [13, 18]], "three tiles ahead")
+	_run(v, got, 2)
+	eq(v.state.characters["chr_0001"]["position"], [11, 18], "a tile walked")
+	v.key_walk(Vector2i(1, 1))
+	eq(got.size(), 0, "two tiles left: nothing to give")
+	_run(v, got, 2)
+	v.key_walk(Vector2i(1, 1))
+	eq(got.size(), 1, "one left: the route goes on")
+	eq(got[0]["route"], [[13, 18], [14, 18], [15, 18], [16, 18]], "from the tile being entered")
+	var ev := _run(v, got)
+	check(not ev.any(func(e: Dictionary) -> bool: return e["type"] == "order_refused"), "taken")
+	v.free()
+
+
+func test_keys_with_nobody_to_walk_pan() -> void:
+	var a := _keys_view(Vector2i(22, 19))
+	var v: WorldView = a[0]
+	var got: Array = a[1]
+	v.select("")
+	check(not v.key_walk(Vector2i(1, 0)), "nobody selected: the keys are the camera's")
+	v.select("chr_0001")
+	v.state.characters["chr_0001"]["location"] = "bld_0001"
+	check(not v.key_walk(Vector2i(1, 0)), "inside a building: the camera's too")
+	eq(got.size(), 0, "no order")
+	v.free()
+
+
+func test_move_to_route_is_checked_by_the_sim() -> void:
+	var a := _keys_view(Vector2i(22, 19))
+	var v: WorldView = a[0]
+	var sim := Sim.new(v.state, cat)
+	var grid := Grid.for_state(cat, v.state)
+	check(Movement.can_step(grid, Vector2i(19, 15), Vector2i(1, 0)), "a step on the plaza")
+	check(not Movement.can_step(grid, Vector2i(6, 16), Vector2i(-1, 0)), "not into a house")
+	check(not Movement.can_step(grid, Vector2i(6, 16), Vector2i(-1, 1)), "no corner cutting")
+	check(not Movement.can_step(grid, Vector2i(19, 15), Vector2i(2, 0)), "a step is one tile")
+	for bad: Array in [[[21, 15]], [[20, 15], [22, 15]], [[20, 15]], [[5, 16]], []]:
+		var tile: Array = [21, 15] if bad != [[5, 16]] else [5, 16]
+		var ev := sim.step([{"type": "move_to", "actor": "chr_0001", "tile": tile, "route": bad}])
+		check(ev.any(func(e: Dictionary) -> bool: return e["type"] == "order_refused" and e["reason"] == "blocked"),
+			"route %s refused" % str(bad))
+	v.free()

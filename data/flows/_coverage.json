@@ -6,7 +6,7 @@
       "key": "no la da la UI: es la orden vacía de los bots"
     },
     "move_to": {
-      "key": "señalar un sitio del mapa es del ratón (docs/ui/01 §9: clic derecho)"
+      "key": "señalar un sitio del mapa es del ratón (docs/ui/01 §9: clic derecho); con el teclado se anda con WASD (move_to con route: tests/test_game_view.gd y --smoke-script=teclas)"
     },
     "enter_building": {
       "key": "señalar un edificio es del ratón (docs/ui/01 §9: clic derecho)"

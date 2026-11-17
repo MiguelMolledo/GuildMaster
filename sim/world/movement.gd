@@ -41,9 +41,46 @@ static func step(sim: Sim) -> void:
 				print("[Movement] %s llega (tile=%s)" % [id, to])
 
 
+## Whether a walker on `from` may step onto its neighbour `from + d` (one of the 8): the tile is walkable and a
+## diagonal step has both tiles beside it walkable (no corner cutting, as Pathfinder).
+static func can_step(grid: Grid, from: Vector2i, d: Vector2i) -> bool:
+	if d == Vector2i.ZERO or absi(d.x) > 1 or absi(d.y) > 1:
+		return false
+	var to := from + d
+	if not grid.in_bounds(to.x, to.y) or not grid.walkable(to.x, to.y):
+		return false
+	if d.x != 0 and d.y != 0:
+		return grid.walkable(from.x + d.x, from.y) and grid.walkable(from.x, from.y + d.y)
+	return true
+
+
+const ROUTE_MAX: int = 32  # tiles of a move_to's own route at most
+
+
+## The route of a move_to that brings its own ("route": the keys walk tile by tile, WorldView.key_walk) as a path
+## [[col, row], ...], or [] if it is not one: every tile a step (can_step) from the one before, the first from
+## `from`, the last one `to`, ROUTE_MAX tiles at most.
+static func checked_route(grid: Grid, from: Vector2i, to: Vector2i, route: Array) -> Array:
+	if route.is_empty() or route.size() > ROUTE_MAX:
+		return []
+	var path: Array = []
+	var at := from
+	for t: Variant in route:
+		if not (t is Array and (t as Array).size() == 2):
+			return []
+		var next := Vector2i(int((t as Array)[0]), int((t as Array)[1]))
+		if not can_step(grid, at, next - at):
+			return []
+		path.append([next.x, next.y])
+		at = next
+	return path if at == to else []
+
+
 ## Validates and starts a walk to `tile` ([col, row]). {"ok", "reason"} like any order.
 ## A new route replaces the old one; progress toward the next tile is kept only if the next tile is the same.
-static func move_to(sim: Sim, actor: String, tile: Variant) -> Dictionary:
+## `route` (an Array of tiles ending on `tile`): walk exactly those tiles instead of the cheapest route; blocked if
+## it is not a walk (checked_route).
+static func move_to(sim: Sim, actor: String, tile: Variant, route: Variant = null) -> Dictionary:
 	var st := sim.state
 	if not st.characters.has(actor):
 		return Orders.fail("unknown_actor")
@@ -64,7 +101,11 @@ static func move_to(sim: Sim, actor: String, tile: Variant) -> Dictionary:
 	var from := Vector2i(int(pos[0]), int(pos[1]))
 	var old: Array = ch.get("path", [])
 	var path: Array = []
-	if from != to:
+	if from != to and route is Array:
+		path = checked_route(grid, from, to, route as Array)
+		if path.is_empty():
+			return Orders.fail("blocked")
+	elif from != to:
 		path = Pathfinder.find(grid, from, to)
 		if path.is_empty():
 			return Orders.fail("unreachable")

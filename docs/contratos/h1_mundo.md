@@ -31,6 +31,9 @@ Lo que comparten el sim y la vista en H1. Quien cambie algo de aquí lo cambia e
   `i18n/strings.csv`): `unknown_actor`, `no_map`, `out_of_bounds`, `blocked`, `unreachable`, `dead`.
   Un `move_to` nuevo sustituye la ruta que quede (conserva `move_progress` solo si la siguiente casilla es la misma).
   Destino = casilla actual → ok sin ruta. Un personaje muerto pierde la ruta.
+  Opcional `"route": [[col, row], ...]` (acaba en `tile`, `Movement.ROUTE_MAX` casillas como mucho): anda exactamente
+  esas casillas en vez de la ruta más barata; cada paso se comprueba con `Movement.can_step` (vecina, transitable, sin
+  cortar esquinas) y si alguno falla la orden se rechaza con `blocked`. Es lo que dan las teclas (WASD).
 - Bot `wanderer` (`sim/bots/bot_wanderer.gd`): `move_to` aleatorios a los quietos. `tools/sim_runner.gd` y
   `tools/sim_bench.gd` usan por defecto el escenario `town_e_start`.
 
@@ -39,5 +42,7 @@ Lo que comparten el sim y la vista en H1. Quien cambie algo de aquí lo cambia e
 - Para interpolar: posición en pantalla = lerp(`position`, `path[0]`, `move_progress / minutes_per_tile`).
 - Un clic sobre una casilla con un personaje seleccionado → `Game.give({"type": "move_to", ...})`. Nunca escribe el estado.
 - Controles elegidos (vista): clic izquierdo sobre alguien de la familia humana lo selecciona (en otro sitio, deselecciona);
-  clic derecho en una casilla = `move_to` del seleccionado. `minutes_per_tile` lo lee de `Movement.minutes_per_tile()`.
+  clic derecho en una casilla = `move_to` del seleccionado. WASD anda con el seleccionado (`WorldView.key_walk`:
+  `move_to` con `route`, unas casillas por delante, `data/view.json` `walk_keys`) y la cámara lo sigue; sin nadie a quien
+  mover, mueve la cámara. Flechas y botón central: cámara. `minutes_per_tile` lo lee de `Movement.minutes_per_tile()`.
   Cifras de presentación (zoom 1/2, alturas greybox, tinte día/noche) en `data/view.json`.

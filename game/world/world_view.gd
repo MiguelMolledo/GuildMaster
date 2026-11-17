@@ -67,6 +67,11 @@ var build_layer: BuildLayer = null  # H6: the plots in the building mode (04 §4
 var build_mode: bool = false       # H6: the building mode is on (HUD button B)
 var _festive: Dictionary = {}  # the clothes' look in force ({} = everyday)
 var _see_through: Array = []  # tall visuals (buildings, filler houses) that fade while they hide the selected person
+var key_walking: bool = false  # the walk keys (WASD) drive the selected person now (key_walk)
+var _walk_follow: String = ""  # who the camera follows: the one the keys walk, until they stop
+var _walk_sent: String = ""    # the route of the keys' last order: the same one is not given twice in a row
+var _walk_route: Array = []    # that route, and the minute it was given in (the sim takes it on its next step)
+var _walk_minute: int = -1
 
 
 func _ready() -> void:
@@ -1050,10 +1055,12 @@ func view_of(id: String) -> CharacterView:
 	return _views.get(id, null)
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if state == null:
 		return
+	_walk_keys(delta)
 	sync(_game.step_fraction() if _game != null else 0.0)
+	_follow_walker(delta)
 	update_hover(get_viewport().get_mouse_position())
 	if build_mode and build_layer != null:
 		build_layer.set_hovered(build_layer.plot_at(screen_to_tile(get_viewport().get_mouse_position())))
@@ -1466,11 +1473,141 @@ func command_move(tile: Vector2i) -> void:
 	if selected_id == "":
 		return
 	var order := {"type": "move_to", "actor": selected_id, "tile": [tile.x, tile.y]}
+	_walk_sent = ""
 	ViewConfig.info("WorldView", "order move_to (actor=%s, tile=%s)" % [selected_id, tile])
 	if order_sink.is_valid():
 		order_sink.call(order)
 	service_requested.emit(selected_id, "", "", Vector2i.ZERO)
 	marker().show_at(tile, float(ViewConfig.value("target_marker_seconds", 1.0)))
+
+
+## The walk keys as they are held now (walk_left/right/up/down: WASD): the selected person walks that way and the
+## camera follows; with nobody to walk (nobody selected, inside a building, away, in pause) they pan the camera.
+func _walk_keys(delta: float) -> void:
+	var dir := Vector2i(roundi(Input.get_axis("walk_left", "walk_right")), roundi(Input.get_axis("walk_up", "walk_down")))
+	if dir != Vector2i.ZERO and KeyNav.focused(get_viewport()):
+		dir = Vector2i.ZERO   # the keys belong to the control that has the focus
+	if not key_walk(dir) and dir != Vector2i.ZERO:
+		camera().pan(Vector2(dir).normalized() * camera().speed * delta)
+
+
+## Who the walk keys move: the selected person, out on the map and with the game running ("" = nobody).
+func key_walker() -> String:
+	if selected_id == "" or not state.characters.has(selected_id) or (_game != null and bool(_game.paused)):
+		return ""
+	var ch: Dictionary = state.characters[selected_id]
+	var v := view_of(selected_id)
+	if not bool(ch.get("alive", true)) or str(ch.get("location", "")) != "" or v == null or not v.visible:
+		return ""
+	return selected_id
+
+
+## Walks the selected person the way the keys point (`dir`: the screen direction, x right and y down, each -1, 0 or
+## 1; ZERO = the keys were let go). The view only says where: the walk is a move_to with its own "route" (the sim
+## checks every step), a few tiles ahead (data/view.json walk_keys.ahead) and given again when one tile is left, so
+## the person never stops between tiles. A key alone points along a diagonal of the grid (up = north on screen); if
+## that step is blocked the person slides along the wall (the street that runs that way). A turn is taken on the
+## tile the person is entering; letting go stops them there. False if there is nobody to walk (the keys pan then).
+func key_walk(dir: Vector2i) -> bool:
+	var who := key_walker()
+	if who == "":
+		key_walking = false
+		_walk_sent = ""
+		return false
+	var ch: Dictionary = state.characters[who]
+	var path: Array = ch.get("path", [])
+	if dir == Vector2i.ZERO:
+		if key_walking:   # stops on the tile it is entering (a tap walks one tile: the order not taken yet is cut too)
+			if _walk_minute == int(state.clock.get("minute", 0)) and not _walk_route.is_empty():
+				_walk_order(who, [(_walk_route[0] as Array).duplicate()])
+			elif path.size() > 1:
+				_walk_order(who, [[int(path[0][0]), int(path[0][1])]])
+		key_walking = false
+		_walk_sent = ""
+		return true
+	var grid := Grid.for_state(catalog, state) if catalog != null else null
+	if grid == null:
+		return false
+	if not key_walking:
+		key_walking = true
+		_walk_follow = who
+		service_requested.emit(who, "", "", Vector2i.ZERO)   # as any walk: whatever they were going to use is off
+	var pos: Array = ch.get("position", [0, 0])
+	var at := Vector2i(int(pos[0]), int(pos[1]))
+	var last := Vector2i.ZERO
+	var route: Array = []
+	if not path.is_empty():   # already between two tiles: the route goes on from the one being entered
+		var next := Vector2i(int(path[0][0]), int(path[0][1]))
+		last = next - at
+		at = next
+		route.append([at.x, at.y])
+	var want := Vector2i(signi(dir.x + dir.y), signi(dir.y - dir.x))   # screen direction -> step of the grid
+	for i: int in maxi(1, int((ViewConfig.value("walk_keys", {}) as Dictionary).get("ahead", 3))):
+		var step := _walk_step(grid, at, want, last)
+		if step == Vector2i.ZERO:
+			break
+		at += step
+		last = step
+		route.append([at.x, at.y])
+	if route.is_empty() or _walk_agrees(path, route):
+		return true
+	_walk_order(who, route)
+	return true
+
+
+## The step the keys take from `at` wanting `want`: that one if it can be walked; a diagonal that cannot slides
+## along one of its two sides (the one it came by, `last`, first: no zigzag). ZERO = blocked.
+func _walk_step(grid: Grid, at: Vector2i, want: Vector2i, last: Vector2i) -> Vector2i:
+	if Movement.can_step(grid, at, want):
+		return want
+	if want.x == 0 or want.y == 0:
+		return Vector2i.ZERO
+	var sides: Array[Vector2i] = [Vector2i(want.x, 0), Vector2i(0, want.y)]
+	if last == sides[1]:
+		sides.reverse()
+	for s: Vector2i in sides:
+		if Movement.can_step(grid, at, s):
+			return s
+	return Vector2i.ZERO
+
+
+## Whether `path` (what the person walks now) already is what the keys ask (`route`): the same tiles as far as both
+## go, with more than one left to walk (with one left the route is given again, longer).
+func _walk_agrees(path: Array, route: Array) -> bool:
+	if path.size() < 2 and path.size() != route.size():
+		return false
+	for i: int in mini(path.size(), route.size()):
+		if int(path[i][0]) != int(route[i][0]) or int(path[i][1]) != int(route[i][1]):
+			return false
+	return true
+
+
+func _walk_order(who: String, route: Array) -> void:
+	var key := str(route)
+	if key == _walk_sent:
+		return   # given already and not taken yet (the next step), or refused: not again
+	_walk_sent = key
+	_walk_route = route.duplicate(true)
+	_walk_minute = int(state.clock.get("minute", 0))
+	var order := {"type": "move_to", "actor": who, "tile": (route[route.size() - 1] as Array).duplicate(),
+		"route": route.duplicate(true)}
+	ViewConfig.info("WorldView", "order move_to by keys (actor=%s, route=%s)" % [who, key])
+	if order_sink.is_valid():
+		order_sink.call(order)
+
+
+## The camera goes after the person the keys walk (data/view.json walk_keys: follow_rate, follow_lift) until they
+## stop or somebody else is selected.
+func _follow_walker(delta: float) -> void:
+	if _walk_follow == "":
+		return
+	var v := view_of(_walk_follow)
+	var walking := not (state.characters.get(_walk_follow, {}).get("path", []) as Array).is_empty()
+	if v == null or _walk_follow != selected_id or not (key_walking or walking):
+		_walk_follow = ""
+		return
+	var cfg: Dictionary = ViewConfig.value("walk_keys", {})
+	camera().ease_to(v.position - Vector2(0, float(cfg.get("follow_lift", 16))), delta, float(cfg.get("follow_rate", 6)))
 
 
 func _unhandled_input(event: InputEvent) -> void:

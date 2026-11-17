@@ -168,7 +168,8 @@ Esc, Cancelar o un clic en el velo cancelan; Intro o el botón confirman (Espaci
 | Clic izquierdo | Elegir persona, edificio, puesto | sí |
 | Doble clic | Gestionar tu edificio sin ir andando | sí |
 | Clic derecho | Ir / entrar / usar (con persona elegida); en un puesto, menú contextual | sí |
-| WASD, flechas | Mover la cámara | sí |
+| WASD | Andar con la persona elegida (una tecla: recto en pantalla; dos: por la calle; se desliza por las paredes; al soltar, se para); la cámara la sigue. Sin nadie a quien mover (nadie elegido, dentro, de viaje, en pausa): mueve la cámara | sí |
+| Flechas | Mover la cámara | sí |
 | Rueda · botón central | Acercar · arrastrar la cámara | sí |
 | Espacio | Pausa / seguir | sí |
 | Mayús+1 / 2 / 3 | Velocidad ×1 / ×2 / ×4 | sí (ver tarea: `speed_1..3` del mapa de entrada están en 1-2-3 sin Mayús) |
@@ -186,7 +187,7 @@ Esc, Cancelar o un clic en el velo cancelan; Intro o el botón confirman (Espaci
 | Tab · Mayús+Tab · flechas | Sin tutorial: el foco por los botones del menú, panel o carta de arriba (anillo dorado); sin nada enfocado, Tab entra en lo de arriba (`KeyNav`) | sí (verificación C13) |
 | Intro · Espacio | Pulsar el control enfocado (sin foco, Espacio es la pausa) | sí |
 | F6 · Mayús+F6 | El foco salta de zona: lo de arriba, las cartas de la pila, el panel abierto, la barra de la sala, la barra del HUD | sí |
-| R, WASD dentro de un edificio | Avisan «no disponible dentro» (el mapa y la cámara son de la ciudad) | sí |
+| R, flechas dentro de un edificio | Avisan «no disponible dentro» (el mapa y la cámara son de la ciudad) | sí |
 
 Todas las teclas van al mapa de entrada de `project.godot` (no `KEY_*` en el código) para poder cambiarlas en
 opciones más adelante.

@@ -343,11 +343,13 @@ static func _transfer(sim: Sim, o: Dictionary) -> Dictionary:
 ## {"type": "move_to", "actor", "tile": [col, row]}: walk there by the cheapest route (GDD 05 §5.4, D3).
 ## Reasons: unknown_actor, dead, no_map, out_of_bounds, blocked, unreachable. The rules live in Movement.
 ## Inside a building a character does not walk the map: not_inside_map until it leaves (exit_building).
+## Optional "route": [[col, row], ...] ending on `tile`: walk exactly those tiles (the keys, WorldView.key_walk);
+## blocked if a step of it cannot be walked.
 static func _move_to(sim: Sim, o: Dictionary) -> Dictionary:
 	var actor := str(o.get("actor", ""))
 	if str(sim.state.characters.get(actor, {}).get("location", "")) != "":
 		return fail("not_inside_map")
-	return Movement.move_to(sim, actor, o.get("tile"))
+	return Movement.move_to(sim, actor, o.get("tile"), o.get("route"))
 
 
 static func _controls(st: WorldState, actor: String, entity: String) -> bool:

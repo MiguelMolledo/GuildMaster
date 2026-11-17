@@ -1,7 +1,8 @@
 class_name WorldCamera
 extends Camera2D
-## Camera of the town view: WASD/arrows pan (cam_left/right/up/down), wheel zoom (cam_zoom_in/out) between the
-## zoom_levels of data/view.json (whole numbers only, D2), middle-button drag (cam_drag). The centre is clamped to
+## Camera of the town view: the arrows pan (cam_left/right/up/down), wheel zoom (cam_zoom_in/out) between the
+## zoom_levels of data/view.json (whole numbers only, D2), middle-button drag (cam_drag). WASD walks the selected
+## person and the camera follows them (WorldView.key_walk, ease_to); with nobody to walk it pans too. The centre is clamped to
 ## the map bounds and the drawn position is rounded to whole world pixels so nothing shimmers or deforms.
 
 const FALLBACK_VIEWPORT: Vector2 = Vector2(960, 540)
@@ -55,6 +56,12 @@ func zoom_step(dir: int, anchor: Vector2) -> void:
 ## Pans by `screen_delta` screen pixels.
 func pan(screen_delta: Vector2) -> void:
 	_center += screen_delta / float(current_zoom())
+	_apply()
+
+
+## Moves the centre towards `p`, `rate` times per second of what is left (the camera after a walker): no jump.
+func ease_to(p: Vector2, delta: float, rate: float) -> void:
+	_center = _center.lerp(p, clampf(1.0 - exp(-rate * delta), 0.0, 1.0))
 	_apply()
 
 

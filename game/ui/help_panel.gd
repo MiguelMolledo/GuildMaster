@@ -13,7 +13,7 @@ signal chapter_requested(chapter: String)
 ## The map of keys: [column, section title key, [[key text key, what it does key], ...]] (help.key.<id> /
 ## help.key.<id>_do). Every key of HudKeys and the app is here (§9).
 const KEYS: Array = [
-	[0, "help.keys_map", ["click_left", "double_click", "click_right", "camera", "wheel"]],
+	[0, "help.keys_map", ["click_left", "double_click", "click_right", "walk", "camera", "wheel"]],
 	[0, "help.keys_time", ["space", "speeds"]],
 	[1, "help.keys_family", ["group", "tree", "inventory"]],
 	[1, "help.keys_panels", ["ledger", "offices", "trials", "build", "inside", "confirm", "esc", "help", "tutorial"]],

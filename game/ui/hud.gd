@@ -631,7 +631,7 @@ static func _refit(l: Label) -> void:
 	l.text = str(forms[forms.size() - 1])
 
 
-## A camera key (WASD, arrows) that is not also a key of the building's panels (A is the storage there).
+## A camera key (the arrows; WASD walks in the town) that is not also a key of the building's panels.
 func _camera_key(event: InputEvent) -> bool:
 	for a: String in ["cam_left", "cam_right", "cam_up", "cam_down"]:
 		if event.is_action_pressed(a, false, true):

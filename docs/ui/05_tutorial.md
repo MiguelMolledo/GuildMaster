@@ -238,14 +238,14 @@ Elegir y mover a tu personaje, la hora y la velocidad, entrar en tu taller.
 | # | Paso | Sale cuando | Resalta | Texto (ES) | Pasa con |
 |---|---|---|---|---|---|
 | 1 | `welcome` | acaba el anterior · pausa | — | Esto es {town}. Te enseño lo básico paso a paso; el juego espera en pausa mientras lees. | «Siguiente» |
-| 2 | `camera` | acaba el anterior | zona `view` | Mueve la cámara: WASD o las flechas, o arrastra con el botón central del ratón. | estado `camera_moved` (px=48) |
+| 2 | `camera` | acaba el anterior | zona `view` | Mueve la cámara: las flechas, o arrastra con el botón central del ratón. Con alguien elegido, WASD lo hace andar y la cámara lo sigue. | estado `camera_moved` (px=48) |
 | 3 | `zoom` | acaba el anterior | zona `view` | La rueda del ratón acerca y aleja la vista. | ui `zoom_changed` |
 | 4 | `select` | acaba el anterior | character `$head` | Tu protagonista: {head}. Con clic izquierdo eliges a alguien de tu familia (o con 1, 2 y 3); sobre un vecino, abres su ficha. | «Siguiente» |
 | 5 | `group` | acaba el anterior | `GroupBar` | Arriba a la izquierda, tu grupo: hasta tres familiares, con las teclas 1, 2 y 3. Al lado, el oro de toda la familia. | «Siguiente» |
 | 6 | `clock` | acaba el anterior | `ClockPanel` | Aquí la hora, el día y la estación. Un día de juego pasa en unos minutos. | «Siguiente» |
 | 7 | `resume` | acaba el anterior | `PauseButton` | Pulsa Espacio (o este botón) para que corra el tiempo. Espacio otra vez lo para. | estado `paused` (is=False) |
 | 8 | `speed` | acaba el anterior | `Speeds` | Mayús+2 (o ×2) va el doble de rápido. Prueba ×2. | estado `speed` (is=2) |
-| 9 | `walk` | acaba el anterior | zona `view` | Ahora, clic derecho en el suelo: {head} va andando hasta allí. | ui `order_given` (type=move_to) |
+| 9 | `walk` | acaba el anterior | zona `view` | Ahora, clic derecho en el suelo: {head} va andando hasta allí. O anda con WASD. | ui `order_given` (type=move_to) |
 | 10 | `workshop` | acaba el anterior | building `$workshop` | Esta es tu {workshop}. Clic derecho sobre ella para entrar. | estado `interior` (is=$workshop) |
 | 11 | `bar` | acaba el anterior | `BuildingBar` | Dentro, abajo, la barra del taller: Producción (P), Almacén (A), Empleados (E), Mejoras (M) y Salir. | «Siguiente» |
 | 12 | `objective` | acaba el anterior | `ObjectivePanel` | A la izquierda, tu objetivo de ahora. Si dudas, F1 abre la ayuda y desde ella repites cualquier capítulo. | «Siguiente» |
