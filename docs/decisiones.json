@@ -1609,6 +1609,12 @@
       "tema": "Jugador completo · el heredero que no podía entrar tras la muerte del fundador (resuelto)",
       "decision": "En las generaciones de posada sobre 089668b3 y e619d0b6, el heredero (chr_0189) acumulaba 11 517 entradas rechazadas (enter_building, inside_other_building) en los 6 días tras la muerte del fundador (día 377). Sobre main c9cc435a (con «el heredero que sale antes de entrar» de jugador, d723ea72) ya no pasa: full_player, una generación, semilla 1: el fundador muere el día 377 y hereda ese día, refused_orders 0, game_over 0; además Patricio el día 27, Barón el día 58 y rep_y5 366 (reports/full_player_ref/full_player_heredero_main_gen.json).",
       "por_que": "Encargo del manager (2026-11-07): comprobarlo sobre main y, si ya no pasa, apuntarlo como resuelto."
+    },
+    {
+      "fecha": "2026-11-17",
+      "tema": "Rediseño de la ciudad: árboles, vida de calle, puestos y monumentos sin mover el sim",
+      "decision": "El rediseño de town_e y la capital no mueve nada que lea el sim (edificios, puestos, tablón, ayuntamiento, puertas, oficios, solares): cambia el arte y el vestido. Árboles y piezas de calle con su regla (citylib.greenery, tools/city/reglas.json greenery) DESPUÉS de las parcelas y los puntos de reunión. Los puestos del mercado, a escala B y con un estilo común (~80×100 px, toldo a ~74 px del suelo, 1,5× el personaje; el color del toldo dice el gremio) y en espejo si se sirven desde +col. Los hitos con sprite llevan la huella para la que están dibujados (metadata footprint): girados se reflejan, con otra huella siguen en bloque gris (el puerto). En town_e el río pasa de las columnas 35-36 a 37-38 (las casas del este pisaban el cauce y el río se cortaba antes del puente); el lavadero (river_bank) va a (36, 10), la puerta este del oficio a (39, 19), y las parcelas no ocupan el cauce viejo (keep) para seguir donde estaban.",
+      "por_que": "El encargo pide una ciudad bonita sin romper la jugabilidad: los solares y las distancias del sim están ajustados a las dianas (data/targets.json) y los escenarios y pruebas nombran parcelas por id. Lo que se ve se puede rehacer entero; lo que se juega, no sin bots."
     }
   ],
   "pendientes": [

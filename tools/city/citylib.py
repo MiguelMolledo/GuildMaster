@@ -1411,3 +1411,177 @@ def _check_zones(m, rep):
             summary[-1] += f" ({share:.0%} árboles)"
     rep.note("zonas: " + ", ".join(summary))
 
+
+
+def greenery(d, cat, rl=None):
+    """Rediseño de la ciudad: árboles y vida de calle (reglas.json "greenery"), añadidos al decor de map dict d
+    DESPUÉS de las parcelas y los puntos de reunión, sin pisar nada de lo que hay: así los solares, las ruinas, los
+    puntos, las rondas y el corral de la feria no se mueven y ninguna diana cambia. Cada grupo de la regla mira un
+    sitio (la orilla, los prados, el borde de las calles, los huertos, los patios de trabajo, los campos, la plaza y las
+    entradas) y pone, con la probabilidad de la casilla (tile_hash, la misma en cada partida), una de sus piezas, a
+    `spacing` casillas o más de las demás del grupo. Devuelve {grupo: piezas}."""
+    rl = rl or rules()
+    g = rl.get("greenery")
+    if not g:
+        return {}
+    m = Map(d, cat)
+    items = d.setdefault("decor", {"_doc": rl["_decor_doc"], "items": []})["items"]
+    prot = m.protected()
+    owned = m.site_tiles()
+    taken = set(_decor_tiles(d))
+    yards = {}
+    for it in items:
+        if it.get("kind") == "yard" and not it.get("site"):
+            yards[tuple(it["at"])] = it["id"]
+    plot_tiles = set()
+    for p in d.get("plots") or []:
+        o, s = p["origin"], p["size"]
+        for dr in range(-1, s[1] + 1):
+            for dc in range(-1, s[0] + 1):
+                plot_tiles.add((o[0] + dc, o[1] + dr))
+        plot_tiles.add(tuple(p["front"]))
+    for sp in d.get("social_points") or []:
+        for s in sp.get("slots", []):
+            plot_tiles.add(tuple(s))
+    for pt in d.get("patrols") or []:
+        for t in pt.get("tiles", []):
+            plot_tiles.add(tuple(t))
+    near_door = set()
+    for d0 in m.doors():
+        for dc in (-1, 0, 1):
+            for dr in (-1, 0, 1):
+                near_door.add((d0[0] + dc, d0[1] + dr))
+    gates = [tuple(v) for k, v in (d.get("spawns") or {}).items() if k.endswith("_gate")]
+    gate_r = g.get("gate_clear", 5)
+    svc_tiles = set()
+    for kind, sid, tile, svc in m.services():
+        for dc in (-1, 0, 1):
+            for dr in (-1, 0, 1):
+                svc_tiles.add((tile[0] + dc, tile[1] + dr))
+                svc_tiles.add((svc[0] + dc, svc[1] + dr))
+
+    def dist_to(kinds, t, upto):
+        for r in range(1, upto + 1):
+            for dc in range(-r, r + 1):
+                for dr in range(-r, r + 1):
+                    if max(abs(dc), abs(dr)) == r and m.kind((t[0] + dc, t[1] + dr)) in kinds:
+                        return r
+        return upto + 1
+
+    def free(t, on=("grass",)):
+        if not m.inside(t) or t in prot or t in owned or t in plot_tiles or t in near_door or t in svc_tiles:
+            return False
+        if any(abs(t[0] - q[0]) + abs(t[1] - q[1]) <= gate_r for q in gates):
+            return False
+        k = m.kind(t)
+        if k == "building":
+            return "yard" in on and t in yards
+        return k in on and t not in taken
+
+    placed = {}  # group -> [tiles]
+    out = {}
+
+    def put(group, cfg, t, pid):
+        off = cfg.get("jitter", 0)
+        it = {"kind": "prop", "id": pid, "at": list(t)}
+        if off:
+            it["off"] = [tile_hash(t[0], t[1], 41) % (2 * off + 1) - off, tile_hash(t[0], t[1], 43) % (off + 1) - off // 2]
+        items.append(it)
+        placed.setdefault(group, []).append(t)
+        if m.kind(t) != "building":
+            taken.add(t)
+        out[group] = out.get(group, 0) + 1
+
+    def far_from_mine(group, cfg, t):
+        sp = cfg.get("spacing", 1)
+        return all(max(abs(t[0] - q[0]), abs(t[1] - q[1])) >= sp for q in placed.get(group, []))
+
+    def pick(cfg, t, salt):
+        ids = cfg["ids"]
+        return ids[tile_hash(t[0], t[1], salt) % len(ids)]
+
+    # the trade signs: one by the door of each workshop (beside it, on the street side), only with that building
+    for sid, st in sorted(m.sites.items()):
+        sign = (g.get("signs") or {}).get(st["type"])
+        door = st.get("door")
+        if not sign or not door or sid in m.alt_of:
+            continue
+        inner = next(((door[0] + dd[0], door[1] + dd[1]) for dd in DIRS
+                      if (door[0] + dd[0], door[1] + dd[1]) in st["tiles"]), None)
+        if inner is None:
+            continue
+        out_d = (door[0] - inner[0], door[1] - inner[1])
+        perp = (out_d[1], out_d[0])
+        if out_d not in VISIBLE:
+            continue  # the door on a hidden face: the sign would stand behind the building
+        for sgn in (1, -1):
+            t = (inner[0] + perp[0] * sgn, inner[1] + perp[1] * sgn)  # the wall beside the door, pushed to the street
+            if t in st["tiles"] and t not in prot and not any(tuple(it.get("at", [])) == t and it.get("kind") == "prop"
+                                                               for it in items):
+                a, b = to_world(*t), to_world(t[0] + out_d[0], t[1] + out_d[1])
+                items.append({"kind": "prop", "id": sign, "at": list(t), "site": sid,
+                              "off": [round((b[0] - a[0]) * 0.55), round((b[1] - a[1]) * 0.55)]})
+                out["signs"] = out.get("signs", 0) + 1
+                break
+    # the fountain of a big plaza: the free plaza tile nearest its middle, away from the well
+    fcfg = g.get("fountain") or {}
+    plaza = [t for t in m.all_tiles() if m.kind(t) == "plaza"]
+    if fcfg and len(plaza) >= fcfg.get("min_plaza", 150):
+        cx = sum(t[0] for t in plaza) / len(plaza)
+        cy = sum(t[1] for t in plaza) / len(plaza)
+        wells = [tuple(it["at"]) for it in items if it.get("kind") == "single"]
+        for t in sorted(plaza, key=lambda t: ((t[0] - cx) ** 2 + (t[1] - cy) ** 2, t)):
+            if not free(t, ("plaza",)) or any(max(abs(t[0] - w[0]), abs(t[1] - w[1])) < 3 for w in wells):
+                continue
+            if any(not m.inside(u) or m.kind(u) != "plaza" or u in prot for u in
+                   ((t[0] + dc, t[1] + dr) for dc in (-1, 0, 1) for dr in (-1, 0, 1))):
+                continue
+            items.append({"kind": "prop", "id": fcfg.get("id", "fountain"), "at": list(t)})
+            taken.add(t)
+            out["fountain"] = 1
+            break
+    tiles = sorted(m.all_tiles(), key=lambda t: (t[1], t[0]))
+    for salt, (group, cfg) in enumerate(sorted((k, v) for k, v in g.items() if isinstance(v, dict) and "where" in v)):
+        where = cfg["where"]
+        on = tuple(cfg.get("on", ["grass"]))
+        n_max = cfg.get("max", 10 ** 6)
+        for t in tiles:
+            if out.get(group, 0) >= n_max:
+                break
+            if not free(t, on):
+                continue
+            if where == "yard" and yards.get(t) not in cfg.get("yards", []):
+                continue
+            if where == "water" and dist_to(("water",), t, cfg.get("reach", 2)) > cfg.get("reach", 2):
+                continue
+            if where == "street":
+                if dist_to(tuple(cfg.get("roads", ["street"])), t, 1) > 1 or dist_to(("water",), t, 2) <= 2:
+                    continue
+            if where == "meadow":
+                away = cfg.get("away", 3)
+                if dist_to(ROAD_KINDS + ("building", "landmark", "wall", "water", "stall", "board"), t, away) <= away:
+                    continue
+                edge = min(t[0], t[1], m.w - 1 - t[0], m.h - 1 - t[1])
+                if "edge" in cfg and edge > cfg["edge"]:
+                    continue
+                if "inner" in cfg and edge <= cfg["inner"]:
+                    continue
+            if where == "field":
+                if any(m.kind((t[0] + dx, t[1] + dy)) != "field" for dx in (-1, 0, 1) for dy in (-1, 0, 1)):
+                    continue
+            if where == "plaza_edge":
+                if m.kind(t) != "plaza" or all(m.kind((t[0] + dd[0], t[1] + dd[1])) == "plaza" for dd in DIRS):
+                    continue
+            if where == "gate_road":
+                near = min((abs(t[0] - q[0]) + abs(t[1] - q[1]) for q in gates), default=99)
+                if not (gate_r < near <= gate_r + 3) or dist_to(("street", "dirt"), t, 1) > 1:
+                    continue
+            if tile_hash(t[0], t[1], 100 + salt) % 1000 >= cfg["p"] * 1000:
+                continue
+            if not far_from_mine(group, cfg, t):
+                continue
+            if cfg.get("apart"):
+                if any(max(abs(t[0] - q[0]), abs(t[1] - q[1])) < cfg["apart"] for gg, qs in placed.items() for q in qs):
+                    continue
+            put(group, cfg, t, pick(cfg, t, 7 + salt))
+    return out

@@ -567,13 +567,15 @@ def pen_ground(d, cat, ps, fp=(3, 3)):
     return None
 
 
-def add_plots(d, cat):
-    """Puts the plots in map dict d and takes out of its decor the filler houses they replace. Returns a summary."""
-    ps, drop = plots(d, cat)
+def add_plots(d, cat, keep=frozenset()):
+    """Puts the plots in map dict d and takes out of its decor the filler houses they replace. Returns a summary.
+    keep: tiles no plot may take (town_e: the old river bed, so its plots stay where they were)."""
+    ps, drop = plots(d, cat, frozenset(keep))
     if pen_ground(d, cat, ps) is None:
-        keep = pen_ground(d, cat, [])  # the meadow without plots: keep the first pen free and deal them again
-        if keep:
-            ps, drop = plots(d, cat, frozenset(keep))
+        pen = pen_ground(d, cat, [])  # the meadow without plots: keep the first pen free and deal them again
+        if pen:
+            ps, drop = plots(d, cat, frozenset(pen) | frozenset(keep))
+            keep = pen
             print("plots: %s: the fair's pen by a gate kept free at %s" % (d.get("id", ""), min(keep)))
     d["plots"] = ps
     if drop and d.get("decor"):

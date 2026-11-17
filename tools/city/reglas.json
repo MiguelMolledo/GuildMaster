@@ -147,5 +147,20 @@
       },
       "main_street_reach": 6
     }
+  },
+  "greenery": {
+    "fountain": {"min_plaza": 150, "id": "fountain"},
+    "signs": {"forge": "sign_forge", "carpentry": "sign_carpenter", "tailor_shop": "sign_tailor", "tavern_inn": "sign_inn"},
+    "_doc": "Rediseño de la ciudad (citylib.greenery, después de las parcelas y los puntos de reunión: no mueve nada del sim): árboles y vida de calle. Cada grupo (en orden de nombre): where (water: hierba a `reach` casillas del agua; meadow: hierba a más de `away` casillas de calles, casas y agua, solo hasta `edge` casillas del borde del mapa o solo más adentro de `inner`; street: hierba pegada a una calle de `roads`, lejos del agua; yard: un patio del relleno de los tipos `yards`; field: un campo rodeado de campo; plaza_edge: el borde de la plaza; gate_road: junto al camino, a gate_clear+1..+3 de una puerta), on (tipos de casilla), p (probabilidad por casilla, tile_hash), spacing (casillas mínimas entre piezas del grupo), apart (y con las de los demás), max, jitter (px de desplazamiento) e ids (escenas de game/visuals/props/; repetir = más peso). Nunca a gate_clear casillas o menos de una puerta (el corral de la feria), ni en puertas y sus vecinas, servicios, solares y sus bordes, puntos de reunión ni rondas.",
+    "gate_clear": 5,
+    "a_river": {"where": "water", "reach": 2, "p": 0.45, "spacing": 2, "jitter": 6, "ids": ["tree_poplar_1", "tree_poplar_2", "tree_poplar_3", "tree_willow_2", "tree_poplar_1"]},
+    "b_woods": {"where": "meadow", "edge": 6, "away": 2, "p": 0.4, "spacing": 2, "jitter": 8, "ids": ["tree_pine_1", "tree_pine_2", "tree_fir_1", "tree_fir_2", "tree_oak_1", "tree_oak_3", "tree_chestnut_3"]},
+    "c_meadow": {"where": "meadow", "inner": 6, "away": 2, "p": 0.3, "spacing": 2, "jitter": 8, "ids": ["tree_oak_1", "tree_oak_2", "tree_oak_3", "tree_oak_4", "tree_chestnut_1", "tree_chestnut_2", "bush_1", "bush_3"]},
+    "d_street": {"where": "street", "roads": ["street", "dirt"], "p": 0.16, "spacing": 4, "apart": 2, "jitter": 4, "ids": ["bush_1", "bush_2", "planter", "flower_pots", "hedge_1", "tree_oak_4", "bush_2"]},
+    "e_orchard": {"where": "yard", "on": ["yard"], "yards": ["yard_plot", "yard_plot_sack"], "p": 0.35, "spacing": 2, "jitter": 6, "ids": ["tree_apple_1", "tree_apple_2", "tree_pear_1", "tree_cherry_1", "tree_apple_1", "beehive"]},
+    "f_workyard": {"where": "yard", "on": ["yard"], "yards": ["yard_plain", "yard_barrels", "yard_crates", "yard_sacks", "yard_cart"], "p": 0.3, "spacing": 2, "jitter": 4, "ids": ["woodpile", "barrel_stack", "crate_stack", "clothesline", "hens", "trough", "dog", "clothesline", "woodpile"]},
+    "g_field": {"where": "field", "on": ["field"], "p": 0.12, "spacing": 5, "ids": ["scarecrow", "haystack", "haystack"]},
+    "h_plaza": {"where": "plaza_edge", "on": ["plaza"], "p": 0.5, "spacing": 5, "max": 4, "ids": ["market_banner"]},
+    "i_entrance": {"where": "gate_road", "p": 0.6, "spacing": 8, "max": 4, "ids": ["stone_cross", "trough", "stone_cross"]}
   }
 }

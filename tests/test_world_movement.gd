@@ -97,7 +97,7 @@ func test_refusals_say_why_and_change_nothing() -> void:
 		[_go("chr_0001", [-1, 3]), "out_of_bounds", ""],
 		[_go("chr_0001", "here"), "out_of_bounds", ""],
 		[_go("chr_0001", [9, 8]), "blocked", ""],
-		[_go("chr_0001", [35, 5]), "blocked", ""],
+		[_go("chr_0001", [37, 5]), "blocked", ""],
 		[_go("chr_0001", [8, 12]), "dead", "dead"],
 		[_go("chr_0001", [8, 12]), "no_map", "no_map"],
 		[_go("chr_0001", [2, 0]), "unreachable", "island"],

@@ -459,6 +459,28 @@ Las hace `citylib.dress` en este orden; las cifras están en `tools/city/reglas.
 Todo es determinista: el único «azar» es `citylib.tile_hash` de la casilla. Tras tocar las filas o los solares de un
 mapa: `python3 tools/city/ciudad.py vestir <mapa>` (reescribe solo su `"decor"`).
 
+8. **Arbolado y vida de calle** (`citylib.greenery`, reglas en `reglas.json` → `greenery`; rediseño de la ciudad,
+   2026-11-17). Va **después de las parcelas y de los puntos de reunión** (`make_town_e.py` y `organic.py` lo llaman
+   tras `plots.add_plots`), así que no mueve ningún solar, ruina, punto, ronda ni el corral de la feria: ninguna diana
+   cambia. Cada grupo mira un sitio y pone sus piezas con la probabilidad de la casilla (`tile_hash`):
+
+   | Grupo | Dónde | Piezas |
+   |---|---|---|
+   | `a_river` | Hierba a 2 casillas del agua | Chopos y sauce |
+   | `b_woods` | Prados a 6 casillas o menos del borde, lejos de calles y casas | Pinos, abetos, algún roble |
+   | `c_meadow` | Prados de dentro, a más de 2 casillas de todo | Robles, castaños, arbustos |
+   | `d_street` | Hierba pegada a una calle o camino | Arbustos, jardineras, macetas, seto, roble joven |
+   | `e_orchard` | Patios de huerto (`yard_plot`) | Frutales y colmenas |
+   | `f_workyard` | Patios de trabajo | Leña, barriles, cajas, tendederos, gallinas, perro, abrevadero |
+   | `g_field` | Campo rodeado de campo | Espantapájaros y almiares |
+   | `h_plaza` | Borde de la plaza | Estandartes |
+   | `i_entrance` | Junto al camino, pasada la puerta | Cruceiro y abrevadero |
+   | `fountain` | La plaza de 150 casillas o más (la capital): la casilla libre más cercana a su centro, lejos del pozo | Fuente |
+   | `signs` | Junto a la puerta de cada taller, si da a una cara visible | Cartel del oficio (sin letras) |
+
+   Nunca a `gate_clear` casillas de una puerta del mapa, ni en una puerta y sus vecinas, un servicio, un solar y su
+   borde, un punto de reunión ni una ronda. «Más árboles» / «menos árboles»: `p` del grupo; «más juntos»: `spacing`.
+
 El juego lo dibuja en `WorldView._add_decor`: los lotes (`house`, `yard`, `single`) en el centro de sus casillas y
 registrados como prop de cada una; las piezas (`lantern`, `prop`, `fence`) en el centro de su casilla más `off`
 píxeles. Un lote cuyas casillas ocupa un edificio de esta partida se salta y esas casillas vuelven al relleno de
@@ -498,7 +520,9 @@ antes (`_add_filler`). La decoración a mano de `game/visuals/towns/<mapa>.tscn`
 | Farola | `props/lantern` | ✔ | 32×64 |
 | Barriles, cajas, sacos, carro, banco | `props/barrel`, `crate`, `grain_sack`, `cart`, `bench` | ✔ | |
 | Valla | `props/fence` | ✔ (campos) | Un tramo dibujado `\`, reflejado para `/` |
-| Árboles | `props/tree*` | ✔ | `data/view.json` `prop_variants.tree` |
+| Árboles | `props/tree_<especie>_<n>` | ✔ | `data/view.json` `prop_variants.tree` (casillas `T`) y `map_border.trees`; los del decor, `greenery`. Roble, castaño, chopo, sauce, pino, abeto y frutales (`tools/art/fal_rediseno.py`), con sombra al pie |
+| Puestos del mercado | `props/stall_<id>` | ✔ | Un estilo común (mostrador, cuatro postes, toldo del color del gremio), ~80×100 px; servidos desde +col, en espejo |
+| Hitos con sprite | `props/<tipo>` | capital | Catedral, iglesia, aduana, almacén, lonja, torres, grúa; `metadata/footprint` = la huella dibujada (girada: espejo; otra: bloque gris). Muralla: `props/wall` |
 | Agua, orilla, puente | `tiles/water*`, `tiles/bridge*` | `rio` (y el estanque) | |
 | Edificios del sim | `buildings/<tipo>` | ✔ | Cada uno con su `Door`; con la puerta en una cara oculta hace falta `<tipo>_back` (lo lleva el arte, ver §2) |
 

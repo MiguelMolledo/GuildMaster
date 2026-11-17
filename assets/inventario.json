@@ -9619,13 +9619,15 @@
       "estado": "sprite",
       "para": [
         "H3",
-        "mercado"
+        "mercado",
+        "rediseno-ciudad"
       ],
       "ruta": "assets/art/buildings/stall_resources.png",
-      "origen": "guild-renew",
-      "origen_previo": "guild:assets/sprites/buildings/market",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «puestos_2» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "origen_previo": "guild-renew",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/buildings/market/interior/stall_recursos.png (docs/arte/reuso_guild.md). Puesto de una casilla, en game/visuals/props/stall_resources.tscn."
+      "notas": "Puesto del mercado rehecho a escala B con un estilo común (mostrador de madera, cuatro postes y toldo a rayas del color del gremio), ~80×100 px: el toldo a ~74 px del suelo (1,5 veces el personaje). Escena game/visuals/props/stall_resources.tscn; WorldView lo refleja si se sirve desde +col.",
+      "coste_usd": 0.02
     },
     {
       "id": "bld_stall_food",
@@ -9633,13 +9635,15 @@
       "estado": "sprite",
       "para": [
         "H3",
-        "mercado"
+        "mercado",
+        "rediseno-ciudad"
       ],
       "ruta": "assets/art/buildings/stall_food.png",
-      "origen": "guild-renew",
-      "origen_previo": "guild:assets/sprites/buildings/market",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «puestos_1» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "origen_previo": "guild-renew",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/buildings/market/interior/stall_alimentos.png (docs/arte/reuso_guild.md). Puesto de una casilla, en game/visuals/props/stall_food.tscn."
+      "notas": "Puesto del mercado rehecho a escala B con un estilo común (mostrador de madera, cuatro postes y toldo a rayas del color del gremio), ~80×100 px: el toldo a ~74 px del suelo (1,5 veces el personaje). Escena game/visuals/props/stall_food.tscn; WorldView lo refleja si se sirve desde +col.",
+      "coste_usd": 0.02
     },
     {
       "id": "bld_stall_materials",
@@ -9647,13 +9651,15 @@
       "estado": "sprite",
       "para": [
         "H3",
-        "mercado"
+        "mercado",
+        "rediseno-ciudad"
       ],
       "ruta": "assets/art/buildings/stall_materials.png",
-      "origen": "guild-renew",
-      "origen_previo": "guild:assets/sprites/buildings/market",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «puestos_1» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "origen_previo": "guild-renew",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/buildings/market/interior/stall_materiales.png (docs/arte/reuso_guild.md). Puesto de una casilla, en game/visuals/props/stall_materials.tscn."
+      "notas": "Puesto del mercado rehecho a escala B con un estilo común (mostrador de madera, cuatro postes y toldo a rayas del color del gremio), ~80×100 px: el toldo a ~74 px del suelo (1,5 veces el personaje). Escena game/visuals/props/stall_materials.tscn; WorldView lo refleja si se sirve desde +col.",
+      "coste_usd": 0.02
     },
     {
       "id": "bld_armory",
@@ -11613,28 +11619,32 @@
       "tipo": "edificio",
       "estado": "sprite",
       "para": [
-        "H12",
-        "mercado"
+        "H3",
+        "mercado",
+        "rediseno-ciudad"
       ],
       "ruta": "assets/art/buildings/stall_clothier.png",
-      "origen": "guild-renew (derivado con Pillow)",
-      "origen_previo": "assets/art/buildings/stall_materials.png",
-      "notas": "Placeholder derivado (tools/art/oficios_h12.py): el puesto de materiales recoloreado con iconos encima (ropería, puesto exterior provisional). En game/visuals/props/stall_clothier.tscn.",
-      "coste_gen": 0
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «puestos_1» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "origen_previo": "guild-renew (derivado con Pillow)",
+      "notas": "Puesto del mercado rehecho a escala B con un estilo común (mostrador de madera, cuatro postes y toldo a rayas del color del gremio), ~80×100 px: el toldo a ~74 px del suelo (1,5 veces el personaje). Escena game/visuals/props/stall_clothier.tscn; WorldView lo refleja si se sirve desde +col.",
+      "coste_gen": 0,
+      "coste_usd": 0.02
     },
     {
       "id": "bld_stall_goods",
       "tipo": "edificio",
       "estado": "sprite",
       "para": [
-        "H12",
-        "mercado"
+        "H3",
+        "mercado",
+        "rediseno-ciudad"
       ],
       "ruta": "assets/art/buildings/stall_goods.png",
-      "origen": "guild-renew (derivado con Pillow)",
-      "origen_previo": "assets/art/buildings/stall_materials.png",
-      "notas": "Placeholder derivado (tools/art/oficios_h12.py): el puesto de materiales recoloreado con iconos encima (enseres, puesto exterior provisional). En game/visuals/props/stall_goods.tscn.",
-      "coste_gen": 0
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «puestos_1» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "origen_previo": "guild-renew (derivado con Pillow)",
+      "notas": "Puesto del mercado rehecho a escala B con un estilo común (mostrador de madera, cuatro postes y toldo a rayas del color del gremio), ~80×100 px: el toldo a ~74 px del suelo (1,5 veces el personaje). Escena game/visuals/props/stall_goods.tscn; WorldView lo refleja si se sirve desde +col.",
+      "coste_gen": 0,
+      "coste_usd": 0.02
     },
     {
       "id": "icon_barrel",
@@ -15214,30 +15224,32 @@
     {
       "id": "hito_cathedral",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "ciudades2",
         "region_capital"
       ],
       "ruta": "game/visuals/props/cathedral.tscn",
-      "origen": "",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «catedral» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
       "origen_previo": "",
       "coste_gen": 0,
-      "notas": "Hito de la ciudad: catedral. Huella 12×7 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 128 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/cathedral.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital. El sim no lo lee."
+      "notas": "Hito de la ciudad: catedral. Huella 12×7 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 128 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/cathedral.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital. El sim no lo lee. Rediseño (2026-11-17): sprite assets/art/buildings/landmarks/cathedral.png dibujado para la huella 10×6 (metadata footprint de la escena): girado se refleja; con otra huella (p. ej. el puerto) sigue el bloque gris.",
+      "coste_usd": 0.12
     },
     {
       "id": "hito_church",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "ciudades2",
         "region_capital"
       ],
       "ruta": "game/visuals/props/church.tscn",
-      "origen": "",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «iglesia» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
       "origen_previo": "",
       "coste_gen": 0,
-      "notas": "Hito de la ciudad: iglesia del arrabal. Huella 4×6 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 72 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/church.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital. El sim no lo lee."
+      "notas": "Hito de la ciudad: iglesia del arrabal. Huella 4×6 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 72 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/church.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital. El sim no lo lee. Rediseño (2026-11-17): sprite assets/art/buildings/landmarks/church.png dibujado para la huella 5×3 (metadata footprint de la escena): girado se refleja; con otra huella (p. ej. el puerto) sigue el bloque gris.",
+      "coste_usd": 0.08
     },
     {
       "id": "hito_cloister",
@@ -15256,62 +15268,66 @@
     {
       "id": "hito_crane",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "ciudades2",
         "region_capital",
         "region_port"
       ],
       "ruta": "game/visuals/props/crane.tscn",
-      "origen": "",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «muralla_grua» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
       "origen_previo": "",
       "coste_gen": 0,
-      "notas": "Hito de la ciudad: grúa de madera del muelle. Huella 1×1 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 88 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/crane.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital, region_port. El sim no lo lee."
+      "notas": "Hito de la ciudad: grúa de madera del muelle. Huella 1×1 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 88 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/crane.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital, region_port. El sim no lo lee. Rediseño (2026-11-17): sprite assets/art/buildings/landmarks/crane.png dibujado para la huella 1×1 (metadata footprint de la escena): girado se refleja; con otra huella (p. ej. el puerto) sigue el bloque gris.",
+      "coste_usd": 0.027
     },
     {
       "id": "hito_customs",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "ciudades2",
         "region_capital",
         "region_port"
       ],
       "ruta": "game/visuals/props/customs.tscn",
-      "origen": "",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «aduana» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
       "origen_previo": "",
       "coste_gen": 0,
-      "notas": "Hito de la ciudad: aduana. Huella 3×3, 4×3 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 52 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/customs.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital, region_port. El sim no lo lee."
+      "notas": "Hito de la ciudad: aduana. Huella 3×3, 4×3 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 52 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/customs.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital, region_port. El sim no lo lee. Rediseño (2026-11-17): sprite assets/art/buildings/landmarks/customs.png dibujado para la huella 4×3 (metadata footprint de la escena): girado se refleja; con otra huella (p. ej. el puerto) sigue el bloque gris.",
+      "coste_usd": 0.08
     },
     {
       "id": "hito_exchange",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "ciudades2",
         "region_capital",
         "region_port"
       ],
       "ruta": "game/visuals/props/exchange.tscn",
-      "origen": "",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «lonja» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
       "origen_previo": "",
       "coste_gen": 0,
-      "notas": "Hito de la ciudad: lonja. Huella 4×5, 7×4 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 64 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/exchange.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital, region_port. El sim no lo lee."
+      "notas": "Hito de la ciudad: lonja. Huella 4×5, 7×4 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 64 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/exchange.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital, region_port. El sim no lo lee. Rediseño (2026-11-17): sprite assets/art/buildings/landmarks/exchange.png dibujado para la huella 5×3 (metadata footprint de la escena): girado se refleja; con otra huella (p. ej. el puerto) sigue el bloque gris.",
+      "coste_usd": 0.08
     },
     {
       "id": "hito_gate_tower",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "ciudades2",
         "region_abbey",
         "region_capital"
       ],
       "ruta": "game/visuals/props/gate_tower.tscn",
-      "origen": "",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «torres» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
       "origen_previo": "",
       "coste_gen": 0,
-      "notas": "Hito de la ciudad: torre de una puerta de la muralla. Huella 2×2 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 64 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/gate_tower.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_abbey, region_capital. El sim no lo lee."
+      "notas": "Hito de la ciudad: torre de una puerta de la muralla. Huella 2×2 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 64 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/gate_tower.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_abbey, region_capital. El sim no lo lee. Rediseño (2026-11-17): sprite assets/art/buildings/landmarks/gate_tower.png dibujado para la huella 2×2 (metadata footprint de la escena): girado se refleja; con otra huella (p. ej. el puerto) sigue el bloque gris.",
+      "coste_usd": 0.04
     },
     {
       "id": "hito_guesthouse",
@@ -15414,31 +15430,33 @@
     {
       "id": "hito_wall_tower",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "ciudades2",
         "region_capital"
       ],
       "ruta": "game/visuals/props/wall_tower.tscn",
-      "origen": "",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «torres» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
       "origen_previo": "",
       "coste_gen": 0,
-      "notas": "Hito de la ciudad: torre de la muralla. Huella 2×2 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 80 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/wall_tower.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital. El sim no lo lee."
+      "notas": "Hito de la ciudad: torre de la muralla. Huella 2×2 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 80 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/wall_tower.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital. El sim no lo lee. Rediseño (2026-11-17): sprite assets/art/buildings/landmarks/wall_tower.png dibujado para la huella 2×2 (metadata footprint de la escena): girado se refleja; con otra huella (p. ej. el puerto) sigue el bloque gris.",
+      "coste_usd": 0.04
     },
     {
       "id": "hito_warehouse",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "ciudades2",
         "region_capital",
         "region_port"
       ],
       "ruta": "game/visuals/props/warehouse.tscn",
-      "origen": "",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «almacen» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
       "origen_previo": "",
       "coste_gen": 0,
-      "notas": "Hito de la ciudad: almacén del puerto. Huella 3×4, 3×5, 4×3, 5×3 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 48 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/warehouse.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital, region_port. El sim no lo lee."
+      "notas": "Hito de la ciudad: almacén del puerto. Huella 3×4, 3×5, 4×3, 5×3 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 48 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/warehouse.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital, region_port. El sim no lo lee. Rediseño (2026-11-17): sprite assets/art/buildings/landmarks/warehouse.png dibujado para la huella 5×3 (metadata footprint de la escena): girado se refleja; con otra huella (p. ej. el puerto) sigue el bloque gris.",
+      "coste_usd": 0.08
     },
     {
       "id": "hito_watermill",
@@ -15483,15 +15501,16 @@
     {
       "id": "tile_wall",
       "tipo": "tile",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "ciudades2"
       ],
-      "ruta": "assets/art/tiles/wall.png",
-      "origen": "",
+      "ruta": "assets/art/buildings/landmarks/wall_2.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «muralla_grua» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
       "origen_previo": "",
       "coste_gen": 0,
-      "notas": "Suelo de muralla (casilla M, bloqueada; hoy bloque greybox props/wall.tscn por casilla): rombo 64×32 como los demás de assets/art/tiles/. Hasta entonces, el color greybox de data/tiles.json."
+      "notas": "Tramo de muralla de una casilla (casilla M): bloque de mampostería gris con almenas, 64×88, en game/visuals/props/wall.tscn (rediseño de la ciudad). Antes, bloque greybox.",
+      "coste_usd": 0.027
     },
     {
       "id": "tile_rock",
@@ -18627,74 +18646,74 @@
       "notas": "H12.2: la Consulta médica (3×3), con hierbas secándose bajo el alero, un banco y el cartel del mortero; clinic_construction.png y clinic_damaged.png. En game/visuals/buildings/clinic.tscn. Pendiente para PixelLab (15-nov): la de espaldas (clinic_back) para las ciudades generadas."
     },
     {
-     "id": "bld_den",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "H12",
-      "den"
-     ],
-     "ruta": "assets/art/buildings/fal/den.png",
-     "origen": "fal: nano-banana-2/edit sobre la silueta de la sastrería de escala B (assets/art/buildings/escala_b/den.png, copia de tailor_shop.png) + image2pixel a escala 4 (tools/art/fal_fachadas.py); obras y dañado con /edit sobre ella",
-     "coste_gen": 0,
-     "coste_usd": 0.25,
-     "notas": "H12 (el Pícaro): la Guarida de ladrones (3×3), una casa venida a menos con el yeso desconchado, tejas que faltan, postigos cerrados, una trampilla al sótano, un farol apagado, cajas y un saco; den_construction.png y den_damaged.png. En game/visuals/buildings/den.tscn (el bloque gris oscuro queda oculto)."
+      "id": "bld_den",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "den"
+      ],
+      "ruta": "assets/art/buildings/fal/den.png",
+      "origen": "fal: nano-banana-2/edit sobre la silueta de la sastrería de escala B (assets/art/buildings/escala_b/den.png, copia de tailor_shop.png) + image2pixel a escala 4 (tools/art/fal_fachadas.py); obras y dañado con /edit sobre ella",
+      "coste_gen": 0,
+      "coste_usd": 0.25,
+      "notas": "H12 (el Pícaro): la Guarida de ladrones (3×3), una casa venida a menos con el yeso desconchado, tejas que faltan, postigos cerrados, una trampilla al sótano, un farol apagado, cajas y un saco; den_construction.png y den_damaged.png. En game/visuals/buildings/den.tscn (el bloque gris oscuro queda oculto)."
     },
     {
-     "id": "icon_lockpicks",
-     "tipo": "icono",
-     "estado": "sprite",
-     "para": [
-      "H12",
-      "objetos"
-     ],
-     "ruta": "assets/art/icons/lockpicks.png",
-     "origen": "fal: nano-banana-2/edit, rejilla 2×2 p2 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.1,
-     "notas": "H12 (el Pícaro): las ganzúas del Ladrón (herramienta, +10 a robar un almacén), un estuche de cuero con las ganzúas asomando; la de p1 (un aro) salía como una mancha blanca y se rehízo sola en p2. 32×32 y assets/art/icons/small/lockpicks.png (16×16)."
+      "id": "icon_lockpicks",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "objetos"
+      ],
+      "ruta": "assets/art/icons/lockpicks.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 p2 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.1,
+      "notas": "H12 (el Pícaro): las ganzúas del Ladrón (herramienta, +10 a robar un almacén), un estuche de cuero con las ganzúas asomando; la de p1 (un aro) salía como una mancha blanca y se rehízo sola en p2. 32×32 y assets/art/icons/small/lockpicks.png (16×16)."
     },
     {
-     "id": "icon_spy",
-     "tipo": "icono",
-     "estado": "sprite",
-     "para": [
-      "H12",
-      "ui"
-     ],
-     "ruta": "assets/art/ui/icons/icon_spy.png",
-     "origen": "fal: nano-banana-2/edit, rejilla 2×2 p1 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.02,
-     "notas": "H12 (el Pícaro, Espía): espiar un edificio (un ojo tras el ojo de la cerradura)."
+      "id": "icon_spy",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "ui"
+      ],
+      "ruta": "assets/art/ui/icons/icon_spy.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 p1 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "H12 (el Pícaro, Espía): espiar un edificio (un ojo tras el ojo de la cerradura)."
     },
     {
-     "id": "icon_intel",
-     "tipo": "icono",
-     "estado": "sprite",
-     "para": [
-      "H12",
-      "ui"
-     ],
-     "ruta": "assets/art/ui/icons/icon_intel.png",
-     "origen": "fal: nano-banana-2/edit, rejilla 2×2 p1 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.02,
-     "notas": "H12 (el Pícaro, Espía): los expedientes, lo que han visto tus espías (un legajo atado)."
+      "id": "icon_intel",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "ui"
+      ],
+      "ruta": "assets/art/ui/icons/icon_intel.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 p1 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "H12 (el Pícaro, Espía): los expedientes, lo que han visto tus espías (un legajo atado)."
     },
     {
-     "id": "icon_blackmail",
-     "tipo": "icono",
-     "estado": "sprite",
-     "para": [
-      "H12",
-      "ui"
-     ],
-     "ruta": "assets/art/ui/icons/icon_blackmail.png",
-     "origen": "fal: nano-banana-2/edit, rejilla 2×2 p1 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.02,
-     "notas": "H12 (el Pícaro, Espía): el chantaje (una carta con lacre negro y una daga)."
+      "id": "icon_blackmail",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "ui"
+      ],
+      "ruta": "assets/art/ui/icons/icon_blackmail.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 p1 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "H12 (el Pícaro, Espía): el chantaje (una carta con lacre negro y una daga)."
     },
     {
       "id": "bld_farm",
@@ -19159,561 +19178,1386 @@
       "notas": "H12.2: el Banco (3×4, en el solar de la forja del jugador), de piedra con tejado de pizarra, el cartel de la moneda; bank_construction.png y bank_damaged.png. En game/visuals/buildings/bank.tscn. Para PixelLab (15-nov): sin los escudos apoyados que hereda de la armería, y la de espaldas."
     },
     {
-     "id": "tile_ground_grass",
-     "tipo": "tile",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/tiles/ground/grass.png",
-     "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
-     "coste_gen": 0,
-     "notas": "Material del suelo sin rejilla (data/view.json ground_shader): 512×256, se repite cada 8×8 casillas con la posición del mundo. hierba con matas, briznas y alguna flor."
+      "id": "tile_ground_grass",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/tiles/ground/grass.png",
+      "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
+      "coste_gen": 0,
+      "notas": "Material del suelo sin rejilla (data/view.json ground_shader): 512×256, se repite cada 8×8 casillas con la posición del mundo. hierba con matas, briznas y alguna flor."
     },
     {
-     "id": "tile_ground_street",
-     "tipo": "tile",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/tiles/ground/street.png",
-     "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
-     "coste_gen": 0,
-     "notas": "Material del suelo sin rejilla (data/view.json ground_shader): 512×256, se repite cada 8×8 casillas con la posición del mundo. adoquín de calle (Voronoi en el espacio de la casilla, luz arriba a la izquierda, juntas con musgo)."
+      "id": "tile_ground_street",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/tiles/ground/street.png",
+      "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
+      "coste_gen": 0,
+      "notas": "Material del suelo sin rejilla (data/view.json ground_shader): 512×256, se repite cada 8×8 casillas con la posición del mundo. adoquín de calle (Voronoi en el espacio de la casilla, luz arriba a la izquierda, juntas con musgo)."
     },
     {
-     "id": "tile_ground_plaza",
-     "tipo": "tile",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/tiles/ground/plaza.png",
-     "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
-     "coste_gen": 0,
-     "notas": "Material del suelo sin rejilla (data/view.json ground_shader): 512×256, se repite cada 8×8 casillas con la posición del mundo. losas de plaza en hileras escalonadas, bisel con la luz, grietas."
+      "id": "tile_ground_plaza",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/tiles/ground/plaza.png",
+      "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
+      "coste_gen": 0,
+      "notas": "Material del suelo sin rejilla (data/view.json ground_shader): 512×256, se repite cada 8×8 casillas con la posición del mundo. losas de plaza en hileras escalonadas, bisel con la luz, grietas."
     },
     {
-     "id": "tile_ground_dirt",
-     "tipo": "tile",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/tiles/ground/dirt.png",
-     "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
-     "coste_gen": 0,
-     "notas": "Material del suelo sin rejilla (data/view.json ground_shader): 512×256, se repite cada 8×8 casillas con la posición del mundo. tierra pisada con terrones, guijarros y grietas."
+      "id": "tile_ground_dirt",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/tiles/ground/dirt.png",
+      "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
+      "coste_gen": 0,
+      "notas": "Material del suelo sin rejilla (data/view.json ground_shader): 512×256, se repite cada 8×8 casillas con la posición del mundo. tierra pisada con terrones, guijarros y grietas."
     },
     {
-     "id": "tile_ground_yard",
-     "tipo": "tile",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/tiles/ground/yard.png",
-     "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
-     "coste_gen": 0,
-     "notas": "Material del suelo sin rejilla (data/view.json ground_shader): 512×256, se repite cada 8×8 casillas con la posición del mundo. patio de casa: hierba pisada con calvas de tierra."
+      "id": "tile_ground_yard",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/tiles/ground/yard.png",
+      "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
+      "coste_gen": 0,
+      "notas": "Material del suelo sin rejilla (data/view.json ground_shader): 512×256, se repite cada 8×8 casillas con la posición del mundo. patio de casa: hierba pisada con calvas de tierra."
     },
     {
-     "id": "tile_ground_water",
-     "tipo": "tile",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/tiles/ground/water.png",
-     "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
-     "coste_gen": 0,
-     "notas": "Material del suelo sin rejilla (data/view.json ground_shader): 512×256, se repite cada 8×8 casillas con la posición del mundo. agua del río con ondas (el shader la desplaza despacio)."
+      "id": "tile_ground_water",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/tiles/ground/water.png",
+      "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
+      "coste_gen": 0,
+      "notas": "Material del suelo sin rejilla (data/view.json ground_shader): 512×256, se repite cada 8×8 casillas con la posición del mundo. agua del río con ondas (el shader la desplaza despacio)."
     },
     {
-     "id": "tile_ground_noise",
-     "tipo": "tile",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/tiles/ground/noise.png",
-     "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
-     "coste_gen": 0,
-     "notas": "Ruido de bordes del shader del suelo (4 canales, 64×64, periódico): bordes orgánicos entre materiales."
+      "id": "tile_ground_noise",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/tiles/ground/noise.png",
+      "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
+      "coste_gen": 0,
+      "notas": "Ruido de bordes del shader del suelo (4 canales, 64×64, periódico): bordes orgánicos entre materiales."
     },
     {
-     "id": "tile_decal_puddle",
-     "tipo": "tile",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/tiles/ground/decals/puddle.png",
-     "origen": "fal: nano-banana-2/edit, rejilla «suelo» (ref: 6 props del juego ×4) + pixelado local (tools/art/fal_ciudad2d.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.02,
-     "notas": "Detalle suelto del suelo (charco), repartido por casilla según ground_shader.decals."
+      "id": "tile_decal_puddle",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/tiles/ground/decals/puddle.png",
+      "origen": "fal: nano-banana-2/edit, rejilla «suelo» (ref: 6 props del juego ×4) + pixelado local (tools/art/fal_ciudad2d.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Detalle suelto del suelo (charco), repartido por casilla según ground_shader.decals."
     },
     {
-     "id": "tile_decal_stones",
-     "tipo": "tile",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/tiles/ground/decals/stones.png",
-     "origen": "fal: nano-banana-2/edit, rejilla «suelo» (ref: 6 props del juego ×4) + pixelado local (tools/art/fal_ciudad2d.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.02,
-     "notas": "Detalle suelto del suelo (piedras sueltas), repartido por casilla según ground_shader.decals."
+      "id": "tile_decal_stones",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/tiles/ground/decals/stones.png",
+      "origen": "fal: nano-banana-2/edit, rejilla «suelo» (ref: 6 props del juego ×4) + pixelado local (tools/art/fal_ciudad2d.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Detalle suelto del suelo (piedras sueltas), repartido por casilla según ground_shader.decals."
     },
     {
-     "id": "tile_decal_weeds",
-     "tipo": "tile",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/tiles/ground/decals/weeds.png",
-     "origen": "fal: nano-banana-2/edit, rejilla «suelo» (ref: 6 props del juego ×4) + pixelado local (tools/art/fal_ciudad2d.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.02,
-     "notas": "Detalle suelto del suelo (hierbajo), repartido por casilla según ground_shader.decals."
+      "id": "tile_decal_weeds",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/tiles/ground/decals/weeds.png",
+      "origen": "fal: nano-banana-2/edit, rejilla «suelo» (ref: 6 props del juego ×4) + pixelado local (tools/art/fal_ciudad2d.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Detalle suelto del suelo (hierbajo), repartido por casilla según ground_shader.decals."
     },
     {
-     "id": "tile_decal_straw",
-     "tipo": "tile",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/tiles/ground/decals/straw.png",
-     "origen": "fal: nano-banana-2/edit, rejilla «suelo» (ref: 6 props del juego ×4) + pixelado local (tools/art/fal_ciudad2d.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.02,
-     "notas": "Detalle suelto del suelo (paja suelta), repartido por casilla según ground_shader.decals."
+      "id": "tile_decal_straw",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/tiles/ground/decals/straw.png",
+      "origen": "fal: nano-banana-2/edit, rejilla «suelo» (ref: 6 props del juego ×4) + pixelado local (tools/art/fal_ciudad2d.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Detalle suelto del suelo (paja suelta), repartido por casilla según ground_shader.decals."
     },
     {
-     "id": "prop_ruin_wall",
-     "tipo": "prop",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/props/ruin_wall.png",
-     "origen": "fal: nano-banana-2/edit, rejilla «ruina» (ref: 6 props del juego ×4) + pixelado local (tools/art/fal_ciudad2d.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.06,
-     "notas": "Muros rotos de la parcela en ruinas: tira de 3 fotogramas (bajo, medio, alto); PlotLayer elige por la altura de RUIN_HEIGHTS. Antes greybox."
+      "id": "prop_ruin_wall",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/props/ruin_wall.png",
+      "origen": "fal: nano-banana-2/edit, rejilla «ruina» (ref: 6 props del juego ×4) + pixelado local (tools/art/fal_ciudad2d.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.06,
+      "notas": "Muros rotos de la parcela en ruinas: tira de 3 fotogramas (bajo, medio, alto); PlotLayer elige por la altura de RUIN_HEIGHTS. Antes greybox."
     },
     {
-     "id": "prop_ruin_rubble",
-     "tipo": "prop",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/props/ruin_rubble.png",
-     "origen": "fal: nano-banana-2/edit, rejilla «ruina» + pixelado local (tools/art/fal_ciudad2d.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.02,
-     "notas": "Escombro de la ruina (tejas, piedras), 2 fotogramas (el segundo, espejo); PlotLayer elige por hash. Antes greybox."
+      "id": "prop_ruin_rubble",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/props/ruin_rubble.png",
+      "origen": "fal: nano-banana-2/edit, rejilla «ruina» + pixelado local (tools/art/fal_ciudad2d.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Escombro de la ruina (tejas, piedras), 2 fotogramas (el segundo, espejo); PlotLayer elige por hash. Antes greybox."
     },
     {
-     "id": "prop_plot_ground",
-     "tipo": "prop",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/props/plot_ground.png",
-     "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
-     "coste_gen": 0,
-     "notas": "Suelo del solar libre (64×32): tierra pisada de borde mordido. Antes greybox."
+      "id": "prop_plot_ground",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/props/plot_ground.png",
+      "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
+      "coste_gen": 0,
+      "notas": "Suelo del solar libre (64×32): tierra pisada de borde mordido. Antes greybox."
     },
     {
-     "id": "prop_plot_stake",
-     "tipo": "prop",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/props/plot_stake.png",
-     "origen": "Pillow (tools/art/suelos_materiales.py)",
-     "coste_gen": 0,
-     "notas": "Estaca de esquina del solar con cinta blanca (5×16). Antes greybox."
+      "id": "prop_plot_stake",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/props/plot_stake.png",
+      "origen": "Pillow (tools/art/suelos_materiales.py)",
+      "coste_gen": 0,
+      "notas": "Estaca de esquina del solar con cinta blanca (5×16). Antes greybox."
     },
     {
-     "id": "bld_stall_apothecary",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/buildings/stall_apothecary.png",
-     "origen": "fal: nano-banana-2/edit, rejilla «botica» (ref: los 5 puestos del juego ×4) + pixelado local (tools/art/fal_ciudad2d.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.08,
-     "notas": "Puesto del boticario (64×72, toldo verde y crema, botes y hierbas). Antes salía el genérico magenta."
+      "id": "bld_stall_apothecary",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H3",
+        "mercado",
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/buildings/stall_apothecary.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «puestos_2» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Puesto del mercado rehecho a escala B con un estilo común (mostrador de madera, cuatro postes y toldo a rayas del color del gremio), ~80×100 px: el toldo a ~74 px del suelo (1,5 veces el personaje). Escena game/visuals/props/stall_apothecary.tscn; WorldView lo refleja si se sirve desde +col.",
+      "origen_previo": "fal: nano-banana-2/edit, rejilla «botica» (ref: los 5 puestos del juego ×4) + pixelado local (tools/art/fal_ciudad2d.py)"
     },
     {
-     "id": "bld_house_g",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/buildings/escala_b/house_g.png",
-     "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
-     "coste_gen": 0,
-     "notas": "Variante de house_c con tejado de pizarra azul (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_g.tscn."
+      "id": "bld_house_g",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/buildings/escala_b/house_g.png",
+      "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
+      "coste_gen": 0,
+      "notas": "Variante de house_c con tejado de pizarra azul (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_g.tscn."
     },
     {
-     "id": "bld_house_g_back",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/buildings/escala_b/house_g_back.png",
-     "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
-     "coste_gen": 0,
-     "notas": "Variante de house_c_back con tejado de pizarra azul (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_g_back.tscn."
+      "id": "bld_house_g_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/buildings/escala_b/house_g_back.png",
+      "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
+      "coste_gen": 0,
+      "notas": "Variante de house_c_back con tejado de pizarra azul (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_g_back.tscn."
     },
     {
-     "id": "bld_house_h",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/buildings/escala_b/house_h.png",
-     "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
-     "coste_gen": 0,
-     "notas": "Variante de house_a con tejado de teja parda (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_h.tscn."
+      "id": "bld_house_h",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/buildings/escala_b/house_h.png",
+      "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
+      "coste_gen": 0,
+      "notas": "Variante de house_a con tejado de teja parda (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_h.tscn."
     },
     {
-     "id": "bld_house_h_back",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/buildings/escala_b/house_h_back.png",
-     "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
-     "coste_gen": 0,
-     "notas": "Variante de house_a_back con tejado de teja parda (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_h_back.tscn."
+      "id": "bld_house_h_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/buildings/escala_b/house_h_back.png",
+      "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
+      "coste_gen": 0,
+      "notas": "Variante de house_a_back con tejado de teja parda (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_h_back.tscn."
     },
     {
-     "id": "bld_house_i",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/buildings/escala_b/house_i.png",
-     "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
-     "coste_gen": 0,
-     "notas": "Variante de house_b con tejado de pizarra morada (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_i.tscn."
+      "id": "bld_house_i",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/buildings/escala_b/house_i.png",
+      "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
+      "coste_gen": 0,
+      "notas": "Variante de house_b con tejado de pizarra morada (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_i.tscn."
     },
     {
-     "id": "bld_house_i_back",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/buildings/escala_b/house_i_back.png",
-     "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
-     "coste_gen": 0,
-     "notas": "Variante de house_b_back con tejado de pizarra morada (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_i_back.tscn."
+      "id": "bld_house_i_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/buildings/escala_b/house_i_back.png",
+      "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
+      "coste_gen": 0,
+      "notas": "Variante de house_b_back con tejado de pizarra morada (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_i_back.tscn."
     },
     {
-     "id": "bld_house_j",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/buildings/escala_b/house_j.png",
-     "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
-     "coste_gen": 0,
-     "notas": "Variante de house_f con tejado de teja roja (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_j.tscn."
+      "id": "bld_house_j",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/buildings/escala_b/house_j.png",
+      "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
+      "coste_gen": 0,
+      "notas": "Variante de house_f con tejado de teja roja (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_j.tscn."
     },
     {
-     "id": "bld_house_j_back",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "suelos"
-     ],
-     "ruta": "assets/art/buildings/escala_b/house_j_back.png",
-     "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
-     "coste_gen": 0,
-     "notas": "Variante de house_f_back con tejado de teja roja (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_j_back.tscn."
+      "id": "bld_house_j_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "suelos"
+      ],
+      "ruta": "assets/art/buildings/escala_b/house_j_back.png",
+      "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
+      "coste_gen": 0,
+      "notas": "Variante de house_f_back con tejado de teja roja (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_j_back.tscn."
     },
     {
-     "id": "bld_block_2x2_1",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "ciudades2",
-      "region_capital",
-      "region_port",
-      "region_quarry"
-     ],
-     "ruta": "assets/art/buildings/block/house_2x2_1.png",
-     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.08,
-     "notas": "Casa de relleno de lote 2x2 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+      "id": "bld_block_2x2_1",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "ciudades2",
+        "region_capital",
+        "region_port",
+        "region_quarry"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x2_1.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Casa de relleno de lote 2x2 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
     },
     {
-     "id": "bld_block_2x2_2",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "ciudades2",
-      "region_capital",
-      "region_port",
-      "region_quarry"
-     ],
-     "ruta": "assets/art/buildings/block/house_2x2_2.png",
-     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.08,
-     "notas": "Casa de relleno de lote 2x2 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+      "id": "bld_block_2x2_2",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "ciudades2",
+        "region_capital",
+        "region_port",
+        "region_quarry"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x2_2.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Casa de relleno de lote 2x2 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
     },
     {
-     "id": "bld_block_2x2_3",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "ciudades2",
-      "region_capital",
-      "region_port",
-      "region_quarry"
-     ],
-     "ruta": "assets/art/buildings/block/house_2x2_3.png",
-     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.08,
-     "notas": "Casa de relleno de lote 2x2 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+      "id": "bld_block_2x2_3",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "ciudades2",
+        "region_capital",
+        "region_port",
+        "region_quarry"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x2_3.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Casa de relleno de lote 2x2 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
     },
     {
-     "id": "bld_block_2x2_4",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "ciudades2",
-      "region_capital",
-      "region_port",
-      "region_quarry"
-     ],
-     "ruta": "assets/art/buildings/block/house_2x2_4.png",
-     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.08,
-     "notas": "Casa de relleno de lote 2x2 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+      "id": "bld_block_2x2_4",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "ciudades2",
+        "region_capital",
+        "region_port",
+        "region_quarry"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x2_4.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Casa de relleno de lote 2x2 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
     },
     {
-     "id": "bld_block_2x3_1",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "ciudades2",
-      "region_capital",
-      "region_port",
-      "region_quarry"
-     ],
-     "ruta": "assets/art/buildings/block/house_2x3_1.png",
-     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.08,
-     "notas": "Casa de relleno de lote 2x3 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+      "id": "bld_block_2x3_1",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "ciudades2",
+        "region_capital",
+        "region_port",
+        "region_quarry"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x3_1.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Casa de relleno de lote 2x3 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
     },
     {
-     "id": "bld_block_2x3_2",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "ciudades2",
-      "region_capital",
-      "region_port",
-      "region_quarry"
-     ],
-     "ruta": "assets/art/buildings/block/house_2x3_2.png",
-     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.08,
-     "notas": "Casa de relleno de lote 2x3 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+      "id": "bld_block_2x3_2",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "ciudades2",
+        "region_capital",
+        "region_port",
+        "region_quarry"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x3_2.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Casa de relleno de lote 2x3 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
     },
     {
-     "id": "bld_block_2x3_3",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "ciudades2",
-      "region_capital",
-      "region_port",
-      "region_quarry"
-     ],
-     "ruta": "assets/art/buildings/block/house_2x3_3.png",
-     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.08,
-     "notas": "Casa de relleno de lote 2x3 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+      "id": "bld_block_2x3_3",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "ciudades2",
+        "region_capital",
+        "region_port",
+        "region_quarry"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x3_3.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Casa de relleno de lote 2x3 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
     },
     {
-     "id": "bld_block_2x3_4",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "ciudades2",
-      "region_capital",
-      "region_port",
-      "region_quarry"
-     ],
-     "ruta": "assets/art/buildings/block/house_2x3_4.png",
-     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.08,
-     "notas": "Casa de relleno de lote 2x3 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+      "id": "bld_block_2x3_4",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "ciudades2",
+        "region_capital",
+        "region_port",
+        "region_quarry"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x3_4.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Casa de relleno de lote 2x3 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
     },
     {
-     "id": "bld_block_2x4_1",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "ciudades2",
-      "region_capital",
-      "region_port",
-      "region_quarry"
-     ],
-     "ruta": "assets/art/buildings/block/house_2x4_1.png",
-     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.08,
-     "notas": "Casa de relleno de lote 2x4 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+      "id": "bld_block_2x4_1",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "ciudades2",
+        "region_capital",
+        "region_port",
+        "region_quarry"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x4_1.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Casa de relleno de lote 2x4 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
     },
     {
-     "id": "bld_block_2x4_2",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "ciudades2",
-      "region_capital",
-      "region_port",
-      "region_quarry"
-     ],
-     "ruta": "assets/art/buildings/block/house_2x4_2.png",
-     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.08,
-     "notas": "Casa de relleno de lote 2x4 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+      "id": "bld_block_2x4_2",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "ciudades2",
+        "region_capital",
+        "region_port",
+        "region_quarry"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x4_2.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Casa de relleno de lote 2x4 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
     },
     {
-     "id": "bld_block_2x4_3",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "ciudades2",
-      "region_capital",
-      "region_port",
-      "region_quarry"
-     ],
-     "ruta": "assets/art/buildings/block/house_2x4_3.png",
-     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.08,
-     "notas": "Casa de relleno de lote 2x4 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+      "id": "bld_block_2x4_3",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "ciudades2",
+        "region_capital",
+        "region_port",
+        "region_quarry"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x4_3.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Casa de relleno de lote 2x4 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
     },
     {
-     "id": "bld_block_3x4_1",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "ciudades2",
-      "region_capital",
-      "region_port",
-      "region_quarry"
-     ],
-     "ruta": "assets/art/buildings/block/house_3x4_1.png",
-     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.08,
-     "notas": "Casa de relleno de lote 3x4 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+      "id": "bld_block_3x4_1",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "ciudades2",
+        "region_capital",
+        "region_port",
+        "region_quarry"
+      ],
+      "ruta": "assets/art/buildings/block/house_3x4_1.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Casa de relleno de lote 3x4 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
     },
     {
-     "id": "bld_block_3x4_2",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "ciudades2",
-      "region_capital",
-      "region_port",
-      "region_quarry"
-     ],
-     "ruta": "assets/art/buildings/block/house_3x4_2.png",
-     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.08,
-     "notas": "Casa de relleno de lote 3x4 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+      "id": "bld_block_3x4_2",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "ciudades2",
+        "region_capital",
+        "region_port",
+        "region_quarry"
+      ],
+      "ruta": "assets/art/buildings/block/house_3x4_2.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Casa de relleno de lote 3x4 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
     },
     {
-     "id": "bld_block_3x4_3",
-     "tipo": "edificio",
-     "estado": "sprite",
-     "para": [
-      "ciudad-2d",
-      "ciudades2",
-      "region_capital",
-      "region_port",
-      "region_quarry"
-     ],
-     "ruta": "assets/art/buildings/block/house_3x4_3.png",
-     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
-     "coste_gen": 0,
-     "coste_usd": 0.08,
-     "notas": "Casa de relleno de lote 3x4 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+      "id": "bld_block_3x4_3",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad-2d",
+        "ciudades2",
+        "region_capital",
+        "region_port",
+        "region_quarry"
+      ],
+      "ruta": "assets/art/buildings/block/house_3x4_3.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Casa de relleno de lote 3x4 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+    },
+    {
+      "id": "prop_tree_oak_1",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/tree_oak_1.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «arboles_roble» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a broad old oak tree: thick gnarled brown trunk, a wide rounded crown of dense dark and mid green leaf clumps, lit from the top-left, full a. Escena game/visuals/props/tree_oak_1.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_tree_oak_2",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/tree_oak_2.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «arboles_roble» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a broad old oak tree: thick gnarled brown trunk, a wide rounded crown of dense dark and mid green leaf clumps, lit from the top-left, wider . Escena game/visuals/props/tree_oak_2.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_tree_oak_3",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/tree_oak_3.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «arboles_roble» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a broad old oak tree: thick gnarled brown trunk, a wide rounded crown of dense dark and mid green leaf clumps, lit from the top-left, taller. Escena game/visuals/props/tree_oak_3.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_tree_oak_4",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/tree_oak_4.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «arboles_roble» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a young oak tree, slimmer trunk, a smaller rounded crown of fresh green leaves, lit from the top-left. Escena game/visuals/props/tree_oak_4.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_tree_chestnut_1",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/tree_chestnut_1.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «arboles_castano» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a sweet chestnut tree: straight furrowed brown trunk, a tall dome-shaped crown of long serrated leaves in deep green with lighter yellow-gre. Escena game/visuals/props/tree_chestnut_1.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_tree_chestnut_2",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/tree_chestnut_2.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «arboles_castano» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a sweet chestnut tree: straight furrowed brown trunk, a tall dome-shaped crown of long serrated leaves in deep green with lighter yellow-gre. Escena game/visuals/props/tree_chestnut_2.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_tree_chestnut_3",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/tree_chestnut_3.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «arboles_castano» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a sweet chestnut tree: straight furrowed brown trunk, a tall dome-shaped crown of long serrated leaves in deep green with lighter yellow-gre. Escena game/visuals/props/tree_chestnut_3.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_tree_poplar_1",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/tree_poplar_1.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «arboles_rio» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a tall slender Lombardy poplar tree by a river: a narrow upright column-shaped crown of small shimmering green leaves, thin grey-brown trunk. Escena game/visuals/props/tree_poplar_1.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_tree_poplar_2",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/tree_poplar_2.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «arboles_rio» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a tall slender Lombardy poplar tree by a river: a narrow upright column-shaped crown of small shimmering green leaves, thin grey-brown trunk. Escena game/visuals/props/tree_poplar_2.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_tree_poplar_3",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/tree_poplar_3.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «arboles_rio» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a tall slender Lombardy poplar tree by a river: a narrow upright column-shaped crown of small shimmering green leaves, thin grey-brown trunk. Escena game/visuals/props/tree_poplar_3.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_tree_willow_2",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/tree_willow_2.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «arboles_rio» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a smaller weeping willow, hanging curtains of thin pale green leaves. Escena game/visuals/props/tree_willow_2.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_tree_pine_1",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/tree_pine_1.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «arboles_pino» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a Scots pine tree: tall straight orange-brown trunk, a flat-topped irregular crown of dark blue-green needles. Escena game/visuals/props/tree_pine_1.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_tree_pine_2",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/tree_pine_2.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «arboles_pino» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a Scots pine tree: tall straight orange-brown trunk, a flat-topped irregular crown of dark blue-green needles, with two layers of crown. Escena game/visuals/props/tree_pine_2.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_tree_fir_1",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/tree_fir_1.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «arboles_pino» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a dark green fir tree: a tall pointed cone of layered needle branches, short brown trunk. Escena game/visuals/props/tree_fir_1.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_tree_fir_2",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/tree_fir_2.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «arboles_pino» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a dark green fir tree: a tall pointed cone of layered needle branches, short brown trunk, a bit smaller. Escena game/visuals/props/tree_fir_2.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_tree_apple_1",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/tree_apple_1.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «frutales» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a small apple tree in an orchard: short crooked trunk, a rounded crown of green leaves dotted with red apples. Escena game/visuals/props/tree_apple_1.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_tree_apple_2",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/tree_apple_2.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «frutales» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a small apple tree in white and pink spring blossom, short crooked trunk, a rounded crown. Escena game/visuals/props/tree_apple_2.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_tree_pear_1",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/tree_pear_1.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «frutales» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a small pear tree: upright oval crown of glossy green leaves with a few yellow-green pears, slim trunk. Escena game/visuals/props/tree_pear_1.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_tree_cherry_1",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/tree_cherry_1.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «frutales» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a small cherry tree with dark red cherries in a rounded crown of green leaves, reddish-brown trunk. Escena game/visuals/props/tree_cherry_1.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_bush_1",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/bush_1.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «arbustos» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a round green shrub, dense leaves. Escena game/visuals/props/bush_1.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_bush_2",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/bush_2.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «arbustos» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a green shrub with small pink and white flowers. Escena game/visuals/props/bush_2.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_bush_3",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/bush_3.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «arbustos» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a low wild bramble bush with dark leaves and a few berries. Escena game/visuals/props/bush_3.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_hedge_1",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/hedge_1.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «arbustos» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a short straight segment of a neatly trimmed green box hedge, running diagonally along the isometric grid, about knee high. Escena game/visuals/props/hedge_1.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_planter",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/planter.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_huerto» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a long wooden planter box full of red and yellow flowers and green leaves. Escena game/visuals/props/planter.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_flower_pots",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/flower_pots.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_huerto» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: three terracotta clay pots of different sizes with red geraniums and green herbs. Escena game/visuals/props/flower_pots.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_beehive",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/beehive.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_huerto» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a domed straw bee skep on a small wooden stand. Escena game/visuals/props/beehive.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_trough",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/trough.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_huerto» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a long wooden water trough for horses, full of water. Escena game/visuals/props/trough.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_wattle_fence",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/wattle_fence.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_campo» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a short straight segment of a woven wattle fence of brown hazel branches between stakes, running diagonally along the isometric grid. Escena game/visuals/props/wattle_fence.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_fence_gate",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/fence_gate.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_campo» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a small wooden garden gate between two posts, running diagonally along the isometric grid. Escena game/visuals/props/fence_gate.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_hay_cart",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/hay_cart.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_campo» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a two-wheeled wooden farm cart loaded high with golden hay. Escena game/visuals/props/hay_cart.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_scarecrow",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/scarecrow.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_campo» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a scarecrow on a pole: straw head with a battered hat, an old patched brown coat on a cross stick. Escena game/visuals/props/scarecrow.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_barrel_stack",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/barrel_stack.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_patio» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: three wooden barrels with iron hoops, two standing and one lying on top. Escena game/visuals/props/barrel_stack.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_crate_stack",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/crate_stack.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_patio» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a stack of three wooden crates, some with apples and cabbages. Escena game/visuals/props/crate_stack.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_woodpile",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/woodpile.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_patio» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a neat pile of chopped firewood logs stacked against a wall, with an axe stuck in a chopping block beside it. Escena game/visuals/props/woodpile.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_haystack",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/haystack.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_patio» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a round golden haystack with a pole in the middle. Escena game/visuals/props/haystack.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_stone_cross",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/stone_cross.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_plaza» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a medieval stone wayside cross on a stepped stone base, grey weathered granite with a little moss. Escena game/visuals/props/stone_cross.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_fountain",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/fountain.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_plaza» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a medieval town fountain: a wide octagonal stone basin full of blue water with a carved stone pillar in the middle and small spouts pouring . Escena game/visuals/props/fountain.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_well_roof",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/well_roof.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_plaza» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a village well: round stone wall, a small wooden pitched roof with dark shingles on two posts, a crank, a rope and a wooden bucket. Escena game/visuals/props/well_roof.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_pillory_post",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/pillory_post.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_plaza» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a wooden market notice post with a small pitched roof and blank pinned papers (no writing). Escena game/visuals/props/pillory_post.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_clothesline",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/clothesline.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_vida» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a clothesline between two wooden posts with white, blue and red laundry hanging, running diagonally along the isometric grid. Escena game/visuals/props/clothesline.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_market_banner",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/market_banner.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_vida» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a tall wooden pole with a long hanging swallow-tailed red and gold cloth banner (no emblem with letters). Escena game/visuals/props/market_banner.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_hens",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/hens.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_vida» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: three brown and white hens pecking on the ground. Escena game/visuals/props/hens.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_dog",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/dog.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_vida» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a brown and white farm dog lying curled on the ground. Escena game/visuals/props/dog.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_sign_forge",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/sign_forge.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_carteles» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a wooden sign post with an iron bracket and a hanging wooden signboard painted with a black anvil (a picture only, no letters or words). Escena game/visuals/props/sign_forge.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_sign_tailor",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/sign_tailor.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_carteles» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a wooden sign post with an iron bracket and a hanging wooden signboard painted with a pair of scissors and a spool (a picture only, no lette. Escena game/visuals/props/sign_tailor.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_sign_carpenter",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/sign_carpenter.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_carteles» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a wooden sign post with an iron bracket and a hanging wooden signboard painted with a saw and a hammer (a picture only, no letters or words). Escena game/visuals/props/sign_carpenter.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "prop_sign_inn",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/props/sign_inn.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «deco_carteles» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Rediseño de la ciudad: a wooden sign post with an iron bracket and a hanging wooden signboard painted with a foaming tankard (a picture only, no letters or words). Escena game/visuals/props/sign_inn.tscn (tools/art/escenas_rediseno.py); la reparte citylib.greenery (tools/city/reglas.json greenery) o el decor."
+    },
+    {
+      "id": "bld_stall_livestock",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H3",
+        "mercado",
+        "rediseno-ciudad"
+      ],
+      "ruta": "assets/art/buildings/stall_livestock.png",
+      "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B, lámina «puestos_2» + pixelado local (tools/art/fal_rediseno.py, tanda rediseno)",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Puesto del mercado rehecho a escala B con un estilo común (mostrador de madera, cuatro postes y toldo a rayas del color del gremio), ~80×100 px: el toldo a ~74 px del suelo (1,5 veces el personaje). Escena game/visuals/props/stall_livestock.tscn; WorldView lo refleja si se sirve desde +col."
+    },
+    {
+      "id": "bld_block_house_2x2_1_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x2_1_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x2_1: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x2_2_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x2_2_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x2_2: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x2_3_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x2_3_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x2_3: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x2_4_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x2_4_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x2_4: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x3_1_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x3_1_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x3_1: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x3_2_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x3_2_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x3_2: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x3_3_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x3_3_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x3_3: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x3_4_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x3_4_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x3_4: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x4_1_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x4_1_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x4_1: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x4_2_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x4_2_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x4_2: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x4_3_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x4_3_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x4_3: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_3x4_1_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_3x4_1_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_3x4_1: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_3x4_2_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_3x4_2_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_3x4_2: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_3x4_3_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_3x4_3_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_3x4_3: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
     }
   ]
 }

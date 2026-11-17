@@ -94,7 +94,7 @@
     "extend": ["street", "water", "dirt"],
     "fade_from": 2,
     "fade_to": "#2b221b",
-    "trees": ["tree", "tree_round", "tree_pine", "tree_pine", "tree_pine"],
+    "trees": ["tree_pine_1", "tree_pine_2", "tree_fir_1", "tree_fir_2", "tree_fir_1", "tree_oak_1", "tree_chestnut_3"],
     "tree_from": 3,
     "tree_density": [0.2, 0.7]
   },
@@ -108,7 +108,7 @@
   },
   "prop_variants": {
     "_doc": "Map props with several looks: tile kind -> scene ids of game/visuals/props/ (one per tile, picked by the tile, the same every game; weights = repeat an id). Without an entry, the scene named like the kind.",
-    "tree": ["tree", "tree_round", "tree_pine", "tree", "tree_round"]
+    "tree": ["tree_oak_1", "tree_oak_2", "tree_oak_3", "tree_chestnut_1", "tree_chestnut_2", "tree_chestnut_3", "tree_pine_1", "tree_fir_1", "tree_oak_1", "tree_fir_2"]
   },
   "filler": {
     "_doc": "How the free building tiles (#) of the map look (WorldView._add_filler): each block is filled with house lots of the first size in lot_sizes ([cols, rows]) that fits, and the tiles left over become yards: each block takes one of yard_themes (vegetable plot, work yard) and each tile one yard of its theme, each at most once per block (the theme's first yard fills the rest). houses / yard_themes / single are scene ids of game/visuals/props/; which one goes where depends only on the tile (the town looks the same every game), weights = repeat an id. mirror flips half of the houses. single = a lone # tile (the plaza's well). Remove this block to go back to one greybox block per tile (props/building.tscn).",
@@ -119,7 +119,7 @@
       ["yard_plot", "yard_plot", "yard_plot", "yard_plot_sack"],
       ["yard_plain", "yard_plain", "yard_plain", "yard_barrels", "yard_crates", "yard_sacks", "yard_cart"]
     ],
-    "single": "well"
+    "single": "well_roof"
   },
   "hud": {
     "_doc": "HUD presentation: objective_hint_seconds = how long the objective's how-to stays unfolded on the map after the objective changes (then it folds to the title and progress; hovering the panel unfolds it; inside a building it is always shown).",

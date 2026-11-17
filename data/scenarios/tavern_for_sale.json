@@ -2626,7 +2626,7 @@
 				"id": "ctr_0002",
 				"item": "sword",
 				"min_quality": 1,
-				"pay": 83,
+				"pay": 87,
 				"posted": 0,
 				"qty": 1,
 				"script": "guard_good_sword"
