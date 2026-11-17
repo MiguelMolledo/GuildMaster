@@ -52,9 +52,9 @@ def region_of(c, y, hair_until, x=0, head=None):
     # boots and belts of the same hue sit at h >= 18 with mid values, the gold of buckles is too saturated
     if (15 <= h <= 30 and 0.3 <= s <= 0.6 and v >= 0.75) or (8 <= h <= 17 and 0.5 <= s <= 0.69 and 0.55 <= v < 0.75):
         return SKIN
-    if 60 <= h <= 170 and s >= 0.2:
+    if 60 <= h <= 170 and s >= 0.12 and v >= 0.12:
         return PRIMARY
-    if 200 <= h <= 262 and s >= 0.38 and v >= 0.12:   # not the steel of a hammer (h<200, s<0.35)
+    if 200 <= h <= 262 and s >= 0.2 and v >= 0.12:   # not the steel of a hammer (h<200)
         return SECONDARY
     if y <= hair_until and (h <= 40 or h >= 330) and s >= 0.3 and (head is None or head[0] <= x <= head[1]):
         return HAIR
