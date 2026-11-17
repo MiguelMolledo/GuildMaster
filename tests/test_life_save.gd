@@ -27,7 +27,7 @@ func test_a_living_town_round_trips() -> void:
 	var sim := Sim.new(r["state"], cat)
 	sim.run_minutes(20)  # the raid is on its way
 	check(not Incidents.active(sim.state).is_empty(), "an incident in course")
-	var text := JSON.stringify(sim.state.to_dict())
+	var text := JSON.stringify(sim.state.to_dict(), "", true, true)  # full precision, as SaveFile.save writes it
 	var back: WorldState = SaveFile.from_text(text)["state"]
 	var sim2 := Sim.new(back, cat)
 	eq(sim2.state_hash(), sim.state_hash(), "identical after the round trip")

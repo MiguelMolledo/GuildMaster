@@ -22,7 +22,7 @@ func test_grid_reads_the_map() -> void:
 	eq(g.cost(7, 12), 1, "street costs 1")
 	eq(g.cost(0, 0), 10, "grass costs 10")
 	check(not g.walkable(9, 8), "building is blocked")
-	check(not g.walkable(35, 0), "water is blocked")
+	check(not g.walkable(37, 0), "water is blocked")
 	check(not g.walkable(-1, 0) and not g.walkable(40, 0), "outside is blocked")
 	check(Grid.of(cat, "town_e") == g, "cached")
 	check(Grid.of(cat, "") == null and Grid.of(cat, "nowhere") == null, "no map, no grid")

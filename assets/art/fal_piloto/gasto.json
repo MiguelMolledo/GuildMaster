@@ -23162,5 +23162,131 @@
   "imagenes": 1,
   "usd": 0.08,
   "que": "muralla_grua"
+ },
+ {
+  "fecha": "2026-11-17T15:36:49",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x3_1_back"
+ },
+ {
+  "fecha": "2026-11-17T15:37:26",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x2_1_back"
+ },
+ {
+  "fecha": "2026-11-17T15:37:44",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x2_2_back"
+ },
+ {
+  "fecha": "2026-11-17T15:37:59",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x2_3_back"
+ },
+ {
+  "fecha": "2026-11-17T15:38:12",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x2_4_back"
+ },
+ {
+  "fecha": "2026-11-17T15:38:31",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x3_2_back"
+ },
+ {
+  "fecha": "2026-11-17T15:38:49",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x3_3_back"
+ },
+ {
+  "fecha": "2026-11-17T15:39:06",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x3_4_back"
+ },
+ {
+  "fecha": "2026-11-17T15:39:22",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x4_1_back"
+ },
+ {
+  "fecha": "2026-11-17T15:39:39",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x4_2_back"
+ },
+ {
+  "fecha": "2026-11-17T15:40:00",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x4_3_back"
+ },
+ {
+  "fecha": "2026-11-17T15:40:16",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_3x4_1_back"
+ },
+ {
+  "fecha": "2026-11-17T15:40:37",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_3x4_2_back"
+ },
+ {
+  "fecha": "2026-11-17T15:40:58",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_3x4_3_back"
  }
 ]

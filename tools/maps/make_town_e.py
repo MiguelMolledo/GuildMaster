@@ -4,7 +4,8 @@ data/scenarios/town_e_start.json. Deterministic: same script, same files. Re-run
 
 Layout (col = x, row = y; row 0 is the top-right edge on screen in 2:1 iso):
   main street rows 18-19 across the map, plaza cols 15-24 x rows 13-24, lanes at cols 7 and 31,
-  terraced houses along the main street and lanes, river at cols 35-36 with a bridge on the main street,
+  terraced houses along the main street and lanes, river at cols 37-38 with a bridge on the main street (it was at
+  35-36 under the east houses until the town redesign, 2026-11-17),
   fields in the lower left, trees in the upper band.
 H2: the family forge (cols 25-27 x rows 20-23, door (26,19) on the main street).
 H3: the market in the plaza (3 outdoor stalls and the contract board, blocked tiles with a service tile in front),
@@ -54,13 +55,13 @@ def rect(c0, r0, c1, r1, ch):
                 g[r][c] = ch
 
 # trees in the upper band and a grove at the bottom right
-for (c, r) in [(2,1),(5,2),(9,1),(12,3),(17,1),(21,2),(26,1),(29,3),(33,2),(3,5),(24,4),(38,6),(38,30),(39,33),(37,37),(33,38)]:
+for (c, r) in [(2,1),(5,2),(9,1),(12,3),(17,1),(21,2),(26,1),(29,3),(33,2),(3,5),(24,4),(34,5),(33,29),(35,35),(34,37),(33,38)]:
     g[r][c] = "T"
 # fields lower left
 rect(1, 27, 12, 37, "f")
 rect(1, 32, 12, 32, ",")  # a dirt track between the fields
 # river with banks
-rect(35, 0, 36, H - 1, "w")
+rect(37, 0, 38, H - 1, "w")
 # main street, plaza, lanes
 rect(0, 18, W - 1, 19, "=")
 rect(15, 13, 24, 24, "P")
@@ -68,8 +69,8 @@ rect(7, 6, 7, 33, "=")
 rect(31, 6, 31, 33, "=")
 rect(7, 6, 31, 6, ",")     # back lane (dirt) along the top
 rect(7, 33, 31, 33, ",")   # back lane along the bottom
-rect(35, 18, 36, 19, "b")  # bridge
-rect(37, 18, 39, 19, "=")
+rect(37, 18, 38, 19, "b")  # bridge
+rect(39, 18, 39, 19, "=")
 # terraced houses along the main street (gaps every few houses for alleys)
 for c0 in (1, 9, 25, 32):
     for r0 in (15, 20):
@@ -217,9 +218,9 @@ town["workplaces"] = [
     {"id": "stall_food", "kind": "stall", "tile": [19, 13], "stall": "food"},
     {"id": "field_a", "kind": "tile", "tile": [3, 28]},
     {"id": "field_b", "kind": "tile", "tile": [5, 30]},
-    {"id": "river_bank", "kind": "tile", "tile": [34, 10]},
+    {"id": "river_bank", "kind": "tile", "tile": [36, 10]},
     {"id": "stall_materials", "kind": "stall", "tile": [22, 13], "stall": "materials"},
-    {"id": "gate_east", "kind": "tile", "tile": [38, 19]},
+    {"id": "gate_east", "kind": "tile", "tile": [39, 19]},
     {"id": "well", "kind": "tile", "tile": [20, 19]},
     {"id": "church_a", "kind": "tile", "tile": [18, 12]},
     {"id": "stall_resources", "kind": "stall", "tile": [16, 13], "stall": "resources"},
@@ -259,7 +260,12 @@ town["decor"] = citylib.dress(citylib.Map(town, citylib.Catalog()))
 citylib.add_life(town, citylib.Catalog())
 # The plots of 04 §4.9.1 (tools/city/plots.py): data the sim never reads (the targets do not move), drawn by the view.
 import plots  # noqa: E402
-plots.add_plots(town, citylib.Catalog())
+# The redesign moved the river two columns east (out from under the east houses); the plots stay where they were: none
+# on its old bed (cols 35-36) nor on the washing place by it (34, 10).
+plots.add_plots(town, citylib.Catalog(), keep={(c, r) for c in (35, 36) for r in range(H)} | {(34, 10)})
+# Town redesign (2026-11-17): trees and street life (reglas.json "greenery"), after the plots and the meeting points,
+# never on them: the sim's places do not move.
+citylib.greenery(town, citylib.Catalog())
 
 
 def _h6_plots(d, cat):

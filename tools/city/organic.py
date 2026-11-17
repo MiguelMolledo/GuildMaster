@@ -1435,6 +1435,7 @@ def build(map_id, plan, cat=None, variant=None):
     if map_id in citylib.rules().get("plots", {}).get("maps", []):  # 04 §4.9.1: lots, ruins and businesses
         import plots
         plots.add_plots(data, cat)
+    citylib.greenery(data, cat)  # rediseño: trees and street life, after the plots (never on them)
     for line in tw.log:
         print("  aviso del plan:", line)
     return data

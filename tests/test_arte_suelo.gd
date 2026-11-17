@@ -89,6 +89,7 @@ func test_block_houses_of_the_organic_towns_have_art() -> void:
 	var dressed := 0
 	var mirrored := 0
 	var blocks := 0
+	var backs := 0
 	for c: Node in v.objects().get_children():
 		if _id(c) != "house_block":
 			continue
@@ -101,6 +102,9 @@ func test_block_houses_of_the_organic_towns_have_art() -> void:
 			mirrored += 1
 		check(not (c.get_node("Greybox") as Node2D).visible, "the greybox block hides under its house")
 		check(sp.texture.resource_path.contains("/buildings/block/house_"), "a block house of assets/art/buildings/block")
+		if sp.texture.resource_path.ends_with("_back.png"):
+			backs += 1
+	check(backs > 0, "the houses whose door gives to a hidden street show their back (%d)" % backs)
 	check(blocks > 0 and dressed == blocks, "every house block of region_port has its house (%d of %d)" % [dressed, blocks])
 	check(mirrored > 0, "the lots turned the other way take the mirrored sprite (%d)" % mirrored)
 	v.free()

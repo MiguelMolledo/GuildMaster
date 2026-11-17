@@ -13,6 +13,7 @@ Uso: FAL_TANDA=rediseno python3 tools/art/fal_rediseno.py ref|gen|proc|hoja [lá
   gen   genera las láminas que falten (0,08 USD cada una a 1K; 0,12 a 2K)
   proc  recorta, pixela y guarda en assets/art/      (props/, buildings/stalls/, buildings/landmarks/)
   hoja  hoja de revisión con todo junto al personaje  -> $CRUDOS/fal_produccion/rediseno/hoja.png
+  gen_espaldas|proc_espaldas house_<c>x<r>_<k> ...   vista de espaldas de las casas de lote (sin la puerta delantera)
 """
 import os
 import subprocess
@@ -639,7 +640,72 @@ def hoja(names, out=None, bg=(78, 104, 52, 255), width=1000):
     print(out)
 
 
+# --- Espaldas de las casas de lote (assets/art/buildings/block/house_<c>x<r>_<k>.png) ------------------------------
+BLOCK = os.path.join(ART, "buildings", "block")
+
+
+def back_ref(name):
+    """La casa del juego ×4, centrada abajo en un lienzo blanco de 1024."""
+    im = Image.open(os.path.join(BLOCK, name + ".png")).convert("RGBA")
+    big = im.resize((im.width * 4, im.height * 4), Image.NEAREST)
+    canvas = Image.new("RGBA", (1024, 1024), (255, 255, 255, 255))
+    canvas.alpha_composite(big, ((1024 - big.width) // 2, 1024 - big.height - 8))
+    out = os.path.join(P, "espaldas", "ref_" + name + ".png")
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    canvas.convert("RGB").save(out)
+    return out
+
+
+BACK_PROMPT = ("Image 1 is a house sprite of our medieval town game, enlarged 4x (every art pixel is a 4x4 block). "
+               "Repaint the SAME house as its back side: exactly the same silhouette, footprint, wall heights, roof, "
+               "chimney, timber frame, colours, isometric 2:1 projection, dark 1-pixel outline, light from the top-left, "
+               "position in the image and 4x4 pixel grid. Only the details of the two visible walls change: there is NO "
+               "front door any more (where the door was, a plain wall with a small shuttered window), and the walls "
+               "show the back of a house: small windows with shutters, a narrow low back door at most, a rain barrel or "
+               "a little woodpile against the wall is fine. Plain flat white background, no ground, no grass, no text, "
+               "no people, no shadow on the background.")
+
+
+def gen_backs(names):
+    for n in names:
+        if os.path.exists(os.path.join(P, "crudo", n + "_back.png")):
+            continue
+        cmd = [sys.executable, os.path.join(HERE, "fal_piloto.py"), "gen", "--model", "nano2", "--piece", "rediseno",
+               "--aspect", "1:1", "--name", n + "_back", "--ref", back_ref(n), "--prompt", BACK_PROMPT]
+        if subprocess.run(cmd, cwd=ROOT).returncode:
+            sys.exit(1)
+
+
+def proc_backs(names):
+    for n in names:
+        raw = os.path.join(P, "crudo", n + "_back.png")
+        if not os.path.exists(raw):
+            print("falta", raw)
+            continue
+        front = Image.open(os.path.join(BLOCK, n + ".png")).convert("RGBA")
+        keyed = fal_fachadas.holes(fp.key_background(Image.open(raw).convert("RGBA").resize((1024, 1024)), "white", 28))
+        nat = local_pixel(keyed, 4, colors=32)
+        cut = nat.crop(nat.getchannel("A").getbbox())
+        ratio = cut.width / front.width
+        if abs(ratio - 1) > 0.04:
+            nat = local_pixel(keyed, 4, colors=32, mult=ratio)
+            cut = nat.crop(nat.getchannel("A").getbbox())
+        cut = fic.outline(largest(cut))
+        if cut.size != front.size:  # the same box as the front: base on the same bottom row, centred
+            box = Image.new("RGBA", front.size, (0, 0, 0, 0))
+            box.alpha_composite(cut, ((front.width - cut.width) // 2, front.height - cut.height)) \
+                if cut.width <= front.width and cut.height <= front.height else None
+            if cut.width > front.width or cut.height > front.height:
+                cut = cut.resize(front.size, Image.NEAREST)
+            else:
+                cut = box
+        out = os.path.join(BLOCK, n + "_back.png")
+        cut.save(out)
+        print(f"{os.path.relpath(out, ROOT)}: {cut.width}x{cut.height} (frente {front.width}x{front.height})")
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else ""
     names = sys.argv[2:] or list(SHEETS)
-    {"ref": lambda n: ref(), "gen": gen, "proc": proc, "hoja": hoja}.get(cmd, lambda n: print(__doc__))(names)
+    {"ref": lambda n: ref(), "gen": gen, "proc": proc, "hoja": hoja, "gen_espaldas": gen_backs,
+     "proc_espaldas": proc_backs}.get(cmd, lambda n: print(__doc__))(names)

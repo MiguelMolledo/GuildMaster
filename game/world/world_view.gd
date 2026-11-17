@@ -50,6 +50,7 @@ var _building_visuals: Dictionary = {}  # bld_id -> its scene of game/visuals/bu
 var _building_heights: Dictionary = {}  # bld_id -> how high it stands (its Top marker): sign and click area
 var _talker: String = ""  # H7: the townsperson who speaks to the selected person (SimQuery.nearest_talker)
 var _props: Dictionary = {}  # Vector2i -> the scene of game/visuals/props standing on that tile
+var _decor_props: Array = []  # the props of the map decor (trees, carts...): the tall ones go see-through too
 var _minutes_per_tile: int = 1
 var _game: Node = null      # the Game autoload, when in the tree
 var _hover_signs: Dictionary = {}  # bld -> true: signs shown only on hover / pick (houses)
@@ -127,6 +128,7 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 	_building_visuals.clear()
 	_building_heights.clear()
 	_props.clear()
+	_decor_props.clear()
 	for layer: Node in [objects(), overlay()]:
 		for n: Node in layer.get_children():
 			layer.remove_child(n)
@@ -139,9 +141,12 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 	_services = SimQuery.map_services(s, c)
 	_add_town_hall(owned)  # H9: a site of the map drawn as a building (its tiles get no filler)
 	var stall_at := {}
+	var stall_flip := {}  # the stalls served from the tile at +col: mirrored so the counter faces the buyer
 	for svc: Dictionary in _services:
 		if str(svc["kind"]) == "stall":
 			stall_at[svc["tile"]] = str(svc["id"])
+			if (svc["service"] as Vector2i) - (svc["tile"] as Vector2i) == Vector2i(1, 0):
+				stall_flip[svc["tile"]] = true
 	var n_blocks := 0
 	var filler := {}  # free building tiles (#) dressed as houses and yards (data/view.json "filler")
 	var dress := not (ViewConfig.value("filler", {}) as Dictionary).is_empty()
@@ -164,6 +169,8 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 			if not VisualPaths.has_scene("props", id) and kind != "stall" and kind != "board":
 				continue
 			var p := VisualPaths.instantiate("props", id)
+			if stall_flip.has(t):
+				p.scale.x = -1.0  # mirrored around its Feet
 			VisualPaths.place(p, Iso.tile_to_world(t))
 			objects().add_child(p)
 			_props[t] = p
@@ -675,7 +682,9 @@ func _add_decor(decor: Dictionary, filler: Dictionary, owned: Dictionary) -> int
 			if id == BLOCK_HOUSE:
 				var hb := VisualPaths.instantiate("props", id)
 				_size_block(hb, Vector2i(int(size[0]), int(size[1])), str(it.get("color", "")), float(it.get("height", 0)))
-				_dress_block(hb, Vector2i(int(size[0]), int(size[1])), tiles[0])
+				var facing: Array = it.get("facing", [0, 1])
+				_dress_block(hb, Vector2i(int(size[0]), int(size[1])), tiles[0],
+					facing.size() == 2 and (int(facing[0]) < 0 or int(facing[1]) < 0))
 				VisualPaths.place(hb, _centre_of(tiles))
 				objects().add_child(hb)
 				for t: Vector2i in tiles:
@@ -696,6 +705,7 @@ func _add_decor(decor: Dictionary, filler: Dictionary, owned: Dictionary) -> int
 				p.scale.x = -1.0  # mirrored around its Feet
 			VisualPaths.place(p, Iso.tile_to_world(t0) + Vector2(float(off[0]), float(off[1])))
 			objects().add_child(p)
+			_decor_props.append(p)
 			n += 1
 		kinds[kind] = int(kinds.get(kind, 0)) + 1
 	ViewConfig.info("WorldView", "decor: %d visuals %s (skipped %d: a building of this game stands there)" % [n, kinds,
@@ -710,9 +720,20 @@ func _add_decor(decor: Dictionary, filler: Dictionary, owned: Dictionary) -> int
 func _add_mark(it: Dictionary, tiles: Array) -> int:
 	var kind := str(it.get("kind", ""))
 	var id := str(it.get("id", ""))
+	var size: Array = it.get("size", [1, 1])
 	var own := VisualPaths.has_scene("props", id)
 	var p := VisualPaths.instantiate("props", id if own else (LANDMARK_SCENE if kind == "landmark" else BOAT_SCENE))
-	var size: Array = it.get("size", [1, 1])
+	if own and p.has_meta("footprint"):
+		# a landmark sprite is drawn for one footprint: turned (rows for cols) it is mirrored; any other size keeps
+		# the generic block of its footprint
+		var fp: Vector2i = p.get_meta("footprint")
+		var sz := Vector2i(int(size[0]), int(size[1]))
+		if sz == Vector2i(fp.y, fp.x) and fp.x != fp.y:
+			p.scale.x = -1.0
+		elif sz != fp:
+			p.free()
+			own = false
+			p = VisualPaths.instantiate("props", LANDMARK_SCENE if kind == "landmark" else BOAT_SCENE)
 	if not own:
 		_size_block(p, Vector2i(int(size[0]), int(size[1])), str(it.get("color", "")), float(it.get("height", 0)))
 	var centre := _centre_of(tiles)
@@ -752,8 +773,9 @@ func _size_block(p: Node2D, foot: Vector2i, color: String, height: float) -> voi
 ## assets/art/buildings/block/<id>.png, tools/art/fal_casas_bloque.py): one of the looks of its lot size, picked by
 ## its first tile (the same every game), the lot turned the other way (3x2 for a 2x3) with the mirrored sprite. The
 ## sprite fills the lot, its base on the lot's bottom corner; the greybox block stays hidden under it. A lot size
-## without art keeps the block.
-func _dress_block(hb: Node2D, foot: Vector2i, at: Vector2i) -> void:
+## without art keeps the block. A house whose door gives to a street the camera does not see (facing -row or -col)
+## takes its back view (<id>_back.png, the same house without the front door: rediseño) when there is one.
+func _dress_block(hb: Node2D, foot: Vector2i, at: Vector2i, back: bool = false) -> void:
 	var cfg: Dictionary = ViewConfig.value("block_houses", {})
 	var key := "%dx%d" % [foot.x, foot.y]
 	var flip := false
@@ -767,6 +789,10 @@ func _dress_block(hb: Node2D, foot: Vector2i, at: Vector2i) -> void:
 	var path := "%s/buildings/block/%s.png" % [VisualPaths.ART_ROOT, id]
 	if not ResourceLoader.exists(path):
 		return
+	var back_path := "%s/buildings/block/%s_back.png" % [VisualPaths.ART_ROOT, id]
+	if back and ResourceLoader.exists(back_path):
+		path = back_path
+		id += "_back"
 	var tex := load(path) as Texture2D
 	var spr := Sprite2D.new()
 	spr.name = "Sprite"
@@ -1146,7 +1172,7 @@ func _collect_see_through() -> void:
 	_see_through.clear()
 	var min_h := float((ViewConfig.value("see_through", {}) as Dictionary).get("min_height", 60.0))
 	var seen := {}
-	var cands: Array = _building_visuals.values() + _props.values()
+	var cands: Array = _building_visuals.values() + _props.values() + _decor_props
 	for n: Node2D in cands:
 		if n == null or seen.has(n) or n.get_node_or_null("Sprite") == null:
 			continue

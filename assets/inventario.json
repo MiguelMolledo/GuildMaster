@@ -20362,6 +20362,202 @@
       "coste_gen": 0,
       "coste_usd": 0.02,
       "notas": "Puesto del mercado rehecho a escala B con un estilo común (mostrador de madera, cuatro postes y toldo a rayas del color del gremio), ~80×100 px: el toldo a ~74 px del suelo (1,5 veces el personaje). Escena game/visuals/props/stall_livestock.tscn; WorldView lo refleja si se sirve desde +col."
+    },
+    {
+      "id": "bld_block_house_2x2_1_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x2_1_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x2_1: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x2_2_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x2_2_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x2_2: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x2_3_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x2_3_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x2_3: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x2_4_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x2_4_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x2_4: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x3_1_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x3_1_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x3_1: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x3_2_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x3_2_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x3_2: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x3_3_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x3_3_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x3_3: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x3_4_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x3_4_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x3_4: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x4_1_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x4_1_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x4_1: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x4_2_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x4_2_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x4_2: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_2x4_3_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_2x4_3_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_2x4_3: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_3x4_1_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_3x4_1_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_3x4_1: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_3x4_2_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_3x4_2_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_3x4_2: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
+    },
+    {
+      "id": "bld_block_house_3x4_3_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "rediseno-ciudad",
+        "ciudades2"
+      ],
+      "ruta": "assets/art/buildings/block/house_3x4_3_back.png",
+      "origen": "fal: nano-banana-2/edit con la casa de frente ×4 de referencia + pixelado local (tools/art/fal_rediseno.py gen_espaldas/proc_espaldas, tanda rediseno)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Vista de espaldas de la casa de lote house_3x4_3: la misma silueta sin la puerta delantera (ventanas, puerta trasera, barril o leña). WorldView._dress_block la usa cuando la puerta del lote da a -fila o -columna (una calle que la cámara no ve)."
     }
   ]
 }

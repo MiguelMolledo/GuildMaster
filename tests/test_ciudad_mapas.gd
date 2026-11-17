@@ -80,8 +80,12 @@ func test_every_artisan_start_plays_on_every_generated_town() -> void:
 
 func test_the_view_draws_the_landmarks_and_boats_of_an_organic_town() -> void:
 	# tools/city/organic.py: the landmarks (map "landmarks", "H" tiles) and the boats (map "boats", on the water) are
-	# drawn as blocks of their footprint; filler houses of other lot sizes as house blocks
+	# drawn as blocks of their footprint, or with their own scene when it is drawn for that footprint (rediseño: the
+	# crane); filler houses of other lot sizes as house blocks
 	var m: Dictionary = cat.maps().get("region_port", {})
+	var types := {}
+	for l: Dictionary in m.get("landmarks", []):
+		types[str(l.get("type", ""))] = true
 	var v: WorldView = (load("res://game/world/world_view.tscn") as PackedScene).instantiate()
 	v.setup(NewGame.from_scenario("region_port_start")["state"], cat)
 	var marks := 0
@@ -89,13 +93,13 @@ func test_the_view_draws_the_landmarks_and_boats_of_an_organic_town() -> void:
 	var blocks := 0
 	for c: Node in v.objects().get_children():
 		var scene := str(c.scene_file_path).get_file().get_basename()
-		if scene == "hito":
+		if scene == "hito" or (types.has(scene) and str(c.name).begins_with(scene + "_")):
 			marks += 1
 		elif scene == "boat":
 			boats += 1
 		elif scene == "house_block":
 			blocks += 1
-	eq(marks, (m.get("landmarks", []) as Array).size(), "one block per landmark of region_port")
+	eq(marks, (m.get("landmarks", []) as Array).size(), "one block or sprite per landmark of region_port")
 	eq(boats, (m.get("boats", []) as Array).size(), "one boat per boat of region_port")
 	check(blocks > 0, "house blocks of mixed lot sizes (%d)" % blocks)
 	var signs := 0
