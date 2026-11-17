@@ -1,0 +1,196 @@
+{
+ "_doc": "Characters redrawn with PixelLab (tools/art/personajes_pixellab.py). raw: folder in pixellab-pip-generations/personajes2d/ (the get_character ZIP unpacked); pixellab_id: the 68×68 character the animations hang from; anims: our anim -> PixelLab animation (from), per direction: dir_from (another animation), drop (frames), head_from ({bad frame: donor frame}, local repair), clean (pale streaks out).",
+ "characters": {
+  "artisan_m": {
+   "raw": "am68",
+   "pixellab_id": "0df00aee-3240-4c5e-9ff6-50ebc8c0d22d",
+   "copies": [
+    "worker_m"
+   ],
+   "anims": {
+    "idle": {
+     "from": "idle"
+    },
+    "walk": {
+     "from": "walk",
+     "dir_from": {
+      "south": "walk_s_skel"
+     }
+    },
+    "work": {
+     "from": "work",
+     "drop": {
+      "south-east": [
+       0,
+       1,
+       2
+      ],
+      "east": [
+       0,
+       1
+      ],
+      "north-east": [
+       0,
+       1,
+       2
+      ],
+      "north-west": [
+       0,
+       1
+      ],
+      "west": [
+       0,
+       1
+      ],
+      "south-west": [
+       0,
+       1
+      ]
+     }
+    },
+    "forge": {
+     "from": "forge",
+     "drop": {
+      "south": [
+       0
+      ],
+      "south-east": [
+       0
+      ]
+     }
+    },
+    "death": {
+     "from": "death",
+     "clean": [
+      "south-east"
+     ]
+    }
+   }
+  },
+  "artisan_f": {
+   "raw": "af68",
+   "hair_band": 0.3,
+   "pixellab_id": "fdd602dc-5005-47ea-9311-4ac899452943",
+   "copies": [
+    "worker_f"
+   ],
+   "anims": {
+    "idle": {
+     "from": "idle"
+    },
+    "walk": {
+     "from": "walk",
+     "head_from": {
+      "south": {
+       "7": 0
+      }
+     }
+    },
+    "work": {
+     "from": "work",
+     "drop": {
+      "south": [
+       0,
+       1
+      ],
+      "east": [
+       0,
+       1
+      ],
+      "west": [
+       0,
+       1
+      ]
+     }
+    },
+    "forge": {
+     "from": "forge"
+    },
+    "death": {
+     "from": "death"
+    }
+   }
+  },
+  "townsfolk_m": {
+   "raw": "tm68",
+   "pixellab_id": "a8970a9c-b9d5-4336-9fe8-a2b665d7f1f0",
+   "copies": [],
+   "anims": {
+    "idle": {
+     "from": "idle"
+    },
+    "walk": {
+     "from": "walk",
+     "dir_from": {
+      "south": "walk_s_skel"
+     },
+     "clean": [
+      "north"
+     ]
+    },
+    "work": {
+     "from": "work",
+     "drop": {
+      "east": [
+       0,
+       1
+      ],
+      "north-east": [
+       0,
+       1,
+       2
+      ],
+      "north-west": [
+       0,
+       1
+      ],
+      "west": [
+       0,
+       1
+      ]
+     }
+    },
+    "death": {
+     "from": "death"
+    }
+   }
+  },
+  "townsfolk_f": {
+   "raw": "tf68",
+   "pixellab_id": "c983bebb-eed9-4684-a3a4-15de6f343896",
+   "hair_band": 0.45,
+   "copies": [],
+   "anims": {
+    "idle": {
+     "from": "idle"
+    },
+    "walk": {
+     "from": "walk",
+     "dir_from": {
+      "south": "walk_s_skel"
+     }
+    },
+    "work": {
+     "from": "work",
+     "drop": {
+      "east": [
+       0,
+       1
+      ],
+      "north-west": [
+       0,
+       1
+      ],
+      "west": [
+       0,
+       1
+      ]
+     }
+    },
+    "death": {
+     "from": "death"
+    }
+   }
+  }
+ }
+}

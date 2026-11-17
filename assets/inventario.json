@@ -61,10 +61,10 @@
         "protagonista"
       ],
       "ruta": "assets/art/characters/artisan_m/",
-      "origen": "guild-renew",
-      "origen_previo": "guild:assets/sprites/characters/artesano",
-      "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/characters/artesano (PixelLab, 8 direcciones), tiras <anim>_<dir>.png con la identidad de H8 codificada (pelo, piel, ropa de familia) para game/visuals/characters/identity_swap.gdshader; SpriteFrames en artisan_m_frames.tres (tools/art/personajes_guild.py). Hechas: idle, walk, work, death + forge; carry, talk y sit usan idle hasta tener las suyas.",
+      "origen": "pixellab",
+      "origen_previo": "guild:assets/sprites/characters/artesano (hasta 2026-11-17: reuso de Guild Renew)",
+      "coste_gen": 52,
+      "notas": "Redibujado con PixelLab el 2026-11-17 (MANIFEST, lista de la compra #14): v3 desde texto a 52 px, rotaciones reimportadas a 68×68 (pies en y=58, el ancla de siempre) y animadas sobre ese personaje (plantillas idle/walk/death, skeleton-v3 para walk sur, v3 a medida para work y forge). Tiras <anim>_<dir>.png con la identidad de H8 codificada por tools/art/personajes_pixellab.py (config en tools/art/personajes_pixellab.json; ropa primaria verde y secundaria azul a propósito como colores clave). Hechas: idle, walk, work, forge, death; carry, talk y sit usan idle hasta tener las suyas. Coste aprox. 52 gen.",
       "animaciones": {
         "idle": "sprite",
         "walk": "sprite",
@@ -73,7 +73,8 @@
         "talk": "falta",
         "sit": "falta",
         "death": "sprite"
-      }
+      },
+      "pixellab_id": "0df00aee-3240-4c5e-9ff6-50ebc8c0d22d"
     },
     {
       "id": "chr_artisan_f",
@@ -84,10 +85,10 @@
         "protagonista"
       ],
       "ruta": "assets/art/characters/artisan_f/",
-      "origen": "guild-renew",
-      "origen_previo": "guild:assets/sprites/characters/artesana",
-      "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/characters/artesana (PixelLab, 8 direcciones), tiras <anim>_<dir>.png con la identidad de H8 codificada (pelo, piel, ropa de familia) para game/visuals/characters/identity_swap.gdshader; SpriteFrames en artisan_f_frames.tres (tools/art/personajes_guild.py). Hechas: idle, walk, work, death + forge; carry, talk y sit usan idle hasta tener las suyas.",
+      "origen": "pixellab",
+      "origen_previo": "guild:assets/sprites/characters/artesana (hasta 2026-11-17: reuso de Guild Renew)",
+      "coste_gen": 46,
+      "notas": "Redibujado con PixelLab el 2026-11-17 (MANIFEST, lista de la compra #14): v3 desde texto a 52 px, rotaciones reimportadas a 68×68 (pies en y=58, el ancla de siempre) y animadas sobre ese personaje (plantillas idle/walk/death, skeleton-v3 para walk sur, v3 a medida para work y forge). Tiras <anim>_<dir>.png con la identidad de H8 codificada por tools/art/personajes_pixellab.py (config en tools/art/personajes_pixellab.json; ropa primaria verde y secundaria azul a propósito como colores clave). Hechas: idle, walk, work, forge, death; carry, talk y sit usan idle hasta tener las suyas. Coste aprox. 46 gen.",
       "animaciones": {
         "idle": "sprite",
         "walk": "sprite",
@@ -96,7 +97,8 @@
         "talk": "falta",
         "sit": "falta",
         "death": "sprite"
-      }
+      },
+      "pixellab_id": "fdd602dc-5005-47ea-9311-4ac899452943"
     },
     {
       "id": "npc_worker_m",
@@ -107,18 +109,20 @@
         "empleados"
       ],
       "ruta": "assets/art/characters/worker_m/",
-      "origen": "guild-renew",
-      "origen_previo": "guild:assets/sprites/npcs",
+      "origen": "pixellab",
+      "origen_previo": "guild:assets/sprites/npcs (hasta 2026-11-17: reuso de Guild Renew)",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/characters/artesano (PixelLab, 8 direcciones), tiras <anim>_<dir>.png con la identidad de H8 codificada (pelo, piel, ropa de familia) para game/visuals/characters/identity_swap.gdshader; SpriteFrames en worker_m_frames.tres (tools/art/personajes_guild.py). Hechas: idle, walk, work, death + forge; carry, talk y sit usan idle hasta tener las suyas.",
+      "notas": "Redibujado con PixelLab el 2026-11-17 (MANIFEST, lista de la compra #14): v3 desde texto a 52 px, rotaciones reimportadas a 68×68 (pies en y=58, el ancla de siempre) y animadas sobre ese personaje (plantillas idle/walk/death, skeleton-v3 para walk sur, v3 a medida para work y forge). Tiras <anim>_<dir>.png con la identidad de H8 codificada por tools/art/personajes_pixellab.py (config en tools/art/personajes_pixellab.json; ropa primaria verde y secundaria azul a propósito como colores clave). Hechas: idle, walk, work, forge, death (copia de artisan_m); carry, talk y sit usan idle hasta tener las suyas. Sin coste propio: mismas tiras que su artesano.",
       "animaciones": {
         "idle": "sprite",
         "walk": "sprite",
         "talk": "falta",
         "sit": "falta",
         "work": "sprite",
-        "carry": "falta"
-      }
+        "carry": "falta",
+        "death": "sprite"
+      },
+      "pixellab_id": "0df00aee-3240-4c5e-9ff6-50ebc8c0d22d"
     },
     {
       "id": "npc_worker_f",
@@ -129,18 +133,20 @@
         "empleados"
       ],
       "ruta": "assets/art/characters/worker_f/",
-      "origen": "guild-renew",
-      "origen_previo": "guild:assets/sprites/npcs",
+      "origen": "pixellab",
+      "origen_previo": "guild:assets/sprites/npcs (hasta 2026-11-17: reuso de Guild Renew)",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/characters/artesana (PixelLab, 8 direcciones), tiras <anim>_<dir>.png con la identidad de H8 codificada (pelo, piel, ropa de familia) para game/visuals/characters/identity_swap.gdshader; SpriteFrames en worker_f_frames.tres (tools/art/personajes_guild.py). Hechas: idle, walk, work, death + forge; carry, talk y sit usan idle hasta tener las suyas.",
+      "notas": "Redibujado con PixelLab el 2026-11-17 (MANIFEST, lista de la compra #14): v3 desde texto a 52 px, rotaciones reimportadas a 68×68 (pies en y=58, el ancla de siempre) y animadas sobre ese personaje (plantillas idle/walk/death, skeleton-v3 para walk sur, v3 a medida para work y forge). Tiras <anim>_<dir>.png con la identidad de H8 codificada por tools/art/personajes_pixellab.py (config en tools/art/personajes_pixellab.json; ropa primaria verde y secundaria azul a propósito como colores clave). Hechas: idle, walk, work, forge, death (copia de artisan_f); carry, talk y sit usan idle hasta tener las suyas. Sin coste propio: mismas tiras que su artesano.",
       "animaciones": {
         "idle": "sprite",
         "walk": "sprite",
         "talk": "falta",
         "sit": "falta",
         "work": "sprite",
-        "carry": "falta"
-      }
+        "carry": "falta",
+        "death": "sprite"
+      },
+      "pixellab_id": "fdd602dc-5005-47ea-9311-4ac899452943"
     },
     {
       "id": "npc_townsfolk_m",
@@ -151,16 +157,19 @@
         "ciudad"
       ],
       "ruta": "assets/art/characters/townsfolk_m/",
-      "origen": "guild-renew",
-      "origen_previo": "guild:assets/sprites/npcs",
-      "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/npcs/aldeano_hombre (PixelLab, 8 direcciones), tiras <anim>_<dir>.png con la identidad de H8 codificada (pelo, piel, ropa de familia) para game/visuals/characters/identity_swap.gdshader; SpriteFrames en townsfolk_m_frames.tres (tools/art/personajes_guild.py). Hechas: idle, walk; carry, talk y sit usan idle hasta tener las suyas.",
+      "origen": "pixellab",
+      "origen_previo": "guild:assets/sprites/npcs (hasta 2026-11-17: reuso de Guild Renew)",
+      "coste_gen": 36,
+      "notas": "Redibujado con PixelLab el 2026-11-17 (MANIFEST, lista de la compra #14): v3 desde texto a 52 px, rotaciones reimportadas a 68×68 (pies en y=58, el ancla de siempre) y animadas sobre ese personaje (plantillas idle/walk/death, skeleton-v3 para walk sur, v3 a medida para work y forge). Tiras <anim>_<dir>.png con la identidad de H8 codificada por tools/art/personajes_pixellab.py (config en tools/art/personajes_pixellab.json; ropa primaria verde y secundaria azul a propósito como colores clave). Hechas: idle, walk, work, death; carry, talk y sit usan idle hasta tener las suyas. Coste aprox. 36 gen.",
       "animaciones": {
         "idle": "sprite",
         "walk": "sprite",
         "talk": "falta",
-        "sit": "falta"
-      }
+        "sit": "falta",
+        "work": "sprite",
+        "death": "sprite"
+      },
+      "pixellab_id": "a8970a9c-b9d5-4336-9fe8-a2b665d7f1f0"
     },
     {
       "id": "npc_townsfolk_f",
@@ -171,16 +180,19 @@
         "ciudad"
       ],
       "ruta": "assets/art/characters/townsfolk_f/",
-      "origen": "guild-renew",
-      "origen_previo": "guild:assets/sprites/npcs",
-      "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/npcs/aldeana_mujer (PixelLab, 8 direcciones), tiras <anim>_<dir>.png con la identidad de H8 codificada (pelo, piel, ropa de familia) para game/visuals/characters/identity_swap.gdshader; SpriteFrames en townsfolk_f_frames.tres (tools/art/personajes_guild.py). Hechas: idle, walk; carry, talk y sit usan idle hasta tener las suyas.",
+      "origen": "pixellab",
+      "origen_previo": "guild:assets/sprites/npcs (hasta 2026-11-17: reuso de Guild Renew)",
+      "coste_gen": 36,
+      "notas": "Redibujado con PixelLab el 2026-11-17 (MANIFEST, lista de la compra #14): v3 desde texto a 52 px, rotaciones reimportadas a 68×68 (pies en y=58, el ancla de siempre) y animadas sobre ese personaje (plantillas idle/walk/death, skeleton-v3 para walk sur, v3 a medida para work y forge). Tiras <anim>_<dir>.png con la identidad de H8 codificada por tools/art/personajes_pixellab.py (config en tools/art/personajes_pixellab.json; ropa primaria verde y secundaria azul a propósito como colores clave). Hechas: idle, walk, work, death; carry, talk y sit usan idle hasta tener las suyas. Coste aprox. 36 gen.",
       "animaciones": {
         "idle": "sprite",
         "walk": "sprite",
         "talk": "falta",
-        "sit": "falta"
-      }
+        "sit": "falta",
+        "work": "sprite",
+        "death": "sprite"
+      },
+      "pixellab_id": "c983bebb-eed9-4684-a3a4-15de6f343896"
     },
     {
       "id": "bld_forge",
