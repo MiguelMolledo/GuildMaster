@@ -22973,5 +22973,194 @@
   "imagenes": 1,
   "usd": 0.08,
   "que": "house_2x3_4"
+ },
+ {
+  "fecha": "2026-11-17T14:37:48",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "arboles_roble"
+ },
+ {
+  "fecha": "2026-11-17T14:38:05",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "puestos_1"
+ },
+ {
+  "fecha": "2026-11-17T14:38:26",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "iglesia"
+ },
+ {
+  "fecha": "2026-11-17T14:40:03",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "arboles_castano"
+ },
+ {
+  "fecha": "2026-11-17T14:40:20",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "arboles_rio"
+ },
+ {
+  "fecha": "2026-11-17T14:40:37",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "arboles_pino"
+ },
+ {
+  "fecha": "2026-11-17T14:40:55",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "frutales"
+ },
+ {
+  "fecha": "2026-11-17T14:41:12",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "arbustos"
+ },
+ {
+  "fecha": "2026-11-17T14:41:29",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "deco_huerto"
+ },
+ {
+  "fecha": "2026-11-17T14:41:50",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "deco_campo"
+ },
+ {
+  "fecha": "2026-11-17T14:42:13",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "deco_patio"
+ },
+ {
+  "fecha": "2026-11-17T14:42:35",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "deco_plaza"
+ },
+ {
+  "fecha": "2026-11-17T14:42:56",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "deco_vida"
+ },
+ {
+  "fecha": "2026-11-17T14:43:21",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "deco_carteles"
+ },
+ {
+  "fecha": "2026-11-17T14:43:38",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "puestos_2"
+ },
+ {
+  "fecha": "2026-11-17T14:44:00",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.12,
+  "que": "catedral"
+ },
+ {
+  "fecha": "2026-11-17T14:44:25",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "aduana"
+ },
+ {
+  "fecha": "2026-11-17T14:44:41",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "almacen"
+ },
+ {
+  "fecha": "2026-11-17T14:44:57",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "lonja"
+ },
+ {
+  "fecha": "2026-11-17T14:45:21",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "torres"
+ },
+ {
+  "fecha": "2026-11-17T14:45:36",
+  "tanda": "rediseno",
+  "pieza": "rediseno",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "muralla_grua"
  }
 ]

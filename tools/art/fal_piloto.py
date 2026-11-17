@@ -33,7 +33,7 @@ OUT = fr_.PILOTO_REPO
 LEDGER = fr_.LEDGER
 # Tope por tanda: el piloto (3 USD) y la producción de retratos, eventos, pantallas y cartas (8 USD, 2026-11-03).
 TANDA = os.environ.get("FAL_TANDA", "piloto")
-CAPS = {"piloto": 3.0, "produccion": 8.0, "extra": 100.0, "pool": 100.0, "tanda4": 100.0, "espaldas": 100.0, "mundo": 100.0, "duelo_region": 100.0, "h16": 100.0, "ciudad2d": 6.0}  # extra: sin tope del owner (2026-11-03); 100 es solo un freno
+CAPS = {"piloto": 3.0, "produccion": 8.0, "extra": 100.0, "pool": 100.0, "tanda4": 100.0, "espaldas": 100.0, "mundo": 100.0, "duelo_region": 100.0, "h16": 100.0, "ciudad2d": 6.0, "rediseno": 10.0}  # extra: sin tope del owner (2026-11-03); 100 es solo un freno
 CAP = CAPS[TANDA]
 
 MODELS = {
@@ -41,6 +41,7 @@ MODELS = {
     "nano2": ("fal-ai/nano-banana-2", 0.08),
     "nanopro": ("fal-ai/nano-banana-pro", 0.15),
 }
+RES_PRICE = {"2K": 1.5, "4K": 2.0}
 # Endpoints cobrados por segundo de cómputo: se apunta el tiempo real de la llamada (cota alta: incluye la cola).
 PER_SECOND = {"fal-ai/image2pixel": 0.00017, "fal-ai/birefnet/v2": 0.000575}
 
@@ -86,6 +87,7 @@ def guard(cost):
 
 def gen(a):
     model_id, unit = MODELS[a.model]
+    unit *= RES_PRICE.get(a.resolution, 1.0)  # nano-banana-2 bills more above 1K (cota alta)
     cost = unit * a.count
     t = guard(cost)
     args = {"prompt": a.prompt, "num_images": a.count, "output_format": "png"}

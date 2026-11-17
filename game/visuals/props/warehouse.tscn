@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://c287hvqx76bdi"]
+
+[ext_resource type="Script" uid="uid://dkygvhxtdwref" path="res://game/world/block_view.gd" id="1_block"]
+[ext_resource type="Texture2D" uid="uid://yhibctnfbvfa" path="res://assets/art/buildings/landmarks/warehouse.png" id="2_sprite"]
+
+[node name="Warehouse" type="Node2D"]
+editor_description = "Hito de la ciudad con su sprite (rediseño, tools/art/fal_rediseno.py), escala 1, Feet en el centro de la huella para la que está dibujado (metadata footprint; WorldView lo refleja si el hito va girado y usa el bloque gris si su huella es otra)."
+metadata/footprint = Vector2i(5, 3)
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -251)
+
+[node name="Greybox" type="Node2D" parent="."]
+visible = false
+script = ExtResource("1_block")
+height = 60.0
+color = Color(0.4, 0.45, 0.3, 1)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_sprite")
+centered = false
+offset = Vector2(-124, -251)

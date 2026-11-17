@@ -1,16 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://qy3ovuxk5ib7"]
+[gd_scene load_steps=3 format=3 uid="uid://qy3ovuxk5ib7"]
 
 [ext_resource type="Script" uid="uid://dkygvhxtdwref" path="res://game/world/block_view.gd" id="1_block"]
+[ext_resource type="Texture2D" uid="uid://3hvx4psfelxg" path="res://assets/art/buildings/landmarks/wall_2.png" id="2_sprite"]
 
 [node name="Wall" type="Node2D"]
-editor_description = "One tile of a town or precinct wall (tile kind wall, M): WorldView puts it on every wall tile."
+editor_description = "One tile of a town or precinct wall (tile kind wall, M): WorldView puts it on every wall tile. Sprite: rediseño (tools/art/fal_rediseno.py)."
 
 [node name="Feet" type="Marker2D" parent="."]
 
 [node name="Top" type="Marker2D" parent="."]
-position = Vector2(0, -44)
+position = Vector2(0, -72)
 
 [node name="Greybox" type="Node2D" parent="."]
+visible = false
 script = ExtResource("1_block")
-height = 44.0
-color = Color(0.54, 0.52, 0.47, 1)
+height = 60.0
+color = Color(0.4, 0.45, 0.3, 1)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_sprite")
+centered = false
+offset = Vector2(-34, -72)
