@@ -261,6 +261,8 @@ En una rejilla, una calle en diagonal es una escalera de casillas. En el juego, 
 juntan en una esquina son calle, pinta un triángulo de calle sobre esa esquina (`fill` = qué parte de sus dos lados
 cubre: 0,75). La escalera se lee como una cinta continua y las esquinas de las manzanas salen achaflanadas. Solo es
 pintado: la rejilla, los caminos y el sim no cambian. La vista previa hace lo mismo en su boceto isométrico.
+Con el shader del suelo (`ground_shader`, rama ciudad-2d) los triángulos ya no se dibujan: cada píxel mezcla las cuatro
+casillas más cercanas, así que la escalera sale como una cinta de bordes orgánicos sin piezas aparte.
 
 ### Los pasos del generador de rejilla (§1)
 
@@ -489,8 +491,9 @@ antes (`_add_filler`). La decoración a mano de `game/visuals/towns/<mapa>.tscn`
 
 | Pieza | Escena | Todos | Notas |
 |---|---|---|---|
-| Suelo: hierba, calle, plaza, tierra, campo | `assets/art/tiles/` | ✔ | Los cruces se resuelven solos (cada casilla es un rombo entero) |
-| Casas de relleno y de espaldas | `props/lot_house_<a..f>[_back]` | ✔ | 192 px, escala B, base en `Feet` |
+| Suelo: hierba, calle, plaza, tierra, campo, río | `assets/art/tiles/ground/` (materiales) y `assets/art/tiles/` (campo, puente) | ✔ | Los cruces se resuelven solos: el shader mezcla las casillas vecinas |
+| Casas de relleno y de espaldas | `props/lot_house_<a..j>[_back]` | ✔ | 192 px, escala B, base en `Feet`; g..j son a, b, c y f con otro tejado |
+| Casas de lotes de 2×2 a 4×3 (no 3×3) | `props/house_block` + `block_houses` de `data/view.json` | ✔ | `assets/art/buildings/block/house_<c>x<r>_<k>.png`; el lote girado, en espejo |
 | Patios, pozo | `props/yard_*`, `props/well` | ✔ | |
 | Farola | `props/lantern` | ✔ | 32×64 |
 | Barriles, cajas, sacos, carro, banco | `props/barrel`, `crate`, `grain_sack`, `cart`, `bench` | ✔ | |

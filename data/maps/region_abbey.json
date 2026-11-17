@@ -1706,7 +1706,7 @@
    {"kind": "yard", "id": "yard_plot", "at": [1, 7], "site": "workshop_masonry"},
    {"kind": "yard", "id": "yard_plot", "at": [2, 7], "site": "workshop_masonry"},
    {"kind": "yard", "id": "yard_plot", "at": [3, 7], "site": "workshop_masonry"},
-   {"kind": "house", "id": "lot_house_f", "at": [32, 1], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "workshop_tailor"}
+   {"kind": "house", "id": "lot_house_j", "at": [32, 1], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "workshop_tailor"}
   ]
  }
 }

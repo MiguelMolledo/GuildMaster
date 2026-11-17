@@ -1,16 +1,18 @@
 [gd_scene load_steps=2 format=3 uid="uid://cx6rute6hao8n"]
 
-[ext_resource type="Script" uid="uid://dkygvhxtdwref" path="res://game/world/block_view.gd" id="1_block"]
+[ext_resource type="Texture2D" uid="uid://86v0egbvmklc" path="res://assets/art/props/ruin_wall.png" id="1_tex"]
 
 [node name="RuinWall" type="Node2D"]
-editor_description = "A tile of the broken walls of a ruin (data/maps plots, state ruin; 04 §4.9.1). PlotLayer puts one on each edge tile of the ruin, each of its own height (RUIN_HEIGHTS). Greybox until its sprite."
+editor_description = "A tile of the broken walls of a ruin (data/maps plots, state ruin; 04 §4.9.1). PlotLayer puts one on each edge tile of the ruin and picks its frame (low, middle, tall stump) from RUIN_HEIGHTS by the tile's hash. Art: tools/art/fal_ciudad2d.py (ciudad-2d)."
 
 [node name="Feet" type="Marker2D" parent="."]
 
 [node name="Top" type="Marker2D" parent="."]
-position = Vector2(0, -18)
+position = Vector2(0, -40)
 
-[node name="Greybox" type="Node2D" parent="."]
-script = ExtResource("1_block")
-height = 18.0
-color = Color(0.56, 0.5, 0.43, 1)
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_tex")
+centered = false
+offset = Vector2(-18, -44)
+hframes = 3

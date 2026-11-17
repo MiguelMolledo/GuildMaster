@@ -1,16 +1,17 @@
 [gd_scene load_steps=2 format=3 uid="uid://dx63iaetxxijn"]
 
-[ext_resource type="Script" uid="uid://dkygvhxtdwref" path="res://game/world/block_view.gd" id="1_block"]
+[ext_resource type="Texture2D" uid="uid://c2ytnteqr0mn4" path="res://assets/art/props/plot_ground.png" id="1_tex"]
 
 [node name="PlotGround" type="Node2D"]
-editor_description = "A tile of a free lot (data/maps plots, state lot; 04 §4.9.1): bare trodden ground. PlotLayer puts it on each tile of the lot, on the ground layer. Greybox until its sprite."
+editor_description = "A tile of a free lot (data/maps plots, state lot; 04 §4.9.1): bare trodden ground. PlotLayer puts it on each tile of the lot, on the ground layer. Art: tools/art/suelos_materiales.py (ciudad-2d)."
 
 [node name="Feet" type="Marker2D" parent="."]
 
 [node name="Top" type="Marker2D" parent="."]
 position = Vector2(0, -1)
 
-[node name="Greybox" type="Node2D" parent="."]
-script = ExtResource("1_block")
-height = 1.0
-color = Color(0.55, 0.42, 0.27, 1)
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_tex")
+centered = false
+offset = Vector2(-32, -16)

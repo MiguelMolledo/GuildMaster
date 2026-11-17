@@ -1,16 +1,18 @@
 [gd_scene load_steps=2 format=3 uid="uid://do75xaurqd2pe"]
 
-[ext_resource type="Script" uid="uid://dkygvhxtdwref" path="res://game/world/block_view.gd" id="1_block"]
+[ext_resource type="Texture2D" uid="uid://bey4jjutt07nt" path="res://assets/art/props/ruin_rubble.png" id="1_tex"]
 
 [node name="RuinRubble" type="Node2D"]
-editor_description = "A tile of rubble inside a ruin (data/maps plots, state ruin; 04 §4.9.1): the fallen roof. Greybox until its sprite."
+editor_description = "A tile of rubble inside a ruin (data/maps plots, state ruin; 04 §4.9.1): the fallen roof. PlotLayer picks one of its two frames by the tile's hash. Art: tools/art/fal_ciudad2d.py (ciudad-2d)."
 
 [node name="Feet" type="Marker2D" parent="."]
 
 [node name="Top" type="Marker2D" parent="."]
-position = Vector2(0, -4)
+position = Vector2(0, -14)
 
-[node name="Greybox" type="Node2D" parent="."]
-script = ExtResource("1_block")
-height = 4.0
-color = Color(0.4, 0.36, 0.31, 1)
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_tex")
+centered = false
+offset = Vector2(-21, -16)
+hframes = 2

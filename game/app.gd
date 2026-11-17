@@ -21,6 +21,7 @@ extends Node
 ## H8: the group portraits select (HUD select_requested); the ending screen shows the dynasty score (Game Over);
 ## --smoke-script=familia: the family tree, the routine editor and the Game Over captures.
 ## --smoke-script=arte: the town's art (trees, river and bridge, a block, the plaza), camera on each place.
+## --smoke-script=suelos: the ground and facades of town_e and the capital, noon and dusk, HUD hidden (art passes).
 ## --smoke-script=mapa [--smoke-maps=<scenario,...>]: a whole town (plaza, centre, quarters), the town builder's check.
 ## H7: --smoke-script=ciudad: the plaza at dusk, the town at night, a townsperson's sheet, a microevent card and a
 ## customer at the counter.
@@ -64,6 +65,7 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"mercado": "res://game/smoke/smoke_mercado.gd", "empleados": "res://game/smoke/smoke_empleados.gd",
 	"mejoras": "res://game/smoke/smoke_mejoras.gd", "rebanada": "res://game/smoke/smoke_rebanada.gd",
 	"familia": "res://game/smoke/smoke_familia.gd", "arte": "res://game/smoke/smoke_arte.gd",
+	"suelos": "res://game/smoke/smoke_suelos.gd",
 	"ciudad": "res://game/smoke/smoke_ciudad.gd", "titulos": "res://game/smoke/smoke_titulos.gd",
 	"cargos": "res://game/smoke/smoke_cargos.gd", "tribunal": "res://game/smoke/smoke_tribunal.gd",
 	"escala": "res://game/smoke/smoke_escala.gd", "ia_familiar": "res://game/smoke/smoke_ia_familiar.gd",

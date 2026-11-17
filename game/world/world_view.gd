@@ -675,6 +675,7 @@ func _add_decor(decor: Dictionary, filler: Dictionary, owned: Dictionary) -> int
 			if id == BLOCK_HOUSE:
 				var hb := VisualPaths.instantiate("props", id)
 				_size_block(hb, Vector2i(int(size[0]), int(size[1])), str(it.get("color", "")), float(it.get("height", 0)))
+				_dress_block(hb, Vector2i(int(size[0]), int(size[1])), tiles[0])
 				VisualPaths.place(hb, _centre_of(tiles))
 				objects().add_child(hb)
 				for t: Vector2i in tiles:
@@ -745,6 +746,44 @@ func _size_block(p: Node2D, foot: Vector2i, color: String, height: float) -> voi
 			top.position.y = -height
 	if g.has_method("apply_footprint"):
 		g.call("apply_footprint", foot)
+
+
+## A filler house of any lot size but 3x3 with its art (data/view.json "block_houses": "<cols>x<rows>" -> ids of
+## assets/art/buildings/block/<id>.png, tools/art/fal_casas_bloque.py): one of the looks of its lot size, picked by
+## its first tile (the same every game), the lot turned the other way (3x2 for a 2x3) with the mirrored sprite. The
+## sprite fills the lot, its base on the lot's bottom corner; the greybox block stays hidden under it. A lot size
+## without art keeps the block.
+func _dress_block(hb: Node2D, foot: Vector2i, at: Vector2i) -> void:
+	var cfg: Dictionary = ViewConfig.value("block_houses", {})
+	var key := "%dx%d" % [foot.x, foot.y]
+	var flip := false
+	if not cfg.has(key):
+		key = "%dx%d" % [foot.y, foot.x]
+		flip = true
+	var ids: Array = cfg.get(key, []) if cfg.get(key) is Array else []
+	if ids.is_empty():
+		return
+	var id := str(ids[absi(at.x * 7349 + at.y * 3917) % ids.size()])
+	var path := "%s/buildings/block/%s.png" % [VisualPaths.ART_ROOT, id]
+	if not ResourceLoader.exists(path):
+		return
+	var tex := load(path) as Texture2D
+	var spr := Sprite2D.new()
+	spr.name = "Sprite"
+	spr.texture = tex
+	spr.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	spr.centered = false
+	var base := float(foot.x + foot.y) * Iso.TILE_H / 4.0  # the lot's bottom corner below its centre
+	spr.offset = Vector2(-floorf(tex.get_width() / 2.0), base - tex.get_height())
+	spr.flip_h = flip
+	hb.add_child(spr)
+	var g := hb.get_node_or_null("Greybox") as Node2D
+	if g != null:
+		g.visible = false
+	var top := hb.get_node_or_null("Top") as Node2D
+	if top != null:
+		top.position.y = base - tex.get_height()
+	ViewConfig.info("WorldView", "block house %s at %s: %s%s" % [key, at, id, " (mirrored)" if flip else ""])
 
 
 func _centre_of(tiles: Array) -> Vector2:

@@ -10144,9 +10144,9 @@
         "manzanas"
       ],
       "ruta": "assets/art/props/furrows.png",
-      "origen": "guild-renew",
+      "origen": "procedural (tools/art/suelos_materiales.py garden_bed), ciudad-2d",
       "coste_gen": 0,
-      "notas": "Surcos de huerto (casilla 64×32): guild:assets/sprites/tiles/test_tiles_pro_diamond/tile_15.png. Patios yard_plot*."
+      "notas": "Bancal de huerto de una casilla: caballones de tierra labrada con coles y puerros, transparente alrededor (antes: rombo de hierba lima con dos surcos de Guild Renew)."
     },
     {
       "id": "prop_tree",
@@ -15158,7 +15158,7 @@
     {
       "id": "prop_house_block",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "ciudades2",
         "region_capital",
@@ -19145,6 +19145,563 @@
       "coste_gen": 0,
       "coste_usd": 0.25,
       "notas": "H12.2: el Banco (3×4, en el solar de la forja del jugador), de piedra con tejado de pizarra, el cartel de la moneda; bank_construction.png y bank_damaged.png. En game/visuals/buildings/bank.tscn. Para PixelLab (15-nov): sin los escudos apoyados que hereda de la armería, y la de espaldas."
+    },
+    {
+     "id": "tile_ground_grass",
+     "tipo": "tile",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/tiles/ground/grass.png",
+     "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
+     "coste_gen": 0,
+     "notas": "Material del suelo sin rejilla (data/view.json ground_shader): 512×256, se repite cada 8×8 casillas con la posición del mundo. hierba con matas, briznas y alguna flor."
+    },
+    {
+     "id": "tile_ground_street",
+     "tipo": "tile",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/tiles/ground/street.png",
+     "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
+     "coste_gen": 0,
+     "notas": "Material del suelo sin rejilla (data/view.json ground_shader): 512×256, se repite cada 8×8 casillas con la posición del mundo. adoquín de calle (Voronoi en el espacio de la casilla, luz arriba a la izquierda, juntas con musgo)."
+    },
+    {
+     "id": "tile_ground_plaza",
+     "tipo": "tile",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/tiles/ground/plaza.png",
+     "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
+     "coste_gen": 0,
+     "notas": "Material del suelo sin rejilla (data/view.json ground_shader): 512×256, se repite cada 8×8 casillas con la posición del mundo. losas de plaza en hileras escalonadas, bisel con la luz, grietas."
+    },
+    {
+     "id": "tile_ground_dirt",
+     "tipo": "tile",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/tiles/ground/dirt.png",
+     "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
+     "coste_gen": 0,
+     "notas": "Material del suelo sin rejilla (data/view.json ground_shader): 512×256, se repite cada 8×8 casillas con la posición del mundo. tierra pisada con terrones, guijarros y grietas."
+    },
+    {
+     "id": "tile_ground_yard",
+     "tipo": "tile",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/tiles/ground/yard.png",
+     "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
+     "coste_gen": 0,
+     "notas": "Material del suelo sin rejilla (data/view.json ground_shader): 512×256, se repite cada 8×8 casillas con la posición del mundo. patio de casa: hierba pisada con calvas de tierra."
+    },
+    {
+     "id": "tile_ground_water",
+     "tipo": "tile",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/tiles/ground/water.png",
+     "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
+     "coste_gen": 0,
+     "notas": "Material del suelo sin rejilla (data/view.json ground_shader): 512×256, se repite cada 8×8 casillas con la posición del mundo. agua del río con ondas (el shader la desplaza despacio)."
+    },
+    {
+     "id": "tile_ground_noise",
+     "tipo": "tile",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/tiles/ground/noise.png",
+     "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
+     "coste_gen": 0,
+     "notas": "Ruido de bordes del shader del suelo (4 canales, 64×64, periódico): bordes orgánicos entre materiales."
+    },
+    {
+     "id": "tile_decal_puddle",
+     "tipo": "tile",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/tiles/ground/decals/puddle.png",
+     "origen": "fal: nano-banana-2/edit, rejilla «suelo» (ref: 6 props del juego ×4) + pixelado local (tools/art/fal_ciudad2d.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.02,
+     "notas": "Detalle suelto del suelo (charco), repartido por casilla según ground_shader.decals."
+    },
+    {
+     "id": "tile_decal_stones",
+     "tipo": "tile",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/tiles/ground/decals/stones.png",
+     "origen": "fal: nano-banana-2/edit, rejilla «suelo» (ref: 6 props del juego ×4) + pixelado local (tools/art/fal_ciudad2d.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.02,
+     "notas": "Detalle suelto del suelo (piedras sueltas), repartido por casilla según ground_shader.decals."
+    },
+    {
+     "id": "tile_decal_weeds",
+     "tipo": "tile",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/tiles/ground/decals/weeds.png",
+     "origen": "fal: nano-banana-2/edit, rejilla «suelo» (ref: 6 props del juego ×4) + pixelado local (tools/art/fal_ciudad2d.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.02,
+     "notas": "Detalle suelto del suelo (hierbajo), repartido por casilla según ground_shader.decals."
+    },
+    {
+     "id": "tile_decal_straw",
+     "tipo": "tile",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/tiles/ground/decals/straw.png",
+     "origen": "fal: nano-banana-2/edit, rejilla «suelo» (ref: 6 props del juego ×4) + pixelado local (tools/art/fal_ciudad2d.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.02,
+     "notas": "Detalle suelto del suelo (paja suelta), repartido por casilla según ground_shader.decals."
+    },
+    {
+     "id": "prop_ruin_wall",
+     "tipo": "prop",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/props/ruin_wall.png",
+     "origen": "fal: nano-banana-2/edit, rejilla «ruina» (ref: 6 props del juego ×4) + pixelado local (tools/art/fal_ciudad2d.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.06,
+     "notas": "Muros rotos de la parcela en ruinas: tira de 3 fotogramas (bajo, medio, alto); PlotLayer elige por la altura de RUIN_HEIGHTS. Antes greybox."
+    },
+    {
+     "id": "prop_ruin_rubble",
+     "tipo": "prop",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/props/ruin_rubble.png",
+     "origen": "fal: nano-banana-2/edit, rejilla «ruina» + pixelado local (tools/art/fal_ciudad2d.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.02,
+     "notas": "Escombro de la ruina (tejas, piedras), 2 fotogramas (el segundo, espejo); PlotLayer elige por hash. Antes greybox."
+    },
+    {
+     "id": "prop_plot_ground",
+     "tipo": "prop",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/props/plot_ground.png",
+     "origen": "procedural (tools/art/suelos_materiales.py), paleta de los tiles del piloto de PixelLab (tanda ciudad2d) y de la biblia",
+     "coste_gen": 0,
+     "notas": "Suelo del solar libre (64×32): tierra pisada de borde mordido. Antes greybox."
+    },
+    {
+     "id": "prop_plot_stake",
+     "tipo": "prop",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/props/plot_stake.png",
+     "origen": "Pillow (tools/art/suelos_materiales.py)",
+     "coste_gen": 0,
+     "notas": "Estaca de esquina del solar con cinta blanca (5×16). Antes greybox."
+    },
+    {
+     "id": "bld_stall_apothecary",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/buildings/stall_apothecary.png",
+     "origen": "fal: nano-banana-2/edit, rejilla «botica» (ref: los 5 puestos del juego ×4) + pixelado local (tools/art/fal_ciudad2d.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.08,
+     "notas": "Puesto del boticario (64×72, toldo verde y crema, botes y hierbas). Antes salía el genérico magenta."
+    },
+    {
+     "id": "bld_house_g",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/buildings/escala_b/house_g.png",
+     "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
+     "coste_gen": 0,
+     "notas": "Variante de house_c con tejado de pizarra azul (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_g.tscn."
+    },
+    {
+     "id": "bld_house_g_back",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/buildings/escala_b/house_g_back.png",
+     "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
+     "coste_gen": 0,
+     "notas": "Variante de house_c_back con tejado de pizarra azul (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_g_back.tscn."
+    },
+    {
+     "id": "bld_house_h",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/buildings/escala_b/house_h.png",
+     "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
+     "coste_gen": 0,
+     "notas": "Variante de house_a con tejado de teja parda (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_h.tscn."
+    },
+    {
+     "id": "bld_house_h_back",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/buildings/escala_b/house_h_back.png",
+     "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
+     "coste_gen": 0,
+     "notas": "Variante de house_a_back con tejado de teja parda (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_h_back.tscn."
+    },
+    {
+     "id": "bld_house_i",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/buildings/escala_b/house_i.png",
+     "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
+     "coste_gen": 0,
+     "notas": "Variante de house_b con tejado de pizarra morada (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_i.tscn."
+    },
+    {
+     "id": "bld_house_i_back",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/buildings/escala_b/house_i_back.png",
+     "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
+     "coste_gen": 0,
+     "notas": "Variante de house_b_back con tejado de pizarra morada (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_i_back.tscn."
+    },
+    {
+     "id": "bld_house_j",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/buildings/escala_b/house_j.png",
+     "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
+     "coste_gen": 0,
+     "notas": "Variante de house_f con tejado de teja roja (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_j.tscn."
+    },
+    {
+     "id": "bld_house_j_back",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "suelos"
+     ],
+     "ruta": "assets/art/buildings/escala_b/house_j_back.png",
+     "origen": "Pillow (tools/art/ciudad_casas.py roofs)",
+     "coste_gen": 0,
+     "notas": "Variante de house_f_back con tejado de teja roja (mismo lienzo, ancla y puerta). Escena game/visuals/props/lot_house_j_back.tscn."
+    },
+    {
+     "id": "bld_block_2x2_1",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "ciudades2",
+      "region_capital",
+      "region_port",
+      "region_quarry"
+     ],
+     "ruta": "assets/art/buildings/block/house_2x2_1.png",
+     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.08,
+     "notas": "Casa de relleno de lote 2x2 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+    },
+    {
+     "id": "bld_block_2x2_2",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "ciudades2",
+      "region_capital",
+      "region_port",
+      "region_quarry"
+     ],
+     "ruta": "assets/art/buildings/block/house_2x2_2.png",
+     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.08,
+     "notas": "Casa de relleno de lote 2x2 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+    },
+    {
+     "id": "bld_block_2x2_3",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "ciudades2",
+      "region_capital",
+      "region_port",
+      "region_quarry"
+     ],
+     "ruta": "assets/art/buildings/block/house_2x2_3.png",
+     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.08,
+     "notas": "Casa de relleno de lote 2x2 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+    },
+    {
+     "id": "bld_block_2x2_4",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "ciudades2",
+      "region_capital",
+      "region_port",
+      "region_quarry"
+     ],
+     "ruta": "assets/art/buildings/block/house_2x2_4.png",
+     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.08,
+     "notas": "Casa de relleno de lote 2x2 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+    },
+    {
+     "id": "bld_block_2x3_1",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "ciudades2",
+      "region_capital",
+      "region_port",
+      "region_quarry"
+     ],
+     "ruta": "assets/art/buildings/block/house_2x3_1.png",
+     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.08,
+     "notas": "Casa de relleno de lote 2x3 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+    },
+    {
+     "id": "bld_block_2x3_2",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "ciudades2",
+      "region_capital",
+      "region_port",
+      "region_quarry"
+     ],
+     "ruta": "assets/art/buildings/block/house_2x3_2.png",
+     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.08,
+     "notas": "Casa de relleno de lote 2x3 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+    },
+    {
+     "id": "bld_block_2x3_3",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "ciudades2",
+      "region_capital",
+      "region_port",
+      "region_quarry"
+     ],
+     "ruta": "assets/art/buildings/block/house_2x3_3.png",
+     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.08,
+     "notas": "Casa de relleno de lote 2x3 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+    },
+    {
+     "id": "bld_block_2x3_4",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "ciudades2",
+      "region_capital",
+      "region_port",
+      "region_quarry"
+     ],
+     "ruta": "assets/art/buildings/block/house_2x3_4.png",
+     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.08,
+     "notas": "Casa de relleno de lote 2x3 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+    },
+    {
+     "id": "bld_block_2x4_1",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "ciudades2",
+      "region_capital",
+      "region_port",
+      "region_quarry"
+     ],
+     "ruta": "assets/art/buildings/block/house_2x4_1.png",
+     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.08,
+     "notas": "Casa de relleno de lote 2x4 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+    },
+    {
+     "id": "bld_block_2x4_2",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "ciudades2",
+      "region_capital",
+      "region_port",
+      "region_quarry"
+     ],
+     "ruta": "assets/art/buildings/block/house_2x4_2.png",
+     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.08,
+     "notas": "Casa de relleno de lote 2x4 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+    },
+    {
+     "id": "bld_block_2x4_3",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "ciudades2",
+      "region_capital",
+      "region_port",
+      "region_quarry"
+     ],
+     "ruta": "assets/art/buildings/block/house_2x4_3.png",
+     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.08,
+     "notas": "Casa de relleno de lote 2x4 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+    },
+    {
+     "id": "bld_block_3x4_1",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "ciudades2",
+      "region_capital",
+      "region_port",
+      "region_quarry"
+     ],
+     "ruta": "assets/art/buildings/block/house_3x4_1.png",
+     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.08,
+     "notas": "Casa de relleno de lote 3x4 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+    },
+    {
+     "id": "bld_block_3x4_2",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "ciudades2",
+      "region_capital",
+      "region_port",
+      "region_quarry"
+     ],
+     "ruta": "assets/art/buildings/block/house_3x4_2.png",
+     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.08,
+     "notas": "Casa de relleno de lote 3x4 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
+    },
+    {
+     "id": "bld_block_3x4_3",
+     "tipo": "edificio",
+     "estado": "sprite",
+     "para": [
+      "ciudad-2d",
+      "ciudades2",
+      "region_capital",
+      "region_port",
+      "region_quarry"
+     ],
+     "ruta": "assets/art/buildings/block/house_3x4_3.png",
+     "origen": "fal: nano-banana-2/edit sobre maqueta gris a escala B del lote (tools/art/escala.py house) + 3 casas del juego de estilo; pixelado local (tools/art/fal_casas_bloque.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.08,
+     "notas": "Casa de relleno de lote 3x4 de las ciudades orgánicas (data/view.json block_houses); el lote girado usa el espejo. Sustituye al bloque greybox de house_block."
     }
   ]
 }

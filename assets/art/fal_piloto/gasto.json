@@ -22766,5 +22766,212 @@
   "imagenes": 1,
   "usd": 0.0008,
   "que": "image2pixel p2_lockpicks_s16.png"
+ },
+ {
+  "fecha": "2026-11-17T03:14:19",
+  "tanda": "ciudad2d",
+  "pieza": "suelos",
+  "modelo": "fal-ai/z-image/turbo/tiling",
+  "imagenes": 1,
+  "usd": 0.021,
+  "que": "pil_cobble"
+ },
+ {
+  "fecha": "2026-11-17T03:14:19",
+  "tanda": "ciudad2d",
+  "pieza": "suelos",
+  "modelo": "fal-ai/z-image/turbo/tiling",
+  "imagenes": 1,
+  "usd": 0.021,
+  "que": "pil_flag"
+ },
+ {
+  "fecha": "2026-11-17T03:14:19",
+  "tanda": "ciudad2d",
+  "pieza": "suelos",
+  "modelo": "fal-ai/z-image/turbo/tiling",
+  "imagenes": 1,
+  "usd": 0.021,
+  "que": "pil_grass"
+ },
+ {
+  "fecha": "2026-11-17T03:14:28",
+  "tanda": "ciudad2d",
+  "pieza": "suelos",
+  "modelo": "fal-ai/z-image/turbo/tiling",
+  "imagenes": 1,
+  "usd": 0.021,
+  "que": "pil_dirt"
+ },
+ {
+  "fecha": "2026-11-17T03:28:23",
+  "tanda": "ciudad2d",
+  "pieza": "ciudad2d",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ruina"
+ },
+ {
+  "fecha": "2026-11-17T03:28:38",
+  "tanda": "ciudad2d",
+  "pieza": "ciudad2d",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "suelo"
+ },
+ {
+  "fecha": "2026-11-17T03:39:03",
+  "tanda": "ciudad2d",
+  "pieza": "ciudad2d",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "botica"
+ },
+ {
+  "fecha": "2026-11-17T03:58:01",
+  "tanda": "ciudad2d",
+  "pieza": "ciudad2d_bloque",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x2_1"
+ },
+ {
+  "fecha": "2026-11-17T03:58:16",
+  "tanda": "ciudad2d",
+  "pieza": "ciudad2d_bloque",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x2_2"
+ },
+ {
+  "fecha": "2026-11-17T03:58:30",
+  "tanda": "ciudad2d",
+  "pieza": "ciudad2d_bloque",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x2_3"
+ },
+ {
+  "fecha": "2026-11-17T03:58:47",
+  "tanda": "ciudad2d",
+  "pieza": "ciudad2d_bloque",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x3_1"
+ },
+ {
+  "fecha": "2026-11-17T03:59:02",
+  "tanda": "ciudad2d",
+  "pieza": "ciudad2d_bloque",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x3_2"
+ },
+ {
+  "fecha": "2026-11-17T03:59:17",
+  "tanda": "ciudad2d",
+  "pieza": "ciudad2d_bloque",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x3_3"
+ },
+ {
+  "fecha": "2026-11-17T03:59:31",
+  "tanda": "ciudad2d",
+  "pieza": "ciudad2d_bloque",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x4_1"
+ },
+ {
+  "fecha": "2026-11-17T03:59:49",
+  "tanda": "ciudad2d",
+  "pieza": "ciudad2d_bloque",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x4_2"
+ },
+ {
+  "fecha": "2026-11-17T04:00:04",
+  "tanda": "ciudad2d",
+  "pieza": "ciudad2d_bloque",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x4_3"
+ },
+ {
+  "fecha": "2026-11-17T04:00:21",
+  "tanda": "ciudad2d",
+  "pieza": "ciudad2d_bloque",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_3x4_1"
+ },
+ {
+  "fecha": "2026-11-17T04:00:36",
+  "tanda": "ciudad2d",
+  "pieza": "ciudad2d_bloque",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_3x4_2"
+ },
+ {
+  "fecha": "2026-11-17T04:00:52",
+  "tanda": "ciudad2d",
+  "pieza": "ciudad2d_bloque",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_3x4_3"
+ },
+ {
+  "fecha": "2026-11-17T04:03:13",
+  "tanda": "ciudad2d",
+  "pieza": "ciudad2d_bloque",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x2_3"
+ },
+ {
+  "fecha": "2026-11-17T04:03:29",
+  "tanda": "ciudad2d",
+  "pieza": "ciudad2d_bloque",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x2_4"
+ },
+ {
+  "fecha": "2026-11-17T04:03:44",
+  "tanda": "ciudad2d",
+  "pieza": "ciudad2d_bloque",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x3_3"
+ },
+ {
+  "fecha": "2026-11-17T04:04:00",
+  "tanda": "ciudad2d",
+  "pieza": "ciudad2d_bloque",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_2x3_4"
  }
 ]

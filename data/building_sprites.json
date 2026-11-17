@@ -39,6 +39,14 @@
     "props/lot_house_e": {"footprint": [3, 3], "door": {"side": "SW", "tile": [1, 3], "px": [-29, 18]}, "mirror": true, "back": "lot_house_e_back", "front": ""},
     "props/lot_house_e_back": {"footprint": [3, 3], "door": {"side": "NE", "tile": [1, -1], "px": [29, -18]}, "mirror": true, "back": "", "front": "lot_house_e"},
     "props/lot_house_f": {"footprint": [3, 3], "door": {"side": "SW", "tile": [1, 3], "px": [-42, 15]}, "mirror": true, "back": "lot_house_f_back", "front": ""},
-    "props/lot_house_f_back": {"footprint": [3, 3], "door": {"side": "NE", "tile": [1, -1], "px": [42, -15]}, "mirror": true, "back": "", "front": "lot_house_f"}
+    "props/lot_house_f_back": {"footprint": [3, 3], "door": {"side": "NE", "tile": [1, -1], "px": [42, -15]}, "mirror": true, "back": "", "front": "lot_house_f"},
+    "props/lot_house_g": {"footprint": [3, 3], "door": {"side": "SW", "tile": [1, 3], "px": [-42, 15]}, "mirror": true, "back": "lot_house_g_back", "front": ""},
+    "props/lot_house_g_back": {"footprint": [3, 3], "door": {"side": "NE", "tile": [1, -1], "px": [42, -15]}, "mirror": true, "back": "", "front": "lot_house_g"},
+    "props/lot_house_h": {"footprint": [3, 3], "door": {"side": "SW", "tile": [1, 3], "px": [-29, 18]}, "mirror": true, "back": "lot_house_h_back", "front": ""},
+    "props/lot_house_h_back": {"footprint": [3, 3], "door": {"side": "NE", "tile": [1, -1], "px": [29, -18]}, "mirror": true, "back": "", "front": "lot_house_h"},
+    "props/lot_house_i": {"footprint": [3, 3], "door": {"side": "SW", "tile": [1, 3], "px": [-25, 13]}, "mirror": true, "back": "lot_house_i_back", "front": ""},
+    "props/lot_house_i_back": {"footprint": [3, 3], "door": {"side": "NE", "tile": [1, -1], "px": [25, -13]}, "mirror": true, "back": "", "front": "lot_house_i"},
+    "props/lot_house_j": {"footprint": [3, 3], "door": {"side": "SW", "tile": [1, 3], "px": [-42, 15]}, "mirror": true, "back": "lot_house_j_back", "front": ""},
+    "props/lot_house_j_back": {"footprint": [3, 3], "door": {"side": "NE", "tile": [1, -1], "px": [42, -15]}, "mirror": true, "back": "", "front": "lot_house_j"}
   }
 }

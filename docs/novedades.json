@@ -1,5 +1,20 @@
 [
   {
+    "fecha": "2026-11-17",
+    "titulo": "Ciudad 2D · suelos sin rejilla, río con orilla, ruinas con arte y tejados de colores",
+    "que": "El suelo del pueblo deja de ser un mosaico de rombos: la hierba, el adoquín de las calles, las losas de la plaza, la tierra de los caminos y los patios se pintan como superficies continuas (no se ve la casilla ni la misma casilla repetida), con bordes que serpentean entre calle, tierra y hierba, un bordillo oscuro de 1 px en la calle y la plaza, y las calles en diagonal como cintas. La plaza es de losas grandes de arenisca y las calles de cantos rodados con musgo en las juntas. El río tiene agua con ondas que se mueven despacio, orilla irregular, talud de tierra en la orilla del fondo y espuma en la de delante; los muelles, tablas. Detalle suelto: charcos, piedras, hierbajos y paja en calles, plaza y caminos. Los huertos son bancales con coles y puerros (antes, manchas marrones sobre hierba lima); la parcela en ruinas tiene muros rotos de tres alturas y escombro de tejas, y el solar libre, tierra pisada con estacas (antes, bloques grises). El puesto del Boticario tiene su toldo verde y botes (antes, un cubo magenta). En las casas, la hierba lima horneada al pie de algunos edificios pasa a la hierba nueva, la casa ocre y la del tejado rosado se templan, y hay cuatro casas de relleno nuevas con tejado de pizarra azul, pizarra morada, teja parda y teja roja repartidas por los diez mapas. En la capital, el puerto y la cantera, las 108 cajas de color de las casas de lotes de 2×2 a 4×3 son ya casas adosadas de entramado, piedra con pizarra, ocre con balcón o encaladas (14 casas en 4 tamaños; el lote girado usa el espejo). Siguen en bloque gris los hitos (catedral, aduana, torres y muralla).",
+    "como_probar": "jugar.command y mirar el pueblo y la capital (de día y al atardecer). Capturas antes/después con la misma cámara: grimoire heavy --timeout 5m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=suelos (reports/shots/suelos_*.png). Pruebas: -s tests/run_tests.gd -- --only=test_arte. Ajustes en data/view.json ground_shader (enabled: false vuelve al suelo de antes).",
+    "capturas": [
+      "docs/novedades/ciudad2d_antes_despues.png",
+      "docs/novedades/ciudad2d_pueblo_dia.png",
+      "docs/novedades/ciudad2d_plaza.png",
+      "docs/novedades/ciudad2d_rio.png",
+      "docs/novedades/ciudad2d_capital.png",
+      "docs/novedades/ciudad2d_capital_antes_despues.png",
+      "docs/novedades/ciudad2d_pueblo_tarde.png"
+    ]
+  },
+  {
     "fecha": "2026-11-07",
     "titulo": "H12 · El Pícaro: el Espía, y la Guarida con fachada",
     "que": "Segunda profesión del Pícaro: en Partida nueva, el botón Espía (Elvira Sabater, Sigilo 7, la misma deuda que la forja), en la misma Guarida de ladrones, que ya tiene su fachada (una casa venida a menos con los postigos cerrados y la trampilla del sótano). En el panel de cualquier edificio de otra familia sale «Espiar», con cuántas de cada 100 vuelves con un informe: te quedas dos horas junto a su puerta (de noche la guardia puede pillarte merodeando). El informe dice cuánto oro tiene esa familia, qué guarda en su almacén y sus secretos: un libro doble, contrabando o, en algunas casas del pueblo, un adulterio. En la mesa del perista de tu Guarida aparecen los encargos de espionaje («un informe de los Roca, 55»): espías a esa familia y lo entregas. Y tus secretos: chantajear (una vez por estación; quien paga calla, quien no puede ir a la guardia) o destaparlo para que lo sepa toda la villa. El bot del espía gana 41 de oro netos al día en Normal (Fácil 45 > Normal 41 > Difícil 32) y salda la deuda. Las ganzúas ya tienen icono.",

@@ -100,6 +100,9 @@ func _ruin(p: Dictionary, filler: Dictionary) -> int:
 		var wall := edge and hsh % GAP_EVERY != 0  # a broken wall has gaps: rubble where it fell
 		var rubble := VisualPaths.instantiate("props", "ruin_rubble")
 		rubble.name = "ruin_rubble_%d_%d" % [t.x, t.y]
+		var rs := rubble.get_node_or_null("Sprite") as Sprite2D
+		if rs != null and rs.hframes > 1:
+			rs.frame = hsh % rs.hframes
 		VisualPaths.place(rubble, Iso.tile_to_world(t))
 		world.objects().add_child(rubble)
 		n += 1
@@ -109,6 +112,14 @@ func _ruin(p: Dictionary, filler: Dictionary) -> int:
 		var piece := VisualPaths.instantiate("props", "ruin_wall")
 		piece.name = "ruin_wall_%d_%d" % [t.x, t.y]
 		var h: float = RUIN_HEIGHTS[hsh % RUIN_HEIGHTS.size()]
+		var sp := piece.get_node_or_null("Sprite") as Sprite2D
+		if sp != null:  # art: a frame per height band (low, middle, tall stump), never scaled (one pixel density)
+			sp.frame = clampi(int((h - 8.0) / 7.0), 0, sp.hframes - 1)
+			VisualPaths.place(piece, Iso.tile_to_world(t))
+			world.objects().add_child(piece)
+			(world.get("_props") as Dictionary)[t] = piece
+			n += 1
+			continue
 		piece.scale = Vector2(WALL_SCALE, WALL_SCALE)
 		var g := piece.get_node_or_null("Greybox")
 		if g != null:

@@ -52,6 +52,41 @@
       "dirt": ["grass", "field"]
     }
   },
+  "block_houses": {
+    "_doc": "WorldView._dress_block: the art of the filler houses of any lot size but 3x3 (tools/city/organic.py, decor id house_block): \"<cols>x<rows>\" -> ids of assets/art/buildings/block/<id>.png (tools/art/fal_casas_bloque.py). Each lot takes one by its first tile (the same every game); a lot turned the other way (3x2 for a 2x3) takes the mirrored sprite. A size not listed keeps the greybox block of its district's colour.",
+    "2x2": ["house_2x2_1", "house_2x2_2", "house_2x2_3", "house_2x2_4"],
+    "2x3": ["house_2x3_1", "house_2x3_2", "house_2x3_3", "house_2x3_4"],
+    "2x4": ["house_2x4_1", "house_2x4_2", "house_2x4_3"],
+    "3x4": ["house_3x4_1", "house_3x4_2", "house_3x4_3"]
+  },
+  "ground_shader": {
+    "_doc": "GroundLayer + game/world/ground.gdshader (ciudad-2d): the ground painted per pixel instead of tile by tile. materials: `texture` = a world material (assets/art/tiles/<texture>.png, repeats every 64*N x 32*N px with the world position: no tile grid; tools/art/suelos_materiales.py), `tile` = the 64x32 diamond of assets/art/tiles/<tile>.png per tile (`seasonal`: <tile>_<season>.png), none = the greybox colour. Soft materials blend between the 4 nearest tiles with per-material noise (edge_noise: how ragged; noise_tiles: tiles per noise period) and `priority` (the higher wins ties and gets the curb); `hard` ones keep their exact diamond. curb: how much darker the 1 px rim of a paved material is where it meets a lower one. water: a water material (soft, lowest priority): the far shore shows a 3 px bank face (bank_colors 0-2) and the near one a line of foam (bank_colors 3); drift: px per second its texture moves. skip_edges: edge kinds of ground_edges not drawn over the shader (its bank replaces the river's). kinds: tile kind -> material (kinds not listed: their greybox colour, hard). decals: kind -> [{art: assets/art/tiles/ground/decals/<art>.png, chance per tile}]. enabled false = the per-tile drawing (ground_corners).",
+    "enabled": true,
+    "edge_noise": 0.22,
+    "noise_tiles": 3.0,
+    "materials": {
+      "grass": {"texture": "ground/grass", "priority": 1},
+      "yard": {"texture": "ground/yard", "priority": 1.5},
+      "field": {"tile": "field", "seasonal": true, "priority": 2},
+      "dirt": {"texture": "ground/dirt", "priority": 3},
+      "street": {"texture": "ground/street", "priority": 4, "curb": 0.38},
+      "plaza": {"texture": "ground/plaza", "priority": 5, "curb": 0.32},
+      "water": {"texture": "ground/water", "priority": 0, "water": true, "drift": 2.5},
+      "bridge": {"tile": "bridge", "hard": true},
+      "dock": {"tile": "bridge", "hard": true}
+    },
+    "kinds": {"grass": "grass", "tree": "grass", "building": "yard", "field": "field", "dirt": "dirt", "street": "street",
+      "plaza": "plaza", "stall": "plaza", "board": "plaza", "water": "water", "bridge": "bridge", "dock": "dock"},
+    "decals": {
+      "street": [{"art": "puddle", "chance": 0.025}, {"art": "weeds", "chance": 0.04}, {"art": "stones", "chance": 0.02}],
+      "plaza": [{"art": "straw", "chance": 0.03}, {"art": "puddle", "chance": 0.015}, {"art": "weeds", "chance": 0.015}],
+      "dirt": [{"art": "puddle", "chance": 0.05}, {"art": "stones", "chance": 0.05}, {"art": "weeds", "chance": 0.04},
+        {"art": "straw", "chance": 0.02}],
+      "grass": [{"art": "stones", "chance": 0.012}]
+    },
+    "skip_edges": ["water"],
+    "bank_colors": ["#6b5038", "#4e3826", "#1c2a33", "#8fbccf"]
+  },
   "map_border": {
     "_doc": "A ring of tiles around the map, outside the playable grid and purely visual (GroundLayer + WorldView._add_border_trees): `ground` everywhere except the kinds of `extend` that reach the map's edge (they carry on outwards: streets, the river); from `fade_from` tiles out it darkens towards `fade_to` (the background). Trees of `trees` (scene ids of game/visuals/props/, weights = repeat) from `tree_from` tiles out, with a chance per tile growing from tree_density[0] to tree_density[1] at the outer edge. tiles = 0 removes the border.",
     "tiles": 9,
@@ -77,7 +112,7 @@
   },
   "filler": {
     "_doc": "How the free building tiles (#) of the map look (WorldView._add_filler): each block is filled with house lots of the first size in lot_sizes ([cols, rows]) that fits, and the tiles left over become yards: each block takes one of yard_themes (vegetable plot, work yard) and each tile one yard of its theme, each at most once per block (the theme's first yard fills the rest). houses / yard_themes / single are scene ids of game/visuals/props/; which one goes where depends only on the tile (the town looks the same every game), weights = repeat an id. mirror flips half of the houses. single = a lone # tile (the plaza's well). Remove this block to go back to one greybox block per tile (props/building.tscn).",
-    "houses": ["lot_house_a", "lot_house_b", "lot_house_c", "lot_house_d", "lot_house_e", "lot_house_f"],
+    "houses": ["lot_house_a", "lot_house_b", "lot_house_c", "lot_house_d", "lot_house_e", "lot_house_f", "lot_house_g", "lot_house_h", "lot_house_i", "lot_house_j"],
     "lot_sizes": [[3, 4], [4, 3], [3, 3]],
     "mirror": true,
     "yard_themes": [
