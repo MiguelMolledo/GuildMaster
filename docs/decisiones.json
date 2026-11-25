@@ -1,6 +1,12 @@
 {
   "tomadas": [
     {
+      "fecha": "2026-11-25",
+      "tema": "GuildMaster pasa a 3D (M3D)",
+      "decision": "El owner decide pasar GuildMaster a 3D a partir de la prueba ~/Code/Prueba3D (master c79c4fb). La rama 2d (0c29e28f) queda como copia congelada del juego 2D y no se toca; la migración se hace en la rama 3d. La vista 3D lee la sim en vivo (sin traza), dentro de las reglas de siempre: sim/ no cambia, game/ dibuja y da órdenes, data/ sin rutas. Plan e hitos M3D-0…M3D-8 en docs/3d/plan.md: las dos vistas conviven con view_mode (data/view.json) hasta portar capturas y flujos; render Forward+; en git solo las piezas del kit que el juego carga.",
+      "por_que": "La prueba 3D dio el pueblo entero a más de 150 fps con clima, sonido, fiestas e interiores que se abren donde están; el 2D queda a salvo en su rama por si el owner se arrepiente."
+    },
+    {
       "fecha": "2026-11-06",
       "tema": "H12 Patrón: la dificultad en el campo (harvest_mult)",
       "decision": "Palanca nueva de data/difficulty.json, harvest_mult: la cosecha rinde ×1,15 en Fácil, ×1 en Normal y ×0,85 en Difícil (la tierra buena o mala), y la pantalla de Partida nueva del Patrón la enseña en lugar de la Artesanía del rival. Las palancas de hoy (deuda, precios de compra, rival herrero) apenas tocan a un granjero que no compra: sin ella, Difícil ganaba más que Normal (el bot vendía antes por la deuda). El bot no vende el rebaño ni la semilla del año siguiente para pagar: si no llega, la prórroga de 4.16.",
