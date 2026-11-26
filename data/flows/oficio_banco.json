@@ -1,0 +1,127 @@
+{
+  "id": "oficio_banco",
+  "title": "Oficio: banco en 3D",
+  "about": "Partida nueva de banquero: entrar en el banco (abierto en sitio), esperar las solicitudes del alba, conceder un préstamo desde el panel del banco y cobrar el primer plazo.",
+  "view": "3d",
+  "start": {
+    "start": "scholar_banker"
+  },
+  "covers": [
+    "enter_building",
+    "grant_loan",
+    "exit_building"
+  ],
+  "steps": [
+    {
+      "id": "entrar",
+      "say": "Clic derecho en el banco: entra",
+      "world": {
+        "own": "bank"
+      },
+      "button": "right",
+      "until": "q.interior() == q.own('bank') and q.location() == q.own('bank')",
+      "timeout": 30,
+      "fast": 4,
+      "expect": [
+        "q.order('enter_building')"
+      ]
+    },
+    {
+      "id": "en_sitio",
+      "say": "La casa se abre en sitio: sus puestos y su gente dentro",
+      "until": "q.in_place3d()",
+      "timeout": 10,
+      "expect": [
+        "q.stations3d() == q.zones()",
+        "q.seen3d()"
+      ]
+    },
+    {
+      "id": "menu_mesa",
+      "say": "Clic derecho en la mesa del banquero",
+      "station": "desk",
+      "button": "right",
+      "expect": [
+        "q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "cerrar_menu",
+      "key": "Escape",
+      "expect": [
+        "not q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "solicitudes",
+      "say": "Espera las solicitudes del alba",
+      "until": "q.applications() > 0",
+      "timeout": 60,
+      "fast": 6
+    },
+    {
+      "id": "panel_banco",
+      "say": "El botón Banco",
+      "click": {
+        "node": "BankButton"
+      },
+      "expect": [
+        "q.visible('BankPanel')"
+      ]
+    },
+    {
+      "id": "conceder",
+      "say": "Conceder la primera solicitud",
+      "click": {
+        "within": {
+          "within": "BankPanel",
+          "prefix": "App_"
+        },
+        "node": "Grant"
+      },
+      "expect": [
+        "q.order('grant_loan')",
+        "q.gold() < q.was('gold')"
+      ]
+    },
+    {
+      "id": "cerrar_panel",
+      "say": "Cerrar el panel",
+      "click": {
+        "node": "BankButton"
+      },
+      "expect": [
+        "not q.visible('BankPanel')"
+      ]
+    },
+    {
+      "id": "velocidad",
+      "say": "Mayús+3: ×4",
+      "key": "@speed_3",
+      "expect": [
+        "q.speed() == 4"
+      ]
+    },
+    {
+      "id": "plazo",
+      "say": "Espera el primer plazo (dos días)",
+      "until": "q.event('installment_paid')",
+      "timeout": 90,
+      "fast": 6
+    },
+    {
+      "id": "velocidad_1",
+      "key": "@speed_1"
+    },
+    {
+      "id": "salir",
+      "say": "Salir",
+      "click": {
+        "node": "ExitButton"
+      },
+      "until": "q.interior() == '' and q.location() == ''",
+      "timeout": 20,
+      "fast": 4
+    }
+  ]
+}

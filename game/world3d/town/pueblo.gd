@@ -213,7 +213,10 @@ func _entries() -> Array:
 	for id in mapd.buildings:
 		var b: Dictionary = mapd.buildings[id]
 		var rank := 0 if String(id).begins_with("player_") else (2 if b.type == "house" else 1)
-		out.append([Vector2i(int(b.origin[0]), int(b.origin[1])), String(b.type), Vector2i(int(b.door[0]), int(b.door[1])), rank, String(id)])
+		var o := Vector2i(int(b.origin[0]), int(b.origin[1]))
+		# a lot several starts share (town_e's player lot: the forge, the clinic, the farm...): what the sim has there
+		var type := String(sim_buildings[o].type) if sim_buildings.has(o) and sim_buildings[o].has("type") else String(b.type)
+		out.append([o, type, Vector2i(int(b.door[0]), int(b.door[1])), rank, String(id)])
 	var hall: Dictionary = mapd.get("town_hall", {})
 	if not hall.is_empty():
 		out.append([Vector2i(int(hall.origin[0]), int(hall.origin[1])), "town_hall",

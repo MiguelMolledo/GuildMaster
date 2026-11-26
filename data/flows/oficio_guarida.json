@@ -1,0 +1,148 @@
+{
+  "id": "oficio_guarida",
+  "title": "Oficio: guarida en 3D",
+  "about": "Partida nueva de ladrón: robar la bolsa a un vecino en la calle, entrar en la guarida (abierta en sitio) y abrir el perista y el banco de blanquear.",
+  "view": "3d",
+  "start": {
+    "start": "rogue_thief",
+    "at": "11:00",
+    "seed": 1
+  },
+  "covers": [
+    "pickpocket",
+    "enter_building",
+    "exit_building"
+  ],
+  "steps": [
+    {
+      "id": "calle",
+      "say": "La calle: espera a alguien parado al que robar",
+      "until": "q.victim() != ''",
+      "timeout": 30,
+      "fast": 4
+    },
+    {
+      "id": "pausa",
+      "say": "Espacio: pausa (que nadie se cruce al apuntar)",
+      "key": "@pause_toggle",
+      "expect": [
+        "q.paused()"
+      ]
+    },
+    {
+      "id": "vecino",
+      "say": "Clic en el vecino más cercano al que se puede robar: su ficha",
+      "world": {
+        "person": "=q.victim()"
+      },
+      "expect": [
+        "q.visible('NpcPanel')"
+      ]
+    },
+    {
+      "id": "guardar_oro",
+      "expect": [
+        "q.keep('oro', q.gold())"
+      ]
+    },
+    {
+      "id": "seguir",
+      "say": "Espacio: sigue el tiempo",
+      "key": "@pause_toggle",
+      "expect": [
+        "not q.paused()"
+      ]
+    },
+    {
+      "id": "robar",
+      "say": "Robarle la bolsa",
+      "click": {
+        "within": "NpcPanel",
+        "node": "Pickpocket"
+      },
+      "until": "q.event('pickpocket_done') or q.event('pickpocket_failed')",
+      "timeout": 30,
+      "fast": 4,
+      "expect": [
+        "q.order('pickpocket') or q.order('move_to')"
+      ]
+    },
+    {
+      "id": "botin",
+      "say": "El oro de la bolsa",
+      "expect": [
+        "q.gold() > q.kept('oro')"
+      ]
+    },
+    {
+      "id": "cerrar_ficha",
+      "key": "Escape"
+    },
+    {
+      "id": "entrar",
+      "say": "Clic derecho en la guarida: entra",
+      "world": {
+        "own": "den"
+      },
+      "button": "right",
+      "until": "q.interior() == q.own('den') and q.location() == q.own('den')",
+      "timeout": 30,
+      "fast": 4,
+      "expect": [
+        "q.order('enter_building')"
+      ]
+    },
+    {
+      "id": "en_sitio",
+      "say": "La casa se abre en sitio: sus puestos y su gente dentro",
+      "until": "q.in_place3d()",
+      "timeout": 10,
+      "expect": [
+        "q.stations3d() == q.zones()",
+        "q.seen3d()"
+      ]
+    },
+    {
+      "id": "menu_perista",
+      "say": "Clic derecho en el perista: su menú",
+      "station": "fence",
+      "button": "right",
+      "expect": [
+        "q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "cerrar_perista",
+      "key": "Escape",
+      "expect": [
+        "not q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "menu_banco",
+      "say": "Clic derecho en el banco de blanquear",
+      "station": "forger_bench",
+      "button": "right",
+      "expect": [
+        "q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "cerrar_banco",
+      "key": "Escape",
+      "expect": [
+        "not q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "salir",
+      "say": "Salir",
+      "click": {
+        "node": "ExitButton"
+      },
+      "until": "q.interior() == '' and q.location() == ''",
+      "timeout": 20,
+      "fast": 4
+    }
+  ]
+}

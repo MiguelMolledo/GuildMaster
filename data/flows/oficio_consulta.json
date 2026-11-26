@@ -1,0 +1,175 @@
+{
+  "id": "oficio_consulta",
+  "title": "Oficio: consulta en 3D",
+  "about": "Partida nueva de médica: entrar en la consulta (abierta en sitio), vendas en el mortero, pasar consulta en el catre a los pacientes que esperan y cobrarla.",
+  "view": "3d",
+  "start": {
+    "start": "scholar_physician",
+    "at": "08:00"
+  },
+  "covers": [
+    "enter_building",
+    "work_at",
+    "stop_work",
+    "exit_building"
+  ],
+  "steps": [
+    {
+      "id": "entrar",
+      "say": "Clic derecho en la consulta: entra",
+      "world": {
+        "own": "clinic"
+      },
+      "button": "right",
+      "until": "q.interior() == q.own('clinic') and q.location() == q.own('clinic')",
+      "timeout": 30,
+      "fast": 4,
+      "expect": [
+        "q.order('enter_building')"
+      ]
+    },
+    {
+      "id": "en_sitio",
+      "say": "La casa se abre en sitio: sus puestos y su gente dentro",
+      "until": "q.in_place3d()",
+      "timeout": 10,
+      "expect": [
+        "q.stations3d() == q.zones()",
+        "q.seen3d()"
+      ]
+    },
+    {
+      "id": "menu_mortar",
+      "say": "Clic derecho en el mortero: su menú",
+      "station": "mortar",
+      "button": "right",
+      "expect": [
+        "q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "receta_doctor_bandages",
+      "say": "La receta doctor_bandages",
+      "click": {
+        "via": "RecipeList",
+        "fn": "get_node",
+        "args": [
+          "Row_doctor_bandages"
+        ],
+        "type": "Button"
+      },
+      "expect": [
+        "q.order('work_at')",
+        "not q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "trabajando_mortar",
+      "say": "Trabaja en su puesto (captura)",
+      "wait": 1.5,
+      "expect": [
+        "q.working('mortar')",
+        "q.seen3d()"
+      ]
+    },
+    {
+      "id": "hecho_bandages",
+      "say": "Espera 9 de bandages",
+      "until": "q.storage('bandages') >= 9",
+      "timeout": 90,
+      "fast": 6
+    },
+    {
+      "id": "parar_mortar",
+      "say": "Clic derecho en el puesto y Parar",
+      "when": "q.working('mortar')",
+      "station": "mortar",
+      "button": "right"
+    },
+    {
+      "id": "parar_boton_mortar",
+      "when": "q.visible('StationMenu')",
+      "click": {
+        "node": "StopButton"
+      },
+      "expect": [
+        "q.order('stop_work')"
+      ]
+    },
+    {
+      "id": "menu_catre",
+      "say": "Clic derecho en el catre: su menú (pacientes, precio)",
+      "station": "cot",
+      "button": "right",
+      "expect": [
+        "q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "guardar_oro",
+      "say": "(el oro de antes)",
+      "expect": [
+        "q.keep('oro', q.gold())"
+      ]
+    },
+    {
+      "id": "consulta",
+      "say": "Pasar consulta",
+      "click": {
+        "via": "RecipeList",
+        "fn": "get_node",
+        "args": [
+          "Row_doctor_visit"
+        ],
+        "type": "Button"
+      },
+      "expect": [
+        "q.order('work_at')",
+        "not q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "atendiendo",
+      "say": "Atiende en el catre (captura)",
+      "wait": 1.5,
+      "expect": [
+        "q.working('cot')",
+        "q.seen3d()"
+      ]
+    },
+    {
+      "id": "cobrada",
+      "say": "Espera a cobrar una consulta",
+      "until": "q.gold() > q.kept('oro')",
+      "timeout": 90,
+      "fast": 6
+    },
+    {
+      "id": "parar_cot",
+      "say": "Clic derecho en el puesto y Parar",
+      "when": "q.working('cot')",
+      "station": "cot",
+      "button": "right"
+    },
+    {
+      "id": "parar_boton_cot",
+      "when": "q.visible('StationMenu')",
+      "click": {
+        "node": "StopButton"
+      },
+      "expect": [
+        "q.order('stop_work')"
+      ]
+    },
+    {
+      "id": "salir",
+      "say": "Salir",
+      "click": {
+        "node": "ExitButton"
+      },
+      "until": "q.interior() == '' and q.location() == ''",
+      "timeout": 20,
+      "fast": 4
+    }
+  ]
+}
