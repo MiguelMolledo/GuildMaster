@@ -406,7 +406,9 @@ func _sell_row(o: Dictionary, where: String) -> HFlowContainer:
 	var preview := Market.sell_preview(sim, actor, stall, item, q, have)
 	var one := _button("SellOne", SimQuery.t_("ui.market.sell_one_at") % price, func() -> void: sell(item, q, 1))
 	var sum := " + ".join((preview.get("prices", []) as Array).map(func(p: Variant) -> String: return str(int(p))))
-	var all_text := SimQuery.t_("ui.market.sell_all_at") % [have, ("%s = %d" % [sum, int(preview.get("total", 0))]) if have > 1 else str(price)]
+	# the sum piece by piece only for a few: with a big stack (a harvest) the button would push the panel off screen
+	var all_text := SimQuery.t_("ui.market.sell_all_at") % [have, ("%s = %d" % [sum, int(preview.get("total", 0))]) if have > 1 and have <= 4
+		else (str(int(preview.get("total", 0))) if have > 1 else str(price))]
 	var all := _button("SellAll", all_text, func() -> void: sell(item, q, have))
 	for b: Button in [one, all]:
 		b.disabled = why != ""

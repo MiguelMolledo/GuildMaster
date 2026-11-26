@@ -1,0 +1,233 @@
+{
+  "id": "oficio_granja",
+  "title": "Oficio: granja en 3D",
+  "about": "Partida nueva de granjero: entrar en la granja (abierta en sitio; los campos, sin sitio en el trazado 3D, con su marca junto a la puerta), sembrar trigo en un campo, esperar a que esté listo, cosecharlo, sacar el trigo del almacén y venderlo en el puesto de recursos.",
+  "view": "3d",
+  "start": {
+    "start": "patron_farmer",
+    "at": "08:00"
+  },
+  "covers": [
+    "enter_building",
+    "work_at",
+    "stop_work",
+    "transfer",
+    "exit_building",
+    "sell"
+  ],
+  "steps": [
+    {
+      "id": "entrar",
+      "say": "Clic derecho en la granja: entra",
+      "world": {
+        "own": "farm"
+      },
+      "button": "right",
+      "until": "q.interior() == q.own('farm') and q.location() == q.own('farm')",
+      "timeout": 30,
+      "fast": 4,
+      "expect": [
+        "q.order('enter_building')"
+      ]
+    },
+    {
+      "id": "en_sitio",
+      "say": "La casa se abre en sitio: sus puestos y su gente dentro",
+      "until": "q.in_place3d()",
+      "timeout": 10,
+      "expect": [
+        "q.stations3d() == q.zones()",
+        "q.seen3d()"
+      ]
+    },
+    {
+      "id": "menu_campo",
+      "say": "Clic derecho en el campo A: su menú",
+      "station": "field_a",
+      "button": "right",
+      "expect": [
+        "q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "sembrar",
+      "say": "Sembrar trigo",
+      "click": {
+        "via": "RecipeList",
+        "fn": "get_node",
+        "args": [
+          "Row_farm_sow_wheat"
+        ],
+        "type": "Button"
+      },
+      "expect": [
+        "q.order('work_at')",
+        "not q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "sembrando",
+      "say": "Siembra en el campo (captura)",
+      "wait": 1.5,
+      "expect": [
+        "q.working('field_a')",
+        "q.seen3d()"
+      ]
+    },
+    {
+      "id": "sembrado",
+      "say": "Espera a que el campo esté sembrado",
+      "until": "q.field('field_a') == 'growing'",
+      "timeout": 40,
+      "fast": 6
+    },
+    {
+      "id": "velocidad",
+      "say": "Mayús+3: ×4",
+      "key": "@speed_3",
+      "expect": [
+        "q.speed() == 4"
+      ]
+    },
+    {
+      "id": "listo",
+      "say": "Espera a que el trigo esté listo (unos días)",
+      "until": "q.field('field_a') == 'ready'",
+      "timeout": 110,
+      "fast": 6
+    },
+    {
+      "id": "velocidad_1",
+      "say": "Mayús+1: ×1",
+      "key": "@speed_1"
+    },
+    {
+      "id": "menu_cosecha",
+      "say": "Clic derecho en el campo A",
+      "station": "field_a",
+      "button": "right",
+      "expect": [
+        "q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "cosechar",
+      "say": "Cosechar",
+      "click": {
+        "via": "RecipeList",
+        "fn": "get_node",
+        "args": [
+          "Row_farm_harvest"
+        ],
+        "type": "Button"
+      },
+      "expect": [
+        "q.order('work_at')"
+      ]
+    },
+    {
+      "id": "cosechando",
+      "say": "Cosecha (captura)",
+      "wait": 1.5,
+      "expect": [
+        "q.working('field_a')"
+      ]
+    },
+    {
+      "id": "cosechado",
+      "say": "Espera la cosecha en el almacén",
+      "until": "q.storage('wheat') >= 60",
+      "timeout": 60,
+      "fast": 6
+    },
+    {
+      "id": "almacen",
+      "say": "El botón Almacén",
+      "click": {
+        "node": "StorageButton"
+      },
+      "expect": [
+        "q.visible('StoragePanel')"
+      ]
+    },
+    {
+      "id": "coger_wheat",
+      "say": "Clic en wheat del almacén: a la bolsa",
+      "click": {
+        "within": "BuildingGrid",
+        "prefix": "wheat_"
+      },
+      "until": "q.bag('wheat') > 0",
+      "timeout": 10,
+      "expect": [
+        "q.order('transfer')"
+      ]
+    },
+    {
+      "id": "salir",
+      "say": "Salir",
+      "click": {
+        "node": "ExitButton"
+      },
+      "until": "q.interior() == '' and q.location() == ''",
+      "timeout": 20,
+      "fast": 4,
+      "expect": [
+        "q.order('exit_building')"
+      ]
+    },
+    {
+      "id": "espera_mercado",
+      "say": "Espera a que abra el mercado",
+      "when": "not q.market_open('resources')",
+      "until": "q.market_open('resources')",
+      "timeout": 60,
+      "fast": 6
+    },
+    {
+      "id": "al_puesto",
+      "say": "Clic derecho en el puesto resources",
+      "world": {
+        "service": "resources"
+      },
+      "button": "right",
+      "until": "q.visible('MarketPanel')",
+      "timeout": 30,
+      "fast": 4
+    },
+    {
+      "id": "pestana_vender",
+      "click": {
+        "node": "SellTab"
+      }
+    },
+    {
+      "id": "vender_wheat",
+      "say": "Vender wheat",
+      "click": {
+        "within": {
+          "within": "SellList",
+          "prefix": "wheat_"
+        },
+        "node": "SellOne"
+      },
+      "until": "q.bag('wheat') < q.was('bag', 'wheat')",
+      "timeout": 10,
+      "expect": [
+        "q.order('sell')",
+        "q.event('market_sold')",
+        "q.gold() > q.was('gold') or q.event('upkeep_charged')"
+      ]
+    },
+    {
+      "id": "cerrar_mercado",
+      "click": {
+        "within": "MarketPanel",
+        "node": "CloseButton"
+      },
+      "expect": [
+        "not q.visible('MarketPanel')"
+      ]
+    }
+  ]
+}
