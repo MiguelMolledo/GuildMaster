@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/ambient_dulzaina.ogg-e6c0983c735476c220003bf1
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/ambient_birds_morning.ogg-a145befe8b65020952e
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

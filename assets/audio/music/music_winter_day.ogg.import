@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/music_winter_day.ogg-8f1f58da29ac8b298f50f521
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

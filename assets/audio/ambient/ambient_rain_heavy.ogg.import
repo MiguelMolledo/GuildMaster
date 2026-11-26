@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/ambient_rain_heavy.ogg-9b0a75f60bd92a9b048af4
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

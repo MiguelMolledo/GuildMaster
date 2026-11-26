@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/ambient_hearth.ogg-1d6f40393701ce558966056d58
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0
