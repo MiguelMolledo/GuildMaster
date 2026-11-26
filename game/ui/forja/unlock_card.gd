@@ -66,12 +66,22 @@ func _show(d: Dictionary) -> void:
 	ViewConfig.info("UnlockCard", "show %s (chapter=%s)" % [current, _chapter])
 
 
+## The name of the player's own workshop for a card's text («{building}»: «en tu forja», «en tu banco»), lower case;
+## the forge's without one.
+static func your_building(sim: Sim) -> String:
+	var ws := Bankruptcy.workshop_of(sim, SimQuery.player_family(sim.state))
+	var type := str(sim.state.buildings[ws].get("type", "forge")) if ws != "" else "forge"
+	var n := SimQuery.t_("building." + type)
+	return n.left(1).to_lower() + n.substr(1)
+
+
 ## The card's data: {} for an unlock without card (card: false) or unknown.
 static func data_for(sim: Sim, id: String) -> Dictionary:
 	var u := Unlocks.def(sim, id)
 	if u.is_empty() or not bool(u.get("card", true)):
 		return {}
-	var blocks: Array = [{"type": "paragraph", "text": SimQuery.t_(str(u.get("desc_key", "")))}]
+	var text := SimQuery.t_(str(u.get("desc_key", ""))).replace("{building}", your_building(sim))
+	var blocks: Array = [{"type": "paragraph", "text": text}]
 	var goal := str(u.get("goal", ""))
 	if goal != "" and sim.catalog.objectives().has(goal):
 		blocks.append({"type": "effects", "items": [{"text": SimQuery.t_("unlock.goal") % SimQuery.t_(str(

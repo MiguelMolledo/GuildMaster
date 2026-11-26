@@ -2803,7 +2803,7 @@ unlock.live_forge.desc,"Forge by hand: heat, strike and quench.","Forja a mano: 
 unlock.contracts,contracts and errands,los encargos y el recado
 unlock.contracts.desc,The board in the square posts contracts that pay better than the market. And with «Buy and send to…» the goods walk home on their own.,El tablón de la plaza publica encargos que pagan mejor que el mercado. Y con «Comprar y enviar a…» la mercancía llega sola a casa.
 unlock.counter,your shop counter,tu mostrador
-unlock.counter.desc,"With the «Shop counter» upgrade customers come in and buy at your forge, without going to the square.","Con la mejora «Mostrador de venta» los clientes entran y compran en tu forja, sin ir a la plaza."
+unlock.counter.desc,"With the «Shop counter» upgrade customers come in and buy at your {building}, without going to the square.","Con la mejora «Mostrador de venta» los clientes entran y compran en tu {building}, sin ir a la plaza."
 unlock.first_festival,the first festival,la primera fiesta
 unlock.first_festival.desc,"The town celebrates: more people in the street, big orders and your counter full.","El pueblo está de fiesta: más gente en la calle, grandes encargos y tu mostrador lleno."
 unlock.staff,your first employee,tu primer empleado
@@ -4283,6 +4283,8 @@ ui.bank.risk.A,Good solvency,Buena solvencia
 ui.bank.risk.B,Fair,Regular
 ui.bank.risk.C,Poor,Mala
 ui.bank.interest,%d %% a year: they owe %d,%d %% anual: deben %d
+ui.bank.rate_lowest,"Already the lowest interest","Ya es el interés más bajo"
+ui.bank.rate_highest,"Already the most they accept","Ya es lo más que aceptan"
 ui.bank.grant,Grant,Conceder
 ui.bank.reject,Turn down,Rechazar
 ui.bank.no_applications,No application waits: they come at dawn.,No espera ninguna solicitud: llegan al amanecer.
@@ -4519,3 +4521,4 @@ ui.station.spy_expose,Tell it,Destapar
 ui.station.spy_expose_tip,The whole town will know: that family loses %d of reputation,Lo sabrá toda la villa: esa familia pierde %d de reputación
 ui.new_game.preview_start.rogue_spy,"A thieves' den with a home, %d gold and %d of debt with the moneylender.","Guarida de ladrones con vivienda, %d de oro y %d de deuda con el prestamista."
 ui.market.plus_max,"That is the most you can buy now: %d (your gold, what you can carry or what the stall has)","Es lo más que puedes comprar ahora: %d (lo que llega tu oro, lo que puedes cargar o lo que hay)"
+ui.market.minus_min,"At least one","Como mínimo, una"
