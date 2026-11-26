@@ -1,0 +1,37 @@
+{
+  "_doc": "The armoury at level 1: one room of 6 x 4 m: weapon racks and an armour stand along the back wall, the grindstone in the corner, the fold-down counter on the shop window. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "id": "armory",
+  "level": 1,
+  "tile_m": 1.0,
+  "origin_m": [-2.5, -1.5],
+  "size": [5, 3],
+  "seed": 4,
+  "shell": {"w": 6, "d": 4, "floors": 1, "door_cell": 1},
+  "entrance": {"floor": 0, "tile": [2, 2], "side": "sw"},
+  "rooms": [
+    {"id": "shop", "floor": 0, "type": "shop", "rects": [[0, 0, 4, 2]], "floor_kind": "stone", "wall_style": "timber", "light": "warm"}
+  ],
+  "stations": {
+    "counter": {"name": "Mostrador", "kind": "sales", "floor": 0, "tile": [4, 3], "stand": [4, 2], "reach": 0.95},
+    "grind": {"name": "Muela", "kind": "craft", "floor": 0, "tile": [4, 0], "stand": [4, 1], "prop": "muela", "snap": "back,right"}
+  },
+  "customers": {"counter": [{"tile": [4, 4]}], "reach": 1.2, "street": [[12.0, 4.6], [4.6, 4.6]]},
+  "spots": {"shop": [0, [2, 1]]},
+  "props": [
+    {"id": "armero_estrecho", "floor": 0, "tile": [0, 0], "snap": "back"},
+    {"id": "armero_estrecho", "floor": 0, "tile": [1, 0], "snap": "back"},
+    {"id": "soporte_armadura", "floor": 0, "tile": [2, 0], "snap": "back", "gap": 0.05},
+    {"id": "arcon", "floor": 0, "tile": [0, 2], "snap": "left,front", "gap": 0.03}
+  ],
+  "cast": [
+    {"look": "Guardia", "name": "Armero", "start": [0, [4, 1]], "steps": [
+      {"say": "atiende el mostrador", "secs": 8, "zone": "counter"},
+      {"say": "afila una hoja", "secs": 7, "anim": "sharpen", "zone": "grind"}
+    ]},
+    {"look": "Cazadora", "name": "Cliente", "outside": true, "wait": 3, "looks": ["Guardia", "Cazadora", "Noble"], "steps": [
+      {"enter": true},
+      {"say": "compra una espada", "secs": 6, "anim": "Idle_Talking", "window": true},
+      {"leave": true, "secs": 5}
+    ]}
+  ]
+}

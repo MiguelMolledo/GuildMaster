@@ -1,0 +1,87 @@
+{
+  "_doc": "A noble house at level 1: 6 x 8 m on 2 floors. Below, the kitchen with the big hearth behind a partition and the hall with the long table; above, the master bedroom at the back and the children's room at the front. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "id": "house_noble",
+  "level": 1,
+  "tile_m": 1.0,
+  "origin_m": [-2.5, -3.5],
+  "size": [5, 7],
+  "seed": 4,
+  "shell": {"w": 6, "d": 8, "floors": 2, "door_cell": 1},
+  "entrance": {"floor": 0, "tile": [2, 6], "side": "sw"},
+  "rooms": [
+    {"id": "kitchen", "floor": 0, "type": "kitchen", "rects": [[0, 0, 4, 2]], "floor_kind": "stone", "wall_style": "timber", "light": "kitchen"},
+    {"id": "hall", "floor": 0, "type": "shop", "rects": [[0, 3, 4, 6]], "floor_kind": "stone", "wall_style": "timber", "light": "warm"},
+    {"id": "bedroom", "floor": 1, "type": "bedroom", "rects": [[0, 0, 4, 2]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"},
+    {"id": "children", "floor": 1, "type": "bedroom", "rects": [[0, 3, 4, 6]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"}
+  ],
+  "doors": [
+    {"floor": 0, "tile": [2, 3], "side": "ne"},
+    {"floor": 1, "tile": [2, 3], "side": "ne"}
+  ],
+  "stairs": [
+    {"from": [4, 4], "to": [3, 6], "foot": [4.17, 4.55], "top": [4.17, 6.6], "tiles": [[4, 5], [4, 6]], "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94}
+  ],
+  "stations": {
+    "hearth": {"name": "Cocina", "kind": "home", "floor": 0, "tile": [2, 0], "stand": [1, 1], "prop": "hogar_grande", "pos": [1.5, 0], "snap": "back"},
+    "bed": {"name": "Camas", "kind": "rest", "floor": 1, "tile": [3, 0], "stand": [3, 2], "prop": "cama_estrecha", "snap": "back"}
+  },
+  "spots": {"kitchen": [0, [2, 4]], "bed": [1, [3, 2]], "shop": [0, [2, 5]], "cradle": [1, [1, 5]]},
+  "props": [
+    {"id": "alacena", "floor": 0, "tile": [4, 0], "snap": "back"},
+    {"id": "mesa_estrecha", "floor": 0, "pos": [0, 0.6], "snap": "left", "gap": 0.02},
+    {"id": "barrel", "floor": 0, "pos": [4.2, 1.8]},
+    {"id": "sack", "floor": 0, "pos": [3.4, 2.2], "rot": 30, "walk": true},
+    {"id": "jamones", "floor": 0, "tile": [0, 0], "snap": "left"},
+    {"id": "ristra_ajos", "floor": 0, "tile": [0, 2], "snap": "left"},
+    {"id": "vasar_loza", "floor": 0, "tile": [4, 1], "snap": "right"},
+    {"id": "alfombra_esparto", "floor": 0, "pos": [2.5, 1.6], "rot": 0},
+    {"id": "palmatoria", "floor": 0, "pos": [-0.45, 0.6], "y": 0.76},
+    {"id": "mantequera", "floor": 0, "pos": [2.6, 2]},
+    {"id": "ristra_ajos", "floor": 0, "tile": [3, 0], "snap": "back"},
+    {"id": "banco", "floor": 0, "pos": [-0.01, 4.5], "snap": "left", "rot": 90, "name": "banco"},
+    {"id": "mesa_1x2", "floor": 0, "pos": [0.1, 4.5], "rot": 90},
+    {"id": "taburete", "floor": 0, "pos": [0.85, 4.1], "name": "tab1"},
+    {"id": "taburete", "floor": 0, "pos": [0.85, 4.9], "name": "tab2"},
+    {"id": "arcon", "floor": 0, "tile": [0, 3], "snap": "left", "gap": 0.02},
+    {"id": "cuadro_paisaje", "floor": 0, "tile": [0, 3], "snap": "left"},
+    {"id": "perchero", "floor": 0, "tile": [1, 6], "snap": "front"},
+    {"id": "lampara_hierro", "floor": 0, "pos": [2.0, 4.5]},
+    {"id": "tiro", "floor": 1, "pos": [1.5, 0], "snap": "back"},
+    {"id": "litera", "floor": 1, "pos": [0, 5.5], "snap": "left", "rot": 180, "name": "litera"},
+    {"id": "cuna", "floor": 1, "pos": [1.2, 6], "snap": "front"},
+    {"id": "arcon", "floor": 1, "tile": [0, 3], "snap": "left", "gap": 0.02},
+    {"id": "estante_pared", "floor": 1, "tile": [4, 3], "snap": "right"},
+    {"id": "cuadro_retrato", "floor": 1, "tile": [2, 0], "snap": "back"},
+    {"id": "cama_estrecha", "floor": 1, "pos": [3.9299999999999997, 0], "snap": "back", "name": "cama_b"},
+    {"id": "escritorio", "floor": 0, "tile": [4, 3], "snap": "right", "gap": 0.03},
+    {"id": "alfombra_pequena", "floor": 0, "pos": [2.0, 4.5], "rot": 0},
+    {"id": "arcon", "floor": 1, "tile": [0, 0], "snap": "left,back", "gap": 0.03},
+    {"id": "arca_fuerte", "floor": 1, "tile": [0, 2], "snap": "left", "gap": 0.03},
+    {"id": "perchero", "floor": 1, "tile": [0, 1], "snap": "left"}
+  ],
+  "cast": [
+    {"look": "Moza", "name": "Cocinera", "start": [0, [1, 1]], "steps": [
+      {"say": "guisa en el caldero", "secs": 8, "anim": "stir", "zone": "hearth"},
+      {"say": "sirve el guiso", "secs": 4, "anim": "ladle", "zone": "hearth"},
+      {"say": "prepara la mesa", "secs": 4, "anim": "PickUp_Table", "tile": [0, [1, 1]], "look": [0, 1]},
+      {"say": "sirve la mesa", "secs": 3, "anim": "PickUp_Table", "tile": [0, [1, 4]], "carry": true, "look": [0, 4]}
+    ]},
+    {"look": "Noble", "name": "Señor", "outside": true, "wait": 2, "steps": [
+      {"enter": true},
+      {"say": "cena", "secs": 7, "anim": "eat", "sit": "banco", "off": [-0.3, 0]},
+      {"say": "repasa sus cuentas", "secs": 5, "anim": "Interact", "tile": [0, [3, 3]], "look": [4, 3]},
+      {"say": "duerme", "secs": 10, "lie": "bed"},
+      {"leave": true, "secs": 5}
+    ]},
+    {"look": "Mercader", "name": "Señora", "start": [0, [2, 4]], "steps": [
+      {"say": "come a la mesa", "secs": 7, "anim": "eat", "sit": "tab1", "look": [0, 4]},
+      {"say": "se arregla", "secs": 5, "anim": "Interact", "tile": [1, [2, 2]], "look": [0, 2]},
+      {"say": "duerme", "secs": 9, "lie": "cama_b"}
+    ]},
+    {"look": "Campesina", "name": "Hija", "start": [1, [2, 4]], "age": 12, "steps": [
+      {"say": "duerme", "secs": 9, "lie": "litera"},
+      {"say": "mira la cuna", "secs": 4, "anim": "Interact", "tile": [1, [2, 6]], "look": [1, 6]},
+      {"say": "desayuna", "secs": 5, "anim": "eat", "sit": "tab2", "look": [0, 5]}
+    ]}
+  ]
+}

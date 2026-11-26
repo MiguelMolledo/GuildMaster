@@ -1,0 +1,67 @@
+{
+  "_doc": "The bakery at level 3: 4 x 6 m on 3 floors, for a lot with its yard on the left (the oven stands there, against the back of the left wall). Below, the mouth of the oven, the kneading trough, the bread shelves and the counter on the shop window; the stair climbs along the right wall. Above, the home; on top, more beds. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "id": "bakery",
+  "level": 3,
+  "tile_m": 1.0,
+  "origin_m": [-1.5, -2.5],
+  "size": [3, 5],
+  "seed": 6,
+  "shell": {"w": 4, "d": 6, "floors": 3, "door_cell": 1, "yard": ["left"]},
+  "entrance": {"floor": 0, "tile": [2, 4], "side": "sw"},
+  "rooms": [
+    {"id": "bakehouse", "floor": 0, "type": "workshop", "rects": [[0, 0, 2, 4]], "floor_kind": "stone", "wall_style": "timber", "light": "kitchen"},
+    {"id": "home", "floor": 1, "type": "kitchen", "rects": [[0, 0, 2, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "kitchen"},
+    {"id": "attic", "floor": 2, "type": "bedroom", "rects": [[0, 0, 2, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"}
+  ],
+  "stairs": [
+    {"from": [2, 2], "to": [1, 0], "foot": [2.17, 1.45], "top": [2.17, -0.6], "tiles": [[2, 0], [2, 1]], "mirror": true, "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94},
+    {"from": [2, 2], "to": [1, 0], "foot": [2.17, 1.45], "top": [2.17, -0.6], "tiles": [[2, 0], [2, 1]], "mirror": true, "id": "stairs1", "floor": 1, "to_floor": 2, "prop": "escalera_empinada", "width": 0.94}
+  ],
+  "stations": {
+    "oven": {"name": "Horno", "kind": "craft", "floor": 0, "tile": [0, 0], "stand": [1, 1], "prop": "boca_horno", "pos": [0, 0.25], "snap": "left"},
+    "trough": {"name": "Artesa", "kind": "craft", "floor": 0, "tile": [0, 2], "stand": [1, 2], "prop": "artesa", "pos": [0, 2.05], "snap": "left"},
+    "storage": {"name": "Pan", "kind": "storage", "floor": 0, "tile": [2, 3], "stand": [1, 3], "prop": "estante_pan", "snap": "right"},
+    "counter": {"name": "Mostrador", "kind": "sales", "floor": 0, "tile": [0, 5], "stand": [0, 4], "reach": 0.95},
+    "bed": {"name": "Cama", "kind": "rest", "floor": 1, "tile": [0, 1], "stand": [1, 1], "prop": "cama_estrecha", "pos": [0, 0.55], "snap": "left", "rot": 0},
+    "hearth": {"name": "Hogar", "kind": "home", "floor": 1, "tile": [0, 3], "stand": [1, 3], "prop": "hogar_cocina", "snap": "left"}
+  },
+  "customers": {"counter": [{"tile": [0, 6]}], "reach": 1.2, "street": [[8.0, 6.6], [0.6, 6.6]]},
+  "spots": {"shop": [0, [1, 3]], "kitchen": [1, [1, 3]], "bed": [1, [1, 1]], "kitchen_table": [2, 3]},
+  "props": [
+    {"id": "mesa_estrecha", "floor": 1, "tile": [2, 3], "snap": "right", "gap": 0.02, "name": "mesa_casa"},
+    {"id": "taburete", "floor": 1, "pos": [1.7, 3.0], "name": "tab_casa"},
+    {"id": "arcon", "floor": 1, "tile": [2, 4], "snap": "right,front", "gap": 0.03},
+    {"id": "alacena", "floor": 1, "tile": [2, 2], "snap": "right"},
+    {"id": "tiro", "floor": 2, "tile": [0, 3], "snap": "left"},
+    {"id": "cama_estrecha", "floor": 2, "pos": [0, 0.55], "snap": "left", "rot": 0, "name": "cama_arriba"},
+    {"id": "jergon", "floor": 2, "pos": [2, 3.4], "snap": "right", "rot": 180, "name": "jergon"},
+    {"id": "arcon", "floor": 2, "tile": [0, 4], "snap": "left,front", "gap": 0.03},
+    {"id": "perchero", "floor": 2, "tile": [1, 4], "snap": "front"}
+  ],
+  "cast": [
+    {"look": "Tabernero", "name": "Panadero", "start": [0, [1, 1]], "steps": [
+      {"say": "amasa en la artesa", "secs": 7, "anim": "knead", "zone": "trough"},
+      {"say": "estira la masa", "secs": 5, "anim": "roll_dough", "zone": "trough"},
+      {"say": "mete el pan con la pala", "secs": 6, "anim": "peel", "zone": "oven"},
+      {"say": "pone el pan a enfriar", "secs": 3, "anim": "Interact", "zone": "storage", "carry": true}
+    ]},
+    {"look": "Moza", "name": "Panadera", "start": [0, [0, 4]], "steps": [
+      {"say": "atiende el mostrador", "secs": 9, "zone": "counter"},
+      {"say": "coge una hogaza", "secs": 3, "anim": "Interact", "zone": "storage"},
+      {"say": "descansa arriba", "secs": 8, "lie": "cama_arriba"}
+    ]},
+    {"look": "Campesina", "name": "Clienta", "outside": true, "wait": 3, "looks": ["Campesina", "Vieja", "Moza", "Labrador"], "steps": [
+      {"enter": true},
+      {"say": "compra pan en el mostrador", "secs": 6, "anim": "Idle_Talking", "window": true},
+      {"leave": true, "secs": 5}
+    ]},
+    {"look": "Campesina", "name": "Mujer", "start": [1, [1, 2]], "steps": [
+      {"say": "guisa en el hogar", "secs": 7, "anim": "stir", "zone": "hearth"},
+      {"say": "come a la mesa", "secs": 6, "anim": "eat", "sit": "tab_casa", "look": [2, 3]}
+    ]},
+    {"look": "Vieja", "name": "Abuela", "start": [1, [1, 1]], "wait": 2, "steps": [
+      {"say": "duerme", "secs": 11, "lie": "bed"},
+      {"say": "se levanta", "secs": 3, "tile": [1, [1, 1]]}
+    ]}
+  ]
+}

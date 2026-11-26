@@ -1,0 +1,82 @@
+{
+  "_doc": "The clinic at level 1: one room of 4 x 4 m: the cot against the left wall, the table of cures at the back, the apothecary cabinet on the wall by the door. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "id": "clinic",
+  "level": 1,
+  "tile_m": 1.0,
+  "origin_m": [-1.5, -1.5],
+  "size": [3, 3],
+  "seed": 4,
+  "shell": {"w": 4, "d": 4, "floors": 1, "door_cell": 1},
+  "entrance": {"floor": 0, "tile": [2, 2], "side": "sw"},
+  "rooms": [
+    {"id": "surgery", "floor": 0, "type": "workshop", "rects": [[0, 0, 2, 2]], "floor_kind": "planks", "wall_style": "timber", "light": "cool"}
+  ],
+  "stations": {
+    "cot": {"name": "Catre", "kind": "service", "floor": 0, "tile": [0, 0], "stand": [1, 1], "prop": "catre", "snap": "back,left"},
+    "mortar": {"name": "Mesa de curas", "kind": "craft", "floor": 0, "tile": [2, 0], "stand": [2, 1], "prop": "mesa_curas", "snap": "back"},
+    "storage": {"name": "Botica", "kind": "storage", "floor": 0, "tile": [0, 2], "stand": [1, 2], "prop": "botica", "snap": "left"}
+  },
+  "spots": {"shop": [0, [1, 2]]},
+  "props": [
+    {"id": "arcon", "floor": 0, "tile": [1, 0], "snap": "back", "gap": 0.02}
+  ],
+  "upgrades": {
+    "upgrade_storage_shelves": [{"id": "alacena", "floor": 0, "auto": "wall", "near": "storage"}],
+    "clinic_mortar_2": [{"id": "mesa_curas", "floor": 0, "auto": "wall", "near": "mortar", "zone": "mortar_2", "name": "Mesa de curas 2", "kind": "craft"}],
+    "clinic_shelves_big": [{"id": "arcon", "floor": 0, "auto": "wall", "near": "storage"}],
+    "clinic_sign": [{"id": "pergamino_pared", "floor": 0, "auto": "wall", "near": "door"}],
+    "clinic_cot_2": [{"id": "catre", "floor": 0, "auto": "wall", "near": "cot", "zone": "cot_2", "name": "Catre 2", "kind": "service"}],
+    "clinic_instruments": [{"id": "estante_pared", "floor": 0, "auto": "wall", "near": "cot"}],
+    "clinic_operating_table": [{"swap": "cot", "id": "mesa_operaciones"}],
+    "clinic_herbal": [{"id": "botica", "floor": 0, "auto": "wall", "near": "mortar"}],
+    "clinic_books": [{"id": "q:BookStand", "floor": 0, "auto": "floor", "near": "mortar"}],
+    "clinic_anatomy": [{"id": "pergamino_pared", "floor": 0, "auto": "wall", "near": "cot"}],
+    "upgrade_master_bench": [{"id": "q:BookStand", "floor": 0, "auto": "floor", "near": "door"}],
+    "upgrade_double_ledger": [{"on": ["mesa_casa", "mortar"], "id": "q:Book_Stack_2", "off": [0.25, 0.0]}],
+    "upgrade_hidden_passage": [{"id": "tapiz", "floor": 0, "auto": "wall", "near": "storage"}],
+    "upgrade_smuggler_cache": [{"id": "trampilla", "floor": 0, "auto": "floor", "near": "storage", "prio": 1}],
+    "upgrade_strongbox": [{"id": "arca_fuerte", "floor": 0, "auto": "wall", "near": "storage"}],
+    "upgrade_bunks": [{"needs": "planta", "note": "no hay vivienda en este nivel: llega con la planta alta"}],
+    "upgrade_dining_table": [{"needs": "planta", "note": "no hay vivienda en este nivel: llega con la planta alta"}]
+  },
+  "upgrade_ids": {
+    "clinic_capacity_1": "upgrade_storage_shelves",
+    "clinic_capacity_2": "clinic_mortar_2",
+    "clinic_capacity_3": "clinic_shelves_big",
+    "clinic_commerce_1": "clinic_sign",
+    "clinic_production_1": "clinic_cot_2",
+    "clinic_production_2": "clinic_instruments",
+    "clinic_production_3": "clinic_operating_table",
+    "clinic_quality_1": "clinic_herbal",
+    "clinic_quality_2": "clinic_books",
+    "clinic_quality_3": "clinic_anatomy",
+    "clinic_secrets_1": "upgrade_double_ledger",
+    "clinic_secrets_2": "upgrade_hidden_passage",
+    "clinic_secrets_3": "upgrade_smuggler_cache",
+    "clinic_security_3": "upgrade_strongbox",
+    "clinic_staff_1": "upgrade_bunks",
+    "clinic_staff_2": "upgrade_dining_table",
+    "clinic_staff_3": "upgrade_master_bench"
+  },
+  "upgrade_out": {
+    "clinic_commerce_2": "fachada: upgrade_shop_window",
+    "clinic_commerce_3": "fachada: upgrade_trade_sign",
+    "clinic_facade_1": "fachada: upgrade_stone_facade",
+    "clinic_facade_2": "fachada: upgrade_garden",
+    "clinic_facade_3": "fachada: upgrade_noble_facade",
+    "clinic_security_1": "fachada: upgrade_reinforced_lock",
+    "clinic_security_2": "fachada: upgrade_guard"
+  },
+  "cast": [
+    {"look": "Sereno", "name": "Médico", "start": [0, [2, 1]], "steps": [
+      {"say": "muele hierbas en el mortero", "secs": 7, "anim": "stir", "zone": "mortar"},
+      {"say": "atiende al enfermo", "secs": 7, "anim": "tend", "zone": "cot"},
+      {"say": "busca un remedio", "secs": 3, "anim": "Interact", "zone": "storage"}
+    ]},
+    {"look": "Vieja", "name": "Enfermo", "outside": true, "wait": 2, "looks": ["Vieja", "Labrador", "Campesina", "Sereno"], "steps": [
+      {"enter": true},
+      {"say": "espera en el catre", "secs": 12, "lie": "cot"},
+      {"leave": true, "secs": 5}
+    ]}
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "_doc": "Weather of the sim town by data (scripts/clima/clima.gd, docs/clima.md). Each day is cut in tramos of tramo_h hours; each tramo draws its weather with the seed (the same in every run) from the probabilities of the season, or keeps the one before with probability persiste. Transitions blend the two over transicion_min game minutes. -- --tiempo=<estado> forces one.",
+  "semilla": 2026,
+  "tramo_h": 8,
+  "persiste": 0.55,
+  "transicion_min": 75,
+  "estaciones": {
+    "spring": {"despejado": 0.42, "nublado": 0.3, "lluvia": 0.2, "tormenta": 0.04, "niebla": 0.04, "nieve": 0.0},
+    "summer": {"despejado": 0.62, "nublado": 0.18, "lluvia": 0.07, "tormenta": 0.11, "niebla": 0.02, "nieve": 0.0},
+    "autumn": {"despejado": 0.3, "nublado": 0.3, "lluvia": 0.24, "tormenta": 0.06, "niebla": 0.1, "nieve": 0.0},
+    "winter": {"despejado": 0.28, "nublado": 0.3, "lluvia": 0.1, "tormenta": 0.0, "niebla": 0.1, "nieve": 0.22}
+  },
+  "niebla_manana": {"_doc": "probability that a morning has mist over the river and the fields (any weather but tormenta); it thickens before dawn and lifts by hasta_h", "spring": 0.3, "summer": 0.12, "autumn": 0.55, "winter": 0.4, "desde_h": 3.0, "hasta_h": 10.5},
+  "estados": {
+    "_doc": "what each weather does at intensidad 1: nubes (share of the sky covered), velo (overcast: the sun dims, shadows soften), lluvia, nieve, niebla (0..1), viento [min, max], intensidad [min, max] drawn per tramo",
+    "despejado": {"nubes": 0.18, "velo": 0.0, "lluvia": 0.0, "nieve": 0.0, "niebla": 0.0, "viento": [0.1, 0.35], "intensidad": [0.6, 1.0]},
+    "nublado": {"nubes": 0.62, "velo": 0.35, "lluvia": 0.0, "nieve": 0.0, "niebla": 0.0, "viento": [0.25, 0.55], "intensidad": [0.6, 1.0]},
+    "lluvia": {"nubes": 0.85, "velo": 0.65, "lluvia": 0.7, "nieve": 0.0, "niebla": 0.1, "viento": [0.35, 0.6], "intensidad": [0.5, 1.0]},
+    "tormenta": {"nubes": 0.95, "velo": 0.85, "lluvia": 1.0, "nieve": 0.0, "niebla": 0.05, "viento": [0.7, 1.0], "intensidad": [0.75, 1.0]},
+    "niebla": {"nubes": 0.4, "velo": 0.55, "lluvia": 0.0, "nieve": 0.0, "niebla": 1.0, "viento": [0.0, 0.12], "intensidad": [0.6, 1.0]},
+    "nieve": {"nubes": 0.8, "velo": 0.55, "lluvia": 0.0, "nieve": 1.0, "niebla": 0.15, "viento": [0.15, 0.45], "intensidad": [0.5, 1.0]}
+  },
+  "suelo": {
+    "_doc": "game minutes for the ground to get wet / dry, and for the snow to settle / melt (it melts only out of winter or with sun)",
+    "mojar_min": 25, "secar_min": 240, "cuajar_min": 120, "fundir_min": 600
+  },
+  "relampagos": {"_doc": "per real second at intensidad 1, flash length in seconds", "por_s": 0.12, "dur_s": 0.45},
+  "efectos": {
+    "_doc": "cost knobs: gotas/copos at zoom 26 (they scale with the area in view, up to max), splash share; past lejos_zoom the drops are drawn by the screen pass and the particles stop",
+    "gotas": 5000, "gotas_max": 9000, "salpicaduras": 900, "copos": 2600, "lejos_zoom": 40.0,
+    "nube_escala": 0.018, "nube_vel": 2.2
+  }
+}

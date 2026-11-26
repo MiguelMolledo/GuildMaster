@@ -1,0 +1,72 @@
+{
+  "_doc": "The armoury at level 3: 8 x 6 m on three floors. Below, the shop: three racks and two armour stands at the back, the repair bench, the grindstone, the counter on the right shop window; the stair climbs along the left wall to the front. Above, the store of arms; on top, the guard's room. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "id": "armory",
+  "level": 3,
+  "tile_m": 1.0,
+  "origin_m": [-3.5, -2.5],
+  "size": [7, 5],
+  "seed": 6,
+  "shell": {"w": 8, "d": 6, "floors": 3, "door_cell": 2},
+  "entrance": {"floor": 0, "tile": [4, 4], "side": "sw"},
+  "rooms": [
+    {"id": "shop", "floor": 0, "type": "shop", "rects": [[0, 0, 6, 4]], "floor_kind": "stone", "wall_style": "timber", "light": "warm"},
+    {"id": "store", "floor": 1, "type": "storage", "rects": [[0, 0, 6, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "dim"},
+    {"id": "guard", "floor": 2, "type": "bedroom", "rects": [[0, 0, 6, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"}
+  ],
+  "stairs": [
+    {"from": [0, 2], "to": [1, 4], "foot": [-0.17, 2.55], "top": [-0.17, 4.6], "tiles": [[0, 3], [0, 4]], "mirror": true, "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94},
+    {"from": [0, 2], "to": [1, 4], "foot": [-0.17, 2.55], "top": [-0.17, 4.6], "tiles": [[0, 3], [0, 4]], "mirror": true, "id": "stairs1", "floor": 1, "to_floor": 2, "prop": "escalera_empinada", "width": 0.94}
+  ],
+  "stations": {
+    "counter": {"name": "Mostrador", "kind": "sales", "floor": 0, "tile": [6, 5], "stand": [6, 4], "reach": 0.95},
+    "grind": {"name": "Muela", "kind": "craft", "floor": 0, "tile": [6, 2], "stand": [5, 2], "prop": "muela", "pos": [6, 1.5], "snap": "right"},
+    "storage": {"name": "Almacén", "kind": "storage", "floor": 1, "tile": [2, 0], "stand": [2, 1], "prop": "armero_estrecho", "snap": "back"}
+  },
+  "customers": {"counter": [{"tile": [6, 6]}], "reach": 1.2, "street": [[14.0, 6.6], [6.6, 6.6]]},
+  "spots": {"shop": [0, [4, 3]]},
+  "props": [
+    {"id": "armero_estrecho", "floor": 0, "tile": [1, 0], "snap": "back"},
+    {"id": "armero_estrecho", "floor": 0, "tile": [2, 0], "snap": "back"},
+    {"id": "armero_estrecho", "floor": 0, "tile": [3, 0], "snap": "back"},
+    {"id": "soporte_armadura", "floor": 0, "tile": [4, 0], "snap": "back", "gap": 0.05},
+    {"id": "soporte_armadura", "floor": 0, "tile": [5, 0], "snap": "back", "gap": 0.05},
+    {"id": "banco_carpintero", "floor": 0, "pos": [0, 0.8], "snap": "left"},
+    {"id": "arca_fuerte", "floor": 0, "tile": [6, 0], "snap": "right,back", "gap": 0.03},
+    {"id": "soporte_armadura", "floor": 0, "tile": [2, 4], "snap": "front", "gap": 0.08},
+    {"id": "armero_estrecho", "floor": 1, "tile": [3, 0], "snap": "back"},
+    {"id": "armero_estrecho", "floor": 1, "tile": [4, 0], "snap": "back"},
+    {"id": "soporte_armadura", "floor": 1, "tile": [6, 0], "snap": "back,right", "gap": 0.08},
+    {"id": "soporte_armadura", "floor": 1, "tile": [6, 1], "snap": "right", "gap": 0.08},
+    {"id": "arcon", "floor": 1, "tile": [6, 3], "snap": "right", "gap": 0.02},
+    {"id": "arcon", "floor": 1, "tile": [6, 4], "snap": "right,front", "gap": 0.03},
+    {"id": "banco_carpintero", "floor": 1, "pos": [3.5, 4], "snap": "front"},
+    {"id": "arcon", "floor": 1, "tile": [0, 0], "snap": "left,back", "gap": 0.03},
+    {"id": "cama_estrecha", "floor": 2, "pos": [6, 0.55], "snap": "right", "rot": 0, "name": "cama_guarda"},
+    {"id": "arcon", "floor": 2, "tile": [5, 0], "snap": "back", "gap": 0.02},
+    {"id": "mesa_estrecha", "floor": 2, "tile": [3, 0], "snap": "back", "gap": 0.02},
+    {"id": "taburete", "floor": 2, "pos": [3, 0.8], "name": "tab_guarda"},
+    {"id": "armero_estrecho", "floor": 2, "tile": [1, 0], "snap": "back"},
+    {"id": "perchero", "floor": 2, "tile": [6, 3], "snap": "right"},
+    {"id": "jergon", "floor": 2, "pos": [0, 0.5], "snap": "left", "rot": 0, "name": "jergon"}
+  ],
+  "cast": [
+    {"look": "Guardia", "name": "Armero", "start": [0, [5, 2]], "steps": [
+      {"say": "atiende el mostrador", "secs": 8, "zone": "counter"},
+      {"say": "afila una hoja", "secs": 7, "anim": "sharpen", "zone": "grind"},
+      {"say": "sube a por una pieza", "secs": 4, "anim": "Interact", "zone": "storage"}
+    ]},
+    {"look": "Herrero", "name": "Mozo", "start": [0, [1, 1]], "steps": [
+      {"say": "repara una malla", "secs": 8, "anim": "hammer", "tile": [0, [1, 1]], "look": [0, 1]},
+      {"say": "barre la tienda", "secs": 5, "anim": "sweep", "tile": [0, [3, 2]]}
+    ]},
+    {"look": "Sereno", "name": "Guarda", "start": [2, [3, 1]], "steps": [
+      {"say": "cena", "secs": 7, "anim": "eat", "sit": "tab_guarda", "look": [3, 0]},
+      {"say": "duerme", "secs": 10, "lie": "cama_guarda"}
+    ]},
+    {"look": "Cazadora", "name": "Cliente", "outside": true, "wait": 3, "looks": ["Guardia", "Cazadora", "Noble"], "steps": [
+      {"enter": true},
+      {"say": "compra una espada", "secs": 6, "anim": "Idle_Talking", "window": true},
+      {"leave": true, "secs": 5}
+    ]}
+  ]
+}

@@ -1,0 +1,331 @@
+{
+ "_doc": "Looks of the clothing test (ropa.tscn) and of the numeric clipping sweep (tools/ropa_clip.gd + tools/ropa_clip.py). def: a CharBuilder def. check: outer / inner = part ids or id prefixes; reach = how far (m) inside the outer surface an inner vertex still counts as covered; hands = also count hands sinking into the outer parts.",
+ "looks": {
+  "base_apron": {
+   "def": {
+    "sex": "m",
+    "parts": {
+     "hair": "hair_buzzed",
+     "torso": "peasant",
+     "arms": "peasant",
+     "legs": "peasant",
+     "feet": "peasant",
+     "acc": [
+      "apron"
+     ]
+    }
+   },
+   "check": {
+    "outer": [
+     "apron_m"
+    ],
+    "inner": [
+     "legs_peasant_m"
+    ],
+    "reach": 0.08,
+    "hands": true
+   }
+  },
+  "gown": {
+   "def": {
+    "sex": "f",
+    "parts": {
+     "hair": "hair_buns",
+     "torso": "gown",
+     "arms": "arms_robe_f",
+     "legs": "",
+     "feet": "peasant"
+    }
+   },
+   "check": {
+    "outer": [
+     "torso_gown_f"
+    ],
+    "inner": [
+     "feet_peasant_f",
+     "head_f_c",
+     "arms_robe_f"
+    ],
+    "reach": 0.25,
+    "hands": true
+   }
+  },
+  "dress": {
+   "def": {
+    "sex": "f",
+    "parts": {
+     "hair": "hair_buns",
+     "torso": "dress",
+     "arms": "arms_robe_f",
+     "legs": "",
+     "feet": "peasant"
+    }
+   },
+   "check": {
+    "outer": [
+     "torso_dress_f"
+    ],
+    "inner": [
+     "feet_peasant_f",
+     "head_f_c",
+     "arms_robe_f"
+    ],
+    "reach": 0.25,
+    "hands": true
+   }
+  },
+  "dress_girl": {
+   "def": {
+    "sex": "f",
+    "age": 8,
+    "parts": {
+     "hair": "hair_buns",
+     "torso": "dress",
+     "arms": "arms_robe_f",
+     "legs": "",
+     "feet": "peasant"
+    }
+   },
+   "check": {
+    "outer": [
+     "torso_dress_f"
+    ],
+    "inner": [
+     "feet_peasant_f",
+     "head_f_c",
+     "arms_robe_f"
+    ],
+    "reach": 0.25,
+    "hands": true
+   }
+  },
+  "cassock": {
+   "def": {
+    "sex": "m",
+    "parts": {
+     "hair": "hair_horseshoe",
+     "torso": "cassock",
+     "arms": "arms_robe_m",
+     "legs": "",
+     "feet": "peasant"
+    }
+   },
+   "check": {
+    "outer": [
+     "torso_cassock_m"
+    ],
+    "inner": [
+     "feet_peasant_m",
+     "head_m_c",
+     "arms_robe_m"
+    ],
+    "reach": 0.25,
+    "hands": true
+   }
+  },
+  "coat": {
+   "def": {
+    "sex": "m",
+    "parts": {
+     "hair": "hair_parted",
+     "torso": "coat",
+     "arms": "arms_robe_m",
+     "legs": "peasant",
+     "feet": "peasant"
+    }
+   },
+   "check": {
+    "outer": [
+     "torso_coat_m"
+    ],
+    "inner": [
+     "legs_peasant_m",
+     "feet_peasant_m",
+     "head_m_c",
+     "arms_robe_m"
+    ],
+    "reach": 0.2,
+    "hands": true
+   }
+  },
+  "tunic": {
+   "def": {
+    "sex": "m",
+    "parts": {
+     "hair": "hair_parted",
+     "torso": "tunic",
+     "arms": "arms_robe_m",
+     "legs": "peasant",
+     "feet": "peasant"
+    }
+   },
+   "check": {
+    "outer": [
+     "torso_tunic_m"
+    ],
+    "inner": [
+     "legs_peasant_m",
+     "head_m_c",
+     "arms_robe_m"
+    ],
+    "reach": 0.15,
+    "hands": true
+   }
+  },
+  "tunic_boy": {
+   "def": {
+    "sex": "m",
+    "age": 9,
+    "parts": {
+     "hair": "hair_parted",
+     "torso": "tunic",
+     "arms": "arms_robe_m",
+     "legs": "peasant",
+     "feet": "peasant"
+    }
+   },
+   "check": {
+    "outer": [
+     "torso_tunic_m"
+    ],
+    "inner": [
+     "legs_peasant_m",
+     "head_m_c",
+     "arms_robe_m"
+    ],
+    "reach": 0.15,
+    "hands": true
+   }
+  },
+  "tabard": {
+   "def": {
+    "sex": "m",
+    "parts": {
+     "hair": "hair_buzzed",
+     "torso": "peasant",
+     "arms": "peasant",
+     "legs": "peasant",
+     "feet": "peasant",
+     "acc": [
+      "tabard"
+     ]
+    }
+   },
+   "check": {
+    "outer": [
+     "tabard_m"
+    ],
+    "inner": [
+     "torso_peasant_m",
+     "legs_peasant_m",
+     "arms_peasant_m"
+    ],
+    "reach": 0.1,
+    "hands": true
+   }
+  },
+  "noble_m": {
+   "def": {
+    "sex": "m",
+    "parts": {
+     "hair": "hair_parted",
+     "beard": "beard",
+     "torso": "coat",
+     "arms": "arms_robe_m",
+     "legs": "peasant",
+     "feet": "peasant",
+     "acc": [
+      "mantle"
+     ]
+    }
+   },
+   "check": {
+    "outer": [
+     "mantle_m"
+    ],
+    "inner": [
+     "torso_coat_m",
+     "arms_robe_m",
+     "head_m_c",
+     "beard"
+    ],
+    "reach": 0.1,
+    "hands": true
+   }
+  },
+  "noble_f": {
+   "def": {
+    "sex": "f",
+    "parts": {
+     "hair": "hair_long",
+     "torso": "gown",
+     "arms": "arms_robe_f",
+     "legs": "",
+     "feet": "peasant",
+     "acc": [
+      "mantle"
+     ]
+    }
+   },
+   "check": {
+    "outer": [
+     "mantle_f"
+    ],
+    "inner": [
+     "torso_gown_f",
+     "arms_robe_f",
+     "head_f_c"
+    ],
+    "reach": 0.1,
+    "hands": true
+   }
+  },
+  "boy_shirt": {
+   "def": {
+    "sex": "m",
+    "age": 9,
+    "parts": {
+     "hair": "hair_parted",
+     "torso": "peasant",
+     "arms": "peasant",
+     "legs": "peasant",
+     "feet": "peasant"
+    }
+   },
+   "check": {
+    "outer": [
+     "torso_peasant_m_child"
+    ],
+    "inner": [
+     "head_m_v_child",
+     "arms_peasant_m"
+    ],
+    "reach": 0.05,
+    "hands": false
+   }
+  },
+  "boy_shirt_adult_ref": {
+   "def": {
+    "sex": "m",
+    "parts": {
+     "hair": "hair_parted",
+     "torso": "peasant",
+     "arms": "peasant",
+     "legs": "peasant",
+     "feet": "peasant"
+    }
+   },
+   "check": {
+    "outer": [
+     "torso_peasant_m"
+    ],
+    "inner": [
+     "head_m_v",
+     "arms_peasant_m"
+    ],
+    "reach": 0.05,
+    "hands": false
+   }
+  }
+ }
+}

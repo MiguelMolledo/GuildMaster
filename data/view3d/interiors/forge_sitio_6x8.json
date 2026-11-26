@@ -1,0 +1,662 @@
+{
+ "_doc": "Variant of forge_sitio.json made by tools/sims_variant.py: the forge as a 6 x 8 m house (-- --forja=6x8). Rows 0..6 = z -3..3; see forge_sitio.json for the schema.",
+ "id": "forge",
+ "for_levels": [
+  2,
+  3
+ ],
+ "tile_m": 1.0,
+ "origin_m": [
+  -4.5,
+  -3.5
+ ],
+ "size": [
+  7,
+  7
+ ],
+ "seed": 7,
+ "shell": {
+  "w": 6,
+  "d": 8,
+  "floors": 2,
+  "door_cell": 1,
+  "shop": {
+   "cells": [
+    0
+   ],
+   "awning": "red"
+  },
+  "sign": "Forge",
+  "porch": [
+   {
+    "side": "left",
+    "from": 1,
+    "to": 2,
+    "ends": "boards"
+   }
+  ],
+  "chimneys": [
+   {
+    "x": 0.6,
+    "y": 0.665,
+    "piece": "Prop_Chimney_Forge"
+   },
+   {
+    "x": 0.0,
+    "y": -0.85,
+    "piece": "Prop_Chimney"
+   }
+  ],
+  "doorways": [
+   {
+    "side": "left",
+    "floor": 0,
+    "cell": 1
+   }
+  ],
+  "plain": [
+   {
+    "side": "back",
+    "floor": 1,
+    "cell": 1
+   },
+   {
+    "side": "left",
+    "floor": 1,
+    "cell": 1
+   },
+   {
+    "side": "right",
+    "floor": 1,
+    "cell": 2
+   },
+   {
+    "side": "front",
+    "floor": 1,
+    "cell": 1
+   },
+   {
+    "side": "right",
+    "floor": 0,
+    "cell": 0
+   },
+   {
+    "side": "right",
+    "floor": 0,
+    "cell": 1
+   },
+   {
+    "side": "right",
+    "floor": 0,
+    "cell": 2
+   },
+   {
+    "side": "right",
+    "floor": 0,
+    "cell": 3
+   }
+  ],
+  "floor_holes": [
+   {
+    "floor": 1,
+    "rect_m": [
+     1.5,
+     2.0,
+     3.0,
+     4.0
+    ]
+   }
+  ]
+ },
+ "entrance": {
+  "floor": 0,
+  "tile": [
+   4,
+   6
+  ],
+  "side": "sw"
+ },
+ "rooms": [
+  {
+   "id": "workshop",
+   "floor": 0,
+   "type": "workshop",
+   "rects": [
+    [
+     2,
+     0,
+     6,
+     4
+    ]
+   ],
+   "floor_kind": "stone",
+   "wall_style": "stone",
+   "light": "forge"
+  },
+  {
+   "id": "shop",
+   "floor": 0,
+   "type": "shop",
+   "rects": [
+    [
+     2,
+     5,
+     6,
+     6
+    ]
+   ],
+   "floor_kind": "stone",
+   "wall_style": "stone",
+   "light": "warm"
+  },
+  {
+   "id": "storage",
+   "floor": 0,
+   "type": "storage",
+   "annex": true,
+   "rects": [
+    [
+     0,
+     1,
+     0,
+     4
+    ],
+    [
+     1,
+     2,
+     1,
+     2
+    ]
+   ],
+   "floor_kind": "earth",
+   "wall_style": "timber"
+  },
+  {
+   "id": "bedroom",
+   "floor": 1,
+   "type": "bedroom",
+   "rects": [
+    [
+     2,
+     0,
+     6,
+     2
+    ]
+   ],
+   "floor_kind": "planks",
+   "wall_style": "timber",
+   "light": "dim_warm"
+  },
+  {
+   "id": "kitchen",
+   "floor": 1,
+   "type": "kitchen",
+   "rects": [
+    [
+     2,
+     3,
+     6,
+     6
+    ]
+   ],
+   "floor_kind": "planks",
+   "wall_style": "timber",
+   "light": "kitchen"
+  }
+ ],
+ "open": [
+  [
+   "workshop",
+   "shop"
+  ]
+ ],
+ "doors": [
+  {
+   "floor": 0,
+   "tile": [
+    2,
+    2
+   ],
+   "side": "nw"
+  },
+  {
+   "floor": 1,
+   "tile": [
+    4,
+    3
+   ],
+   "side": "ne"
+  }
+ ],
+ "stairs": [
+  {
+   "id": "stairs",
+   "floor": 0,
+   "to_floor": 1,
+   "prop": "escalera_empinada",
+   "from": [
+    6,
+    4
+   ],
+   "to": [
+    5,
+    6
+   ],
+   "foot": [
+    6.2,
+    4.55
+   ],
+   "top": [
+    6.2,
+    6.6
+   ],
+   "width": 0.94,
+   "tiles": [
+    [
+     6,
+     5
+    ],
+    [
+     6,
+     6
+    ]
+   ]
+  }
+ ],
+ "stations": {
+  "furnace": {
+   "floor": 0,
+   "tile": [
+    6,
+    1
+   ],
+   "stand": [
+    5,
+    1
+   ],
+   "pos": [
+    6.02,
+    0.34
+   ],
+   "rot": -90,
+   "reach": 1.3
+  },
+  "anvil": {
+   "floor": 0,
+   "tile": [
+    3,
+    1
+   ],
+   "stand": [
+    4,
+    1
+   ],
+   "pos": [
+    3.0,
+    1.0
+   ],
+   "rot": 90,
+   "reach": 0.78
+  },
+  "counter": {
+   "floor": 0,
+   "tile": [
+    2,
+    7
+   ],
+   "stand": [
+    2,
+    6
+   ],
+   "reach": 0.95
+  },
+  "storage": {
+   "floor": 0,
+   "tile": [
+    0,
+    4
+   ],
+   "prop": "crates_small",
+   "stand": [
+    0,
+    3
+   ],
+   "pos": [
+    -0.05,
+    4.15
+   ],
+   "rot": 90,
+   "reach": 0.95
+  },
+  "anvil_2": {
+   "floor": 0,
+   "tile": [
+    3,
+    3
+   ],
+   "stand": [
+    4,
+    3
+   ],
+   "pos": [
+    3.0,
+    3.2
+   ],
+   "rot": 90,
+   "reach": 0.78
+  }
+ },
+ "customers": {
+  "counter": [
+   {
+    "tile": [
+     2,
+     8
+    ]
+   }
+  ],
+  "queue": [
+   {
+    "tile": [
+     1,
+     9
+    ]
+   },
+   {
+    "tile": [
+     3,
+     9
+    ]
+   }
+  ],
+  "reach": 1.2,
+  "street": [
+   [
+    14.0,
+    8.6
+   ],
+   [
+    3.2,
+    8.6
+   ]
+  ]
+ },
+ "spots": {
+  "pick": [
+   3,
+   2
+  ],
+  "apprentice": [
+   4,
+   2
+  ],
+  "shop": [
+   0,
+   [
+    4,
+    5
+   ]
+  ],
+  "kitchen": [
+   1,
+   [
+    3,
+    5
+   ]
+  ],
+  "kitchen2": [
+   1,
+   [
+    3,
+    6
+   ]
+  ],
+  "kitchen3": [
+   1,
+   [
+    5,
+    5
+   ]
+  ],
+  "bed": [
+   1,
+   [
+    3,
+    1
+   ]
+  ],
+  "cradle": [
+   1,
+   [
+    6,
+    2
+   ]
+  ],
+  "kitchen_table": [
+   2,
+   5
+  ],
+  "kitchen_hearth": [
+   4,
+   6
+  ]
+ },
+ "idle": [
+  {
+   "floor": 0,
+   "tile": [
+    4,
+    5
+   ]
+  },
+  {
+   "floor": 1,
+   "tile": [
+    4,
+    4
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "quench_tub",
+   "name": "pila",
+   "floor": 0,
+   "pos": [
+    1.92,
+    -0.4
+   ],
+   "rot": 0
+  },
+  {
+   "id": "ingot_stack",
+   "floor": 0,
+   "pos": [
+    3.0,
+    -0.37
+   ],
+   "rot": 0
+  },
+  {
+   "id": "tongs",
+   "floor": 0,
+   "pos": [
+    5.1,
+    0.1
+   ],
+   "rot": 30
+  },
+  {
+   "id": "barrel",
+   "floor": 0,
+   "pos": [
+    -0.3,
+    1.25
+   ],
+   "rot": 0
+  },
+  {
+   "id": "sack",
+   "floor": 0,
+   "pos": [
+    0.0,
+    4.85
+   ],
+   "rot": 20
+  },
+  {
+   "id": "cama_estrecha",
+   "name": "cama",
+   "floor": 1,
+   "tile": [
+    2,
+    0
+   ],
+   "snap": "back,left"
+  },
+  {
+   "id": "arcon",
+   "floor": 1,
+   "tile": [
+    3,
+    0
+   ],
+   "snap": "back",
+   "gap": 0.02
+  },
+  {
+   "id": "perchero",
+   "floor": 1,
+   "tile": [
+    4,
+    0
+   ],
+   "snap": "back"
+  },
+  {
+   "id": "barrel",
+   "floor": 1,
+   "pos": [
+    6.25,
+    -0.25
+   ],
+   "rot": 0
+  },
+  {
+   "id": "sack",
+   "floor": 1,
+   "pos": [
+    5.45,
+    -0.3
+   ],
+   "rot": 200
+  },
+  {
+   "id": "tiro",
+   "floor": 1,
+   "pos": [
+    6,
+    0.4
+   ],
+   "snap": "right"
+  },
+  {
+   "id": "hogar_cocina",
+   "floor": 1,
+   "tile": [
+    4,
+    6
+   ],
+   "snap": "front"
+  },
+  {
+   "id": "kitchen_table",
+   "name": "mesa_cocina",
+   "floor": 1,
+   "pos": [
+    1.71,
+    5.7
+   ],
+   "rot": 90
+  },
+  {
+   "id": "stool",
+   "floor": 1,
+   "pos": [
+    2.75,
+    5.0
+   ],
+   "rot": 90,
+   "seat": true
+  },
+  {
+   "id": "master_bench",
+   "floor": 0,
+   "pos": [
+    1.73,
+    3.6
+   ],
+   "rot": 90
+  },
+  {
+   "id": "weapon_display",
+   "floor": 0,
+   "pos": [
+    5.25,
+    6.22
+   ],
+   "rot": 180
+  },
+  {
+   "id": "dining_table",
+   "floor": 1,
+   "pos": [
+    1.71,
+    3.75
+   ],
+   "rot": 90
+  },
+  {
+   "id": "stool",
+   "floor": 1,
+   "pos": [
+    2.75,
+    3.75
+   ],
+   "rot": 90,
+   "seat": true
+  }
+ ],
+ "upgrades": {
+  "_doc": "here the upgrades that add pieces are placed as base pieces (anvil_2, master_bench, weapon_display, dining_table)"
+ },
+ "upgrade_ids": {
+  "forge_capacity_1": "forge_anvil_2",
+  "forge_capacity_2": "upgrade_storage_shelves",
+  "forge_capacity_3": "forge_furnace_2",
+  "forge_commerce_1": "upgrade_counter",
+  "forge_production_1": "forge_bellows",
+  "forge_production_2": "forge_tempering_tub",
+  "forge_production_3": "forge_master_furnace",
+  "forge_quality_1": "forge_quench_trough",
+  "forge_quality_2": "forge_engraving_bench",
+  "forge_quality_3": "forge_master_seal",
+  "forge_secrets_1": "upgrade_double_ledger",
+  "forge_secrets_2": "upgrade_hidden_passage",
+  "forge_secrets_3": "upgrade_smuggler_cache",
+  "forge_security_3": "upgrade_strongbox",
+  "forge_staff_1": "upgrade_bunks",
+  "forge_staff_2": "upgrade_dining_table",
+  "forge_staff_3": "upgrade_master_bench"
+ },
+ "upgrade_out": {
+  "forge_commerce_2": "fachada: upgrade_shop_window",
+  "forge_commerce_3": "fachada: upgrade_trade_sign",
+  "forge_facade_1": "fachada: upgrade_stone_facade",
+  "forge_facade_2": "fachada: upgrade_garden",
+  "forge_facade_3": "fachada: upgrade_noble_facade",
+  "forge_security_1": "fachada: upgrade_reinforced_lock",
+  "forge_security_2": "fachada: upgrade_guard"
+ },
+ "show_upgrades": true
+}

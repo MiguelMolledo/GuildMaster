@@ -1,0 +1,54 @@
+{
+  "_doc": "The armoury at level 2: 6 x 6 m on two floors. Below, the shop: racks and armour stands at the back, the grindstone, the counter on the right shop window. Above, the store of arms (nobody lives here). Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "id": "armory",
+  "level": 2,
+  "tile_m": 1.0,
+  "origin_m": [-2.5, -2.5],
+  "size": [5, 5],
+  "seed": 5,
+  "shell": {"w": 6, "d": 6, "floors": 2, "door_cell": 1},
+  "entrance": {"floor": 0, "tile": [2, 4], "side": "sw"},
+  "rooms": [
+    {"id": "shop", "floor": 0, "type": "shop", "rects": [[0, 0, 4, 4]], "floor_kind": "stone", "wall_style": "timber", "light": "warm"},
+    {"id": "store", "floor": 1, "type": "storage", "rects": [[0, 0, 4, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "dim"}
+  ],
+  "stairs": [
+    {"from": [0, 2], "to": [1, 0], "foot": [-0.17, 1.45], "top": [-0.17, -0.6], "tiles": [[0, 0], [0, 1]], "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94}
+  ],
+  "stations": {
+    "counter": {"name": "Mostrador", "kind": "sales", "floor": 0, "tile": [4, 5], "stand": [4, 4], "reach": 0.95},
+    "grind": {"name": "Muela", "kind": "craft", "floor": 0, "tile": [4, 2], "stand": [3, 2], "prop": "muela", "snap": "right"},
+    "storage": {"name": "Almacén", "kind": "storage", "floor": 1, "tile": [2, 0], "stand": [2, 1], "prop": "armero_estrecho", "snap": "back"}
+  },
+  "customers": {"counter": [{"tile": [4, 6]}], "reach": 1.2, "street": [[12.0, 6.6], [4.6, 6.6]]},
+  "spots": {"shop": [0, [2, 3]]},
+  "props": [
+    {"id": "armero_estrecho", "floor": 0, "tile": [1, 0], "snap": "back"},
+    {"id": "armero_estrecho", "floor": 0, "tile": [2, 0], "snap": "back"},
+    {"id": "soporte_armadura", "floor": 0, "tile": [3, 0], "snap": "back", "gap": 0.05},
+    {"id": "soporte_armadura", "floor": 0, "tile": [4, 0], "snap": "back,right", "gap": 0.08},
+    {"id": "arca_fuerte", "floor": 0, "tile": [0, 4], "snap": "left,front", "gap": 0.03},
+    {"id": "armero_estrecho", "floor": 1, "tile": [3, 0], "snap": "back"},
+    {"id": "soporte_armadura", "floor": 1, "tile": [4, 0], "snap": "back,right", "gap": 0.08},
+    {"id": "arcon", "floor": 1, "tile": [4, 3], "snap": "right", "gap": 0.02},
+    {"id": "arcon", "floor": 1, "tile": [4, 4], "snap": "right,front", "gap": 0.03},
+    {"id": "banco_carpintero", "floor": 1, "pos": [0.6, 4], "snap": "front"},
+    {"id": "perchero", "floor": 1, "tile": [0, 3], "snap": "left"}
+  ],
+  "cast": [
+    {"look": "Guardia", "name": "Armero", "start": [0, [3, 2]], "steps": [
+      {"say": "atiende el mostrador", "secs": 8, "zone": "counter"},
+      {"say": "afila una hoja", "secs": 7, "anim": "sharpen", "zone": "grind"},
+      {"say": "sube a por una pieza", "secs": 4, "anim": "Interact", "zone": "storage"}
+    ]},
+    {"look": "Herrero", "name": "Mozo", "start": [1, [1, 3]], "steps": [
+      {"say": "repara una malla", "secs": 8, "anim": "hammer", "tile": [1, [1, 3]], "look": [1, 4]},
+      {"say": "barre la tienda", "secs": 5, "anim": "sweep", "tile": [0, [2, 2]]}
+    ]},
+    {"look": "Cazadora", "name": "Cliente", "outside": true, "wait": 3, "looks": ["Guardia", "Cazadora", "Noble"], "steps": [
+      {"enter": true},
+      {"say": "compra una espada", "secs": 6, "anim": "Idle_Talking", "window": true},
+      {"leave": true, "secs": 5}
+    ]}
+  ]
+}

@@ -1,0 +1,224 @@
+{
+  "_doc": "What every GuildMaster building type looks like in 3D, by level (1-3) and variant, for scripts/building_types.gd -> HouseBuilder (docs/construccion.md). A level is a fragment of a HouseBuilder def merged over `base` and the type's `base`. Tokens the script resolves: colours by name (`colors`); cells \"beside\" (the front cells next to the door), \"beside1\" (the first of them), \"door\"; side \"yard:<sides in order of preference>\" (the first of those sides with enough yard cells behind it: `min`, default 1; the entry is dropped if there is none), with \"run\": true (from/to = that run of yard cells, at most `max`) or cell \"run0\" / \"run1\" / \"runN\" (first, second, last cell of the run); floor \"top\"; court gate \"street\". Variants (picked by seed): `palette`, `mirror` (the yard on the other side), `turn` (ridge along the front when the kit has that roof), `upper_window` (window kind of the storeys over the ground floor) and any def key. `take`: how many metres the house leaves free of the lot's width and depth at that level (the yard: sheds, ovens and yard things only go where there is yard). `lot`: the footprint of data/buildings/<type>.json at 2 m a tile, front x depth. `look` (per type): {roof, plaster, wood, stone} over the variant's palette, what tells the trade apart from afar in a town (every trade has a roof of its own: the houses keep the kit's tile and roof_oscura; roof_verdosa, roof_ocre, roof_granate, roof_musgo, roof_hollin, roof_losa and roof_paja come from tools/p3b_tejas.py); `sign_scale` (file or type): size of the hanging sign. `banner` {emblem, color}: the guild banner on the gable (a colour of `colors`, or none for plain canvas). Balcony from / to may be \"door\", \"door-1\", \"door+1\".",
+  "colors": {"RED": "#9e291f", "BLUE": "#294d8c", "GREEN": "#336b3d", "OCHRE": "#b88029"},
+  "base": {
+    "floors": 2, "walls": ["UnevenBrick", "Plaster"], "floors_mat": ["Floor_Brick", "Floor_WoodDark", "Floor_WoodDark"],
+    "corner": "Corner_Exterior_Wood", "window": "Window_Wide_Round", "grid": false, "shutters": true,
+    "side_windows": 0.5, "chimneys": [0.5], "round_door": true
+  },
+  "takes": [[-2, -2], [-2, 0], [-2, 0]],
+  "sign_scale": 1.5,
+  "variants": [
+    {"palette": {}},
+    {"palette": {"plaster": "plaster_ocre", "roof": "roof_oscura", "wood": "wood_nogal"}, "mirror": true},
+    {"palette": {"plaster": "plaster_rosa", "wood": "wood_nogal", "stone": "stone_calida"}, "turn": true, "upper_window": "Window_Thin_Round"},
+    {"palette": {"roof": "roof_oscura", "wood": "wood_roja", "plaster": "plaster_verde"}, "mirror": true, "turn": true}
+  ],
+  "types": {
+    "forge": {
+      "look": {"roof": "roof_hollin"},
+      "lot": [8, 6],
+      "base": {"sign": "Forge", "banner": {"emblem": "Forge", "color": "RED"}, "chimneys": [{"x": 0.45, "y": 0.4, "piece": "Prop_Chimney_Forge"}]},
+      "levels": [
+        {"floors": 1, "walls": ["Plaster"], "plinth": "UnevenBrick", "window": "Window_Wide_Flat", "round_door": false,
+          "yard": [{"piece": "Prop_Barrel", "side": "yard:right,left,back", "cell": "run0", "out": 0.5}]},
+        {"porch": [{"side": "yard:right,left,back", "run": true, "min": 2, "max": 2, "ends": "boards"}],
+          "yard": [{"piece": "Prop_Barrel", "side": "yard:right,left,back", "cell": "runN", "out": 0.5, "along": 0.5}]},
+        {"walls": ["UnevenBrick", "UnevenBrick"], "chimneys": [{"x": 0.45, "y": 0.4, "piece": "Prop_Chimney_Forge"}, {"x": -0.5, "y": -0.4}],
+          "porch": [{"side": "yard:right,left,back", "run": true, "min": 2, "max": 3, "posts": "stone", "ends": "boards"}],
+          "shop": {"cells": "beside1", "awning": false},
+          "yard": [{"piece": "Prop_Barrel", "side": "yard:right,left,back", "cell": "runN", "out": 0.5, "along": 0.5}]}
+      ]
+    },
+    "armory": {
+      "look": {"roof": "roof_pizarra"},
+      "lot": [8, 6],
+      "base": {"shop": {"cells": "beside", "awning": "BLUE", "sign": "Armory"}, "banner": {"emblem": "Armory", "color": "BLUE"}},
+      "takes": [[-2, -2], [-2, 0], [0, 0]],
+      "levels": [
+        {"floors": 1, "walls": ["UnevenBrick"], "window": "Window_Wide_Flat", "shop": {"cells": "beside1", "awning": "BLUE", "sign": "Armory"}},
+        {"porch": [{"side": "yard:right,left,back", "run": true, "min": 2, "posts": "stone"}]},
+        {"floors": 3, "walls": ["UnevenBrick", "UnevenBrick", "Plaster"], "grille": true, "balcony": [{"floor": 1}], "shield": "BLUE", "chimneys": [0.5, -0.5]}
+      ]
+    },
+    "bank": {
+      "look": {"roof": "roof_verdosa"},
+      "lot": [6, 8],
+      "base": {"sign": "Bank", "banner": {"emblem": "Bank", "color": "OCHRE"}, "shield_flank": true, "walls": ["UnevenBrick", "UnevenBrick", "UnevenBrick"], "grille": true, "door_leaf": "Door_8", "shutters": false, "chimneys": [0.6, -0.6]},
+      "takes": [[-2, -2], [0, -2], [0, 0]],
+      "levels": [
+        {"floors": 1},
+        {"portal": true, "portal_door": "Door_Portal_Iron", "shield": "OCHRE", "windows": ["Window_Wide_Round", "Window_Twin"]},
+        {"floors": 3, "portal": true, "portal_door": "Door_Portal_Iron", "shield": "OCHRE", "windows": ["Window_Wide_Round", "Window_Twin", "Window_Twin"],
+          "balcony": [{"floor": 2, "from": 1, "to": 1}]}
+      ],
+      "variants": [
+        {"palette": {}},
+        {"palette": {"stone": "stone_oscura", "roof": "roof_pizarra"}, "mirror": true},
+        {"palette": {"stone": "stone_calida", "roof": "roof_marron", "wood": "wood_nogal"}},
+        {"palette": {"roof": "roof_oscura", "wood": "wood_gris"}, "mirror": true}
+      ]
+    },
+    "carpentry": {
+      "look": {"roof": "roof_marron", "wood": "wood_nogal"},
+      "lot": [8, 6],
+      "base": {"sign": "Carpenter", "banner": {"emblem": "Carpenter", "color": "GREEN"}, "walls": ["Plaster", "Plaster"], "plinth": "UnevenBrick"},
+      "levels": [
+        {"floors": 1, "window": "Window_Wide_Flat", "round_door": false,
+          "yard": [{"piece": "Prop_SawHorse", "side": "yard:right,left,back", "cell": "run0", "out": 0.95, "along": 0.6},
+            {"piece": "Prop_PlankStack", "side": "yard:back,right,left", "cell": "runN", "out": 0.7}]},
+        {"porch": [{"side": "yard:right,left,back", "run": true, "min": 2, "max": 3}],
+          "yard": [{"piece": "Prop_SawHorse", "side": "yard:right,left,back", "cell": "run0", "out": 0.95, "along": 0.9},
+            {"piece": "Prop_PlankStack", "side": "yard:right,left,back", "cell": "runN", "out": 0.7}]},
+        {"walls": ["UnevenBrick", "Plaster"], "balcony": [{"floor": 1}], "shop": {"cells": "beside1", "awning": false},
+          "porch": [{"side": "yard:right,left,back", "run": true, "min": 2, "max": 3}],
+          "yard": [{"piece": "Prop_SawHorse", "side": "yard:right,left,back", "cell": "run0", "out": 0.95, "along": 0.9},
+            {"piece": "Prop_PlankStack", "side": "yard:right,left,back", "cell": "runN", "out": 0.7}]}
+      ]
+    },
+    "clinic": {
+      "look": {"roof": "roof_musgo", "plaster": "plaster_verde"},
+      "lot": [6, 6],
+      "base": {"sign": "Alchemist", "banner": {"emblem": "Alchemist"}, "lantern": true, "herbs": "beside"},
+      "takes": [[-2, -2], [-2, 0], [0, 0]],
+      "levels": [
+        {"floors": 1, "walls": ["Plaster"], "plinth": "UnevenBrick", "window": "Window_Wide_Flat"},
+        {},
+        {"balcony": [{"floor": 1, "from": 1, "to": 1}], "chimneys": [0.5, -0.5]}
+      ],
+      "variants": [
+        {"palette": {"plaster": "plaster_verde"}},
+        {"palette": {"roof": "roof_marron"}, "mirror": true},
+        {"palette": {"plaster": "plaster_verde", "wood": "wood_nogal"}, "turn": true},
+        {"palette": {"plaster": "plaster_ocre", "roof": "roof_oscura"}, "mirror": true}
+      ]
+    },
+    "den": {
+      "lot": [6, 6],
+      "base": {"shutters": "closed", "door_leaf": "Door_8", "chimneys": [], "round_door": false, "side_windows": 0.2,
+        "hatch": {"side": "yard:right,left,back", "cell": "run0"}},
+      "levels": [
+        {"floors": 1, "walls": ["Plaster"], "window": "Window_Wide_Flat"},
+        {"walls": ["Plaster", "Plaster"], "plinth": "UnevenBrick"},
+        {"floors": 3, "walls": ["UnevenBrick", "Plaster", "Plaster"], "grille": true, "chimneys": [0.5]}
+      ],
+      "variants": [
+        {"palette": {"wood": "wood_gris", "roof": "roof_oscura"}},
+        {"palette": {"wood": "wood_nogal", "roof": "", "stone": "stone_oscura"}, "mirror": true},
+        {"palette": {"wood": "wood_gris", "roof": "roof_oscura"}, "turn": true},
+        {"palette": {"wood": "wood_nogal", "roof": "", "stone": "stone_oscura"}, "mirror": true, "turn": true}
+      ]
+    },
+    "farm": {
+      "look": {"roof": "roof_paja"},
+      "lot": [8, 6],
+      "base": {"sign": "Farm", "round_door": false},
+      "takes": [[-2, 0], [-2, 0], [-2, 0]],
+      "levels": [
+        {"floors": 1, "walls": ["Boards"], "barn": {"side": "yard:right,left,back", "cell": "run1"},
+          "yard": [{"piece": "Prop_HayPile", "side": "yard:right,left,back", "cell": "runN", "out": 1.0}]},
+        {"walls": ["Plaster", "Boards"], "plinth": "UnevenBrick", "loft": {"side": "front", "floor": 1, "cell": "door"},
+          "porch": [{"side": "yard:right,left,back", "run": true, "min": 2, "max": 3, "stalls": true}]},
+        {"walls": ["UnevenBrick", "Boards"], "loft": {"side": "front", "floor": 1, "cell": "door"}, "dovecote": 0.5,
+          "porch": [{"side": "yard:right,left,back", "run": true, "min": 2, "max": 3, "stalls": true, "posts": "stone"}],
+          "barn": {"side": "back", "cell": 1}}
+      ]
+    },
+    "house_humble": {
+      "lot": [6, 6],
+      "base": {"walls": ["Plaster", "Plaster"], "window": "Window_Wide_Flat", "round_door": false},
+      "levels": [
+        {"floors": 1},
+        {"floors": 1, "plinth": "UnevenBrick"},
+        {"plinth": "UnevenBrick"}
+      ]
+    },
+    "house_well": {
+      "lot": [6, 6],
+      "takes": [[-2, 0], [0, 0], [0, 0]],
+      "levels": [
+        {},
+        {"balcony": [{"floor": 1, "from": 1, "to": 1}]},
+        {"floors": 3, "walls": ["UnevenBrick", "Plaster", "Plaster"], "balcony": [{"floor": 1}], "chimneys": [0.5, -0.5]}
+      ]
+    },
+    "house_noble": {
+      "lot": [12, 10],
+      "base": {"portal": true, "shield": "RED", "shield_flank": true, "window": "Window_Twin", "shutters": false, "side_windows": 0.9, "chimneys": [0.6, -0.6]},
+      "takes": [[-6, -2], [-4, -2], [-4, 0]],
+      "levels": [
+        {},
+        {"walls": ["UnevenBrick", "UnevenBrick"], "tower": {"corner": "front_left"},
+          "court": {"side": "yard:right,left", "depth": 4, "gate": "street"}},
+        {"floors": 3, "walls": ["UnevenBrick", "UnevenBrick", "Plaster"], "tower": {"corner": "front_left"},
+          "court": {"side": "yard:right,left", "depth": 4, "gate": "street"}, "balcony": [{"floor": 1, "from": -2, "to": -1}]}
+      ],
+      "variants": [
+        {"palette": {"roof": "roof_oscura", "wood": "wood_nogal"}},
+        {"palette": {"roof": "", "stone": "stone_calida"}, "shield": "BLUE"},
+        {"palette": {"roof": "", "wood": "wood_nogal", "plaster": "plaster_ocre"}, "shield": "GREEN"},
+        {"palette": {"roof": "roof_oscura", "stone": "stone_oscura"}, "shield": "OCHRE"}
+      ]
+    },
+    "masonry": {
+      "look": {"roof": "roof_losa", "stone": "stone_calida"},
+      "lot": [8, 6],
+      "base": {"sign": "Mason", "banner": {"emblem": "Mason"}, "walls": ["UnevenBrick", "UnevenBrick", "UnevenBrick"]},
+      "levels": [
+        {"floors": 1, "window": "Window_Wide_Flat",
+          "yard": [{"piece": "Prop_StoneBlocks", "side": "yard:right,left,back", "cell": "run0", "out": 0.75}]},
+        {"yard": [{"piece": "Prop_StoneBlocks", "side": "yard:right,left,back", "cell": "run0", "out": 0.75},
+            {"piece": "Prop_Crane", "side": "yard:right,left,back", "cell": "runN", "out": 1.05, "along": -0.4}]},
+        {"floors": 3, "balcony": [{"floor": 1, "from": 1, "to": 1}],
+          "yard": [{"piece": "Prop_StoneBlocks", "side": "yard:right,left,back", "cell": "run0", "out": 0.75},
+            {"piece": "Prop_Crane", "side": "yard:right,left,back", "cell": "runN", "out": 1.05, "along": -0.4}]}
+      ]
+    },
+    "tailor_shop": {
+      "look": {"roof": "roof_morado", "plaster": "plaster_rosa"},
+      "lot": [6, 6],
+      "base": {"sign": "Tailor", "banner": {"emblem": "Tailor", "color": "RED"}, "display": {"cells": "beside", "awning": "RED"}},
+      "takes": [[-2, -2], [-2, 0], [0, 0]],
+      "levels": [
+        {"floors": 1, "walls": ["Plaster"], "plinth": "UnevenBrick"},
+        {"cloth": [{"floor": 1, "cell": "door"}]},
+        {"floors": 3, "walls": ["UnevenBrick", "Plaster", "Plaster"], "cloth": [{"floor": 1, "cell": "beside1"}, {"floor": 2, "cell": "door"}]}
+      ]
+    },
+    "tavern_inn": {
+      "look": {"roof": "roof_granate", "plaster": "plaster_ocre", "wood": "wood_roja"},
+      "lot": [8, 6],
+      "base": {"sign": "Tavern", "banner": {"emblem": "Tavern", "color": "GREEN"}, "yard": [{"piece": "Prop_Barrels", "side": "front", "cell": "beside1", "out": 0.55}]},
+      "takes": [[-2, 0], [0, 0], [0, 0]],
+      "levels": [
+        {},
+        {"balcony": [{"floor": 1, "roof": true}]},
+        {"floors": 3, "walls": ["UnevenBrick", "Plaster", "Plaster"], "balcony": [{"floor": 2, "roof": true}], "chimneys": [0.5, -0.5]}
+      ]
+    },
+    "bakery": {
+      "look": {"roof": "roof_ocre", "plaster": ""},
+      "lot": [6, 6],
+      "base": {"sign": "Baker", "banner": {"emblem": "Baker", "color": "OCHRE"}, "shop": {"cells": "beside1", "awning": "OCHRE", "sign": "Baker"}, "oven": {"side": "yard:right,left,back", "cell": "run0"}},
+      "levels": [
+        {"floors": 1, "walls": ["Plaster"], "plinth": "UnevenBrick", "oven": {"side": "yard:back,right,left", "cell": "run0"}},
+        {},
+        {"floors": 3, "walls": ["UnevenBrick", "Plaster", "Plaster"], "balcony": [{"floor": 1, "from": -1, "to": -1}]}
+      ]
+    },
+    "town_hall": {
+      "look": {"roof": "roof_pizarra"},
+      "lot": [12, 8],
+      "takes": [[0, 0], [0, 0], [0, 0]],
+      "base": {"portal": true, "shield": "BLUE", "shield_flank": true, "window": "Window_Twin", "walls": ["UnevenBrick", "Plaster", "Plaster"],
+        "chimneys": [0.6, -0.6], "dovecote": 0.0},
+      "levels": [
+        {"floors": 2},
+        {"floors": 3, "balcony": [{"floor": 2, "from": "door", "to": "door+1"}]},
+        {"floors": 3, "walls": ["UnevenBrick", "UnevenBrick", "Plaster"], "balcony": [{"floor": 2, "from": "door-1", "to": "door+1"}],
+          "grille": true, "chimneys": [0.6, -0.6, 0.0], "tower": {"corner": "front_left"}}
+      ],
+      "variants": [{"palette": {}}]
+    }
+  }
+}

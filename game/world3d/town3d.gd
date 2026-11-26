@@ -1,0 +1,335 @@
+class_name Town3D
+extends "res://game/world3d/town/sim3d_chars.gd"
+## The 3D town of the game, fed by the sim as it runs (docs/3d/plan.md §1). It is Prueba3D's town (town/pueblo.gd: the
+## houses by type and level, the yards, extras, trees and hedges of the map) and its townsfolk (town/sim3d_chars.gd:
+## CharBuilder bodies dressed by job, family and age, gaits matched to the ground speed, seats, door lanterns, lit
+## windows, light and weather by the hour), with the reads of the recorded trace replaced by the live state:
+## - `trace` is the live feed: what Prueba3D's trace carried, built from the state when the town is mounted (the map,
+##   the walkable grid, the families, the characters, the buildings) and refreshed every game minute (who is inside
+##   where and what they do, each building's finished upgrades and works, who appeared, changed or left).
+## - Positions are read every frame from the state and interpolated with Game.step_fraction(), as the 2D view does
+##   (CharacterView.tile_position: the sim moves by tiles, one tile per minutes_per_tile); the speed on the ground
+##   comes from the next tile of the path.
+## - The light, the season and the phases come from the sim's clock and data/time.json.
+## Reads only: the orders go out through WorldView3D. Nothing here is saved; a load builds the town again.
+
+var sim: Sim = null
+var frac: float = 0.0                 # how far towards the next step (Game.step_fraction)
+var real_per_minute: float = 0.0625   # real seconds per game minute at the current speed (WorldView3D sets it)
+var _minute: int = -1
+var _sigs: Dictionary = {}            # chr -> the signature its body was built with (rebuilt when it changes)
+
+
+const Opt3D := preload("res://game/world3d/town/opt3d.gd")
+
+
+## The builders' shared caches (materials, meshes, scenes of the kit): emptied when the view goes away (the quit).
+static func clear_caches() -> void:
+	for d: Dictionary in [HouseBuilder._scenes, HouseBuilder._palette, HouseBuilder._mat_cache, HouseBuilder._prop_mats,
+			HouseBuilder._tints, LandmarkBuilder._cat, LandmarkBuilder._scenes, LandmarkBuilder._tints,
+			LandmarkBuilder._tinted, BuildingTypes._data, CharBuilder._cache, Opt3D.active, Opt3D._canon]:
+		d.clear()
+	LandmarkBuilder._water = null
+	CharBuilder._outline = null
+	RoadBuilder._noise = null
+
+
+## Before add_child: the state the town is built from.
+func setup(s: Sim) -> void:
+	sim = s
+	use_cart = false
+	use_sound = false
+	var st := s.state
+	mapd = (s.catalog.maps().get(st.map_id, {}) as Dictionary).duplicate(true)
+	season_id = Clock.season(int(st.clock["minute"]), s.catalog.time)
+	trace = _feed()
+	_minute = int(st.clock["minute"])
+	t_min = float(_minute)
+	speed_i = SPEEDS.find(1.0)
+
+
+## The live feed in the shape of Prueba3D's trace (version 2, tools/sim_trace.gd of the prueba), from the state now.
+func _feed() -> Dictionary:
+	var st := sim.state
+	var now := int(st.clock["minute"])
+	var m: Dictionary = sim.catalog.maps().get(st.map_id, {})
+	var grid := Grid.for_state(sim.catalog, st)
+	var mask: Array = []
+	for r: int in grid.height:
+		var row := ""
+		for c: int in grid.width:
+			row += "1" if grid.walkable(c, r) else "0"
+		mask.append(row)
+	var fams := {}
+	for f: String in st.families:
+		var d: Dictionary = st.families[f]
+		fams[f] = {"name": str(d.get("name", "")), "color": str((d.get("colors", {}) as Dictionary).get("primary", "#808080")),
+			"controlled_by": str(d.get("controlled_by", ""))}
+	var feed := {"version": 2,
+		"meta": {"seed": st.world_seed, "map": st.map_id, "start_minute": now, "end_minute": now + 1000000,
+			"minutes_per_tile": Movement.minutes_per_tile(sim.catalog), "days": [], "live": true},
+		"map": {"size": m.get("size", [0, 0]), "rows": m.get("rows", []), "walkable": mask,
+			"stalls": m.get("stalls", {}), "social_points": m.get("social_points", []), "spawns": m.get("spawns", {})},
+		"families": fams, "buildings": {}, "characters": {}, "festivals": [], "events": []}
+	for b: String in st.buildings:
+		var d: Dictionary = st.buildings[b]
+		feed["buildings"][b] = {"type": str(d.get("type", "")), "origin": d.get("origin", []),
+			"footprint": d.get("footprint", []), "door": d.get("door", []), "owner": str(d.get("owner", "")),
+			"plot": Plots.plot_of(sim, b), "first": 0, "tl": [_building_row(b, now)]}
+	var hall: Dictionary = m.get("town_hall", {})
+	if not hall.is_empty():
+		feed["buildings"]["town_hall"] = {"type": "town_hall", "origin": hall.get("origin", []),
+			"footprint": hall.get("footprint", []), "door": hall.get("service", hall.get("door", [])), "owner": "",
+			"first": 0, "tl": [[0, "normal", [], [], []]]}
+	for id: String in st.characters:
+		var c := _char_entry(id, now)
+		if not c.is_empty():
+			feed["characters"][id] = c
+	return feed
+
+
+## [minute, state, finished upgrades, upgrade works, building works] of a building now (the trace's timeline row).
+func _building_row(b: String, now: int) -> Array:
+	var d: Dictionary = sim.state.buildings[b]
+	var w: Dictionary = Upgrades.work(sim.state, b)
+	var c: Dictionary = d.get("construction", {}) if d.get("construction") is Dictionary else {}
+	return [0, str(d.get("state", "normal")), Upgrades.owned(sim.state, b),
+		[] if w.is_empty() else [str(w.get("upgrade", "")), int(w.get("start", now)), int(w.get("end", now))],
+		[] if c.is_empty() else [str(c.get("kind", "")), int(c.get("start", now)), int(c.get("end", now))]]
+
+
+## A character's entry of the feed ({} for the dead): who it is and its one state row.
+func _char_entry(id: String, now: int) -> Dictionary:
+	var st := sim.state
+	var ch: Dictionary = st.characters[id]
+	if not bool(ch.get("alive", true)) or not ch.has("position"):
+		return {}
+	var job: Variant = ch.get("job")
+	return {"id": id, "name": str(ch.get("name", "")), "family": str(ch.get("family", "")),
+		"female": bool(ch.get("female", false)), "sex": "f" if bool(ch.get("female", false)) else "m",
+		"age": Kin.age(sim, id), "birth_day": int(ch.get("birth_day", 0)),
+		"occupation": str(ch.get("occupation", "")), "profession": str(ch.get("profession", "")),
+		"role": str((job as Dictionary).get("role", "")) if job is Dictionary else "",
+		"home": str(ch.get("home", "")), "family_role": SimQuery.family_role(st, id),
+		"visual": ch.get("visual", {}) if ch.get("visual") is Dictionary else {},
+		"parents": ch.get("parents", []), "spouse": str(ch.get("spouse", "")),
+		"employer": Staff.employer(st, id), "first": 0, "pos": [], "st": [_state_row(id, now)]}
+
+
+## [minute, location, doing, bubble, station, spot] now (location "~" = not in the town).
+func _state_row(id: String, now: int) -> Array:
+	var ch: Dictionary = sim.state.characters[id]
+	var loc := str(ch.get("location", ""))
+	if SimQuery.offstage(sim.state, id):
+		loc = "~"
+	var station := str(ch.get("station", "")) if loc != "" else ""
+	var t: Variant = ch.get("town")
+	var spot := ""
+	if t is Dictionary and loc == "" and str((t as Dictionary).get("spot", "")) != "":
+		spot = "%s|%d" % [(t as Dictionary)["spot"], int((t as Dictionary).get("slot", -1))]
+	return [0, loc, SimQuery.doing(sim, id, now), SimQuery.bubble_of(sim, id), station, spot]
+
+
+## What makes a body different: rebuilt when it changes (married, came of age, hired, another family...).
+func _body_sig(c: Dictionary) -> String:
+	var age: int = int(c.get("age", 0))
+	var stage := 0 if age < 8 else (1 if age < 16 else (2 if age < 55 else 3))
+	return "%s|%s|%s|%s|%s|%d" % [c.get("family", ""), c.get("occupation", ""), c.get("profession", ""),
+		c.get("family_role", ""), c.get("employer", ""), stage]
+
+
+func _spawn_person(id: String, skin: StandardMaterial3D = null, head_mesh: SphereMesh = null) -> void:
+	super(id, skin, head_mesh)
+	(people[id] as Dictionary)["id"] = id
+	_sigs[id] = _body_sig(trace.characters[id])
+
+
+func _remove_person(id: String) -> void:
+	if people.has(id):
+		(people[id].node as Node).queue_free()
+	people.erase(id)
+	_chr.erase(id)
+	_sigs.erase(id)
+
+
+## Once per game minute: the state rows, who appeared, changed or left, the buildings' timeline rows.
+func _refresh_minute(now: int) -> void:
+	var st := sim.state
+	var added := 0
+	var rebuilt := 0
+	for id: String in st.characters:
+		var c := _char_entry(id, now) if not trace.characters.has(id) else {}
+		if trace.characters.has(id):
+			var ch: Dictionary = st.characters[id]
+			if not bool(ch.get("alive", true)):
+				_remove_person(id)
+				trace.characters.erase(id)
+				continue
+			var e: Dictionary = trace.characters[id]
+			e["st"] = [_state_row(id, now)]
+			if now % 60 == 0:  # who someone is changes slowly: checked once a game hour
+				var fresh := _char_entry(id, now)
+				if _body_sig(fresh) != str(_sigs.get(id, "")):
+					_remove_person(id)
+					trace.characters[id] = fresh
+					_spawn_person(id)
+					rebuilt += 1
+			if people.has(id):
+				var p: Dictionary = people[id]
+				p["st"] = e["st"]
+		elif not c.is_empty():
+			trace.characters[id] = c
+			_spawn_person(id)
+			added += 1
+	for id: String in trace.characters.keys():
+		if not st.characters.has(id):
+			_remove_person(id)
+			trace.characters.erase(id)
+	for b: String in st.buildings:
+		if trace.buildings.has(b):
+			trace.buildings[b]["tl"] = [_building_row(b, now)]
+	var season := Clock.season(now, sim.catalog.time)
+	if season != season_id:
+		_change_season(season)
+	if (added > 0 or rebuilt > 0) and OS.is_debug_build():
+		print("[Town3D] minute %d: %d people added, %d rebuilt (%d in town)" % [now, added, rebuilt, people.size()])
+
+
+## The sim's season changed (every 2 days): the light and the weather read it live; the crowns, the leaves and the
+## grass are tinted again (vida.gd). The crops of the fields keep the look they were built with until the town is
+## built again (a load, a new game).
+func _change_season(season: String) -> void:
+	if OS.is_debug_build():
+		print("[Town3D] season %s -> %s" % [season_id, season])
+	season_id = season
+	if clima != null and clima.get("vida") != null:
+		var v: RefCounted = clima.get("vida")
+		v.set("season", season)
+		v.call("_crowns")
+
+
+# ---------------------------------------------------------------- what the prueba read from the trace, live
+
+## Every building can change its look while the game runs (upgrades, works): looked at once per game minute.
+func _live_setup() -> void:
+	_live_blds = []
+	for b: String in trace.buildings:
+		var bd: Dictionary = trace.buildings[b]
+		if (bd.get("origin", []) as Array).size() == 2 and bld_anchor.has(b):
+			_live_blds.append(b)
+
+
+func _sim_buildings() -> void:
+	var now := float(sim.state.clock["minute"])
+	for b: String in trace.buildings:
+		var bd: Dictionary = trace.buildings[b]
+		if (bd.get("origin", []) as Array).size() == 2:
+			sim_buildings[Vector2i(int(bd.origin[0]), int(bd.origin[1]))] = _bld_at(b, now)
+
+
+## [cols, rows] of a building type: its footprint in the catalog (data/buildings), the town hall's from the map.
+func _footprint_of(type: String) -> Vector2i:
+	if type == "town_hall":
+		var f: Array = mapd.get("town_hall", {}).get("footprint", [3, 3])
+		return Vector2i(int(f[0]), int(f[1]))
+	if not _fp_cache.has(type):
+		var fp: Array = (sim.catalog.buildings().get(type, {}) as Dictionary).get("footprint", [3, 3])
+		_fp_cache[type] = Vector2i(int(fp[0]), int(fp[1]))
+	return _fp_cache[type]
+
+
+func _parse_days() -> void:
+	pass  # _day_info reads the clock's own phases
+
+
+## The phase starts of the day of minute t, from data/time.json (the trace carried them per day).
+func _day_info(t: float) -> Dictionary:
+	var m := int(t)
+	var season := Clock.season(m, sim.catalog.time)
+	var starts: Dictionary = sim.catalog.time["phase_starts"][season]
+	var b := {}
+	for ph: String in starts:
+		b[ph] = int(starts[ph])
+	return {"day": Clock.day(m), "season": season, "bounds": b}
+
+
+func tile_at(p: Dictionary, _t: float) -> Vector2:
+	var ch: Dictionary = sim.state.characters.get(str(p.get("id", "")), {})
+	if ch.is_empty():
+		return Vector2.ZERO
+	return CharacterView.tile_position(ch, int(mpt), frac)
+
+
+## Plan metres per game minute towards the next tile of the path (zero when standing).
+func motion_at(p: Dictionary, _t: float) -> Vector2:
+	var ch: Dictionary = sim.state.characters.get(str(p.get("id", "")), {})
+	var path: Array = ch.get("path", [])
+	if path.is_empty():
+		return Vector2.ZERO
+	var pos: Array = ch.get("position", [0, 0])
+	var nxt: Array = path[0]
+	var d := Vector2(float(nxt[0]) - float(pos[0]), float(nxt[1]) - float(pos[1]))
+	if maxf(absf(d.x), absf(d.y)) > 1.0:
+		return Vector2.ZERO
+	return Vector2(d.x, -d.y) * 2.0 / mpt
+
+
+func real_per_game_minute() -> float:
+	return real_per_minute
+
+
+var keys_on: bool = true  # the camera keys act (off while a menu screen is open: WorldView3D)
+
+
+func _cam_free() -> bool:
+	return keys_on
+
+
+func _make_hud() -> void:
+	pass  # the game's HUD is on top; the interior in place comes with M3D-3
+
+
+func _unhandled_input(e: InputEvent) -> void:
+	if e is InputEventMouseButton and (e as InputEventMouseButton).pressed \
+			and (e as InputEventMouseButton).button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN]:
+		var mb := e as InputEventMouseButton
+		var steps: float = mb.factor if mb.factor > 0.0 else 1.0
+		_zoom_by(pow(0.88 if mb.button_index == MOUSE_BUTTON_WHEEL_UP else 1.0 / 0.88, steps))
+		get_viewport().set_input_as_handled()
+	elif e is InputEventMagnifyGesture:
+		_zoom_by(1.0 / maxf(0.2, (e as InputEventMagnifyGesture).factor))  # trackpad pinch
+		get_viewport().set_input_as_handled()
+
+
+func _process(delta: float) -> void:
+	_cam_keys(delta)
+	if sim == null or trace.is_empty():
+		return
+	var now := int(sim.state.clock["minute"])
+	if now != _minute:
+		_minute = now
+		_refresh_minute(now)
+	t_min = float(now) + frac
+	_apply(t_min)
+	if follow_id != "" and people.has(follow_id):
+		var n: Node3D = people[follow_id].node
+		if n.visible:
+			target = target.lerp(n.position + Vector3(0, 1, 0), minf(1.0, delta * 4.0))
+			_update_camera()
+
+
+## The camera over tile `t` (keeps its zoom and turn).
+func look_at_tile(t: Vector2) -> void:
+	var p := _tp(t.x, t.y)
+	target = Vector3(p.x, 0.0, -p.y)
+	_update_camera()
+
+
+## Where a character stands on screen (Vector2.INF if not drawn).
+func screen_of(id: String) -> Vector2:
+	if not people.has(id) or not (people[id].node as Node3D).visible:
+		return Vector2.INF
+	var at: Vector3 = (people[id].node as Node3D).global_position + Vector3(0, 1.0, 0)
+	if cam.is_position_behind(at):
+		return Vector2.INF
+	return cam.unproject_position(at)

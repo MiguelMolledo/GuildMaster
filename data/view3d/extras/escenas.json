@@ -1,0 +1,3800 @@
+{
+ "granja": {
+  "note": "una granja: casa, corrales, huerta, era, viña y frutales",
+  "ground": [
+   {
+    "rect": [
+     -6,
+     -3,
+     8,
+     6
+    ],
+    "tex": "tierra"
+   }
+  ],
+  "houses": [
+   {
+    "wealth": "pobre",
+    "family": "Costa",
+    "at": [
+     -2,
+     6
+    ],
+    "rot": 0,
+    "seed": 9
+   }
+  ],
+  "chains": [
+   {
+    "piece": "cerca_piedra",
+    "from": [
+     -14,
+     -12
+    ],
+    "to": [
+     14,
+     -12
+    ],
+    "skip": [
+     6,
+     7
+    ]
+   },
+   {
+    "piece": "cerca_piedra",
+    "from": [
+     14,
+     -12
+    ],
+    "to": [
+     14,
+     16
+    ]
+   },
+   {
+    "piece": "cerca_piedra",
+    "from": [
+     14,
+     16
+    ],
+    "to": [
+     -14,
+     16
+    ]
+   },
+   {
+    "piece": "cerca_piedra",
+    "from": [
+     -14,
+     16
+    ],
+    "to": [
+     -14,
+     -12
+    ]
+   },
+   {
+    "kit": "Prop_WoodenFence_Single",
+    "from": [
+     3,
+     2
+    ],
+    "to": [
+     13,
+     2
+    ],
+    "skip": [
+     1
+    ]
+   },
+   {
+    "kit": "Prop_WoodenFence_Single",
+    "from": [
+     3,
+     2
+    ],
+    "to": [
+     3,
+     10
+    ]
+   },
+   {
+    "kit": "Prop_WoodenFence_Single",
+    "from": [
+     3,
+     10
+    ],
+    "to": [
+     13,
+     10
+    ]
+   },
+   {
+    "kit": "Prop_WoodenFence_Single",
+    "from": [
+     -13,
+     9
+    ],
+    "to": [
+     -9,
+     9
+    ]
+   },
+   {
+    "kit": "Prop_WoodenFence_Single",
+    "from": [
+     -9,
+     9
+    ],
+    "to": [
+     -9,
+     15
+    ]
+   },
+   {
+    "piece": "vina",
+    "from": [
+     -12,
+     -10
+    ],
+    "to": [
+     -4,
+     -10
+    ]
+   },
+   {
+    "piece": "vina",
+    "from": [
+     -12,
+     -8.4
+    ],
+    "to": [
+     -4,
+     -8.4
+    ]
+   },
+   {
+    "piece": "vina",
+    "from": [
+     -12,
+     -6.8
+    ],
+    "to": [
+     -4,
+     -6.8
+    ]
+   }
+  ],
+  "pieces": [
+   [
+    "abrevadero",
+    8,
+    2.9,
+    0
+   ],
+   [
+    "almiar",
+    11,
+    13,
+    0
+   ],
+   [
+    "almiar",
+    8.2,
+    13.6,
+    40
+   ],
+   [
+    "lenera",
+    -7,
+    7.5,
+    180
+   ],
+   [
+    "colmenar",
+    -11.5,
+    -3.2,
+    90
+   ],
+   [
+    "tendedero",
+    -6.5,
+    3.2,
+    20
+   ],
+   [
+    "carro_bueyes",
+    0.5,
+    -6.5,
+    100
+   ],
+   [
+    "carretilla",
+    2.2,
+    0.8,
+    -30
+   ],
+   [
+    "gavillas",
+    9.5,
+    -9.5,
+    0
+   ],
+   [
+    "gavilla",
+    11.2,
+    -8.6,
+    0
+   ],
+   [
+    "gavillas",
+    12,
+    -10.5,
+    60
+   ],
+   [
+    "era_trillo",
+    9,
+    -5.2,
+    0
+   ],
+   [
+    "espantapajaros",
+    4.6,
+    -8.6,
+    20
+   ],
+   [
+    "manzano",
+    -11,
+    4,
+    0
+   ],
+   [
+    "peral",
+    -11,
+    -0.5,
+    80
+   ],
+   [
+    "manzano",
+    -6.5,
+    -2.5,
+    200
+   ],
+   [
+    "banco_piedra",
+    0.6,
+    5.6,
+    0
+   ],
+   [
+    "farola_pared",
+    -4.2,
+    6.0,
+    0,
+    {
+     "z": 2.1
+    }
+   ],
+   [
+    "bancal_trigo_3",
+    3,
+    -4,
+    0
+   ],
+   [
+    "bancal_trigo_3",
+    3,
+    -6.1,
+    0
+   ],
+   [
+    "bancal_trigo_2",
+    3,
+    -8.2,
+    0
+   ],
+   [
+    "bancal_trigo_1",
+    3,
+    -10.3,
+    0
+   ],
+   [
+    "bancal_huerta_3",
+    5.2,
+    -4,
+    0
+   ],
+   [
+    "bancal_huerta_2",
+    5.2,
+    -6.1,
+    0
+   ],
+   [
+    "bancal_huerta_1",
+    5.2,
+    -8.2,
+    0
+   ],
+   [
+    "bancal_trigo_2",
+    5.2,
+    -10.3,
+    0
+   ],
+   [
+    "gallina_picoteando",
+    -1.2,
+    3.6,
+    40
+   ],
+   [
+    "gallina_quieta",
+    1.6,
+    4.2,
+    200
+   ],
+   [
+    "vaca_comiendo",
+    11.5,
+    4.2,
+    100
+   ],
+   [
+    "pajar",
+    4.6,
+    13.2,
+    0
+   ]
+  ],
+  "kit": [
+   [
+    "@pozo",
+    -5,
+    0.5,
+    0
+   ],
+   [
+    "q:Barrel",
+    -3.6,
+    5.7,
+    0
+   ],
+   [
+    "q:Bucket_Wooden_1",
+    -4.2,
+    1.3,
+    0
+   ],
+   [
+    "q:FarmCrate_Carrot",
+    6.8,
+    -3.2,
+    20
+   ],
+   [
+    "q:Bag",
+    1.6,
+    -3.2,
+    0
+   ]
+  ],
+  "animals": [
+   {
+    "id": "vaca",
+    "at": [
+     6,
+     6
+    ],
+    "rot": 60,
+    "wander": [
+     11,
+     8
+    ]
+   },
+   {
+    "id": "vaca",
+    "at": [
+     9,
+     8.5
+    ],
+    "rot": 200,
+    "anim": "comer"
+   },
+   {
+    "id": "oveja",
+    "at": [
+     -12,
+     11
+    ],
+    "rot": 0,
+    "wander": [
+     -10,
+     14
+    ]
+   },
+   {
+    "id": "oveja",
+    "at": [
+     -10.5,
+     10.5
+    ],
+    "rot": 120,
+    "anim": "comer"
+   },
+   {
+    "id": "oveja",
+    "at": [
+     -11.5,
+     13.5
+    ],
+    "rot": 250,
+    "anim": "quieto"
+   },
+   {
+    "id": "cabra",
+    "at": [
+     -12.3,
+     12.2
+    ],
+    "rot": 40,
+    "anim": "comer"
+   },
+   {
+    "id": "cerdo",
+    "at": [
+     4.5,
+     8.8
+    ],
+    "rot": 0,
+    "wander": [
+     7,
+     9.2
+    ]
+   },
+   {
+    "id": "cerdo",
+    "at": [
+     11.5,
+     9.0
+    ],
+    "rot": 90,
+    "anim": "comer"
+   },
+   {
+    "id": "gallina",
+    "at": [
+     -1,
+     2
+    ],
+    "rot": 0,
+    "wander": [
+     1.5,
+     3
+    ]
+   },
+   {
+    "id": "gallina",
+    "at": [
+     0,
+     4.5
+    ],
+    "rot": 100,
+    "anim": "comer"
+   },
+   {
+    "id": "gallina",
+    "at": [
+     -3,
+     3
+    ],
+    "rot": 30,
+    "wander": [
+     -4.5,
+     4.4
+    ]
+   },
+   {
+    "id": "gallo",
+    "at": [
+     -7.2,
+     5.2
+    ],
+    "rot": 300,
+    "anim": "quieto"
+   },
+   {
+    "id": "perro",
+    "at": [
+     -0.8,
+     5.2
+    ],
+    "rot": 200,
+    "wander": [
+     2.5,
+     1.5
+    ]
+   },
+   {
+    "id": "gato",
+    "at": [
+     0.6,
+     5.62
+    ],
+    "rot": 180,
+    "anim": "quieto",
+    "z": 0.5
+   },
+   {
+    "id": "burro",
+    "at": [
+     9,
+     -3.6
+    ],
+    "rot": 90,
+    "wander": [
+     10.6,
+     -5.2
+    ]
+   },
+   {
+    "id": "caballo",
+    "at": [
+     7.2,
+     1.2
+    ],
+    "rot": 180,
+    "anim": "comer"
+   }
+  ],
+  "shots": [
+   [
+    "lamina",
+    0,
+    2,
+    2,
+    46,
+    45
+   ],
+   [
+    "z26",
+    2,
+    4,
+    1,
+    26,
+    45
+   ],
+   [
+    "corral_z12",
+    8,
+    6,
+    1,
+    12,
+    45
+   ],
+   [
+    "casa_z12",
+    -2,
+    4,
+    1,
+    12,
+    45
+   ],
+   [
+    "huerta_z12",
+    5,
+    -7,
+    1,
+    12,
+    45
+   ],
+   [
+    "era_z12",
+    9,
+    -6,
+    1,
+    12,
+    135
+   ],
+   [
+    "ovejas_z8",
+    -11,
+    12,
+    0.6,
+    8,
+    45
+   ],
+   [
+    "giro2",
+    0,
+    2,
+    2,
+    46,
+    135
+   ],
+   [
+    "giro3",
+    0,
+    2,
+    2,
+    46,
+    225
+   ],
+   [
+    "giro4",
+    0,
+    2,
+    2,
+    46,
+    315
+   ]
+  ]
+ },
+ "muelle": {
+  "note": "un muelle de río: el agua es la franja y <= -1; la orilla y el paseo, y > -1",
+  "water": [
+   {
+    "rect": [
+     -22,
+     -15,
+     22,
+     -1
+    ]
+   }
+  ],
+  "ground": [
+   {
+    "rect": [
+     -14,
+     -1,
+     14,
+     5
+    ],
+    "tex": "adoquin"
+   }
+  ],
+  "houses": [
+   {
+    "wealth": "ciudadano",
+    "family": "Soler",
+    "at": [
+     -9,
+     8
+    ],
+    "rot": 0,
+    "seed": 11
+   },
+   {
+    "wealth": "pobre",
+    "family": "Vidal",
+    "at": [
+     7,
+     8.5
+    ],
+    "rot": 0,
+    "seed": 12
+   }
+  ],
+  "chains": [
+   {
+    "piece": "muelle_tramo",
+    "from": [
+     -1,
+     -2
+    ],
+    "to": [
+     -1,
+     -10
+    ],
+    "last": "muelle_extremo",
+    "rot": 90
+   },
+   {
+    "piece": "muelle_tramo",
+    "from": [
+     -12,
+     -2
+    ],
+    "to": [
+     0,
+     -2
+    ]
+   },
+   {
+    "piece": "muelle_tramo",
+    "from": [
+     2,
+     -2
+    ],
+    "to": [
+     10,
+     -2
+    ]
+   }
+  ],
+  "pieces": [
+   [
+    "muelle_rampa",
+    1,
+    -2,
+    0,
+    {
+     "z": 0
+    }
+   ],
+   [
+    "muelle_escalera",
+    -3,
+    -7,
+    90
+   ],
+   [
+    "grua_puerto",
+    5.5,
+    1.4,
+    0,
+    {
+     "spin": 35
+    }
+   ],
+   [
+    "barcaza",
+    2.4,
+    -7.6,
+    0,
+    {
+     "z": 0.03
+    }
+   ],
+   [
+    "barca",
+    -5.6,
+    -6.5,
+    80,
+    {
+     "z": 0.03
+    }
+   ],
+   [
+    "barca",
+    7.5,
+    -4.6,
+    95,
+    {
+     "z": 0.03
+    }
+   ],
+   [
+    "noria",
+    12.5,
+    -1.4,
+    90
+   ],
+   [
+    "lavadero",
+    -18,
+    3.2,
+    0
+   ],
+   [
+    "farola_poste",
+    -6,
+    0.2,
+    180
+   ],
+   [
+    "farola_poste",
+    2.6,
+    0.2,
+    180
+   ],
+   [
+    "banco_piedra",
+    -3,
+    3.6,
+    0
+   ],
+   [
+    "tablon_anuncios",
+    -12.5,
+    4.3,
+    0
+   ],
+   [
+    "carretilla",
+    3.6,
+    2.6,
+    120
+   ],
+   [
+    "carro_bueyes",
+    -1.5,
+    2.2,
+    80
+   ],
+   [
+    "perro_quieto",
+    -9.4,
+    0.4,
+    100
+   ],
+   [
+    "mojon",
+    13.2,
+    4.2,
+    0
+   ]
+  ],
+  "kit": [
+   [
+    "q:Crate_Wooden",
+    7.4,
+    1.8,
+    10
+   ],
+   [
+    "q:Crate_Wooden",
+    8.6,
+    1.2,
+    -15
+   ],
+   [
+    "q:Barrel",
+    7.2,
+    0.2,
+    0
+   ],
+   [
+    "q:Barrel",
+    8.0,
+    0.0,
+    0
+   ],
+   [
+    "q:Bag",
+    9.4,
+    2.3,
+    30
+   ],
+   [
+    "q:Barrel",
+    -9,
+    -2.4,
+    0,
+    0.45
+   ],
+   [
+    "q:Crate_Wooden",
+    -10.6,
+    -1.8,
+    20,
+    0.45
+   ],
+   [
+    "q:Rope_3",
+    4.4,
+    -2.2,
+    0,
+    0.45
+   ]
+  ],
+  "animals": [
+   {
+    "id": "gato",
+    "at": [
+     -2.4,
+     -2.3
+    ],
+    "rot": 250,
+    "anim": "quieto",
+    "z": 0.45
+   },
+   {
+    "id": "perro",
+    "at": [
+     -4,
+     1.5
+    ],
+    "rot": 0,
+    "wander": [
+     3,
+     3.2
+    ]
+   },
+   {
+    "id": "gallina",
+    "at": [
+     10,
+     3.2
+    ],
+    "rot": 0,
+    "wander": [
+     11.6,
+     4.2
+    ]
+   },
+   {
+    "id": "burro",
+    "at": [
+     2.0,
+     1.55
+    ],
+    "rot": 80,
+    "anim": "quieto"
+   }
+  ],
+  "shots": [
+   [
+    "lamina",
+    0,
+    -2,
+    2,
+    46,
+    45
+   ],
+   [
+    "z26",
+    1,
+    -3,
+    1,
+    26,
+    45
+   ],
+   [
+    "grua_z12",
+    5,
+    -2,
+    2,
+    14,
+    45
+   ],
+   [
+    "barcas_z12",
+    -3,
+    -6,
+    1,
+    12,
+    45
+   ],
+   [
+    "noria_z12",
+    12,
+    -1,
+    2,
+    12,
+    135
+   ],
+   [
+    "lavadero_z12",
+    -18,
+    3,
+    2,
+    12,
+    45
+   ],
+   [
+    "giro2",
+    0,
+    -2,
+    2,
+    46,
+    135
+   ],
+   [
+    "giro3",
+    0,
+    -2,
+    2,
+    46,
+    225
+   ],
+   [
+    "giro4",
+    0,
+    -2,
+    2,
+    46,
+    315
+   ]
+  ]
+ },
+ "calle": {
+  "note": "una calle amueblada con casas del kit, una plazuela con fuente y una obra",
+  "ground": [
+   {
+    "rect": [
+     -22,
+     -3,
+     22,
+     3
+    ],
+    "tex": "adoquin"
+   },
+   {
+    "rect": [
+     8,
+     -9,
+     18,
+     -3
+    ],
+    "tex": "adoquin"
+   }
+  ],
+  "houses": [
+   {
+    "wealth": "ciudadano",
+    "family": "Ferrer",
+    "at": [
+     -16,
+     3.4
+    ],
+    "rot": 0,
+    "seed": 5
+   },
+   {
+    "wealth": "pobre",
+    "family": "Costa",
+    "at": [
+     -7.5,
+     3.4
+    ],
+    "rot": 0,
+    "seed": 9
+   },
+   {
+    "wealth": "rico",
+    "family": "Soler",
+    "at": [
+     2,
+     3.4
+    ],
+    "rot": 0,
+    "seed": 4
+   },
+   {
+    "wealth": "ciudadano",
+    "family": "Vidal",
+    "at": [
+     13,
+     3.4
+    ],
+    "rot": 0,
+    "seed": 3
+   },
+   {
+    "wealth": "pobre",
+    "family": "Pujol",
+    "at": [
+     -15,
+     -3.4
+    ],
+    "rot": 180,
+    "seed": 7
+   },
+   {
+    "wealth": "ciudadano",
+    "family": "Soler",
+    "at": [
+     -4,
+     -3.4
+    ],
+    "rot": 180,
+    "seed": 6
+   }
+  ],
+  "chains": [
+   {
+    "piece": "andamio_tramo",
+    "from": [
+     16.9,
+     5.0
+    ],
+    "to": [
+     16.9,
+     11.0
+    ],
+    "rot": 90
+   },
+   {
+    "piece": "andamio_tramo",
+    "from": [
+     16.9,
+     5.0
+    ],
+    "to": [
+     16.9,
+     11.0
+    ],
+    "rot": 90,
+    "z": 3.0
+   }
+  ],
+  "pieces": [
+   [
+    "farola_poste",
+    -20,
+    2.4,
+    0
+   ],
+   [
+    "farola_poste",
+    -11.5,
+    2.4,
+    0
+   ],
+   [
+    "farola_poste",
+    -2.5,
+    -2.4,
+    180
+   ],
+   [
+    "farola_poste",
+    8.2,
+    2.4,
+    0
+   ],
+   [
+    "farola_poste",
+    19,
+    -2.6,
+    180
+   ],
+   [
+    "banco_piedra",
+    -3.4,
+    2.5,
+    0
+   ],
+   [
+    "banco_piedra",
+    9.6,
+    -8.2,
+    180
+   ],
+   [
+    "tablon_anuncios",
+    6.6,
+    2.6,
+    0
+   ],
+   [
+    "fuente_pequena",
+    13,
+    -6,
+    0
+   ],
+   [
+    "abrevadero",
+    15.5,
+    -8.3,
+    0
+   ],
+   [
+    "cruz_termino",
+    21,
+    0,
+    0
+   ],
+   [
+    "mojon",
+    -21.3,
+    -2.5,
+    0
+   ],
+   [
+    "cepo",
+    9.6,
+    -4.4,
+    60
+   ],
+   [
+    "horca",
+    16.6,
+    -4.6,
+    200
+   ],
+   [
+    "picota",
+    20.5,
+    -6.5,
+    0
+   ],
+   [
+    "carreta_cubierta",
+    -9.5,
+    -1.2,
+    80
+   ],
+   [
+    "carretilla",
+    18.6,
+    3.6,
+    200
+   ],
+   [
+    "emparrado",
+    -8.5,
+    -6.2,
+    0
+   ],
+   [
+    "tendedero",
+    -19.5,
+    -6.4,
+    90
+   ],
+   [
+    "lenera",
+    -11.6,
+    -5.6,
+    90
+   ],
+   [
+    "andamio_escalera",
+    18.6,
+    5.2,
+    90
+   ],
+   [
+    "sillares",
+    20.4,
+    6.6,
+    90
+   ],
+   [
+    "artesa_mortero",
+    20.4,
+    10.4,
+    90
+   ],
+   [
+    "grua_rueda",
+    21.5,
+    16.5,
+    90
+   ],
+   [
+    "farola_pared",
+    0.2,
+    3.4,
+    0,
+    {
+     "z": 2.1
+    }
+   ],
+   [
+    "gato_quieto",
+    -3.0,
+    2.52,
+    200,
+    {
+     "z": 0.5
+    }
+   ],
+   [
+    "gallina_picoteando",
+    -18.2,
+    -4.6,
+    70
+   ]
+  ],
+  "kit": [
+   [
+    "q:Barrel",
+    -13.4,
+    2.6,
+    0
+   ],
+   [
+    "q:Crate_Wooden",
+    -12.4,
+    2.5,
+    15
+   ],
+   [
+    "q:Bench",
+    -6.2,
+    -5.9,
+    0
+   ],
+   [
+    "q:Stall_Cart_Empty",
+    4.5,
+    -2.0,
+    180
+   ],
+   [
+    "@pozo",
+    16.8,
+    -1.2,
+    0
+   ]
+  ],
+  "animals": [
+   {
+    "id": "caballo",
+    "at": [
+     -9.2,
+     -1.2
+    ],
+    "rot": 260,
+    "anim": "quieto",
+    "offset": [
+     -3.4,
+     0.6
+    ]
+   },
+   {
+    "id": "perro",
+    "at": [
+     -1,
+     0
+    ],
+    "rot": 90,
+    "wander": [
+     6,
+     -1
+    ]
+   },
+   {
+    "id": "gato",
+    "at": [
+     12,
+     2.2
+    ],
+    "rot": 0,
+    "wander": [
+     14.5,
+     2.4
+    ]
+   },
+   {
+    "id": "gallina",
+    "at": [
+     -18,
+     -5.5
+    ],
+    "rot": 0,
+    "wander": [
+     -16.5,
+     -4.2
+    ]
+   },
+   {
+    "id": "gallina",
+    "at": [
+     -19.4,
+     -4.4
+    ],
+    "rot": 100,
+    "anim": "comer"
+   },
+   {
+    "id": "burro",
+    "at": [
+     16.2,
+     -7.3
+    ],
+    "rot": 0,
+    "anim": "comer"
+   },
+   {
+    "id": "cerdo",
+    "at": [
+     10.5,
+     0.4
+    ],
+    "rot": 90,
+    "wander": [
+     15,
+     -0.5
+    ]
+   }
+  ],
+  "shots": [
+   [
+    "lamina",
+    0,
+    0,
+    3,
+    46,
+    45
+   ],
+   [
+    "z26",
+    -8,
+    0,
+    2,
+    26,
+    45
+   ],
+   [
+    "z26b",
+    12,
+    -2,
+    2,
+    26,
+    45
+   ],
+   [
+    "plazuela_z12",
+    14,
+    -6,
+    1.5,
+    12,
+    45
+   ],
+   [
+    "calle_z12",
+    -6,
+    0,
+    1.5,
+    12,
+    45
+   ],
+   [
+    "obra_z16",
+    19.5,
+    9,
+    4,
+    18,
+    45
+   ],
+   [
+    "parra_z12",
+    -9,
+    -5.5,
+    1.5,
+    12,
+    225
+   ],
+   [
+    "giro2",
+    0,
+    0,
+    3,
+    46,
+    135
+   ],
+   [
+    "giro3",
+    0,
+    0,
+    3,
+    46,
+    225
+   ],
+   [
+    "giro4",
+    0,
+    0,
+    3,
+    46,
+    315
+   ]
+  ]
+ },
+ "puerto": {
+  "note": "un puerto de río: muelle de piedra con almacén, lonja de pescado, cabañas, secadero de redes, pantalán con fanal, una coca amarrada, barcaza y barcas",
+  "origin": [
+   -100,
+   112
+  ],
+  "water": [
+   {
+    "rect": [
+     -34,
+     -30,
+     34,
+     -3
+    ]
+   }
+  ],
+  "ground": [
+   {
+    "rect": [
+     -26,
+     -3,
+     26,
+     7
+    ],
+    "tex": "adoquin"
+   }
+  ],
+  "houses": [
+   {
+    "wealth": "ciudadano",
+    "family": "Vidal",
+    "at": [
+     0,
+     8.2
+    ],
+    "rot": 0,
+    "seed": 3
+   },
+   {
+    "wealth": "pobre",
+    "family": "Costa",
+    "at": [
+     7.5,
+     8.2
+    ],
+    "rot": 0,
+    "seed": 8
+   },
+   {
+    "wealth": "ciudadano",
+    "family": "Soler",
+    "at": [
+     20,
+     9.5
+    ],
+    "rot": 0,
+    "seed": 12
+   }
+  ],
+  "chains": [
+   {
+    "piece": "muelle_tramo",
+    "from": [
+     -6,
+     -3
+    ],
+    "to": [
+     -6,
+     -15
+    ],
+    "last": "muelle_extremo",
+    "rot": 90
+   },
+   {
+    "piece": "muelle_tramo",
+    "from": [
+     -7,
+     -15
+    ],
+    "to": [
+     -1,
+     -15
+    ]
+   }
+  ],
+  "pieces": [
+   [
+    "almacen_puerto",
+    -13.5,
+    9.2,
+    0
+   ],
+   [
+    "lonja_pescado",
+    14.5,
+    1.6,
+    0
+   ],
+   [
+    "cabana_pescador",
+    -22,
+    3.2,
+    90
+   ],
+   [
+    "cabana_pescador",
+    -22.5,
+    9.0,
+    0
+   ],
+   [
+    "secadero_redes",
+    -17.5,
+    -0.9,
+    0
+   ],
+   [
+    "nasas",
+    -13.2,
+    -1.8,
+    20
+   ],
+   [
+    "nasas",
+    -21.5,
+    -1.6,
+    120
+   ],
+   [
+    "cajas_pescado",
+    9.2,
+    -1.6,
+    0
+   ],
+   [
+    "cajas_pescado",
+    8.6,
+    0.2,
+    80
+   ],
+   [
+    "noray",
+    -2.5,
+    -2.6,
+    0
+   ],
+   [
+    "noray",
+    3.0,
+    -2.6,
+    40
+   ],
+   [
+    "noray",
+    9.5,
+    -2.6,
+    200
+   ],
+   [
+    "noray",
+    19,
+    -2.6,
+    90
+   ],
+   [
+    "coca",
+    6.2,
+    -7.75,
+    90,
+    {
+     "z": 0.03
+    }
+   ],
+   [
+    "barcaza",
+    -15.5,
+    -5.2,
+    90,
+    {
+     "z": 0.03
+    }
+   ],
+   [
+    "barca",
+    -8.3,
+    -9.5,
+    5,
+    {
+     "z": 0.03
+    }
+   ],
+   [
+    "barca",
+    -3.6,
+    -12.3,
+    170,
+    {
+     "z": 0.03
+    }
+   ],
+   [
+    "barca",
+    21,
+    -5.0,
+    80,
+    {
+     "z": 0.03
+    }
+   ],
+   [
+    "fanal_muelle",
+    -0.6,
+    -15,
+    0,
+    {
+     "z": 0.45
+    }
+   ],
+   [
+    "grua_puerto",
+    1.2,
+    -1.0,
+    0,
+    {
+     "spin": -25
+    }
+   ],
+   [
+    "muelle_rampa",
+    -6,
+    -3,
+    0,
+    {
+     "z": 0
+    }
+   ],
+   [
+    "farola_poste",
+    -8.5,
+    0.4,
+    180
+   ],
+   [
+    "farola_poste",
+    5.5,
+    3.2,
+    180
+   ],
+   [
+    "farola_poste",
+    19.5,
+    -1.6,
+    180
+   ],
+   [
+    "banco_piedra",
+    3,
+    4.6,
+    0
+   ],
+   [
+    "tablon_anuncios",
+    10.5,
+    6.2,
+    0
+   ],
+   [
+    "carretilla",
+    -10.2,
+    -1.2,
+    130
+   ],
+   [
+    "carro_bueyes",
+    -3.4,
+    3.8,
+    95
+   ],
+   [
+    "palomas_suelo",
+    1.5,
+    1.6,
+    0
+   ],
+   [
+    "palomas_fila",
+    7.5,
+    8.24,
+    0,
+    {
+     "z": 3.02
+    }
+   ],
+   [
+    "gato_tumbado",
+    9.4,
+    -1.55,
+    160,
+    {
+     "z": 0.33
+    }
+   ],
+   [
+    "mojon",
+    25,
+    6.2,
+    0
+   ],
+   [
+    "juncos_1",
+    24.5,
+    -3.6,
+    0
+   ],
+   [
+    "juncos_2",
+    -27.5,
+    -3.4,
+    40
+   ],
+   [
+    "rocas_2",
+    27.5,
+    -2.6,
+    0
+   ]
+  ],
+  "kit": [
+   [
+    "q:Barrel",
+    -9.6,
+    3.2,
+    0
+   ],
+   [
+    "q:Barrel",
+    -10.4,
+    2.6,
+    0
+   ],
+   [
+    "q:Crate_Wooden",
+    11.2,
+    -2.2,
+    10
+   ],
+   [
+    "q:Rope_2",
+    16.5,
+    -2.2,
+    0
+   ],
+   [
+    "q:Bag",
+    -2.2,
+    1.2,
+    30
+   ],
+   [
+    "q:Crate_Wooden",
+    -5.2,
+    -13.6,
+    20,
+    0.45
+   ],
+   [
+    "q:Barrel",
+    -7.0,
+    -11.0,
+    0,
+    0.45
+   ]
+  ],
+  "animals": [
+   {
+    "id": "perro",
+    "coat": "negro",
+    "at": [
+     -4,
+     1.5
+    ],
+    "wander": [
+     6,
+     2.5
+    ]
+   },
+   {
+    "id": "gato",
+    "coat": "gris",
+    "at": [
+     12.2,
+     -1.9
+    ],
+    "rot": 200,
+    "anim": "comer"
+   },
+   {
+    "id": "gallina",
+    "coat": "blanca",
+    "at": [
+     -19,
+     5.8
+    ],
+    "wander": [
+     -17,
+     7.2
+    ]
+   },
+   {
+    "id": "gallina",
+    "at": [
+     -20.2,
+     6.6
+    ],
+    "rot": 40,
+    "anim": "comer"
+   },
+   {
+    "id": "burro",
+    "at": [
+     17,
+     5.6
+    ],
+    "rot": 150,
+    "anim": "quieto"
+   }
+  ],
+  "convoys": [
+   {
+    "cart": "carro_varas_marcha",
+    "animal": "burro",
+    "path": [
+     [
+      -20,
+      1.2
+     ],
+     [
+      22,
+      1.2
+     ],
+     [
+      22,
+      5.2
+     ],
+     [
+      -20,
+      5.2
+     ]
+    ],
+    "loop": true,
+    "start": 6
+   }
+  ],
+  "boats": [
+   {
+    "piece": "barca",
+    "path": [
+     [
+      -32,
+      -24
+     ],
+     [
+      -12,
+      -21.5
+     ],
+     [
+      8,
+      -23.5
+     ],
+     [
+      32,
+      -21
+     ]
+    ],
+    "speed": 0.7,
+    "start": 14
+   }
+  ],
+  "flock": {
+   "n": 14,
+   "radius": 15,
+   "height": 13,
+   "at": [
+    2,
+    -4
+   ]
+  },
+  "shots": [
+   [
+    "lamina",
+    0,
+    -3,
+    3,
+    58,
+    45
+   ],
+   [
+    "z26",
+    -6,
+    -2,
+    2,
+    26,
+    45
+   ],
+   [
+    "z26b",
+    10,
+    -3,
+    2,
+    26,
+    45
+   ],
+   [
+    "coca_z12",
+    6,
+    -6,
+    2.5,
+    13,
+    45
+   ],
+   [
+    "lonja_z12",
+    14.5,
+    1.5,
+    2,
+    12,
+    45
+   ],
+   [
+    "almacen_z12",
+    -13.5,
+    5,
+    3,
+    13,
+    45
+   ],
+   [
+    "redes_z12",
+    -19,
+    0.5,
+    1.5,
+    12,
+    45
+   ],
+   [
+    "pantalan_z12",
+    -4.5,
+    -11.5,
+    1,
+    12,
+    45
+   ],
+   [
+    "giro3",
+    0,
+    -3,
+    3,
+    58,
+    225
+   ],
+   [
+    "giro2",
+    0,
+    -3,
+    3,
+    58,
+    135
+   ]
+  ]
+ },
+ "cementerio": {
+  "note": "un cementerio de aldea: ermita, tapia baja con cancela, hileras de tumbas, tejos, cruz de término y setos",
+  "origin": [
+   0,
+   116
+  ],
+  "ground": [
+   {
+    "rect": [
+     -1.3,
+     -12,
+     1.3,
+     1
+    ],
+    "tex": "tierra"
+   },
+   {
+    "rect": [
+     -4.5,
+     -1.4,
+     4.5,
+     1.2
+    ],
+    "tex": "tierra"
+   }
+  ],
+  "chains": [
+   {
+    "piece": "tapia_baja",
+    "from": [
+     -13,
+     -10
+    ],
+    "to": [
+     -1,
+     -10
+    ]
+   },
+   {
+    "piece": "tapia_baja",
+    "from": [
+     1,
+     -10
+    ],
+    "to": [
+     13,
+     -10
+    ]
+   },
+   {
+    "piece": "tapia_baja",
+    "from": [
+     13,
+     -10
+    ],
+    "to": [
+     13,
+     14
+    ]
+   },
+   {
+    "piece": "tapia_baja",
+    "from": [
+     13,
+     14
+    ],
+    "to": [
+     -13,
+     14
+    ]
+   },
+   {
+    "piece": "tapia_baja",
+    "from": [
+     -13,
+     14
+    ],
+    "to": [
+     -13,
+     -10
+    ]
+   },
+   {
+    "piece": "seto_2m",
+    "from": [
+     -11,
+     -7.6
+    ],
+    "to": [
+     -3,
+     -7.6
+    ]
+   },
+   {
+    "piece": "seto_2m",
+    "from": [
+     3,
+     -7.6
+    ],
+    "to": [
+     11,
+     -7.6
+    ]
+   }
+  ],
+  "pieces": [
+   [
+    "tapia_cancela",
+    0,
+    -10,
+    0
+   ],
+   [
+    "ermita",
+    0,
+    1.2,
+    0
+   ],
+   [
+    "cruz_termino",
+    0,
+    -13.2,
+    0
+   ],
+   [
+    "tumbas_fila",
+    -7.4,
+    -4.2,
+    0
+   ],
+   [
+    "tumbas_fila",
+    7.4,
+    -4.2,
+    0
+   ],
+   [
+    "tumbas_fila",
+    -7.6,
+    -0.6,
+    0
+   ],
+   [
+    "tumbas_fila",
+    7.6,
+    -0.4,
+    0
+   ],
+   [
+    "tumbas_fila",
+    -8.0,
+    3.4,
+    0
+   ],
+   [
+    "tumbas_fila",
+    8.2,
+    3.6,
+    0
+   ],
+   [
+    "tumba",
+    -5.5,
+    8.6,
+    10
+   ],
+   [
+    "tumba",
+    -8.6,
+    8.2,
+    -8
+   ],
+   [
+    "lapida_1",
+    6.2,
+    8.4,
+    5
+   ],
+   [
+    "lapida_2",
+    8.0,
+    8.8,
+    -4
+   ],
+   [
+    "lapida_3",
+    9.8,
+    8.2,
+    12
+   ],
+   [
+    "lapida_4",
+    5.4,
+    10.8,
+    3
+   ],
+   [
+    "cruz_tumba",
+    -10.4,
+    8.6,
+    6
+   ],
+   [
+    "cruz_tumba",
+    10.6,
+    11.2,
+    -10
+   ],
+   [
+    "tejo",
+    -10.2,
+    11.2,
+    0
+   ],
+   [
+    "tejo",
+    10.4,
+    6.4,
+    60
+   ],
+   [
+    "tejo",
+    -10.6,
+    -5.8,
+    120
+   ],
+   [
+    "banco_piedra",
+    3.4,
+    -2.0,
+    180
+   ],
+   [
+    "farola_poste",
+    -2.3,
+    -8.6,
+    0
+   ],
+   [
+    "seto_fin",
+    -2.5,
+    -7.6,
+    0
+   ],
+   [
+    "seto_fin",
+    2.5,
+    -7.6,
+    180
+   ],
+   [
+    "paloma",
+    0.0,
+    1.2,
+    0,
+    {
+     "z": 6.6
+    }
+   ],
+   [
+    "palomas_fila",
+    9.0,
+    -10,
+    0,
+    {
+     "z": 1.37
+    }
+   ]
+  ],
+  "nature": [
+   [
+    "Bush_Common_Flowers",
+    -4.4,
+    2.2,
+    0,
+    0.7
+   ],
+   [
+    "Bush_Common_Flowers",
+    4.6,
+    2.4,
+    120,
+    0.75
+   ],
+   [
+    "Flower_3_Group",
+    -2.2,
+    -3.0,
+    0,
+    0.5
+   ],
+   [
+    "Flower_4_Group",
+    2.1,
+    -5.2,
+    40,
+    0.5
+   ],
+   [
+    "CommonTree_3",
+    16.5,
+    6,
+    0,
+    1.0
+   ],
+   [
+    "CommonTree_1",
+    -16.5,
+    -4,
+    80,
+    0.95
+   ]
+  ],
+  "animals": [
+   {
+    "id": "gato",
+    "coat": "negro",
+    "at": [
+     4.6,
+     -4.6
+    ],
+    "rot": 120,
+    "anim": "quieto"
+   },
+   {
+    "id": "perro",
+    "at": [
+     -2.4,
+     -11.6
+    ],
+    "wander": [
+     2.6,
+     -12.2
+    ]
+   }
+  ],
+  "flock": {
+   "n": 7,
+   "radius": 9,
+   "height": 11,
+   "at": [
+    0,
+    4
+   ],
+   "seed": 3
+  },
+  "shots": [
+   [
+    "lamina",
+    0,
+    2,
+    2,
+    44,
+    45
+   ],
+   [
+    "z26",
+    0,
+    0,
+    2,
+    26,
+    45
+   ],
+   [
+    "tumbas_z12",
+    -7,
+    -2,
+    1,
+    12,
+    45
+   ],
+   [
+    "cancela_z10",
+    0,
+    -9,
+    1,
+    10,
+    45
+   ],
+   [
+    "tumbas_z6",
+    7.4,
+    -3.8,
+    0.6,
+    6,
+    45
+   ],
+   [
+    "tejo_z12",
+    -9,
+    9.5,
+    2,
+    12,
+    45
+   ],
+   [
+    "giro3",
+    0,
+    2,
+    2,
+    44,
+    225
+   ]
+  ]
+ },
+ "feria": {
+  "note": "una plaza en día de feria: tablado, mayo, mesas largas, gallardetes entre las casas, mercado cubierto, peso público, monumento y puestos",
+  "origin": [
+   82,
+   116
+  ],
+  "ground": [
+   {
+    "rect": [
+     -20,
+     -13,
+     20,
+     11
+    ],
+    "tex": "adoquin"
+   }
+  ],
+  "houses": [
+   {
+    "wealth": "ciudadano",
+    "family": "Ferrer",
+    "at": [
+     -15,
+     12.5
+    ],
+    "rot": 0,
+    "seed": 2
+   },
+   {
+    "wealth": "rico",
+    "family": "Vidal",
+    "at": [
+     -6,
+     12.5
+    ],
+    "rot": 0,
+    "seed": 6
+   },
+   {
+    "wealth": "ciudadano",
+    "family": "Pujol",
+    "at": [
+     4,
+     12.5
+    ],
+    "rot": 0,
+    "seed": 9
+   },
+   {
+    "wealth": "ciudadano",
+    "family": "Soler",
+    "at": [
+     -22,
+     2
+    ],
+    "rot": 90,
+    "seed": 4
+   },
+   {
+    "wealth": "pobre",
+    "family": "Costa",
+    "at": [
+     -22,
+     -7
+    ],
+    "rot": 90,
+    "seed": 7
+   },
+   {
+    "wealth": "ciudadano",
+    "family": "Ferrer",
+    "at": [
+     -12,
+     -15.5
+    ],
+    "rot": 180,
+    "seed": 11
+   },
+   {
+    "wealth": "ciudadano",
+    "family": "Vidal",
+    "at": [
+     -3,
+     -15.5
+    ],
+    "rot": 180,
+    "seed": 13
+   }
+  ],
+  "pieces": [
+   [
+    "tablado",
+    -12.5,
+    7.2,
+    0
+   ],
+   [
+    "estatua",
+    -3.5,
+    -1.0,
+    0
+   ],
+   [
+    "mayo",
+    -12,
+    -4.5,
+    0
+   ],
+   [
+    "mercado_cubierto",
+    13.5,
+    1.5,
+    0
+   ],
+   [
+    "peso_publico",
+    4.2,
+    8.6,
+    0
+   ],
+   [
+    "reloj_sol",
+    3.6,
+    -10.6,
+    0
+   ],
+   [
+    "mesa_larga",
+    -4.6,
+    5.4,
+    0
+   ],
+   [
+    "mesa_larga",
+    -0.6,
+    5.6,
+    8
+   ],
+   [
+    "mesa_larga",
+    -5.0,
+    8.2,
+    -4
+   ],
+   [
+    "mesa_larga",
+    3.0,
+    3.4,
+    90
+   ],
+   [
+    "banderolas_6",
+    -18,
+    -2.5,
+    90,
+    {
+     "z": 4.6
+    }
+   ],
+   [
+    "banderolas_6",
+    -18,
+    3.5,
+    90,
+    {
+     "z": 4.6
+    }
+   ],
+   [
+    "banderolas_6",
+    -9,
+    10.4,
+    0,
+    {
+     "z": 4.8
+    }
+   ],
+   [
+    "banderolas_6",
+    -3,
+    10.4,
+    0,
+    {
+     "z": 4.8
+    }
+   ],
+   [
+    "banderolas_6",
+    3,
+    10.4,
+    0,
+    {
+     "z": 4.8
+    }
+   ],
+   [
+    "banderolas_6",
+    -9,
+    -12.4,
+    0,
+    {
+     "z": 4.8
+    }
+   ],
+   [
+    "banderolas_4",
+    -13,
+    -12.4,
+    0,
+    {
+     "z": 4.8
+    }
+   ],
+   [
+    "banderolas_6",
+    -15,
+    10.4,
+    0,
+    {
+     "z": 4.8
+    }
+   ],
+   [
+    "puesto_m",
+    1.5,
+    -6.5,
+    180,
+    {
+     "goods": "fruta",
+     "awning": [
+      0.7,
+      0.2,
+      0.15
+     ]
+    }
+   ],
+   [
+    "puesto_m",
+    5.5,
+    -6.5,
+    180,
+    {
+     "goods": "ceramica",
+     "awning": [
+      0.2,
+      0.35,
+      0.6
+     ]
+    }
+   ],
+   [
+    "puesto_s",
+    -7.5,
+    -9.5,
+    200,
+    {
+     "goods": "telas",
+     "awning": [
+      0.8,
+      0.6,
+      0.2
+     ]
+    }
+   ],
+   [
+    "farola_poste",
+    -18.5,
+    9.2,
+    180
+   ],
+   [
+    "farola_poste",
+    8.4,
+    -11,
+    0
+   ],
+   [
+    "banco_piedra",
+    -1.2,
+    -3.6,
+    0
+   ],
+   [
+    "tablon_anuncios",
+    8.2,
+    9.8,
+    0
+   ],
+   [
+    "carreta_cubierta",
+    8.8,
+    -9.4,
+    70
+   ],
+   [
+    "palomas_suelo",
+    -6.2,
+    -3.2,
+    0
+   ],
+   [
+    "gallina_picoteando",
+    1.2,
+    1.4,
+    40
+   ],
+   [
+    "perro_tumbado",
+    -8.4,
+    3.8,
+    200
+   ],
+   [
+    "palomas_fila",
+    -6,
+    12.5,
+    0,
+    {
+     "z": 3.02
+    }
+   ]
+  ],
+  "kit": [
+   [
+    "q:Barrel",
+    -15.6,
+    5.0,
+    0
+   ],
+   [
+    "q:Barrel",
+    -9.2,
+    5.2,
+    0
+   ],
+   [
+    "q:Crate_Wooden",
+    6.4,
+    6.6,
+    20
+   ],
+   [
+    "q:Bag",
+    6.2,
+    9.4,
+    0
+   ]
+  ],
+  "animals": [
+   {
+    "id": "perro",
+    "coat": "blanco",
+    "at": [
+     -8,
+     -1
+    ],
+    "wander": [
+     0,
+     1.6
+    ]
+   },
+   {
+    "id": "gallina",
+    "at": [
+     2.2,
+     0.6
+    ],
+    "wander": [
+     4.4,
+     1.8
+    ]
+   },
+   {
+    "id": "gato",
+    "at": [
+     -16.5,
+     7.0
+    ],
+    "rot": 200,
+    "anim": "quieto",
+    "z": 0.9
+   },
+   {
+    "id": "caballo",
+    "coat": "bayo",
+    "at": [
+     10.5,
+     -12.2
+    ],
+    "rot": 250,
+    "anim": "quieto"
+   },
+   {
+    "id": "cerdo",
+    "at": [
+     16.5,
+     -9.2
+    ],
+    "rot": 40,
+    "anim": "comer"
+   },
+   {
+    "id": "cabra",
+    "at": [
+     17.6,
+     -10.4
+    ],
+    "rot": 300,
+    "anim": "quieto"
+   }
+  ],
+  "convoys": [
+   {
+    "cart": "carro_bueyes_marcha",
+    "animal": "buey",
+    "path": [
+     [
+      -18,
+      -10.5
+     ],
+     [
+      9,
+      -10.5
+     ],
+     [
+      9,
+      -12.8
+     ],
+     [
+      -18,
+      -12.8
+     ]
+    ],
+    "loop": true,
+    "start": 4
+   }
+  ],
+  "flock": {
+   "n": 12,
+   "radius": 13,
+   "height": 12,
+   "at": [
+    -4,
+    0
+   ]
+  },
+  "shots": [
+   [
+    "lamina",
+    -2,
+    -1,
+    3,
+    54,
+    45
+   ],
+   [
+    "z26",
+    -7,
+    2,
+    2,
+    26,
+    45
+   ],
+   [
+    "z26b",
+    9,
+    -1,
+    2,
+    26,
+    45
+   ],
+   [
+    "tablado_z12",
+    -12.5,
+    6.5,
+    2,
+    12,
+    45
+   ],
+   [
+    "mayo_z14",
+    -12,
+    -4.5,
+    3,
+    15,
+    45
+   ],
+   [
+    "mesas_z10",
+    -2.5,
+    5.8,
+    1,
+    10,
+    45
+   ],
+   [
+    "mercado_z14",
+    13.5,
+    0.5,
+    2.5,
+    15,
+    45
+   ],
+   [
+    "peso_z10",
+    4.2,
+    8.2,
+    1.5,
+    10,
+    45
+   ],
+   [
+    "estatua_z10",
+    -3.5,
+    -1.5,
+    2,
+    10,
+    45
+   ],
+   [
+    "giro3",
+    -2,
+    -1,
+    3,
+    54,
+    225
+   ],
+   [
+    "giro4",
+    -2,
+    -1,
+    3,
+    54,
+    315
+   ]
+  ]
+ },
+ "cantera": {
+  "note": "cantera y bosque: frente de cantera con cabria y bloques, bocamina con su vía y vagonetas, claro de leñadores con carbonera, tejar, lagar, redil, un bancal con muro de contención y escalera, y un arroyo con pasarela y pasaderas",
+  "origin": [
+   98,
+   -108
+  ],
+  "water": [
+   {
+    "rect": [
+     -40,
+     -13.5,
+     40,
+     -9.5
+    ]
+   }
+  ],
+  "ground": [
+   {
+    "rect": [
+     -9,
+     -6,
+     16,
+     6
+    ],
+    "tex": "tierra"
+   },
+   {
+    "rect": [
+     18,
+     2,
+     30,
+     9
+    ],
+    "tex": "tierra",
+    "z": 1.0
+   },
+   {
+    "rect": [
+     -27,
+     2,
+     -13,
+     16
+    ],
+    "tex": "tierra"
+   }
+  ],
+  "chains": [
+   {
+    "piece": "via_mina",
+    "from": [
+     24,
+     -3.5
+    ],
+    "to": [
+     24,
+     -7.5
+    ],
+    "rot": 0
+   },
+   {
+    "piece": "via_mina",
+    "from": [
+     24,
+     0.5
+    ],
+    "to": [
+     24,
+     -3.5
+    ],
+    "rot": 0
+   },
+   {
+    "piece": "muro_contencion",
+    "from": [
+     18,
+     2
+    ],
+    "to": [
+     22,
+     2
+    ]
+   },
+   {
+    "piece": "muro_contencion",
+    "from": [
+     24,
+     2
+    ],
+    "to": [
+     30,
+     2
+    ]
+   },
+   {
+    "piece": "redil_valla",
+    "from": [
+     -6,
+     -5.5
+    ],
+    "to": [
+     0,
+     -5.5
+    ]
+   },
+   {
+    "piece": "redil_valla",
+    "from": [
+     0,
+     -5.5
+    ],
+    "to": [
+     0,
+     -1.5
+    ]
+   },
+   {
+    "piece": "redil_valla",
+    "from": [
+     0,
+     -1.5
+    ],
+    "to": [
+     -4,
+     -1.5
+    ]
+   },
+   {
+    "piece": "redil_valla",
+    "from": [
+     -6,
+     -1.5
+    ],
+    "to": [
+     -6,
+     -5.5
+    ]
+   }
+  ],
+  "pieces": [
+   [
+    "cantera_frente",
+    5,
+    10.5,
+    0
+   ],
+   [
+    "bloques_cantera",
+    1.5,
+    3.2,
+    15
+   ],
+   [
+    "carro_bueyes",
+    12.5,
+    1.4,
+    60
+   ],
+   [
+    "bocamina",
+    24,
+    4.4,
+    0,
+    {
+     "z": 1.0
+    }
+   ],
+   [
+    "escalera_piedra",
+    23,
+    1.0,
+    0
+   ],
+   [
+    "vagoneta",
+    24,
+    -1.5,
+    0,
+    {
+     "z": 0.16
+    }
+   ],
+   [
+    "vagoneta",
+    24,
+    -5.3,
+    0,
+    {
+     "z": 0.16
+    }
+   ],
+   [
+    "rocas_3",
+    33,
+    6,
+    0
+   ],
+   [
+    "rocas_1",
+    17,
+    11,
+    40
+   ],
+   [
+    "troncos_apilados",
+    -17,
+    4.6,
+    90
+   ],
+   [
+    "troncos_apilados",
+    -24.5,
+    6,
+    10
+   ],
+   [
+    "caballete_aserrar",
+    -20.5,
+    9.2,
+    0
+   ],
+   [
+    "carbonera",
+    -17.5,
+    13.2,
+    0
+   ],
+   [
+    "lenera",
+    -25,
+    12.5,
+    90
+   ],
+   [
+    "lagar",
+    9,
+    -3.6,
+    0
+   ],
+   [
+    "redil_puerta",
+    -5,
+    -1.5,
+    0
+   ],
+   [
+    "pasarela",
+    6,
+    -11.5,
+    90
+   ],
+   [
+    "pasaderas",
+    -12,
+    -11.5,
+    90
+   ],
+   [
+    "juncos_1",
+    -8.5,
+    -9.2,
+    0
+   ],
+   [
+    "juncos_1",
+    1.5,
+    -13.7,
+    90
+   ],
+   [
+    "juncos_2",
+    10.5,
+    -9.3,
+    30
+   ],
+   [
+    "juncos_2",
+    -16,
+    -13.8,
+    0
+   ],
+   [
+    "rocas_2",
+    -22,
+    -9.0,
+    0
+   ],
+   [
+    "rocas_2",
+    15,
+    -14.2,
+    100
+   ],
+   [
+    "oveja_tumbado",
+    -1.6,
+    -4.6,
+    60
+   ],
+   [
+    "cordero_tumbado",
+    -2.4,
+    -3.9,
+    140
+   ],
+   [
+    "gato_tumbado",
+    -19.2,
+    5.0,
+    30,
+    {
+     "z": 1.23
+    }
+   ],
+   [
+    "cabria",
+    12.2,
+    7.6,
+    0
+   ],
+   [
+    "tejar_horno",
+    -5.0,
+    2.6,
+    0
+   ],
+   [
+    "sillares",
+    14.0,
+    4.4,
+    80
+   ]
+  ],
+  "kit": [
+   [
+    "q:Pickaxe_Bronze",
+    10.2,
+    3.4,
+    30
+   ],
+   [
+    "q:Bag",
+    -6.5,
+    -0.4,
+    0
+   ],
+   [
+    "q:Barrel",
+    11.8,
+    -4.4,
+    0
+   ],
+   [
+    "q:Axe_Bronze",
+    -22.5,
+    4.2,
+    0
+   ],
+   [
+    "q:Crate_Wooden",
+    21,
+    -0.4,
+    10
+   ]
+  ],
+  "trees": [
+   [
+    "pino_0",
+    -34.0,
+    23.8,
+    173,
+    1.03
+   ],
+   [
+    "pino_0",
+    -21.9,
+    17.8,
+    194,
+    0.91
+   ],
+   [
+    "roble_0",
+    -10.6,
+    25.8,
+    80,
+    0.91
+   ],
+   [
+    "pino_1",
+    -36.5,
+    6.2,
+    302,
+    0.87
+   ],
+   [
+    "pino_0",
+    -18.0,
+    22.0,
+    149,
+    0.92
+   ],
+   [
+    "pino_0",
+    -31.5,
+    22.0,
+    136,
+    1.17
+   ],
+   [
+    "pino_0",
+    -36.7,
+    20.0,
+    210,
+    0.87
+   ],
+   [
+    "pino_1",
+    -37.3,
+    13.2,
+    57,
+    1.19
+   ],
+   [
+    "pino_1",
+    -28.4,
+    24.4,
+    276,
+    1.17
+   ],
+   [
+    "pino_1",
+    -15.8,
+    19.8,
+    88,
+    1.18
+   ],
+   [
+    "roble_0",
+    -37.0,
+    23.8,
+    121,
+    0.91
+   ],
+   [
+    "pino_1",
+    -23.4,
+    20.7,
+    345,
+    1.03
+   ],
+   [
+    "roble_1",
+    -31.9,
+    7.8,
+    9,
+    0.98
+   ],
+   [
+    "roble_1",
+    -29.1,
+    9.8,
+    28,
+    0.86
+   ],
+   [
+    "pino_1",
+    -27.3,
+    19.0,
+    354,
+    1.15
+   ],
+   [
+    "pino_1",
+    -30.5,
+    4.2,
+    88,
+    0.94
+   ],
+   [
+    "roble_0",
+    -33.7,
+    4.2,
+    106,
+    1.13
+   ],
+   [
+    "pino_2",
+    -10.1,
+    20.9,
+    356,
+    0.89
+   ],
+   [
+    "pino_1",
+    -14.8,
+    22.7,
+    113,
+    1.15
+   ],
+   [
+    "roble_1",
+    -32.1,
+    14.4,
+    286,
+    1.04
+   ],
+   [
+    "roble_1",
+    -35.6,
+    16.2,
+    134,
+    1.04
+   ],
+   [
+    "pino_0",
+    -22.4,
+    24.8,
+    329,
+    1.05
+   ],
+   [
+    "roble_0",
+    -28.7,
+    14.1,
+    302,
+    0.9
+   ],
+   [
+    "roble_1",
+    -37.6,
+    9.1,
+    11,
+    1.19
+   ]
+  ],
+  "nature": [
+   [
+    "Bush_Common_Flowers",
+    -11,
+    1.5,
+    0,
+    0.9
+   ],
+   [
+    "Fern_1",
+    -30,
+    8,
+    0,
+    0.25
+   ],
+   [
+    "Fern_1",
+    -12,
+    18,
+    60,
+    0.22
+   ],
+   [
+    "Bush_Common_Flowers",
+    31,
+    -2,
+    0,
+    0.9
+   ]
+  ],
+  "animals": [
+   {
+    "id": "oveja",
+    "at": [
+     -4.4,
+     -4.4
+    ],
+    "rot": 30,
+    "anim": "comer"
+   },
+   {
+    "id": "oveja",
+    "coat": "negra",
+    "at": [
+     -2.8,
+     -2.6
+    ],
+    "wander": [
+     -4.6,
+     -3.2
+    ]
+   },
+   {
+    "id": "cordero",
+    "at": [
+     -3.6,
+     -4.6
+    ],
+    "wander": [
+     -1.4,
+     -2.8
+    ]
+   },
+   {
+    "id": "perro",
+    "at": [
+     -7.4,
+     -0.6
+    ],
+    "rot": 120,
+    "anim": "tumbado"
+   },
+   {
+    "id": "buey",
+    "at": [
+     12.3,
+     -2.3
+    ],
+    "rot": 150,
+    "anim": "comer"
+   },
+   {
+    "id": "burro",
+    "at": [
+     20.4,
+     -2.6
+    ],
+    "rot": 10,
+    "anim": "quieto"
+   },
+   {
+    "id": "cabra",
+    "at": [
+     30.6,
+     -4.8
+    ],
+    "wander": [
+     27.5,
+     -6.4
+    ]
+   },
+   {
+    "id": "gallina",
+    "at": [
+     -9.6,
+     3.2
+    ],
+    "wander": [
+     -7.8,
+     4.4
+    ]
+   }
+  ],
+  "convoys": [
+   {
+    "cart": "carro_bueyes_marcha",
+    "animal": "buey",
+    "path": [
+     [
+      -8,
+      0.5
+     ],
+     [
+      15,
+      0.5
+     ],
+     [
+      15,
+      -7.2
+     ],
+     [
+      -8,
+      -7.2
+     ]
+    ],
+    "loop": true,
+    "start": 30
+   }
+  ],
+  "flock": {
+   "n": 9,
+   "radius": 12,
+   "height": 14,
+   "at": [
+    6,
+    6
+   ],
+   "seed": 11
+  },
+  "shots": [
+   [
+    "lamina",
+    -2,
+    3,
+    3,
+    66,
+    45
+   ],
+   [
+    "cantera_z26",
+    8,
+    6,
+    3,
+    26,
+    45
+   ],
+   [
+    "cantera_z14",
+    5,
+    7,
+    3,
+    15,
+    45
+   ],
+   [
+    "mina_z14",
+    24,
+    1.5,
+    2,
+    15,
+    45
+   ],
+   [
+    "bosque_z26",
+    -20,
+    8,
+    3,
+    26,
+    45
+   ],
+   [
+    "aserradero_z12",
+    -20,
+    8.5,
+    1.5,
+    12,
+    45
+   ],
+   [
+    "carbonera_z12",
+    -17.5,
+    12.5,
+    1,
+    12,
+    45
+   ],
+   [
+    "redil_z10",
+    -3,
+    -3.5,
+    0.6,
+    10,
+    45
+   ],
+   [
+    "arroyo_z14",
+    0,
+    -11,
+    0.5,
+    15,
+    45
+   ],
+   [
+    "lagar_z10",
+    9,
+    -3.6,
+    1.5,
+    10,
+    45
+   ],
+   [
+    "giro3",
+    -2,
+    3,
+    3,
+    66,
+    225
+   ],
+   [
+    "tejar_z12",
+    -5,
+    1.5,
+    1.5,
+    12,
+    45
+   ]
+  ]
+ },
+ "capital": {
+  "note": "SOLO los hitos y barcos de region_capital de GuildMaster donde los pone su mapa, sobre sus casillas de agua: la capital: muralla por casillas con sus torres y puertas, catedral, aduana, almacenes, lonja, grúa, iglesia y barcos",
+  "region": "region_capital",
+  "solo": true
+ },
+ "puerto_region": {
+  "note": "SOLO los hitos y barcos de region_port de GuildMaster donde los pone su mapa, sobre sus casillas de agua: el puerto: almacenes, aduana, lonja, grúa, astillero y barcos",
+  "region": "region_port",
+  "solo": true
+ },
+ "cantera_region": {
+  "note": "SOLO los hitos y barcos de region_quarry de GuildMaster donde los pone su mapa, sobre sus casillas de agua: la cantera: mina, cantera en bancos, escombreras y fundición",
+  "region": "region_quarry",
+  "solo": true
+ },
+ "abadia": {
+  "note": "SOLO los hitos y barcos de region_abbey de GuildMaster donde los pone su mapa, sobre sus casillas de agua: la abadía: iglesia abacial, claustro, hospedería, cerca y torre de puerta",
+  "region": "region_abbey",
+  "solo": true
+ },
+ "aldea": {
+  "note": "SOLO los hitos y barcos de region_hamlet de GuildMaster donde los pone su mapa, sobre sus casillas de agua: la aldea: granero, molino de agua y eras",
+  "region": "region_hamlet",
+  "solo": true
+ }
+}

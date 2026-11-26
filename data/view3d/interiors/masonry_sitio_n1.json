@@ -1,0 +1,83 @@
+{
+  "_doc": "The mason's at level 1: one room of 6 x 4 m: the banker with a block in work at the back, a second bench, blocks waiting in the corner, the templates on the wall, a pallet. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "id": "masonry",
+  "level": 1,
+  "tile_m": 1.0,
+  "origin_m": [-2.5, -1.5],
+  "size": [5, 3],
+  "seed": 4,
+  "shell": {"w": 6, "d": 4, "floors": 1, "door_cell": 1},
+  "entrance": {"floor": 0, "tile": [2, 2], "side": "sw"},
+  "rooms": [
+    {"id": "workshop", "floor": 0, "type": "workshop", "rects": [[0, 0, 4, 2]], "floor_kind": "stone", "wall_style": "timber", "light": "warm"}
+  ],
+  "stations": {
+    "cutting_bench": {"name": "Banco de labra", "kind": "craft", "floor": 0, "tile": [1, 0], "stand": [1, 1], "prop": "banco_labra", "snap": "back"},
+    "carving_bench": {"name": "Labra fina", "kind": "craft", "floor": 0, "tile": [3, 0], "stand": [3, 1], "prop": "banco_labra", "snap": "back"},
+    "storage": {"name": "Bloques", "kind": "storage", "floor": 0, "tile": [4, 1], "stand": [4, 2], "prop": "bloques", "pos": [4, 0.6], "snap": "right"}
+  },
+  "spots": {"shop": [0, [2, 2]]},
+  "props": [
+    {"id": "plantillas", "floor": 0, "tile": [2, 0], "snap": "back", "name": "plantillas"},
+    {"id": "jergon", "floor": 0, "pos": [0.45, 2], "snap": "front", "rot": 90, "name": "jergon"}
+  ],
+  "upgrades": {
+    "masonry_carving_bench_2": [{"id": "banco_labra", "floor": 0, "auto": "wall", "near": "carving_bench", "zone": "carving_bench_2", "name": "Labra fina 2", "kind": "craft"}],
+    "masonry_cutting_bench_2": [{"needs": "patio", "note": "el segundo banco de desbaste va al patio: el taller de cantería sigue fuera"}],
+    "upgrade_storage_shelves": [{"id": "alacena", "floor": 0, "auto": "wall", "near": "storage"}],
+    "upgrade_counter": [{"id": "estante_pared", "floor": 0, "auto": "wall", "near": "door"}],
+    "masonry_wedges": [{"id": "arcon", "floor": 0, "auto": "wall", "near": "cutting_bench"}],
+    "masonry_crane": [{"needs": "patio", "note": "la grúa va en el patio (el tipo ya la pone desde el nivel 2)"}],
+    "masonry_master_yard": [{"needs": "patio", "note": "el patio del maestro va al patio: el taller de cantería sigue fuera"}],
+    "masonry_chisels": [{"id": "panel_herramientas", "floor": 0, "auto": "wall", "near": "carving_bench"}],
+    "masonry_templates": [{"base": "plantillas"}],
+    "masonry_mark": [{"id": "escudo_pared", "floor": 0, "auto": "wall", "near": "door"}],
+    "upgrade_master_bench": [{"id": "arcon", "floor": 0, "auto": "wall", "near": "carving_bench"}],
+    "upgrade_double_ledger": [{"needs": "planta", "note": "no hay mesa ni escritorio en el nivel 1"}],
+    "upgrade_hidden_passage": [{"id": "tapiz", "floor": 0, "auto": "wall", "near": "storage"}],
+    "upgrade_smuggler_cache": [{"id": "trampilla", "floor": 0, "auto": "floor", "near": "storage", "prio": 1}],
+    "upgrade_strongbox": [{"id": "arca_fuerte", "floor": 0, "auto": "wall", "near": "storage"}],
+    "upgrade_bunks": [{"needs": "planta", "note": "no hay vivienda en este nivel: llega con la planta alta"}],
+    "upgrade_dining_table": [{"needs": "planta", "note": "no hay vivienda en este nivel: llega con la planta alta"}]
+  },
+  "upgrade_ids": {
+    "masonry_capacity_1": "masonry_carving_bench_2",
+    "masonry_capacity_2": "upgrade_storage_shelves",
+    "masonry_capacity_3": "masonry_cutting_bench_2",
+    "masonry_commerce_1": "upgrade_counter",
+    "masonry_production_1": "masonry_wedges",
+    "masonry_production_2": "masonry_crane",
+    "masonry_production_3": "masonry_master_yard",
+    "masonry_quality_1": "masonry_chisels",
+    "masonry_quality_2": "masonry_templates",
+    "masonry_quality_3": "masonry_mark",
+    "masonry_secrets_1": "upgrade_double_ledger",
+    "masonry_secrets_2": "upgrade_hidden_passage",
+    "masonry_secrets_3": "upgrade_smuggler_cache",
+    "masonry_security_3": "upgrade_strongbox",
+    "masonry_staff_1": "upgrade_bunks",
+    "masonry_staff_2": "upgrade_dining_table",
+    "masonry_staff_3": "upgrade_master_bench"
+  },
+  "upgrade_out": {
+    "masonry_commerce_2": "fachada: upgrade_shop_window",
+    "masonry_commerce_3": "fachada: upgrade_trade_sign",
+    "masonry_facade_1": "fachada: upgrade_stone_facade",
+    "masonry_facade_2": "fachada: upgrade_garden",
+    "masonry_facade_3": "fachada: upgrade_noble_facade",
+    "masonry_security_1": "fachada: upgrade_reinforced_lock",
+    "masonry_security_2": "fachada: upgrade_guard"
+  },
+  "cast": [
+    {"look": "Herrero", "name": "Cantero", "start": [0, [2, 1]], "steps": [
+      {"say": "desbasta un sillar", "secs": 7, "anim": "carve", "zone": "cutting_bench"},
+      {"say": "labra una moldura", "secs": 8, "anim": "carve", "zone": "carving_bench"},
+      {"say": "mide un bloque", "secs": 4, "anim": "Interact", "zone": "storage"}
+    ]},
+    {"look": "Mercader", "name": "Cliente", "outside": true, "wait": 4, "looks": ["Mercader", "Noble"], "steps": [
+      {"enter": true},
+      {"say": "encarga unos sillares", "secs": 6, "anim": "Idle_Talking", "tile": [0, [2, 2]], "look": [1, 0]},
+      {"leave": true, "secs": 7}
+    ]}
+  ]
+}

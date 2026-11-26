@@ -1,0 +1,1521 @@
+{
+  "_doc": "Our own animations, baked by tools/make_anims.gd onto the shared skeletons (kit/chars/derived/anims_<sex>.res, library 'own'). See docs/personajes.md, 'Animaciones propias'. Positions and directions in the character's space: feet on y = 0, facing +z, its left = +x. Items: hand-held ones are defined in the fist's grip frame (+z = along the handle towards the thumb, +y = along the fingers, origin in the fist); others are placed on a bone with 'at'/'rot' in character space.",
+  "masks": {
+    "_doc": "Bone sets of a layer (the upper animation of CharBuilder 'carry'): glob patterns of bone names.",
+    "arms": ["clavicle_*", "upperarm_*", "lowerarm_*", "hand_*", "*_0?_?"],
+    "arm_r": ["clavicle_r", "upperarm_r", "lowerarm_r", "hand_r", "*_0?_r"],
+    "arm_l": ["clavicle_l", "upperarm_l", "lowerarm_l", "hand_l", "*_0?_l"],
+    "upper": ["spine_02", "spine_03", "neck_01", "Head", "clavicle_*", "upperarm_*", "lowerarm_*", "hand_*", "*_0?_?"]
+  },
+  "items": {
+    "hammer": {"scene": "res://kit/utiles/hammer.gltf", "tip": [0, 0.105, 0.34]},
+    "tongs": {"scene": "res://kit/utiles/tongs.gltf", "tip": [0, 0, 0.5], "shapes": [["box", [0.07, 0.04, 0.16], [0, 0, 0.53], [0, 0, 0], [1.0, 0.42, 0.1], 3.0]]},
+    "box": {"scene": "res://kit/q_props/Exports/glTF/Crate_Wooden.gltf", "scale": 0.4, "pos": [0, -0.166, 0]},
+    "broom": {"scene": "res://kit/utiles/broom.gltf", "tip": [0, 0, -1.05]},
+    "saw": {"scene": "res://kit/utiles/saw.gltf", "tip": [0, 0.3, -0.05]},
+    "paddle": {"scene": "res://kit/utiles/paddle.gltf", "tip": [0, 0, -0.8]},
+    "hoe": {"scene": "res://kit/utiles/hoe.gltf", "tip": [0, 0.144, 1.258]},
+    "cane": {"scene": "res://kit/utiles/cane.gltf", "tip": [0, 0, -0.98]},
+    "mug": {"tip": [-0.07, 0, 0.1], "scene": "res://kit/q_props/Exports/glTF/Mug.gltf", "rot": [90, 0, 0], "pos": [-0.075, 0.0, -0.08], "scale": 1.0},
+    "sack": {"scene": "res://kit/q_props/Exports/glTF/Bag.gltf", "scale": 0.68, "pos": [0, -0.27, 0]},
+    "baby": {"scene": "res://kit/utiles/baby.gltf"},
+    "coin": {"scene": "res://kit/q_props/Exports/glTF/Coin.gltf", "scale": 0.47, "pos": [-0.035, 0.03, 0.0], "rot": [0, 90, 0]},
+    "blanket": {"scene": "res://kit/muebles/manta_cuerpo.gltf", "scale": 1.0, "pos": [0, 0, 0]},
+    "shears": {"scene": "res://kit/utiles/shears.gltf", "tip": [0, 0, 0.19]},
+    "needle": {"scene": "res://kit/utiles/needle.gltf", "tip": [0, 0, 0.05]},
+    "spoon": {"scene": "res://kit/utiles/spoon.gltf", "tip": [0, 0, 0.12]},
+    "jug": {"scene": "res://kit/utiles/jug.gltf", "tip": [-0.17, 0.0, 0.1]},
+    "shuttle": {"scene": "res://kit/utiles/shuttle.gltf", "tip": [0, 0, 0.1]},
+    "plane": {"scene": "res://kit/utiles/plane.gltf", "tip": [0, 0.07, 0.17]},
+    "peel": {"scene": "res://kit/utiles/peel.gltf", "tip": [0, 0, 1.35]},
+    "chisel": {"scene": "res://kit/utiles/chisel.gltf", "tip": [0, 0, -0.13]},
+    "mallet": {"scene": "res://kit/utiles/mallet.gltf", "tip": [0, 0.07, 0.3]},
+    "blade": {"scene": "res://kit/utiles/blade.gltf", "tip": [0, 0, 0.42]},
+    "rag": {"scene": "res://kit/utiles/rag.gltf", "tip": [0, 0.05, 0.0]},
+    "bowl": {"scene": "res://kit/utiles/bowl.gltf"},
+    "patch": {"scene": "res://kit/utiles/patch.gltf"},
+    "mug_bar": {"scene": "res://kit/q_props/Exports/glTF/Mug.gltf", "scale": 1.0, "pos": [0, 0, 0]},
+    "axe": {"scene": "res://kit/utiles/axe.gltf", "tip": [0, 0.125, 0.655]},
+    "pick": {"scene": "res://kit/utiles/pick.gltf", "tip": [0, 0.34, 0.86]},
+    "shovel": {"scene": "res://kit/utiles/shovel.gltf", "tip": [0, 0, 1.4]},
+    "fork": {"scene": "res://kit/utiles/fork.gltf", "tip": [0, 0.06, 1.52]},
+    "scythe": {"scene": "res://kit/utiles/scythe.gltf", "tip": [0, 0.62, 1.4]},
+    "sickle": {"scene": "res://kit/utiles/sickle.gltf", "tip": [0, 0.11, 0.31]},
+    "bucket": {"scene": "res://kit/q_props/Exports/glTF/Bucket_Wooden_1.gltf", "scale": 1.0, "pos": [0, 0.34, 0.03], "rot": [180, 0, 0]},
+    "basket": {"scene": "res://kit/utiles/basket.gltf"},
+    "lantern": {"scene": "res://kit/utiles/lantern.gltf", "rot": [180, 0, 0], "shapes": [["sphere", [0.02], [0, 0.22, 0], [0, 0, 0], [1.0, 0.8, 0.4], 3.0]]},
+    "torch": {"scene": "res://kit/utiles/torch.gltf", "tip": [0, 0, 0.5], "shapes": [["sphere", [0.035, 0.8], [0, 0, 0.5], [0, 0, 0], [1.0, 0.55, 0.1], 4.0]]},
+    "knife": {"scene": "res://kit/utiles/knife.gltf", "tip": [0, 0, 0.23]},
+    "rolling_pin": {"scene": "res://kit/utiles/rolling_pin.gltf", "tip": [0, 0.034, 0.2]},
+    "ladle": {"scene": "res://kit/utiles/ladle.gltf", "tip": [0, 0.075, 0.3]},
+    "quill": {"scene": "res://kit/utiles/quill.gltf", "tip": [0, 0, 0.045]},
+    "inkpot": {"scene": "res://kit/utiles/inkpot.gltf"},
+    "ledger": {"scene": "res://kit/utiles/ledger.gltf"},
+    "papers": {"scene": "res://kit/utiles/papers.gltf"},
+    "keys": {"scene": "res://kit/utiles/keys.gltf"},
+    "purse": {"scene": "res://kit/q_props/Exports/glTF/Pouch_Large.gltf", "scale": 1.0, "pos": [0, -0.16, 0], "rot": [0, 0, 0]},
+    "sword": {"scene": "res://kit/utiles/sword.gltf", "tip": [0, 0, 0.82]},
+    "spear": {"scene": "res://kit/utiles/spear.gltf", "tip": [0, 0, 1.17]},
+    "shield": {"scene": "res://kit/q_props/Exports/glTF/Shield_Wooden.gltf", "scale": 1.0, "pos": [0, -0.02, 0], "rot": [-90, 0, 0]},
+    "fishing_rod": {"scene": "res://kit/utiles/fishing_rod.gltf", "tip": [0, 0, 1.6]},
+    "bowl_hand": {"scene": "res://kit/utiles/bowl.gltf", "pos": [0.04, 0.03, 0.0], "rot": [0, 0, -90]}
+  },
+  "anims": {
+    "hammer": {
+      "_doc": "Hammering on the anvil: impact (sharp, accelerating in), rebound, slow raise, short hang at the top. Tongs hold the piece. Staggered stance (left foot forward); the weight rides the swing: hips back and up with the right shoulder on the raise, down and forward with the knees on the hit. Anvil face y 0.81, centre z 0.56.",
+      "length": 1.05,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"hammer": "r", "tongs": "l"},
+      "curl": {"r": 1.0, "l": 1.0},
+      "station": {"prop": "anvil", "at": [-0.02, 0, 0.56], "top": 0.81, "rot": 90},
+      "lag": {"spine_02": 0.05, "spine_03": 0.03, "look": 0.08, "pelvis": 0.03, "pelvis_rot": 0.04},
+      "probe": [["r", 0.0], ["l", 0.0], ["r", 0.6], ["bone:foot_l", 0.0], ["bone:foot_r", 0.6]],
+      "keys": [
+        {
+          "t": 0.0,
+          "ease": "in3",
+          "sharp": true,
+          "pelvis": [-0.005, -0.065, 0.035],
+          "spine_02": [12, 0, 0],
+          "spine_03": [8, -4, 0],
+          "look": [-0.04, 0.83, 0.55],
+          "r": {"tip": [-0.06, 0.848, 0.57], "axis": [0.2, -0.3, 1], "fingers": [0, -1, -0.25], "pole": [-0.6, -1, -0.3]},
+          "l": {"tip": [0.0, 0.83, 0.54], "axis": [-0.5, -0.45, 0.75], "fingers": [0, -1, -0.5], "pole": [0.7, -1, -0.3]},
+          "pelvis_rot": [0, 4, 0],
+          "foot_l": [0.13, 0.086, 0.1],
+          "foot_r": [-0.13, 0.086, -0.16]
+        },
+        {
+          "t": 0.13,
+          "ease": "out",
+          "pelvis": [-0.005, -0.055, 0.03],
+          "spine_02": [11, 0, 0],
+          "spine_03": [7, -3, 0],
+          "r": {"tip": [-0.07, 0.96, 0.51], "axis": [0.15, -0.05, 1], "fingers": [0, -1, 0.0], "pole": [-0.6, -1, -0.3]},
+          "l": {"tip": [0.0, 0.836, 0.54]},
+          "pelvis_rot": [0, 3, 0]
+        },
+        {
+          "t": 0.55,
+          "ease": "inout",
+          "pelvis": [0.01, -0.02, -0.02],
+          "spine_02": [7, 0, 0],
+          "spine_03": [3, 5, 0],
+          "r": {"grip": [-0.33, 1.4, -0.02], "axis": [0.15, 0.75, -0.64], "fingers": [0, 0.64, 0.75], "pole": [-1, -0.1, -0.1]},
+          "pelvis_rot": [0, -6, 0]
+        },
+        {
+          "t": 0.72,
+          "ease": "out",
+          "pelvis": [0.01, -0.018, -0.025],
+          "spine_02": [6, 0, 0],
+          "spine_03": [2, 6, 0],
+          "r": {"grip": [-0.34, 1.44, -0.06], "axis": [0.15, 0.8, -0.58], "fingers": [0, 0.58, 0.8], "pole": [-1, -0.05, -0.15]},
+          "l": {"tip": [0.0, 0.83, 0.54]},
+          "pelvis_rot": [0, -7, 0]
+        }
+      ]
+    },
+    "carry_box": {
+      "_doc": "Upper body: a crate held in front with both hands on its sides. Layer over Walk / Idle (mask arms).",
+      "length": 1.3333,
+      "loop": true,
+      "mask": "arms",
+      "base": {"anim": "Idle", "t": 0.0},
+      "items": {"box": {"bone": "spine_03", "at": [0, 1.11, 0.31], "rot": [0, 0, 0]}},
+      "curl": {"r": 0.35, "l": 0.35},
+      "keys": [
+        {
+          "t": 0.0,
+          "r": {"grip": [-0.2, 1.065, 0.3], "axis": [0, 1, 0.1], "fingers": [0, -0.35, 1], "pole": [-0.8, -1, 0.0]},
+          "l": {"grip": [0.2, 1.065, 0.3], "axis": [0, 1, 0.1], "fingers": [0, -0.35, 1], "pole": [0.8, -1, 0.0]}
+        }
+      ]
+    },
+    "sweep": {
+      "_doc": "Sweeping with a besom: the brush drags right to left on the floor, lifts a little on the way back. Hands near the hip and the chest.",
+      "length": 1.7,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"broom": "r"},
+      "curl": {"r": 1.0, "l": 1.0},
+      "lag": {"spine_02": 0.12, "spine_03": 0.08, "look": 0.15, "pelvis": 0.1},
+      "probe": [["r", 0.0], ["r", 0.75], ["bone:hand_l", 0.0]],
+      "keys": [
+        {
+          "t": 0.0,
+          "ease": "",
+          "pelvis": [-0.015, -0.03, -0.03],
+          "spine_02": [13, -6, 0],
+          "spine_03": [6, -3, 0],
+          "look": [-0.2, 0.0, 0.8],
+          "r": {"tip": [-0.32, 0.03, 0.68], "axis": [0.225, 0.891, -0.394], "fingers": [1, 0, 0.3], "pole": [-0.8, -0.6, -0.4]},
+          "l": {"hold": "r", "at": 0.28, "fingers": [-1, 0, 0.3], "pole": [0.9, -0.5, -0.2]}
+        },
+        {
+          "t": 0.75,
+          "ease": "inout",
+          "pelvis": [0.015, -0.03, -0.03],
+          "spine_02": [13, 6, 0],
+          "spine_03": [6, 3, 0],
+          "look": [0.15, 0.0, 0.8],
+          "r": {"tip": [0.2, 0.02, 0.7], "axis": [-0.24, 0.886, -0.397], "fingers": [1, 0, 0.3], "pole": [-0.8, -0.6, -0.4]}
+        },
+        {
+          "t": 1.25,
+          "ease": "inout",
+          "pelvis": [0.0, -0.025, -0.03],
+          "spine_02": [12, 0, 0],
+          "spine_03": [5, 0, 0],
+          "r": {"tip": [-0.05, 0.1, 0.7], "axis": [-0.02, 0.902, -0.431], "fingers": [1, 0, 0.3], "pole": [-0.8, -0.6, -0.4]}
+        }
+      ],
+      "drive": {"r": "tip"}
+    },
+    "saw": {
+      "_doc": "Sawing a plank on a bench (top 0.80): the blade slides through the kerf, push (cutting) and pull; the left hand holds the plank. Shoulder rocks with the push.",
+      "length": 1.0,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"saw": "r"},
+      "curl": {"r": 1.0, "l": 0.15},
+      "station": {"prop": "sawbench", "at": [0.0, 0, 0.43], "top": 0.775, "rot": 0},
+      "lag": {"spine_02": 0.06, "spine_03": 0.04, "pelvis": 0.08},
+      "probe": [["r", 0.0], ["r", 0.5], ["bone:hand_l", 0.0]],
+      "keys": [
+        {
+          "t": 0.0,
+          "ease": "inout",
+          "pelvis": [0, -0.05, -0.02],
+          "spine_02": [18, 3, 0],
+          "spine_03": [10, 4, 0],
+          "look": [-0.15, 0.8, 0.38],
+          "r": {"tip": [-0.15, 0.866, 0.292], "axis": [0, 0.8, 0.6], "fingers": [0, -0.6, 0.8], "pole": [-0.5, -0.6, -1.0]},
+          "l": {"grip": [0.12, 0.835, 0.31], "axis": [-1, 0, 0.1], "fingers": [0.1, 0, 1], "pole": [0.9, -0.3, -0.3]}
+        },
+        {
+          "t": 0.5,
+          "ease": "inout",
+          "pelvis": [0, -0.055, 0.02],
+          "spine_02": [21, -2, 0],
+          "spine_03": [12, -3, 0],
+          "r": {"tip": [-0.15, 0.734, 0.468], "axis": [0, 0.8, 0.6], "fingers": [0, -0.6, 0.8], "pole": [-0.5, -0.6, -1.0]},
+          "l": {"grip": [0.12, 0.832, 0.31]}
+        }
+      ],
+      "drive": {"r": "tip"}
+    },
+    "stir": {
+      "_doc": "Stirring the cauldron (rim 0.82) with a long paddle: the blade circles in the pot, the hands follow on a smaller circle; the body sways a little behind.",
+      "length": 2.0,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"paddle": "r"},
+      "curl": {"r": 1.0, "l": 1.0},
+      "station": {"prop": "cauldron", "at": [0.0, 0, 0.68], "rot": 0},
+      "lag": {"spine_02": 0.15, "pelvis": 0.2, "look": 0.2},
+      "probe": [["r", 0.0], ["r", 1.0], ["bone:hand_l", 0.0]],
+      "keys": [
+        {
+          "t": 0.0,
+          "ease": "",
+          "r": {"tip": [0.13, 0.36, 0.62], "axis": [-0.131, 0.866, -0.482], "fingers": [0.7, 0, 0.7], "pole": [-0.8, -0.6, -0.3]},
+          "pelvis": [0.008, -0.02, -0.007],
+          "spine_02": [5.871, 2.476, -2.063],
+          "spine_03": [5, 0, 0],
+          "l": {"hold": "r", "at": -0.1, "fingers": [-0.7, 0, 0.7], "pole": [0.8, -0.6, -0.3]},
+          "look": [0, 0.6, 0.72]
+        },
+        {
+          "t": 0.5,
+          "ease": "",
+          "r": {"tip": [0.0, 0.36, 0.73], "axis": [0.005, 0.844, -0.536], "fingers": [0.7, 0, 0.7], "pole": [-0.8, -0.6, -0.3]},
+          "pelvis": [0.009, -0.02, 0.007],
+          "spine_02": [8.651, 1.694, -1.412],
+          "spine_03": [5, 0, 0]
+        },
+        {
+          "t": 1.0,
+          "ease": "",
+          "r": {"tip": [-0.13, 0.36, 0.62], "axis": [0.084, 0.891, -0.446], "fingers": [0.7, 0, 0.7], "pole": [-0.8, -0.6, -0.3]},
+          "pelvis": [-0.008, -0.02, 0.007],
+          "spine_02": [8.129, -2.476, 2.063],
+          "spine_03": [5, 0, 0]
+        },
+        {
+          "t": 1.5,
+          "ease": "",
+          "r": {"tip": [-0.0, 0.36, 0.51], "axis": [-0.058, 0.92, -0.388], "fingers": [0.7, 0, 0.7], "pole": [-0.8, -0.6, -0.3]},
+          "pelvis": [-0.009, -0.02, -0.007],
+          "spine_02": [5.349, -1.694, 1.412],
+          "spine_03": [5, 0, 0]
+        }
+      ],
+      "drive": {"r": "tip"}
+    },
+    "hoe": {
+      "_doc": "Hoeing: the left hand holds the end of the handle, the right one 32 cm down it. Staggered stance (left foot forward). Raise over the right shoulder with the weight on the back foot and the hips turned right, accelerate down (sharp) with the weight going onto the front foot and the knees bending, the blade bites 3 cm, drag it back toward the feet, raise again. The right hand loosens on the way up and tightens before the hit (fingers close index first).",
+      "length": 1.8,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"hoe": "l"},
+      "lag": {"spine_02": 0.06, "spine_03": 0.04, "look": 0.12, "pelvis": 0.05, "pelvis_rot": 0.05},
+      "probe": [["l", 0.0], ["l", 0.55], ["l", 1.2], ["bone:hand_r", 0.0], ["bone:hand_r", 0.55]],
+      "keys": [
+        {
+          "t": 0.0,
+          "ease": "inout",
+          "pelvis": [0.0, -0.025, -0.035],
+          "pelvis_rot": [0, -9, 0],
+          "spine_02": [-2, 10, 0],
+          "spine_03": [-3, 8, 0],
+          "look": [0, 0, 0.95],
+          "foot_l": [0.14, 0.086, 0.13],
+          "foot_r": [-0.12, 0.086, -0.17],
+          "l": {"grip": [0.02, 1.04, 0.26], "axis": [-0.357, 0.744, -0.565], "fingers": [0.45, 0.35, 0.8], "pole": [0.8, -0.6, -0.2], "curl": 1.0},
+          "r": {"hold": "l", "at": 0.32, "fingers": [-0.5, 0.35, 0.8], "pole": [-1, -0.3, -0.1], "curl": 0.75}
+        },
+        {
+          "t": 0.35,
+          "ease": "in",
+          "pelvis": [0.0, -0.035, -0.01],
+          "pelvis_rot": [0, -4, 0],
+          "spine_02": [8, 6, 0],
+          "spine_03": [5, 4, 0],
+          "l": {"grip": [0.02, 1.08, 0.28], "axis": [-0.253, 0.962, 0.101], "fingers": [0.4, 0.0, 0.9], "pole": [0.8, -0.6, -0.2], "curl": 1.0},
+          "r": {"curl": 1.0}
+        },
+        {
+          "t": 0.46,
+          "ease": "in",
+          "spine_02": [20, 2, 0],
+          "spine_03": [11, 1, 0],
+          "l": {"grip": [0.0, 1.02, 0.28], "axis": [-0.119, 0.596, 0.794], "fingers": [0.4, 0.6, -0.45], "pole": [0.8, -0.6, -0.2]},
+          "r": {"at": 0.14}
+        },
+        {
+          "t": 0.55,
+          "ease": "in3",
+          "sharp": true,
+          "pelvis": [0.0, -0.1, 0.045],
+          "pelvis_rot": [0, 3, 0],
+          "spine_02": [28, -2, 0],
+          "spine_03": [15, -2, 0],
+          "l": {"tip": [-0.02, 0.0, 0.95], "axis": [-0.02, -0.8, 0.6], "fingers": [0.4, 0.55, 0.7], "pole": [0.8, -0.6, -0.3], "curl": 1.05},
+          "r": {"curl": 1.05, "at": 0.14}
+        },
+        {
+          "t": 0.72,
+          "ease": "out",
+          "pelvis": [0.0, -0.105, 0.04],
+          "pelvis_rot": [0, 3, 0],
+          "spine_02": [29, -2, 0],
+          "spine_03": [16, -2, 0],
+          "l": {"tip": [-0.02, -0.03, 0.92], "axis": [-0.02, -0.8, 0.6], "fingers": [0.4, 0.55, 0.7], "pole": [0.8, -0.6, -0.3], "curl": 1.0},
+          "r": {"curl": 1.0, "at": 0.15}
+        },
+        {
+          "t": 1.2,
+          "ease": "inout",
+          "pelvis": [0.0, -0.075, -0.0],
+          "pelvis_rot": [0, 0, 0],
+          "spine_02": [20, 0, 0],
+          "spine_03": [12, 0, 0],
+          "l": {"tip": [-0.02, -0.01, 0.72], "axis": [-0.02, -0.882, 0.471], "fingers": [0.4, 0.45, 0.8], "pole": [0.8, -0.6, -0.3], "curl": 1.0},
+          "r": {"curl": 0.95, "at": 0.22}
+        },
+        {
+          "t": 1.5,
+          "ease": "inout",
+          "pelvis": [0.0, -0.045, -0.03],
+          "pelvis_rot": [0, -6, 0],
+          "spine_02": [6, 6, 0],
+          "spine_03": [2, 5, 0],
+          "r": {"curl": 0.8, "at": 0.22}
+        }
+      ]
+    },
+    "sit_bench": {
+      "_doc": "Sitting_Idle moved so the butt rests on a 0.45 m seat (measured on the skinned legs); feet kept on the floor with IK.",
+      "length": 1.6667,
+      "loop": true,
+      "seat": 0.45,
+      "base": {"anim": "Sitting_Idle", "t": 0.0, "play": true},
+      "station": {"prop": "bench", "rot": 0},
+      "probe": [["bone:Head", 0.0], ["bone:hand_r", 0.0], ["bone:upperarm_r", 0.0]],
+      "keys": []
+    },
+    "sit_talk": {
+      "_doc": "Sitting_Talking on a 0.45 m seat.",
+      "length": 2.9333,
+      "loop": true,
+      "seat": 0.45,
+      "base": {"anim": "Sitting_Talking", "t": 0.0, "play": true},
+      "station": {"prop": "bench", "rot": 0},
+      "keys": []
+    },
+    "sit_stool": {
+      "_doc": "Sitting_Idle on a 0.59 m stool (the Fantasy Props Stool): same correction, the feet still reach the floor.",
+      "length": 1.6667,
+      "loop": true,
+      "seat": 0.59,
+      "base": {"anim": "Sitting_Idle", "t": 0.0, "play": true},
+      "station": {"prop": "stool", "rot": 0},
+      "keys": []
+    },
+    "drink": {
+      "_doc": "Seated on a 0.45 m bench: lifts the tankard from the table (top 0.72), drinks with the head back, puts it down.",
+      "length": 4.4,
+      "loop": true,
+      "seat": 0.45,
+      "base": {"anim": "Sitting_Idle", "t": 0.0, "play": true, "rate": 0.0},
+      "items": {"mug": "r"},
+      "curl": {"r": 0.75},
+      "station": {"prop": "bench_table", "rot": 0, "top": 0.72},
+      "lag": {"Head": 0.12, "neck_01": 0.08},
+      "probe": [["r", 0.0], ["r", 1.6], ["bone:Head", 1.6]],
+      "keys": [
+        {
+          "t": 0.0,
+          "r": {"grip": [-0.2, 0.8, 0.03], "axis": [0, 1, 0], "fingers": [0, 0, 1], "pole": [-0.8, -0.8, -0.3]},
+          "Head": [0, 0, 0],
+          "neck_01": [0, 0, 0]
+        },
+        {"t": 0.5, "r": {"grip": [-0.2, 0.8, 0.03], "axis": [0, 1, 0], "fingers": [0, 0, 1], "pole": [-0.8, -0.8, -0.3]}},
+        {
+          "t": 1.2,
+          "ease": "inout",
+          "r": {"grip": [-0.13, 1.03, 0.0], "axis": [0.05, 1, -0.2], "fingers": [0, 0.2, 1], "pole": [-0.8, -0.8, -0.1]},
+          "Head": [3, 0, 0]
+        },
+        {
+          "t": 1.6,
+          "ease": "out",
+          "r": {"tip": [-0.005, 1.2, -0.065], "axis": [0.15, 0.501, -0.852], "fingers": [0, 0.5, 1], "pole": [-0.8, -0.7, 0.2]},
+          "Head": [-8, 0, 0],
+          "neck_01": [-3, 0, 0]
+        },
+        {
+          "t": 2.6,
+          "ease": "",
+          "r": {"tip": [-0.005, 1.21, -0.06], "axis": [0.153, 0.204, -0.967], "fingers": [0, 0.8, 0.6], "pole": [-0.8, -0.6, 0.3]},
+          "Head": [-16, 0, 0],
+          "neck_01": [-5, 0, 0]
+        },
+        {
+          "t": 3.2,
+          "ease": "inout",
+          "r": {"grip": [-0.13, 1.0, 0.0], "axis": [0.05, 1, -0.2], "fingers": [0, 0.2, 1], "pole": [-0.8, -0.8, -0.1]},
+          "Head": [2, 0, 0],
+          "neck_01": [0, 0, 0]
+        },
+        {
+          "t": 3.85,
+          "ease": "inout",
+          "r": {"grip": [-0.2, 0.8, 0.03], "axis": [0, 1, 0], "fingers": [0, 0, 1], "pole": [-0.8, -0.8, -0.3]},
+          "Head": [0, 0, 0]
+        }
+      ]
+    },
+    "count_coins": {
+      "_doc": "At a counter (top 0.95): the right hand slides coins one by one from the pile to the left; the left hand rests flat.",
+      "length": 0.9,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"coin": "r"},
+      "curl": {"r": 0.55, "l": 0.15},
+      "station": {"prop": "counter", "at": [0, 0, 0.43], "top": 0.95, "rot": 0},
+      "lag": {"spine_03": 0.1},
+      "keys": [
+        {
+          "t": 0.0,
+          "pelvis": [0, -0.01, 0],
+          "spine_02": [9, 0, 0],
+          "spine_03": [6, 2, 0],
+          "neck_01": [6, 0, 0],
+          "look": [-0.05, 0.95, 0.35],
+          "r": {"grip": [-0.15, 0.975, 0.26], "axis": [1, 0, 0], "fingers": [0, -0.4, 1], "pole": [-0.8, -0.8, -0.4]},
+          "l": {"grip": [0.17, 0.975, 0.27], "axis": [-1, 0, -0.3], "fingers": [-0.3, 0, 1], "pole": [0.8, -0.8, -0.4]}
+        },
+        {
+          "t": 0.35,
+          "ease": "inout",
+          "spine_03": [6, -1, 0],
+          "r": {"grip": [-0.02, 0.975, 0.28], "axis": [1, 0, 0], "fingers": [0, -0.4, 1], "pole": [-0.8, -0.8, -0.4]}
+        },
+        {"t": 0.5, "ease": "out", "r": {"grip": [-0.035, 1.02, 0.275], "axis": [1, 0, 0], "fingers": [0, -0.4, 1], "pole": [-0.8, -0.8, -0.4]}},
+        {
+          "t": 0.8,
+          "ease": "inout",
+          "spine_03": [6, 2, 0],
+          "r": {"grip": [-0.14, 0.995, 0.26], "axis": [1, 0, 0], "fingers": [0, -0.4, 1], "pole": [-0.8, -0.8, -0.4]}
+        }
+      ]
+    },
+    "bow": {
+      "_doc": "A bow (for nobles): hips back, spine and neck forward, right hand to the chest, left arm a little out; holds and straightens up. Not a loop.",
+      "length": 2.6,
+      "loop": false,
+      "base": {"anim": "Idle", "t": 0.4},
+      "curl": {"r": 0.2},
+      "lag": {"neck_01": 0.1, "Head": 0.16, "spine_03": 0.05},
+      "keys": [
+        {
+          "t": 0.0,
+          "pelvis": [0, 0, 0],
+          "spine_02": [0, 0, 0],
+          "spine_03": [0, 0, 0],
+          "neck_01": [0, 0, 0],
+          "Head": [0, 0, 0],
+          "r": {"grip": [-0.05, 1.28, 0.2], "axis": [0, 1, 0], "fingers": [1, 0, 0], "pole": [-0.8, -0.8, 0.2], "space": "spine_03", "w": 0},
+          "l": {"grip": [0.24, 0.86, -0.1], "axis": [0, 0, 1], "fingers": [0.3, -1, 0], "pole": [0.6, -0.2, 0.8], "space": "spine_03", "w": 0}
+        },
+        {"t": 0.45, "ease": "inout", "r": {"w": 1}, "l": {"w": 0.0}},
+        {
+          "t": 0.8,
+          "ease": "inout",
+          "pelvis": [0, -0.01, -0.04],
+          "spine_02": [20, 0, 0],
+          "spine_03": [16, 0, 0],
+          "neck_01": [10, 0, 0],
+          "Head": [6, 0, 0],
+          "l": {"w": 0.6}
+        },
+        {
+          "t": 1.7,
+          "ease": "",
+          "pelvis": [0, -0.012, -0.045],
+          "spine_02": [22, 0, 0],
+          "spine_03": [17, 0, 0],
+          "neck_01": [11, 0, 0],
+          "Head": [6, 0, 0],
+          "r": {"w": 1},
+          "l": {"w": 0.6}
+        },
+        {
+          "t": 2.4,
+          "ease": "inout",
+          "pelvis": [0, 0, 0],
+          "spine_02": [0, 0, 0],
+          "spine_03": [0, 0, 0],
+          "neck_01": [0, 0, 0],
+          "Head": [0, 0, 0],
+          "r": {"w": 0},
+          "l": {"w": 0}
+        }
+      ]
+    },
+    "carry_wave": {
+      "_doc": "Upper layer (right arm): waving hello, the hand rocks side to side. Over Idle or Walk.",
+      "length": 1.0,
+      "loop": true,
+      "mask": "arm_r",
+      "base": {"anim": "Idle", "t": 0.4},
+      "curl": {"r": 0.05},
+      "keys": [
+        {"t": 0.0, "ease": "inout", "r": {"grip": [-0.34, 1.62, 0.12], "axis": [1, 0, 0], "fingers": [-0.45, 0.9, 0], "pole": [-1, -0.7, -0.2]}},
+        {"t": 0.5, "ease": "inout", "r": {"grip": [-0.31, 1.63, 0.12], "axis": [1, 0, 0], "fingers": [0.45, 0.9, 0], "pole": [-1, -0.7, -0.2]}}
+      ]
+    },
+    "carry_sack": {
+      "_doc": "Upper layer (right arm): a sack over the right shoulder, held in front by the right hand. The left arm keeps swinging with the walk.",
+      "length": 1.3333,
+      "loop": true,
+      "mask": "arm_r",
+      "base": {"anim": "Idle", "t": 0.0},
+      "curl": {"r": 0.6},
+      "items": {"sack": {"bone": "spine_03", "at": [-0.25, 1.55, -0.1], "rot": [82, 0, 25]}},
+      "keys": [
+        {"t": 0.0, "r": {"grip": [-0.27, 1.36, 0.12], "axis": [1, 0.2, 0.2], "fingers": [0, 0.6, -1], "pole": [-0.8, -1, 0.1]}}
+      ]
+    },
+    "carry_baby": {
+      "_doc": "Upper layer (arms): a swaddled baby across the chest, head in the left arm, right hand on its front.",
+      "length": 1.3333,
+      "loop": true,
+      "mask": "arms",
+      "base": {"anim": "Idle", "t": 0.0},
+      "curl": {"r": 0.25, "l": 0.3},
+      "items": {"baby": {"bone": "spine_03", "at": [0.02, 1.15, 0.2], "rot": [0, 0, 0]}},
+      "keys": [
+        {
+          "t": 0.0,
+          "l": {"grip": [0.13, 1.05, 0.2], "axis": [0, 0, 1], "fingers": [-1, 0, 0], "pole": [0.8, -1, -0.2]},
+          "r": {"grip": [-0.07, 1.17, 0.3], "axis": [0, 0.98, -0.2], "fingers": [1, 0, 0], "pole": [-0.8, -1, 0]}
+        }
+      ]
+    },
+    "carry_cane": {
+      "_doc": "Upper layer (right arm) over Walk, same cycle length: the cane tip is planted while the left foot is (Walk 0.08-0.75 s, moving back at the foot's speed) and swings forward with it. Slower walk (speed 0.75). Standing: carry_cane_idle.",
+      "length": 1.3333,
+      "loop": true,
+      "mask": "arm_r",
+      "speed": 0.75,
+      "variants": {"Idle": "carry_cane_idle"},
+      "base": {"anim": "Walk", "t": 0.0, "play": true},
+      "drive": {"r": "tip"},
+      "items": {"cane": "r"},
+      "curl": {"r": 1.0},
+      "probe": [["r", 0.083], ["r", 0.75], ["bone:ball_l", 0.083], ["bone:ball_l", 0.75]],
+      "keys": [
+        {"t": 0.083, "ease": "", "sharp": true, "r": {"tip": [-0.3, 0.0, 0.3], "axis": [0, 0.95, -0.28], "fingers": [0, 0, 1], "pole": [-0.6, -1, -0.5]}},
+        {"t": 0.75, "ease": "", "sharp": true, "r": {"tip": [-0.3, 0.0, -0.35], "axis": [0, 0.95, 0.35], "fingers": [0, 0, 1], "pole": [-0.6, -1, -0.5]}},
+        {"t": 1.08, "ease": "", "r": {"tip": [-0.3, 0.07, -0.02], "axis": [0, 1, 0.04], "fingers": [0, 0, 1], "pole": [-0.6, -1, -0.5]}}
+      ]
+    },
+    "carry_cane_idle": {
+      "_doc": "Upper layer (right arm) standing: the cane planted beside the right foot, leaning on it a little.",
+      "length": 2.5,
+      "loop": true,
+      "mask": "arm_r",
+      "base": {"anim": "Idle", "t": 0.0, "play": true},
+      "items": {"cane": "r"},
+      "curl": {"r": 1.0},
+      "drive": {"r": "tip"},
+      "keys": [
+        {"t": 0.0, "r": {"tip": [-0.32, 0.0, 0.14], "axis": [0.05, 1, -0.12], "fingers": [0, 0, 1], "pole": [-0.6, -1, -0.5]}}
+      ]
+    },
+    "sleep_back": {
+      "_doc": "Asleep on the back on a bed: the root on the mattress (y = 0 is the mattress top), head towards -z (the head of the bed), under a blanket that comes with it. Slow breathing.",
+      "length": 4.0,
+      "loop": true,
+      "legs": "free",
+      "items": {"blanket": {"bone": "pelvis", "at": [0, 0, 0], "rot": [0, 0, 0]}},
+      "breath": [1.5, 1],
+      "base": {"anim": "Idle", "t": 0.4},
+      "probe": [["bone:Head", 0.0], ["bone:pelvis", 0.0], ["bone:foot_l", 0.0], ["bone:hand_l", 0.0], ["bone:spine_03", 0.0], ["bone:calf_l", 0.0]],
+      "keys": [
+        {"t": 0.0, "pelvis": [0, -0.9, 0.1], "pelvis_rot": [-90, 0, 0], "thigh_l": [11, 0, 0], "thigh_r": [11, 0, 0], "Head": [12, 0, 0]}
+      ]
+    },
+    "cut_cloth": {
+      "_doc": "Cutting cloth with shears on the cutting table (top 0.86): the right hand snips forward along the line (the fingers close on each cut), the left holds the cloth flat and follows.",
+      "length": 3.2,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"shears": "r"},
+      "curl": {"l": 0.1},
+      "station": {"prop": "mesa_corte", "at": [0, 0, 0.58], "top": 0.86, "rot": 180},
+      "lag": {"spine_02": 0.08, "look": 0.1},
+      "probe": [["r", 0.0], ["r", 2.2]],
+      "keys": [
+        {"t": 0.0, "ease": "inout", "pelvis": [0, -0.04, 0.0], "spine_02": [16, 2, 0], "spine_03": [9, 2, 0], "look": [-0.08, 0.86, 0.42], "r": {"grip": [-0.1, 0.915, 0.25], "axis": [0.05, -0.12, 1], "fingers": [0.2, -1, -0.1], "pole": [-0.7, -0.8, -0.4], "curl": 0.65}, "l": {"grip": [0.13, 0.885, 0.36], "axis": [-1, 0, 0.2], "fingers": [0.1, -0.25, 1], "pole": [0.7, -0.8, -0.4]}},
+        {"t": 0.3, "ease": "inout", "r": {"grip": [-0.1, 0.915, 0.26], "curl": 1.0}},
+        {"t": 0.46, "ease": "inout", "r": {"grip": [-0.1, 0.915, 0.28], "curl": 0.62}},
+        {"t": 0.62, "ease": "inout", "r": {"grip": [-0.1, 0.915, 0.29], "curl": 1.0}},
+        {"t": 0.78, "ease": "inout", "r": {"grip": [-0.1, 0.915, 0.31], "curl": 0.62}},
+        {"t": 0.94, "ease": "inout", "r": {"grip": [-0.1, 0.915, 0.32], "curl": 1.0}},
+        {"t": 1.1, "ease": "inout", "r": {"grip": [-0.1, 0.915, 0.34], "curl": 0.62}},
+        {"t": 1.26, "ease": "inout", "r": {"grip": [-0.1, 0.915, 0.35], "curl": 1.0}},
+        {"t": 1.42, "ease": "inout", "r": {"grip": [-0.1, 0.915, 0.37], "curl": 0.62}},
+        {"t": 1.58, "ease": "inout", "r": {"grip": [-0.1, 0.915, 0.38], "curl": 1.0}},
+        {"t": 1.74, "ease": "inout", "r": {"grip": [-0.1, 0.915, 0.4], "curl": 0.62}},
+        {"t": 1.9, "ease": "inout", "r": {"grip": [-0.1, 0.915, 0.41], "curl": 1.0}},
+        {"t": 2.06, "ease": "inout", "r": {"grip": [-0.1, 0.915, 0.43], "curl": 0.62}},
+        {"t": 2.3, "ease": "inout", "pelvis": [0, -0.05, 0.05], "spine_02": [22, 0, 0], "look": [-0.1, 0.86, 0.5], "l": {"grip": [0.13, 0.885, 0.42]}},
+        {"t": 2.6, "ease": "inout", "r": {"grip": [-0.1, 0.98, 0.42], "curl": 0.7}},
+        {"t": 3.0, "ease": "inout", "pelvis": [0, -0.04, 0.0], "spine_02": [16, 2, 0], "r": {"grip": [-0.1, 0.94, 0.27], "curl": 0.65}, "l": {"grip": [0.13, 0.885, 0.36]}}
+      ]
+    },
+    "sew": {
+      "_doc": "Sewing on a stool (seat 0.45), the work on the lap: the right hand pushes the needle through and draws the thread up and out in a long arc; the left holds the cloth.",
+      "length": 2.4,
+      "loop": true,
+      "seat": 0.45,
+      "base": {"anim": "Sitting_Idle", "t": 0.0, "play": true, "rate": 0.0},
+      "items": {"needle": "r", "patch": {"bone": "pelvis", "at": [0.0, 0.69, 0.25], "rot": [8, 0, 0]}},
+      "curl": {"r": 0.55, "l": 0.5},
+      "station": {"prop": "taburete", "rot": 0},
+      "lag": {"Head": 0.15, "spine_03": 0.1},
+      "probe": [["r", 0.0], ["r", 1.1], ["bone:Head", 0.0]],
+      "keys": [
+        {"t": 0.0, "ease": "inout", "spine_02": [16, 0, 0], "spine_03": [10, 0, 0], "neck_01": [12, 0, 0], "look": [0, 0.69, 0.25], "r": {"grip": [-0.05, 0.735, 0.24], "axis": [0.4, -0.6, 0.4], "fingers": [0, -0.3, 1], "pole": [-0.8, -0.6, -0.3]}, "l": {"grip": [0.09, 0.725, 0.25], "axis": [-0.6, 0.2, 0.6], "fingers": [-0.3, -0.5, 1], "pole": [0.8, -0.6, -0.3]}},
+        {"t": 0.35, "ease": "out", "r": {"grip": [-0.04, 0.715, 0.26]}},
+        {"t": 0.6, "ease": "inout", "r": {"grip": [-0.12, 0.8, 0.22], "axis": [0.2, 0.6, 0.3]}},
+        {"t": 1.1, "ease": "out", "spine_03": [8, -4, 0], "look": [-0.15, 0.75, 0.3], "r": {"grip": [-0.33, 0.93, 0.14], "axis": [-0.3, 0.8, 0.2], "fingers": [-0.6, 0, 1], "pole": [-0.8, -0.5, -0.5]}},
+        {"t": 1.5, "ease": "inout", "r": {"grip": [-0.3, 0.9, 0.16]}},
+        {"t": 2.0, "ease": "inout", "spine_03": [10, 0, 0], "look": [0, 0.69, 0.25], "r": {"grip": [-0.08, 0.77, 0.23], "axis": [0.4, -0.6, 0.4], "fingers": [0, -0.3, 1], "pole": [-0.8, -0.6, -0.3]}}
+      ]
+    },
+    "eat": {
+      "_doc": "Seated on a 0.45 m bench at a table (top 0.76): the spoon goes from the bowl to the mouth and back; the left hand rests by the bowl. The bowl comes with it.",
+      "length": 2.8,
+      "loop": true,
+      "seat": 0.45,
+      "base": {"anim": "Sitting_Idle", "t": 0.0, "play": true, "rate": 0.0},
+      "items": {"spoon": "r", "bowl": {"bone": "pelvis", "at": [0.0, 0.8, 0.2], "rot": [0, 0, 0]}},
+      "curl": {"r": 0.8, "l": 0.35},
+      "station": {"prop": "bench_table", "rot": 0, "top": 0.76},
+      "lag": {"Head": 0.1, "neck_01": 0.06},
+      "probe": [["r", 0.0], ["r", 1.3], ["bone:Head", 1.3]],
+      "keys": [
+        {"t": 0.0, "ease": "inout", "spine_02": [8, 0, 0], "neck_01": [6, 0, 0], "look": [0, 0.8, 0.3], "r": {"tip": [-0.01, 0.81, 0.19], "axis": [0.45, 0.25, 0.85], "fingers": [0.3, -0.9, 0.1], "pole": [-0.8, -0.8, -0.2]}, "l": {"grip": [0.15, 0.79, 0.18], "axis": [-0.9, 0.1, 0.3], "fingers": [0.1, -0.4, 1], "pole": [0.8, -0.8, -0.3]}},
+        {"t": 0.45, "ease": "inout", "spine_02": [12, 0, 0], "r": {"tip": [0.0, 0.835, 0.22]}},
+        {"t": 1.2, "ease": "inout", "spine_02": [12, 0, 0], "neck_01": [4, 0, 0], "Head": [-4, 0, 0], "look": [0, 1.0, 0.5], "r": {"tip": [0.0, 1.21, 0.1], "axis": [0.5, 0.2, -0.85], "fingers": [0.4, -0.9, 0.0], "pole": [-0.8, -0.7, 0.1]}},
+        {"t": 1.6, "ease": "out", "r": {"tip": [0.0, 1.22, 0.08]}},
+        {"t": 2.2, "ease": "inout", "spine_02": [8, 0, 0], "Head": [0, 0, 0], "look": [0, 0.8, 0.3], "r": {"tip": [-0.03, 0.88, 0.19], "axis": [0.45, 0.25, 0.85], "fingers": [0.3, -0.9, 0.1], "pole": [-0.8, -0.8, -0.2]}}
+      ],
+      "drive": {"r": "tip"}
+    },
+    "serve": {
+      "_doc": "Behind the bar (top 1.05): lifts the jug, pours into the tankard that stands on the bar, sets it down; the left hand on the bar steadies the tankard.",
+      "length": 3.0,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"jug": "r", "mug_bar": {"bone": "pelvis", "at": [0.2, 1.05, 0.42], "rot": [0, 0, 0]}},
+      "curl": {"r": 0.85, "l": 0.5},
+      "station": {"prop": "barra", "at": [0, 0, 0.6], "top": 1.05, "rot": 0},
+      "lag": {"spine_03": 0.1, "look": 0.12},
+      "probe": [["r", 0.0], ["r", 1.4]],
+      "keys": [
+        {"t": 0.0, "ease": "inout", "spine_02": [6, 0, 0], "look": [0.15, 1.05, 0.45], "r": {"grip": [-0.17, 1.15, 0.33], "axis": [0, 1, 0], "fingers": [0, 0, 1], "pole": [-0.8, -0.8, -0.3]}, "l": {"grip": [0.27, 1.09, 0.36], "axis": [-0.6, 0.6, 0.3], "fingers": [0, 0, 1], "pole": [0.8, -0.8, -0.3]}},
+        {"t": 0.7, "ease": "inout", "r": {"grip": [-0.03, 1.3, 0.38], "axis": [0.15, 1, 0], "fingers": [0, 0, 1]}},
+        {"t": 1.2, "ease": "inout", "spine_03": [6, 6, 0], "r": {"grip": [0.0, 1.32, 0.4], "axis": [0.85, 0.55, 0], "fingers": [0, 0, 1]}},
+        {"t": 1.9, "ease": "", "r": {"grip": [0.0, 1.31, 0.4], "axis": [0.9, 0.45, 0], "fingers": [0, 0, 1]}},
+        {"t": 2.3, "ease": "inout", "spine_03": [0, 0, 0], "r": {"grip": [-0.05, 1.28, 0.37], "axis": [0.1, 1, 0], "fingers": [0, 0, 1]}}
+      ]
+    },
+    "weave": {
+      "_doc": "At the loom (breast beam 0.97): the right hand passes the shuttle through the shed to the left and back, then both hands pull the beater against the cloth and push it away.",
+      "length": 2.6,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"shuttle": "r"},
+      "curl": {"r": 0.8, "l": 0.8},
+      "station": {"prop": "telar", "at": [0, 0, 0.7], "top": 0.97, "rot": 180},
+      "lag": {"spine_03": 0.08, "pelvis": 0.12, "look": 0.1},
+      "probe": [["r", 0.0], ["r", 0.6], ["bone:hand_l", 1.3]],
+      "keys": [
+        {"t": 0.0, "ease": "inout", "pelvis": [0, -0.02, 0], "spine_02": [10, 0, 0], "spine_03": [5, 0, 0], "look": [-0.2, 1.0, 0.5], "r": {"grip": [-0.32, 1.02, 0.4], "axis": [1, 0, 0.05], "fingers": [0, -0.4, 1], "pole": [-0.7, -0.8, -0.4]}, "l": {"grip": [0.24, 1.07, 0.4], "axis": [-1, 0, 0], "fingers": [0, -0.6, 1], "pole": [0.7, -0.8, -0.4]}},
+        {"t": 0.6, "ease": "inout", "spine_03": [5, 14, 0], "look": [0.1, 1.0, 0.5], "r": {"grip": [-0.04, 1.02, 0.42]}},
+        {"t": 0.95, "ease": "inout", "spine_03": [5, 0, 0], "r": {"grip": [-0.17, 1.07, 0.38], "axis": [1, 0, 0], "fingers": [0, -0.6, 1]}},
+        {"t": 1.3, "ease": "out", "sharp": true, "pelvis": [0, -0.02, -0.04], "spine_02": [6, 0, 0], "r": {"grip": [-0.18, 1.06, 0.31]}, "l": {"grip": [0.24, 1.06, 0.31]}},
+        {"t": 1.7, "ease": "inout", "pelvis": [0, -0.02, 0], "spine_02": [10, 0, 0], "r": {"grip": [-0.18, 1.07, 0.41]}, "l": {"grip": [0.24, 1.07, 0.41]}},
+        {"t": 2.2, "ease": "inout", "look": [-0.2, 1.0, 0.5], "r": {"grip": [-0.32, 1.02, 0.4], "axis": [1, 0, 0.05], "fingers": [0, -0.4, 1]}}
+      ]
+    },
+    "plane": {
+      "_doc": "Planing a board on the bench (top 0.86): both hands on the plane, a long push with the body lunging forward, lifted back on the return.",
+      "length": 1.7,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"plane": "r"},
+      "curl": {"r": 0.9, "l": 0.6},
+      "station": {"prop": "banco_carpintero", "at": [0, 0, 0.6], "top": 0.86, "rot": 180},
+      "lag": {"spine_02": 0.06, "pelvis": 0.1, "look": 0.12},
+      "foot_l": [0.14, 0.08, 0.12],
+      "probe": [["r", 0.0], ["r", 0.9]],
+      "keys": [
+        {"t": 0.0, "ease": "inout", "pelvis": [0, -0.06, -0.06], "spine_02": [14, 0, 0], "spine_03": [6, 0, 0], "look": [-0.05, 0.86, 0.6], "r": {"tip": [-0.06, 0.875, 0.36], "axis": [0.1, 0.25, 1], "fingers": [0, -1, 0.25], "pole": [-0.7, -0.9, -0.2]}, "l": {"fingers": [0, -1, 0.3], "pole": [0.8, -0.8, -0.2], "hold": "r", "at": 0.17}},
+        {"t": 0.85, "ease": "inout", "pelvis": [0, -0.1, 0.12], "spine_02": [28, 0, 0], "spine_03": [12, 0, 0], "r": {"tip": [-0.06, 0.875, 0.68]}},
+        {"t": 1.05, "ease": "out", "r": {"tip": [-0.06, 0.93, 0.66]}},
+        {"t": 1.5, "ease": "inout", "pelvis": [0, -0.06, -0.05], "spine_02": [14, 0, 0], "r": {"tip": [-0.06, 0.91, 0.37]}}
+      ],
+      "drive": {"r": "tip"}
+    },
+    "knead": {
+      "_doc": "Kneading in the trough (rim 0.8): the heels of both hands push the dough down and away, then fold it back; the body rocks into each push.",
+      "length": 1.5,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "curl": {"r": 0.35, "l": 0.35},
+      "station": {"prop": "artesa", "at": [0, 0, 0.55], "top": 0.8, "rot": 180},
+      "lag": {"spine_02": 0.06, "pelvis": 0.1},
+      "probe": [["r", 0.0], ["r", 0.6]],
+      "keys": [
+        {"t": 0.0, "ease": "inout", "pelvis": [0, -0.05, -0.03], "spine_02": [20, 0, 0], "spine_03": [10, 0, 0], "look": [0, 0.75, 0.45], "r": {"grip": [-0.1, 0.85, 0.3], "axis": [1, 0.1, 0.4], "fingers": [0, -0.7, 1], "pole": [-0.7, -0.8, -0.4]}, "l": {"grip": [0.1, 0.85, 0.3], "axis": [-1, 0.1, 0.4], "fingers": [0, -0.7, 1], "pole": [0.7, -0.8, -0.4]}},
+        {"t": 0.6, "ease": "in", "sharp": true, "pelvis": [0, -0.1, 0.08], "spine_02": [32, 0, 0], "spine_03": [14, 0, 0], "r": {"grip": [-0.09, 0.79, 0.42]}, "l": {"grip": [0.09, 0.79, 0.42]}},
+        {"t": 0.85, "ease": "out", "r": {"grip": [-0.09, 0.81, 0.4], "curl": 0.7}, "l": {"grip": [0.09, 0.81, 0.4], "curl": 0.7}},
+        {"t": 1.2, "ease": "inout", "pelvis": [0, -0.05, -0.03], "spine_02": [20, 0, 0], "r": {"grip": [-0.1, 0.87, 0.31], "curl": 0.35}, "l": {"grip": [0.1, 0.87, 0.31], "curl": 0.35}}
+      ]
+    },
+    "peel": {
+      "_doc": "Loaf into the oven with the long peel: the right hand at the end of the handle by the hip, the left 0.4 m up it; a long push into the mouth (0.86), a little shake, and out.",
+      "length": 2.4,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"peel": "r"},
+      "curl": {"r": 1.0, "l": 0.9},
+      "station": {"prop": "boca_horno", "at": [0, 0, 1.0], "top": 0.86, "rot": 180},
+      "lag": {"pelvis": 0.12, "spine_02": 0.06},
+      "foot_l": [0.14, 0.08, 0.14],
+      "probe": [["r", 0.0], ["r", 0.9]],
+      "keys": [
+        {"t": 0.0, "ease": "inout", "pelvis": [0, -0.03, -0.05], "spine_02": [6, 0, 0], "look": [0, 0.9, 1.2], "r": {"grip": [-0.13, 0.96, -0.16], "axis": [0.25, -0.02, 1], "fingers": [0, -1, 0], "pole": [-0.8, -0.8, -0.2]}, "l": {"fingers": [0.2, 1, 0.0], "pole": [0.8, -0.7, -0.2], "hold": "r", "at": 0.32}},
+        {"t": 0.9, "ease": "inout", "pelvis": [0, -0.08, 0.12], "spine_02": [16, 0, 0], "r": {"grip": [-0.1, 0.96, 0.08]}},
+        {"t": 1.1, "ease": "inout", "r": {"grip": [-0.1, 0.97, 0.05]}},
+        {"t": 1.3, "ease": "inout", "r": {"grip": [-0.1, 0.955, 0.09]}},
+        {"t": 2.0, "ease": "inout", "pelvis": [0, -0.03, -0.05], "spine_02": [6, 0, 0], "r": {"grip": [-0.13, 0.96, -0.16]}}
+      ]
+    },
+    "carve": {
+      "_doc": "Carving a block on the banker (block top ~0.85): the left hand sets the chisel on the stone, the right strikes it with the mallet (short, sharp blows).",
+      "length": 0.9,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"chisel": "l", "mallet": "r"},
+      "curl": {"r": 1.0, "l": 0.9},
+      "station": {"prop": "banco_labra", "at": [0, 0, 0.62], "top": 0.62, "rot": 180},
+      "lag": {"spine_03": 0.05, "look": 0.1},
+      "probe": [["l", 0.0], ["r", 0.0], ["r", 0.55]],
+      "keys": [
+        {"t": 0.0, "ease": "in", "sharp": true, "pelvis": [0, -0.06, 0], "spine_02": [18, 0, 0], "spine_03": [8, 0, 0], "look": [0.03, 0.86, 0.42], "l": {"tip": [0.05, 0.86, 0.44], "axis": [-0.1, 1, -0.35], "fingers": [-1, 0, 0.2], "pole": [0.7, -0.8, -0.4]}, "r": {"tip": [0.04, 1.07, 0.37], "axis": [0.45, -0.1, 1], "fingers": [0, -1, 0], "pole": [-0.7, -0.8, -0.4]}},
+        {"t": 0.15, "ease": "out", "r": {"tip": [0.0, 1.13, 0.33], "axis": [0.4, 0.2, 1]}},
+        {"t": 0.55, "ease": "inout", "spine_03": [6, -3, 0], "r": {"tip": [-0.07, 1.36, 0.22], "axis": [0.3, 0.7, 0.6], "fingers": [0, -0.6, -0.8]}},
+        {"t": 0.7, "ease": "", "r": {"tip": [-0.06, 1.34, 0.23]}}
+      ]
+    },
+    "sharpen": {
+      "_doc": "At the grindstone (wheel top ~0.68): the blade laid on the wheel, the right hand on the hilt, the left pressing the flat; it slides along the edge, back and forth.",
+      "length": 1.6,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"blade": "r"},
+      "curl": {"r": 1.0, "l": 0.3},
+      "station": {"prop": "muela", "at": [0, 0, 0.6], "top": 0.68, "rot": 180},
+      "lag": {"spine_02": 0.08},
+      "probe": [["r", 0.0], ["r", 0.8]],
+      "keys": [
+        {"t": 0.0, "ease": "inout", "pelvis": [0, -0.08, -0.02], "spine_02": [22, 0, 0], "spine_03": [10, 0, 0], "look": [0, 0.7, 0.55], "r": {"grip": [-0.12, 0.8, 0.17], "axis": [0.3, -0.22, 1], "fingers": [0, -0.4, -0.2], "pole": [-0.7, -0.8, -0.4]}, "l": {"fingers": [0, -1, 0], "pole": [0.7, -0.8, -0.4], "hold": "r", "at": 0.12, "curl": 0.2}},
+        {"t": 0.8, "ease": "inout", "r": {"grip": [-0.16, 0.81, 0.15], "axis": [0.4, -0.2, 1]}},
+        {"t": 1.6, "ease": "inout", "r": {"grip": [-0.12, 0.8, 0.2], "axis": [0.3, -0.22, 1]}}
+      ]
+    },
+    "tend": {
+      "_doc": "By a cot (top 0.48): bent over the sick, the right hand dabs the forehead with a cloth, the left leans on the edge of the cot; now and then straightens a little.",
+      "length": 3.0,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"rag": "r"},
+      "curl": {"r": 0.6, "l": 0.2},
+      "station": {"prop": "catre", "at": [0, 0, 0.55], "top": 0.48, "rot": 90},
+      "lag": {"spine_02": 0.1, "look": 0.15},
+      "foot_l": [0.15, 0.08, 0.1],
+      "probe": [["r", 0.0], ["bone:hand_l", 0.0]],
+      "keys": [
+        {"t": 0.0, "ease": "inout", "pelvis": [0, -0.24, 0.02], "spine_01": [12, 0, 0], "spine_02": [30, 0, 0], "spine_03": [16, 0, 0], "neck_01": [6, 0, 0], "look": [-0.02, 0.6, 0.5], "r": {"grip": [-0.04, 0.7, 0.38], "axis": [1, 0, 0.2], "fingers": [0, -1, 0.4], "pole": [-0.7, -0.8, -0.4]}, "l": {"grip": [0.2, 0.6, 0.3], "axis": [-0.7, 0, 0.7], "fingers": [0, -1, 0.2], "pole": [0.7, -0.8, -0.4]}},
+        {"t": 0.5, "ease": "inout", "r": {"grip": [0.03, 0.69, 0.39]}},
+        {"t": 1.0, "ease": "inout", "r": {"grip": [-0.05, 0.695, 0.37]}},
+        {"t": 1.5, "ease": "inout", "r": {"grip": [0.03, 0.69, 0.39]}},
+        {"t": 2.1, "ease": "inout", "pelvis": [0, -0.2, -0.02], "spine_02": [24, 0, 0], "look": [-0.05, 0.7, 0.45], "r": {"grip": [-0.12, 0.82, 0.3]}},
+        {"t": 2.6, "ease": "inout", "pelvis": [0, -0.24, 0.02], "spine_02": [30, 0, 0], "look": [-0.02, 0.6, 0.5], "r": {"grip": [-0.05, 0.7, 0.38]}}
+      ]
+    },
+    "saw_low": {
+      "_doc": "Sawing a board laid on the sawhorses (top 0.67): the saw anim 10 cm lower, more bent at the hips and knees.",
+      "length": 1.0,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"saw": "r"},
+      "curl": {"r": 1.0, "l": 0.15},
+      "station": {"prop": "caballetes", "at": [0.0, 0, 0.45], "top": 0.67, "rot": 180},
+      "lag": {"spine_02": 0.06, "spine_03": 0.04, "pelvis": 0.08},
+      "probe": [["r", 0.0], ["r", 0.5], ["bone:hand_l", 0.0]],
+      "keys": [
+        {"t": 0.0, "ease": "inout", "pelvis": [0, -0.13, 0.0], "spine_02": [26, 3, 0], "spine_03": [10, 4, 0], "look": [-0.15, 0.7000000000000001, 0.38], "r": {"tip": [-0.15, 0.766, 0.292], "axis": [0, 0.8, 0.6], "fingers": [0, -0.6, 0.8], "pole": [-0.5, -0.6, -1.0]}, "l": {"grip": [0.12, 0.735, 0.31], "axis": [-1, 0, 0.1], "fingers": [0.1, 0, 1], "pole": [0.9, -0.3, -0.3]}},
+        {"t": 0.5, "ease": "inout", "pelvis": [0, -0.135, 0.04], "spine_02": [29, -2, 0], "spine_03": [12, -3, 0], "r": {"tip": [-0.15, 0.634, 0.468], "axis": [0, 0.8, 0.6], "fingers": [0, -0.6, 0.8], "pole": [-0.5, -0.6, -1.0]}, "l": {"grip": [0.12, 0.732, 0.31]}}
+      ],
+      "drive": {"r": "tip"}
+    },
+    "chop": {
+      "_doc": "Felling with the axe: the right hand at the butt of the handle, the left slides down it on the swing (0.42 -> 0.14 m). Raised over the right shoulder with the hips turned right, a sharp diagonal blow into the trunk at chest height (tip y 0.95, z 0.9), rebound, slow raise. Staggered stance, the weight goes onto the front foot on the hit.",
+      "length": 1.6,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"axe": "r"},
+      "station": {"prop": "tree", "at": [0.0, 0, 1.25], "rot": 0},
+      "lag": {"spine_02": 0.05, "spine_03": 0.03, "look": 0.1, "pelvis": 0.04, "pelvis_rot": 0.04},
+      "probe": [["r", 0.0], ["r", 0.95], ["bone:hand_l", 0.0]],
+      "keys": [
+        {
+          "t": 0.0,
+          "ease": "in3",
+          "sharp": true,
+          "pelvis": [0.0, -0.08, 0.05],
+          "pelvis_rot": [0, 6, 0],
+          "spine_02": [20, 4, 0],
+          "spine_03": [10, 2, 0],
+          "look": [0.0, 1.0, 1.0],
+          "foot_l": [0.14, 0.086, 0.15],
+          "foot_r": [-0.14, 0.086, -0.15],
+          "r": {"tip": [-0.02, 0.95, 0.9], "axis": [0.35, -0.25, 0.9], "fingers": [0.4, -0.5, 0.75], "pole": [-0.7, -0.6, -0.3], "curl": 1.0},
+          "l": {"hold": "r", "at": 0.14, "fingers": [-0.4, -0.5, 0.75], "pole": [0.8, -0.6, -0.2], "curl": 1.0}
+        },
+        {
+          "t": 0.15,
+          "ease": "out",
+          "pelvis": [0.0, -0.07, 0.04],
+          "pelvis_rot": [0, 5, 0],
+          "r": {"tip": [-0.1, 1.0, 0.8], "axis": [0.3, -0.1, 0.95], "fingers": [0.4, -0.5, 0.75]},
+          "l": {"at": 0.16}
+        },
+        {
+          "t": 0.7,
+          "ease": "inout",
+          "pelvis": [0.0, -0.03, -0.04],
+          "pelvis_rot": [0, -14, 0],
+          "spine_02": [0, -10, 0],
+          "spine_03": [-2, -8, 0],
+          "look": [-0.1, 1.05, 1.0],
+          "r": {"grip": [-0.28, 1.45, -0.02], "axis": [0.15, 0.72, -0.68], "fingers": [0, 0.68, 0.72], "pole": [-0.9, -0.3, -0.2]},
+          "l": {"at": 0.18}
+        },
+        {
+          "t": 0.95,
+          "ease": "out",
+          "pelvis": [0.0, -0.025, -0.05],
+          "pelvis_rot": [0, -15, 0],
+          "r": {"grip": [-0.27, 1.5, -0.06], "axis": [0.1, 0.7, -0.7], "fingers": [0, 0.7, 0.7], "pole": [-0.9, -0.3, -0.2]},
+          "l": {"at": 0.2}
+        },
+        {
+          "t": 1.35,
+          "ease": "in",
+          "pelvis": [0.0, -0.05, 0.0],
+          "pelvis_rot": [0, -2, 0],
+          "spine_02": [10, 0, 0],
+          "spine_03": [5, 0, 0],
+          "r": {"grip": [-0.2, 1.3, 0.25], "axis": [0.3, 0.1, 0.95], "fingers": [0.3, -0.6, 0.75], "pole": [-0.8, -0.6, -0.3]},
+          "l": {"at": 0.22}
+        }
+      ]
+    },
+    "dig": {
+      "_doc": "Digging with the shovel: the left hand at the top of the handle, the right 0.4-0.55 m down the shaft. The blade in the ground at the feet (deep bend, knees down), lever it back, lift the load with the blade face up, toss it to the right with a twist of the hips, back to the ground.",
+      "length": 2.6,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"shovel": "l"},
+      "lag": {"spine_02": 0.06, "spine_03": 0.04, "look": 0.1, "pelvis": 0.05, "pelvis_rot": 0.05},
+      "probe": [["l", 0.0], ["l", 1.1], ["l", 1.5], ["bone:hand_r", 0.0], ["bone:hand_r", 0.6]],
+      "keys": [
+        {
+          "t": 0.0,
+          "ease": "inout",
+          "pelvis": [0.0, -0.16, 0.08],
+          "pelvis_rot": [0, 0, 0],
+          "spine_02": [32, 0, 0],
+          "spine_03": [12, 0, 0],
+          "look": [-0.05, 0.3, 0.7],
+          "foot_l": [0.15, 0.086, 0.12],
+          "foot_r": [-0.15, 0.086, -0.14],
+          "l": {"tip": [-0.08, 0.0, 0.62], "axis": [-0.05, -0.78, 0.62], "fingers": [0, 0.62, 0.78], "pole": [0.8, -0.6, -0.3], "curl": 1.0},
+          "r": {"hold": "l", "at": 0.4, "fingers": [0, -0.6, 0.8], "pole": [-0.8, -0.6, -0.3], "curl": 1.0}
+        },
+        {
+          "t": 0.6,
+          "ease": "inout",
+          "pelvis": [0.0, -0.18, 0.06],
+          "spine_02": [34, 0, 0],
+          "spine_03": [12, 0, 0],
+          "l": {"grip": [0.03, 0.95, -0.16], "axis": [-0.08, -0.7, 0.71], "fingers": [0, 0.71, 0.7]},
+          "r": {"at": 0.4}
+        },
+        {
+          "t": 1.1,
+          "ease": "out",
+          "pelvis": [0.0, -0.06, -0.02],
+          "spine_02": [10, 0, 0],
+          "spine_03": [4, 0, 0],
+          "look": [-0.1, 0.7, 1.2],
+          "l": {"grip": [0.05, 1.12, -0.12], "axis": [-0.1, -0.3, 0.95], "fingers": [0, 0.95, 0.3]},
+          "r": {"at": 0.45}
+        },
+        {
+          "t": 1.3,
+          "ease": "",
+          "pelvis_rot": [0, -6, 0],
+          "spine_02": [8, -4, 0],
+          "spine_03": [3, -3, 0],
+          "l": {"grip": [0.15, 1.1, -0.06], "axis": [-0.6, -0.2, 0.75], "fingers": [0, 1, 0.1]},
+          "r": {"at": 0.48}
+        },
+        {
+          "t": 1.5,
+          "ease": "in",
+          "sharp": true,
+          "pelvis": [0.0, -0.05, -0.02],
+          "pelvis_rot": [0, -11, 0],
+          "spine_02": [6, -8, 0],
+          "spine_03": [3, -6, 0],
+          "look": [-0.9, 0.6, 0.7],
+          "l": {"grip": [0.2, 1.06, -0.04], "axis": [-0.88, -0.1, 0.46], "fingers": [0, 1, 0]},
+          "r": {"at": 0.5}
+        },
+        {
+          "t": 1.75,
+          "ease": "out",
+          "pelvis_rot": [0, -12, 0],
+          "l": {"grip": [0.22, 1.07, -0.08], "axis": [-0.9, 0.0, 0.43], "fingers": [0.2, 0.75, 0.5]},
+          "r": {"at": 0.5}
+        },
+        {
+          "t": 2.2,
+          "ease": "inout",
+          "pelvis": [0.0, -0.1, 0.04],
+          "pelvis_rot": [0, -3, 0],
+          "spine_02": [20, 0, 0],
+          "spine_03": [8, 0, 0],
+          "look": [-0.05, 0.3, 0.7],
+          "l": {"grip": [0.05, 1.05, -0.2], "axis": [-0.05, -0.6, 0.8], "fingers": [0, 0.8, 0.6]},
+          "r": {"at": 0.42}
+        }
+      ]
+    },
+    "mow": {
+      "_doc": "Mowing with the scythe: the left hand at the top of the snath by the left hip, the right 0.45 m down it; the blade sweeps on the ground from the right to the left (tip driven, y 0.05) while the hips and the trunk twist from -22 to +20 degrees, then it comes back raised a little.",
+      "length": 2.2,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"scythe": "l"},
+      "drive": {"l": "tip"},
+      "lag": {"spine_02": 0.08, "spine_03": 0.05, "look": 0.12, "pelvis": 0.06, "pelvis_rot": 0.06},
+      "probe": [["l", 0.0], ["l", 0.6], ["l", 1.1], ["bone:hand_r", 0.6]],
+      "keys": [
+        {
+          "t": 0.0,
+          "ease": "inout",
+          "pelvis": [0.0, -0.1, 0.02],
+          "pelvis_rot": [0, -22, 0],
+          "spine_02": [32, -12, 0],
+          "spine_03": [12, -8, 0],
+          "look": [-0.8, 0.3, 1.0],
+          "foot_l": [0.16, 0.086, 0.12],
+          "foot_r": [-0.16, 0.086, -0.14],
+          "r": {"hold": "l", "at": 0.3, "fingers": [0, -0.8, 0.6], "pole": [-0.8, -0.6, -0.3], "curl": 1.0},
+          "l": {"tip": [-1.03, 0.05, 0.86], "axis": [-0.768, -0.64, 0.06], "fingers": [0.08, 0.0, 0.994], "pole": [0.8, -0.5, -0.3], "curl": 1.0}
+        },
+        {
+          "t": 0.6,
+          "ease": "",
+          "pelvis_rot": [0, 0, 0],
+          "spine_02": [28, 0, 0],
+          "spine_03": [12, 0, 0],
+          "look": [-0.1, 0.3, 1.3],
+          "r": {"at": 0.34},
+          "l": {"tip": [-0.24, 0.05, 1.32], "axis": [-0.55, -0.64, 0.54], "fingers": [0.7, 0.0, 0.71], "pole": [0.8, -0.5, -0.3], "curl": 1.0}
+        },
+        {
+          "t": 1.1,
+          "ease": "out",
+          "pelvis": [0.0, -0.12, 0.04],
+          "pelvis_rot": [0, 20, 0],
+          "spine_02": [34, 10, 0],
+          "spine_03": [13, 8, 0],
+          "look": [0.6, 0.3, 1.1],
+          "r": {"at": 0.3},
+          "l": {"tip": [0.67, 0.08, 1.16], "axis": [-0.074, -0.64, 0.767], "fingers": [0.993, 0.0, 0.094], "pole": [0.8, -0.5, -0.3], "curl": 1.0}
+        },
+        {
+          "t": 1.65,
+          "ease": "inout",
+          "pelvis": [0.0, -0.08, 0.02],
+          "pelvis_rot": [0, -5, 0],
+          "spine_02": [24, -3, 0],
+          "spine_03": [10, -2, 0],
+          "look": [-0.4, 0.3, 1.1],
+          "r": {"at": 0.34},
+          "l": {"tip": [-0.2, 0.28, 1.25], "axis": [-0.55, -0.64, 0.54], "fingers": [0.7, 0.0, 0.71], "pole": [0.8, -0.5, -0.3], "curl": 1.0}
+        }
+      ]
+    },
+    "reap": {
+      "_doc": "Reaping with the sickle, bent from the hips with the knees down: the left hand grabs a handful of stalks (y 0.38, z 0.7), the sickle hooks in behind them and cuts with a sharp pull back to the right; the left lifts the bundle and drops it to the left, then grabs again.",
+      "length": 2.0,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"sickle": "r"},
+      "lag": {"spine_02": 0.06, "spine_03": 0.04, "look": 0.1, "pelvis": 0.05},
+      "probe": [["r", 0.5], ["r", 0.85], ["bone:hand_l", 0.0], ["bone:Head", 0.0]],
+      "keys": [
+        {
+          "t": 0.0,
+          "ease": "inout",
+          "pelvis": [0.0, -0.33, 0.12],
+          "pelvis_rot": [40, 0, 0],
+          "spine_02": [30, 0, 0],
+          "spine_03": [12, 0, 0],
+          "neck_01": [-15, 0, 0],
+          "look": [0.1, 0.2, 1.0],
+          "foot_l": [0.17, 0.086, 0.1],
+          "foot_r": [-0.17, 0.086, -0.08],
+          "l": {"grip": [0.2, 0.38, 0.7], "axis": [0, 1, 0], "fingers": [0, -0.4, 1], "pole": [0.8, -0.5, -0.2], "curl": 0.9},
+          "r": {"grip": [-0.4, 0.36, 0.58], "axis": [0.85, -0.1, 0.52], "fingers": [-0.2, -0.3, 0.9], "pole": [-0.8, -0.5, -0.3], "curl": 1.0}
+        },
+        {
+          "t": 0.5,
+          "ease": "inout",
+          "r": {"grip": [-0.2, 0.32, 0.54], "axis": [0.95, -0.1, 0.3], "fingers": [0, -0.3, 1]}
+        },
+        {
+          "t": 0.85,
+          "ease": "in",
+          "sharp": true,
+          "pelvis_rot": [40, -6, 0],
+          "spine_03": [12, -6, 0],
+          "r": {"grip": [-0.38, 0.34, 0.44], "axis": [0.75, -0.1, 0.65], "fingers": [-0.2, -0.3, 0.9]}
+        },
+        {
+          "t": 1.2,
+          "ease": "out",
+          "pelvis": [0.0, -0.3, 0.1],
+          "pelvis_rot": [36, 0, 0],
+          "spine_02": [26, 0, 0],
+          "spine_03": [11, 0, 0],
+          "look": [0.3, 0.5, 0.8],
+          "l": {"grip": [0.25, 0.55, 0.6], "axis": [0, 1, 0], "fingers": [0, -0.2, 1]},
+          "r": {"grip": [-0.4, 0.4, 0.48]}
+        },
+        {
+          "t": 1.6,
+          "ease": "inout",
+          "pelvis_rot": [38, 4, 0],
+          "spine_02": [28, 6, 0],
+          "spine_03": [12, 4, 0],
+          "look": [0.5, 0.3, 0.7],
+          "l": {"grip": [0.45, 0.42, 0.45], "axis": [0.3, 0.95, 0], "fingers": [0.5, 0, 0.85], "curl": 0.3}
+        }
+      ]
+    },
+    "pitch": {
+      "_doc": "Tossing hay with the pitchfork: the left hand at the butt, the right 0.35-0.45 m up the shaft. Scoop low in front with the tines up, lift, a sharp toss up and to the left with the hips, follow through, back down.",
+      "length": 2.2,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"fork": "l"},
+      "lag": {"spine_02": 0.06, "spine_03": 0.04, "look": 0.1, "pelvis": 0.05, "pelvis_rot": 0.05},
+      "probe": [["l", 0.0], ["l", 0.9], ["bone:hand_r", 0.0], ["bone:hand_r", 0.9]],
+      "keys": [
+        {
+          "t": 0.0,
+          "ease": "inout",
+          "pelvis": [0.0, -0.12, 0.04],
+          "pelvis_rot": [0, 0, 0],
+          "spine_02": [28, 0, 0],
+          "spine_03": [10, 0, 0],
+          "look": [0.0, 0.3, 0.9],
+          "foot_l": [0.14, 0.086, 0.14],
+          "foot_r": [-0.14, 0.086, -0.14],
+          "l": {"tip": [-0.05, 0.08, 0.9], "axis": [-0.12, -0.7, 0.7], "fingers": [0, 0.7, 0.7], "pole": [0.8, -0.6, -0.3], "curl": 1.0},
+          "r": {"hold": "l", "at": 0.42, "fingers": [0, -0.6, 0.8], "pole": [-0.8, -0.6, -0.3], "curl": 1.0}
+        },
+        {
+          "t": 0.5,
+          "ease": "inout",
+          "pelvis": [0.0, -0.05, -0.02],
+          "spine_02": [12, 0, 0],
+          "spine_03": [5, 0, 0],
+          "l": {"grip": [0.1, 1.0, -0.2], "axis": [-0.1, -0.3, 0.95], "fingers": [0, 0.95, 0.3]},
+          "r": {"at": 0.42}
+        },
+        {
+          "t": 0.9,
+          "ease": "in",
+          "sharp": true,
+          "pelvis": [0.0, -0.02, 0.0],
+          "pelvis_rot": [0, 10, 0],
+          "spine_02": [-4, 6, 0],
+          "spine_03": [-4, 5, 0],
+          "look": [0.6, 1.8, 1.0],
+          "l": {"grip": [0.12, 1.25, -0.1], "axis": [0.35, 0.55, 0.76], "fingers": [0, 0.8, -0.6]},
+          "r": {"at": 0.27}
+        },
+        {
+          "t": 1.15,
+          "ease": "out",
+          "pelvis_rot": [0, 11, 0],
+          "l": {"grip": [0.14, 1.2, -0.05], "axis": [0.4, 0.5, 0.77], "fingers": [0, 0.8, -0.6]},
+          "r": {"at": 0.3}
+        },
+        {
+          "t": 1.7,
+          "ease": "inout",
+          "pelvis": [0.0, -0.08, 0.02],
+          "pelvis_rot": [0, 0, 0],
+          "spine_02": [18, 0, 0],
+          "spine_03": [8, 0, 0],
+          "look": [0.0, 0.4, 1.0],
+          "l": {"grip": [0.13, 1.08, -0.12], "axis": [-0.1, -0.45, 0.89], "fingers": [0, 0.89, 0.45]},
+          "r": {"at": 0.42}
+        }
+      ]
+    },
+    "write": {
+      "_doc": "Writing with the quill standing at a sloping desk (the page at y 0.93, z 0.43): two lines from the writer's left to the right (towards -x), a dip in the inkpot that stands on the desk at the writer's right, the left hand flat on the page, the head follows the pen.",
+      "length": 3.0,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"quill": "r", "inkpot": {"bone": "pelvis", "at": [-0.27, 0.925, 0.45], "rot": [0, 0, 0]}},
+      "drive": {"r": "tip"},
+      "station": {"prop": "escritorio", "at": [0.0, 0, 0.66], "top": 0.93, "rot": 180},
+      "lag": {"spine_03": 0.08, "look": 0.1},
+      "probe": [["r", 0.0], ["r", 1.5], ["bone:hand_l", 0.0]],
+      "keys": [
+        {
+          "t": 0.0,
+          "ease": "inout",
+          "r": {"tip": [-0.02, 0.93, 0.43], "axis": [0.1, -0.75, 0.65], "fingers": [0, 0.3, 1], "pole": [-0.8, -0.7, -0.3], "curl": 0.6},
+          "pelvis": [0.0, -0.03, 0.04],
+          "spine_02": [20, 0, 0],
+          "spine_03": [10, 0, 0],
+          "neck_01": [8, 0, 0],
+          "look": [-0.06, 0.93, 0.43],
+          "l": {"grip": [0.15, 0.955, 0.4], "axis": [-1, 0, 0.1], "fingers": [0, -0.3, 1], "pole": [0.8, -0.7, -0.3], "curl": 0.15}
+        },
+        {
+          "t": 0.3,
+          "ease": "",
+          "r": {"tip": [-0.0596, 0.934, 0.42]}
+        },
+        {
+          "t": 0.6,
+          "ease": "",
+          "r": {"tip": [-0.09920000000000001, 0.93, 0.43]}
+        },
+        {
+          "t": 0.9,
+          "ease": "",
+          "r": {"tip": [-0.14, 0.933, 0.42]}
+        },
+        {
+          "t": 1.25,
+          "ease": "inout",
+          "r": {"tip": [-0.27, 0.985, 0.45], "axis": [0, -0.9, 0.45]},
+          "look": [-0.25, 0.95, 0.45],
+          "spine_03": [10, -4, 0]
+        },
+        {
+          "t": 1.5,
+          "ease": "in",
+          "r": {"tip": [-0.27, 0.95, 0.45]}
+        },
+        {
+          "t": 1.65,
+          "ease": "out",
+          "r": {"tip": [-0.27, 0.98, 0.45]}
+        },
+        {
+          "t": 1.95,
+          "ease": "inout",
+          "r": {"tip": [-0.02, 0.9550000000000001, 0.43], "axis": [0.1, -0.75, 0.65]},
+          "look": [-0.06, 0.93, 0.43],
+          "spine_03": [10, 0, 0]
+        },
+        {
+          "t": 2.15,
+          "ease": "out",
+          "r": {"tip": [-0.02, 0.93, 0.4]}
+        },
+        {
+          "t": 2.5,
+          "ease": "",
+          "r": {"tip": [-0.08, 0.933, 0.39]}
+        },
+        {
+          "t": 2.8,
+          "ease": "",
+          "r": {"tip": [-0.16, 0.93, 0.4]}
+        },
+        {
+          "t": 2.9,
+          "ease": "out",
+          "r": {"tip": [-0.19, 0.9550000000000001, 0.41]}
+        }
+      ]
+    },
+    "write_sit": {
+      "_doc": "Writing seated (0.45 m) at a table (top 0.76): the same two lines and the dip as `write`, the inkpot on the table at the right, the left hand flat on the page.",
+      "length": 3.0,
+      "loop": true,
+      "seat": 0.45,
+      "base": {"anim": "Sitting_Idle", "t": 0.0, "play": true, "rate": 0.0},
+      "items": {"quill": "r", "inkpot": {"bone": "pelvis", "at": [-0.22, 0.765, 0.32], "rot": [0, 0, 0]}},
+      "drive": {"r": "tip"},
+      "station": {"prop": "bench_table", "rot": 0, "top": 0.76},
+      "lag": {"spine_03": 0.08, "look": 0.1, "Head": 0.06},
+      "probe": [["r", 0.0], ["r", 1.5], ["bone:hand_l", 0.0]],
+      "keys": [
+        {
+          "t": 0.0,
+          "ease": "inout",
+          "r": {"tip": [0.0, 0.775, 0.3], "axis": [0.1, -0.75, 0.65], "fingers": [0, 0.3, 1], "pole": [-0.8, -0.7, -0.3], "curl": 0.6},
+          "spine_02": [14, 0, 0],
+          "neck_01": [8, 0, 0],
+          "look": [-0.03, 0.77, 0.3],
+          "l": {"grip": [0.17, 0.8, 0.3], "axis": [-1, 0, 0.1], "fingers": [0, -0.3, 1], "pole": [0.8, -0.7, -0.3], "curl": 0.15}
+        },
+        {
+          "t": 0.3,
+          "ease": "",
+          "r": {"tip": [-0.0396, 0.779, 0.29]}
+        },
+        {
+          "t": 0.6,
+          "ease": "",
+          "r": {"tip": [-0.0792, 0.775, 0.3]}
+        },
+        {
+          "t": 0.9,
+          "ease": "",
+          "r": {"tip": [-0.12, 0.778, 0.29]}
+        },
+        {
+          "t": 1.25,
+          "ease": "inout",
+          "r": {"tip": [-0.22, 0.8150000000000001, 0.32], "axis": [0, -0.9, 0.45]},
+          "look": [-0.2, 0.78, 0.32],
+          "spine_03": [4, -4, 0]
+        },
+        {
+          "t": 1.5,
+          "ease": "in",
+          "r": {"tip": [-0.22, 0.78, 0.32]}
+        },
+        {
+          "t": 1.65,
+          "ease": "out",
+          "r": {"tip": [-0.22, 0.81, 0.32]}
+        },
+        {
+          "t": 1.95,
+          "ease": "inout",
+          "r": {"tip": [0.0, 0.8, 0.3], "axis": [0.1, -0.75, 0.65]},
+          "look": [-0.03, 0.77, 0.3],
+          "spine_03": [0, 0, 0]
+        },
+        {
+          "t": 2.15,
+          "ease": "out",
+          "r": {"tip": [0.0, 0.775, 0.27]}
+        },
+        {
+          "t": 2.5,
+          "ease": "",
+          "r": {"tip": [-0.06, 0.778, 0.26]}
+        },
+        {
+          "t": 2.8,
+          "ease": "",
+          "r": {"tip": [-0.13999999999999999, 0.775, 0.27]}
+        },
+        {
+          "t": 2.9,
+          "ease": "out",
+          "r": {"tip": [-0.16999999999999998, 0.8, 0.27999999999999997]}
+        }
+      ]
+    },
+    "carry_bucket": {
+      "_doc": "Right arm layer over Walk / Idle: a wooden bucket hangs from the fist at the side, the arm straight, the knuckles down (the bucket is turned so it hangs along the fingers).",
+      "length": 1.3333,
+      "loop": true,
+      "mask": "arm_r",
+      "base": {"anim": "Idle", "t": 0.0},
+      "items": {"bucket": "r"},
+      "curl": {"r": 1.0},
+      "keys": [
+        {
+          "t": 0.0,
+          "r": {"grip": [-0.27, 0.9, 0.04], "axis": [0, 0.1, 1], "fingers": [0, -1, 0.2], "pole": [-0.8, -0.4, -0.3]}
+        }
+      ]
+    },
+    "carry_torch": {
+      "_doc": "Right arm layer over Walk / Idle: a torch held up in front of the shoulder, the flame above the head.",
+      "length": 1.3333,
+      "loop": true,
+      "mask": "arm_r",
+      "base": {"anim": "Idle", "t": 0.0},
+      "items": {"torch": "r"},
+      "curl": {"r": 1.0},
+      "keys": [
+        {
+          "t": 0.0,
+          "r": {"grip": [-0.26, 1.15, 0.28], "axis": [0.15, 0.95, 0.25], "fingers": [-0.3, 0, 1], "pole": [-0.8, -0.6, -0.2]}
+        }
+      ]
+    },
+    "carry_lantern": {
+      "_doc": "Right arm layer over Walk / Idle: a hand lantern hangs from the fist at the side, a little forward, the knuckles down.",
+      "length": 1.3333,
+      "loop": true,
+      "mask": "arm_r",
+      "base": {"anim": "Idle", "t": 0.0},
+      "items": {"lantern": "r"},
+      "curl": {"r": 1.0},
+      "keys": [
+        {
+          "t": 0.0,
+          "r": {"grip": [-0.28, 0.92, 0.12], "axis": [0, 0.1, 1], "fingers": [0, -1, 0.25], "pole": [-0.8, -0.4, -0.3]}
+        }
+      ]
+    },
+    "fish": {
+      "_doc": "Fishing: the body turned a quarter to the right, the rod in the right hand at its butt by the right hip and the left hand 0.3 m up it, pointing forward almost level so the line hangs to the water (the float near y 0.1, 1.6 m ahead); a slow bob and a shift of the weight, the eyes on the float.",
+      "length": 4.0,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"fishing_rod": "r"},
+      "breath": [1.2, 2],
+      "curl": {"r": 1.0, "l": 1.0},
+      "lag": {"spine_02": 0.1, "look": 0.15},
+      "probe": [["r", 0.0], ["r", 2.0], ["bone:hand_l", 0.0]],
+      "keys": [
+        {
+          "t": 0.0,
+          "ease": "inout",
+          "pelvis": [0.0, -0.03, 0.0],
+          "pelvis_rot": [0, -25, 0],
+          "spine_02": [8, -8, 0],
+          "spine_03": [4, -6, 0],
+          "look": [0.1, 0.2, 2.0],
+          "foot_l": [0.14, 0.086, 0.14],
+          "foot_r": [-0.16, 0.086, -0.12],
+          "r": {"grip": [-0.22, 0.95, 0.02], "axis": [0.25, 0.05, 0.97], "fingers": [0, 1, -0.05], "pole": [-0.8, -0.6, -0.3]},
+          "l": {"hold": "r", "at": 0.3, "fingers": [0, 1, 0], "pole": [0.8, -0.6, -0.2]}
+        },
+        {
+          "t": 1.3,
+          "ease": "inout",
+          "pelvis": [0.01, -0.03, 0.0],
+          "spine_02": [7, -8, 0],
+          "r": {"grip": [-0.22, 0.98, 0.0], "axis": [0.25, 0.09, 0.96], "fingers": [0, 1, -0.09]}
+        },
+        {
+          "t": 2.6,
+          "ease": "inout",
+          "pelvis": [-0.01, -0.035, 0.0],
+          "spine_02": [9, -6, 0],
+          "r": {"grip": [-0.23, 0.94, 0.03], "axis": [0.25, 0.03, 0.97], "fingers": [0, 1, -0.03]}
+        }
+      ]
+    },
+    "guard": {
+      "_doc": "Standing guard: the spear planted, held upright in the right hand at chest height (the fist 1.15 m up the shaft: the butt on the ground), the round shield on the left forearm held before the chest, its face forward; the weight shifts slowly from foot to foot over the Idle breathing.",
+      "length": 4.0,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.0, "play": true},
+      "items": {"spear": "r", "shield": "l"},
+      "curl": {"r": 1.0, "l": 1.0},
+      "lag": {"look": 0.2},
+      "probe": [["r", 0.0], ["bone:hand_l", 0.0]],
+      "keys": [
+        {
+          "t": 0.0,
+          "ease": "inout",
+          "pelvis": [0.0, 0.0, 0.0],
+          "look": [0.0, 1.55, 2.0],
+          "foot_l": [0.12, 0.086, 0.06],
+          "foot_r": [-0.14, 0.086, -0.06],
+          "r": {"grip": [-0.3, 1.15, 0.1], "axis": [0, 1, 0], "fingers": [0, 0, 1], "pole": [-0.8, -0.6, -0.4]},
+          "l": {"grip": [0.2, 1.02, 0.25], "axis": [0, 1, 0], "fingers": [0, 0, 1], "pole": [0.8, -0.6, -0.3]}
+        },
+        {
+          "t": 2.0,
+          "ease": "inout",
+          "pelvis": [-0.025, -0.005, 0.0],
+          "look": [-0.4, 1.5, 2.0],
+          "r": {"grip": [-0.31, 1.15, 0.1]},
+          "l": {"grip": [0.19, 1.02, 0.25]}
+        }
+      ]
+    },
+    "roll_dough": {
+      "_doc": "Rolling dough on a table (top 0.78): both hands on the handles of the rolling pin (the left 0.42 m along it), it rolls away and back with the body leaning into the push.",
+      "length": 1.6,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"rolling_pin": "r"},
+      "station": {"prop": "mesa_estrecha", "at": [0.0, 0, 0.55], "top": 0.78, "rot": 0},
+      "lag": {"spine_02": 0.06, "spine_03": 0.04, "pelvis": 0.08, "look": 0.1},
+      "probe": [["r", 0.0], ["r", 0.7], ["bone:hand_l", 0.0]],
+      "keys": [
+        {
+          "t": 0.0,
+          "ease": "inout",
+          "pelvis": [0.0, -0.05, 0.02],
+          "spine_02": [22, 0, 0],
+          "spine_03": [10, 0, 0],
+          "look": [0.0, 0.8, 0.5],
+          "r": {"grip": [-0.21, 0.83, 0.3], "axis": [1, 0, 0], "fingers": [0, -0.5, 0.85], "pole": [-0.8, -0.7, -0.3], "curl": 1.0},
+          "l": {"hold": "r", "at": 0.42, "fingers": [0, -0.5, 0.85], "pole": [0.8, -0.7, -0.3], "curl": 1.0}
+        },
+        {
+          "t": 0.7,
+          "ease": "inout",
+          "pelvis": [0.0, -0.1, 0.16],
+          "spine_02": [30, 0, 0],
+          "spine_03": [12, 0, 0],
+          "r": {"grip": [-0.21, 0.83, 0.52]}
+        },
+        {
+          "t": 1.2,
+          "ease": "inout",
+          "pelvis": [0.0, -0.07, 0.08],
+          "spine_02": [26, 0, 0],
+          "spine_03": [11, 0, 0],
+          "r": {"grip": [-0.21, 0.85, 0.41]}
+        }
+      ]
+    },
+    "ladle": {
+      "_doc": "Serving with the ladle at the cauldron (rim 0.82, centre z 0.6): a stir in the pot, the ladle comes up level, pours into the bowl held in the left palm, goes back in.",
+      "length": 3.0,
+      "loop": true,
+      "base": {"anim": "Idle", "t": 0.4},
+      "items": {"ladle": "r", "bowl_hand": "l"},
+      "curl": {"r": 1.0, "l": 0.5},
+      "drive": {"r": "tip"},
+      "station": {"prop": "cauldron", "at": [0.0, 0, 0.6], "rot": 0},
+      "lag": {"spine_02": 0.08, "spine_03": 0.05, "look": 0.12},
+      "probe": [["r", 0.0], ["r", 1.1], ["r", 1.8], ["bone:hand_l", 0.0]],
+      "keys": [
+        {
+          "t": 0.0,
+          "ease": "inout",
+          "pelvis": [0.0, -0.05, 0.06],
+          "spine_02": [26, 0, 0],
+          "spine_03": [11, 0, 0],
+          "look": [0.0, 0.8, 0.6],
+          "r": {"tip": [-0.1, 0.72, 0.5], "axis": [0, -0.85, 0.5], "fingers": [0, 0.5, 0.85], "pole": [-0.8, -0.7, -0.3]},
+          "l": {"grip": [0.2, 0.98, 0.3], "axis": [1, 0.1, 0], "fingers": [0, 0.2, 1], "pole": [0.8, -0.7, -0.3]}
+        },
+        {
+          "t": 0.6,
+          "ease": "",
+          "r": {"tip": [-0.02, 0.72, 0.56], "axis": [-0.1, -0.85, 0.5]}
+        },
+        {
+          "t": 1.1,
+          "ease": "inout",
+          "pelvis": [0.0, -0.03, 0.0],
+          "spine_02": [10, 0, 0],
+          "spine_03": [5, 0, 0],
+          "r": {"tip": [0.0, 1.0, 0.5], "axis": [0, -0.45, 0.9], "fingers": [0, 1, 0]}
+        },
+        {
+          "t": 1.6,
+          "ease": "inout",
+          "spine_03": [6, 6, 0],
+          "look": [0.2, 1.0, 0.35],
+          "r": {"tip": [0.17, 1.1, 0.33], "axis": [0.6, -0.3, 0.75], "fingers": [0.3, 0.8, -0.5]}
+        },
+        {
+          "t": 2.2,
+          "ease": "",
+          "r": {"tip": [0.19, 1.08, 0.33], "axis": [0.7, -0.4, 0.6], "fingers": [0.5, 0.7, -0.5]}
+        },
+        {
+          "t": 2.6,
+          "ease": "inout",
+          "spine_02": [16, 0, 0],
+          "spine_03": [8, 0, 0],
+          "look": [0.0, 0.8, 0.6],
+          "r": {"tip": [0.0, 0.85, 0.55], "axis": [0, -0.6, 0.8], "fingers": [0, 1, 0]}
+        }
+      ]
+    }
+  }
+}

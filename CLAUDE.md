@@ -47,6 +47,18 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
    Arte y audio se llaman como su id, en minúsculas. Audio por id (`data/audio.json`, buses fijos de
    `default_bus_layout.tres`, `AudioDirector` en `app.tscn`). Dónde está cada cosa: `docs/protocolos/editar-a-mano.md`.
 
+## 3D (rama `3d`, docs/3d/plan.md)
+- El pueblo se dibuja en 3D (`game/world3d/`: `WorldView3D` → `Town3D`, que es el pueblo de ~/Code/Prueba3D alimentado
+  por la sim en vivo). `data/view.json` `view_mode` = `"3d"`; `--view=2d|3d` lo cambia. Las capturas antiguas
+  (`--smoke-script=<id>` salvo las 3D de `App.SMOKE_3D`), los flujos y la galería siguen en 2D hasta que se porten.
+- Render Forward+. En 3D la ventana escala el lienzo (`canvas_items`) para que el 3D salga a la resolución real.
+- Kit 3D en `kit/` (`res://kit/`): en `.gitignore`; en git solo lo que el juego carga (`tools/kit3d/usados.txt`,
+  `python3 tools/kit3d/kit.py recoger|usados|medir|sellar|instalar`). Packs completos: `kit.py instalar`.
+- Cifras de presentación 3D sin rutas en `data/view3d/`; catálogos del kit con rutas en `game/world3d/kit_data/`.
+- Captura y rendimiento del pueblo 3D: `grimoire heavy --timeout 5m -- /opt/homebrew/bin/godot --audio-driver Dummy
+  --always-on-top --resolution 1920x1080 --path . -- --smoke-script=pueblo3d` → `reports/shots/pueblo3d_*.png` y
+  `reports/perf/pueblo3d.json` (fps y draw calls, diana ≥ 60 fps).
+
 ## Ficheros y edición a mano (el owner edita en Godot)
 - Mover o renombrar ficheros **solo dentro de Godot** (panel FileSystem), nunca en Finder ni con `mv`/`git mv`: Godot
   reescribe las referencias. Los `.import` y `.uid` van a git. Un fichero con nombre de id no se renombra (el id manda).

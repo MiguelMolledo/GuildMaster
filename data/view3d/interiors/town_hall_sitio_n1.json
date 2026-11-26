@@ -1,0 +1,108 @@
+{
+  "_doc": "The town hall at level 1: 12 x 8 m on 2 floors. Below, the council chamber (the mayor's chair and two settles behind the council table), the archive on the left and the court on the right (the judge's dais, the dock, the bar, the public's settle); above, the mayor's office and the clerks' room. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "id": "town_hall",
+  "level": 1,
+  "tile_m": 1.0,
+  "origin_m": [-5.5, -3.5],
+  "size": [11, 7],
+  "seed": 4,
+  "shell": {"w": 12, "d": 8, "floors": 2, "door_cell": 3},
+  "entrance": {"floor": 0, "tile": [6, 6], "side": "sw"},
+  "rooms": [
+    {"id": "council", "floor": 0, "type": "shop", "rects": [[3, 0, 10, 6]], "floor_kind": "stone", "wall_style": "stone", "light": "warm"},
+    {"id": "archive", "floor": 0, "type": "shop", "rects": [[0, 0, 2, 2]], "floor_kind": "stone", "wall_style": "stone", "light": "dim_warm"},
+    {"id": "lobby", "floor": 0, "type": "shop", "rects": [[0, 3, 2, 6]], "floor_kind": "stone", "wall_style": "stone", "light": "warm"},
+    {"id": "office", "floor": 1, "type": "bedroom", "rects": [[6, 0, 10, 6]], "floor_kind": "planks", "wall_style": "timber", "light": "warm"},
+    {"id": "clerks", "floor": 1, "type": "shop", "rects": [[0, 0, 5, 6]], "floor_kind": "planks", "wall_style": "timber", "light": "warm"}
+  ],
+  "doors": [
+    {"floor": 0, "tile": [3, 1], "side": "nw"},
+    {"floor": 0, "tile": [1, 3], "side": "ne"},
+    {"floor": 1, "tile": [6, 3], "side": "nw"}
+  ],
+  "stairs": [
+    {"from": [10, 4], "to": [9, 6], "foot": [10.17, 4.55], "top": [10.17, 6.6], "tiles": [[10, 5], [10, 6]], "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94}
+  ],
+  "stations": {
+    "council": {"name": "Concejo", "kind": "service", "floor": 0, "tile": [6, 1], "stand": [5, 2], "prop": "mesa_concejo", "pos": [5.7, 1.0], "rot": 0},
+    "archive": {"name": "Archivo", "kind": "storage", "floor": 0, "tile": [0, 1], "stand": [1, 1], "prop": "estante_archivo", "pos": [0, 1.2], "snap": "left"},
+    "court": {"name": "Tribunal", "kind": "service", "floor": 0, "tile": [9, 2], "stand": [9, 2], "prop": "banquillo", "rot": 180},
+    "desk": {"name": "Despacho", "kind": "service", "floor": 1, "tile": [8, 0], "stand": [8, 1], "prop": "escritorio_atril", "snap": "back"}
+  },
+  "spots": {"shop": [0, [6, 5]], "kitchen": [1, [8, 2]], "bed": [1, [8, 2]]},
+  "props": [
+    {"id": "silla_alcalde", "floor": 0, "tile": [5, 0], "snap": "back", "name": "silla_alcalde"},
+    {"id": "banco_respaldo", "floor": 0, "pos": [2.75, 0], "snap": "back", "name": "banco_c1"},
+    {"id": "banco_respaldo", "floor": 0, "pos": [7.2, 0], "snap": "back", "name": "banco_c2"},
+    {"id": "urna_votos", "floor": 0, "pos": [4.9, 1.0], "y": 0.78, "rot": 10},
+    {"id": "alfombra_mediana", "floor": 0, "pos": [5.7, 2.6], "rot": 0},
+    {"id": "atril_pie", "floor": 0, "pos": [2.8, 2.5], "rot": 180, "name": "atril"},
+    {"id": "lampara_hierro", "floor": 0, "pos": [6, 3.5]},
+    {"id": "pendon_villa", "floor": 0, "pos": [4.8, 6], "snap": "front", "gap": 0.05},
+    {"id": "pendon_villa", "floor": 0, "pos": [7.2, 6], "snap": "front", "gap": 0.05},
+    {"id": "pendon_villa", "floor": 0, "pos": [0, 3.2], "snap": "left", "gap": 0.05},
+    {"id": "candelabro_pie", "floor": 0, "tile": [3, 6], "snap": "front", "gap": 0.05},
+    {"id": "cuadro_retrato", "floor": 0, "tile": [8, 6], "snap": "front"},
+    {"id": "estante_archivo", "floor": 0, "pos": [0, 0.05], "snap": "left,back"},
+    {"id": "arca_villa", "floor": 0, "pos": [1.5, 0], "snap": "back"},
+    {"id": "mesa_estrecha", "floor": 0, "tile": [2, 2], "rot": 0, "name": "mesa_archivo"},
+    {"id": "prensa_sello", "floor": 0, "pos": [2.25, 2], "y": 0.76, "rot": -20},
+    {"id": "cesto_legajos", "floor": 0, "pos": [1, 2.2]},
+    {"id": "estrado_juez", "floor": 0, "pos": [9.05, 0], "snap": "back", "name": "estrado"},
+    {"id": "barandilla", "floor": 0, "pos": [9.05, 3.5], "rot": 0},
+    {"id": "banco_respaldo", "floor": 0, "pos": [8.6, 5.0], "rot": 180, "name": "banco_pub"},
+    {"id": "escudo_pared", "floor": 0, "pos": [9.05, 0], "snap": "back"},
+    {"id": "perchero", "floor": 0, "tile": [1, 6], "snap": "front"},
+    {"id": "banco", "floor": 0, "pos": [0, 4.5], "snap": "left", "rot": 90, "name": "banco_lobby"},
+    {"id": "pergamino_pared", "floor": 0, "pos": [0, 3.5], "snap": "left"},
+    {"id": "silla_alcalde", "floor": 1, "pos": [8, 1.0], "rot": 0, "name": "silla_despacho"},
+    {"id": "arca_fuerte", "floor": 1, "tile": [10, 0], "snap": "right,back", "gap": 0.03},
+    {"id": "estante_archivo", "floor": 1, "pos": [6.5, 0], "snap": "back"},
+    {"id": "alfombra_mediana", "floor": 1, "pos": [8, 2.5], "rot": 0},
+    {"id": "sillon", "floor": 1, "pos": [10, 2.5], "snap": "right", "gap": 0.03, "name": "sillon_despacho"},
+    {"id": "cuadro_retrato", "floor": 1, "pos": [10, 1.5], "snap": "right"},
+    {"id": "hogar_repisa", "floor": 1, "pos": [8.5, 6], "snap": "front"},
+    {"id": "pendon_villa", "floor": 1, "pos": [6.3, 6], "snap": "front", "gap": 0.05},
+    {"id": "candelabro_pie", "floor": 1, "tile": [10, 4], "snap": "right", "gap": 0.05},
+    {"id": "tapiz", "floor": 1, "tile": [7, 0], "snap": "back"},
+    {"id": "escritorio", "floor": 1, "tile": [0, 1], "snap": "left", "gap": 0.03, "name": "escr1"},
+    {"id": "escritorio", "floor": 1, "tile": [0, 3], "snap": "left", "gap": 0.03, "name": "escr2"},
+    {"id": "estante_archivo", "floor": 1, "tile": [2, 0], "snap": "back"},
+    {"id": "estante_archivo", "floor": 1, "pos": [3.5, 0], "snap": "back"},
+    {"id": "mesa_estrecha", "floor": 1, "tile": [3, 3], "rot": 90, "name": "mesa_clerks"},
+    {"id": "taburete", "floor": 1, "pos": [3.0, 2.1], "name": "tab_clerks"},
+    {"id": "cesto_legajos", "floor": 1, "pos": [1, 0.2]},
+    {"id": "perchero", "floor": 1, "tile": [2, 6], "snap": "front"},
+    {"id": "estante_pared", "floor": 1, "tile": [4, 6], "snap": "front"},
+    {"id": "balanza", "floor": 1, "pos": [3, 3.2], "y": 0.76}
+  ],
+  "cast": [
+    {"look": "Noble", "name": "Alcalde", "start": [0, [5, 2]], "steps": [
+      {"say": "preside el concejo", "secs": 9, "anim": "sit_talk", "sit": "silla_alcalde", "look": [5, 2]},
+      {"say": "despacha en su oficina", "secs": 7, "anim": "Interact", "zone": "desk"}
+    ]},
+    {"look": "Mercader", "name": "Escribano", "start": [0, [1, 1]], "steps": [
+      {"say": "busca un legajo", "secs": 5, "anim": "Interact", "zone": "archive"},
+      {"say": "lee en el atril", "secs": 6, "anim": "Interact", "tile": [0, [3, 3]], "look": [3, 2]},
+      {"say": "copia un registro", "secs": 6, "anim": "write_sit", "sit": "tab_clerks", "look": [3, 3]}
+    ]},
+    {"look": "Mercader", "name": "Concejal", "start": [0, [4, 3]], "steps": [
+      {"say": "delibera", "secs": 8, "anim": "sit_talk", "sit": "banco_c1", "off": [0.4, 0], "look": [5, 2]},
+      {"say": "delibera", "secs": 8, "anim": "sit_talk", "sit": "banco_c2", "off": [-0.4, 0], "look": [5, 2]}
+    ]},
+    {"look": "Vieja", "name": "Juez", "start": [0, [7, 2]], "steps": [
+      {"say": "juzga", "secs": 9, "anim": "sit_talk", "sit": "estrado", "off": [0, -0.33], "look": [9, 2]},
+      {"say": "se levanta", "secs": 3, "tile": [0, [7, 2]], "look": [9, 1]}
+    ]},
+    {"look": "Labrador", "name": "Acusado", "outside": true, "wait": 3, "looks": ["Labrador", "Sereno", "Herrero", "Moza"], "steps": [
+      {"enter": true},
+      {"say": "en el banquillo", "secs": 9, "anim": "Idle_Talking", "zone": "court"},
+      {"leave": true, "secs": 4}
+    ]},
+    {"look": "Campesina", "name": "Vecina", "outside": true, "wait": 1.5, "looks": ["Campesina", "Mercader", "Guardia"], "steps": [
+      {"enter": true},
+      {"say": "asiste al juicio", "secs": 9, "anim": "sit_bench", "sit": "banco_pub", "off": [0.4, 0], "look": [9, 1]},
+      {"leave": true, "secs": 5}
+    ]}
+  ]
+}

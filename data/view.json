@@ -1,4 +1,5 @@
 {
+  "view_mode": "3d",
   "_doc": "Presentation figures of the world view (game/ only, no rule reads them): zoom, camera, day/night, timings and the colours of the marks drawn by code (signs, doors, badges, bars). The look of each thing (greybox colours, heights, kit) lives in its scene in game/visuals/ (docs/protocolos/editar-a-mano.md). GDD 4.15 gives the day/night colours. zoom_levels: only values that keep pixels whole (D2). tint_strength: how far the phase colour pulls from white (1 = the raw colour, too dark for #1A1A40 at night). transition_minutes: game minutes a phase takes to blend in from the previous one.",
   "zoom_levels": [1, 2],
   "see_through": {

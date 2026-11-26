@@ -1,0 +1,113 @@
+{
+  "_doc": "The clinic at level 3: 6 x 6 m on two floors. Below, two cots at the back, the table of cures, the apothecary cabinet, a desk and the waiting bench; above, the home. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "id": "clinic",
+  "level": 3,
+  "tile_m": 1.0,
+  "origin_m": [-2.5, -2.5],
+  "size": [5, 5],
+  "seed": 6,
+  "shell": {"w": 6, "d": 6, "floors": 2, "door_cell": 1},
+  "entrance": {"floor": 0, "tile": [2, 4], "side": "sw"},
+  "rooms": [
+    {"id": "surgery", "floor": 0, "type": "workshop", "rects": [[0, 0, 4, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "cool"},
+    {"id": "home", "floor": 1, "type": "kitchen", "rects": [[0, 0, 4, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "kitchen"}
+  ],
+  "stairs": [
+    {"from": [0, 2], "to": [1, 0], "foot": [-0.17, 1.45], "top": [-0.17, -0.6], "tiles": [[0, 0], [0, 1]], "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94}
+  ],
+  "stations": {
+    "cot": {"name": "Catres", "kind": "service", "floor": 0, "tile": [3, 0], "stand": [3, 2], "prop": "catre", "snap": "back"},
+    "mortar": {"name": "Mesa de curas", "kind": "craft", "floor": 0, "tile": [2, 0], "stand": [1, 1], "prop": "mesa_curas", "pos": [1.5, 0], "snap": "back"},
+    "storage": {"name": "Botica", "kind": "storage", "floor": 0, "tile": [4, 3], "stand": [3, 3], "prop": "botica", "snap": "right"},
+    "hearth": {"name": "Hogar", "kind": "home", "floor": 1, "tile": [4, 1], "stand": [3, 2], "prop": "hogar_cocina", "pos": [4, 1.4], "snap": "right"},
+    "bed": {"name": "Camas", "kind": "rest", "floor": 1, "tile": [2, 0], "stand": [2, 2], "prop": "cama_estrecha", "snap": "back"}
+  },
+  "spots": {"shop": [0, [2, 3]], "kitchen": [1, [1, 3]], "bed": [1, [2, 2]], "kitchen_table": [0, 3]},
+  "props": [
+    {"id": "catre", "floor": 0, "tile": [4, 0], "snap": "back,right", "name": "catre2"},
+    {"id": "banco", "floor": 0, "pos": [0, 3.6], "snap": "left", "rot": 90, "name": "banco_espera"},
+    {"id": "escritorio", "floor": 0, "tile": [4, 4], "snap": "right", "gap": 0.03},
+    {"id": "cama_estrecha", "floor": 1, "pos": [2.93, 0], "snap": "back", "name": "cama_b"},
+    {"id": "alacena", "floor": 1, "tile": [4, 0], "snap": "back"},
+    {"id": "arcon", "floor": 1, "tile": [4, 4], "snap": "right,front", "gap": 0.03},
+    {"id": "banco", "floor": 1, "pos": [-0.01, 3.4], "snap": "left", "rot": 90, "name": "banco_casa"},
+    {"id": "mesa_estrecha", "floor": 1, "pos": [0.0, 3.4], "rot": 90, "name": "mesa_casa"},
+    {"id": "taburete", "floor": 1, "pos": [0.75, 3.0], "name": "tab_casa"},
+    {"id": "perchero", "floor": 1, "tile": [2, 4], "snap": "front"}
+  ],
+  "upgrades": {
+    "upgrade_storage_shelves": [{"id": "alacena", "floor": 0, "auto": "wall", "near": "storage"}],
+    "clinic_mortar_2": [{"id": "mesa_curas", "floor": 0, "auto": "wall", "near": "mortar", "zone": "mortar_2", "name": "Mesa de curas 2", "kind": "craft"}],
+    "clinic_shelves_big": [{"id": "arcon", "floor": 0, "auto": "wall", "near": "storage"}],
+    "clinic_sign": [{"id": "pergamino_pared", "floor": 0, "auto": "wall", "near": "door"}],
+    "clinic_cot_2": [{"base": "catre2"}],
+    "clinic_instruments": [{"id": "estante_pared", "floor": 0, "auto": "wall", "near": "cot"}],
+    "clinic_operating_table": [{"swap": "cot", "id": "mesa_operaciones"}],
+    "clinic_herbal": [{"id": "botica", "floor": 0, "auto": "wall", "near": "mortar"}],
+    "clinic_books": [{"id": "q:BookStand", "floor": 0, "auto": "floor", "near": "mortar"}],
+    "clinic_anatomy": [{"id": "pergamino_pared", "floor": 0, "auto": "wall", "near": "cot"}],
+    "upgrade_master_bench": [{"id": "q:BookStand", "floor": 0, "auto": "floor", "near": "door"}],
+    "upgrade_double_ledger": [{"on": ["mesa_casa", "mortar"], "id": "q:Book_Stack_2", "off": [0.25, 0.0]}],
+    "upgrade_hidden_passage": [{"id": "tapiz", "floor": 0, "auto": "wall", "near": "storage"}],
+    "upgrade_smuggler_cache": [{"id": "trampilla", "floor": 0, "auto": "floor", "near": "storage", "prio": 1}],
+    "upgrade_strongbox": [{"id": "arca_fuerte", "floor": 1, "auto": "wall", "near": "cama_b"}],
+    "upgrade_bunks": [{"swap": "cama_b", "id": "litera"}],
+    "upgrade_dining_table": [{"swap": "mesa_casa", "id": "mesa_1x2"}, {"id": "taburete", "floor": 1, "auto": "floor", "near": "mesa_casa"}]
+  },
+  "upgrade_ids": {
+    "clinic_capacity_1": "upgrade_storage_shelves",
+    "clinic_capacity_2": "clinic_mortar_2",
+    "clinic_capacity_3": "clinic_shelves_big",
+    "clinic_commerce_1": "clinic_sign",
+    "clinic_production_1": "clinic_cot_2",
+    "clinic_production_2": "clinic_instruments",
+    "clinic_production_3": "clinic_operating_table",
+    "clinic_quality_1": "clinic_herbal",
+    "clinic_quality_2": "clinic_books",
+    "clinic_quality_3": "clinic_anatomy",
+    "clinic_secrets_1": "upgrade_double_ledger",
+    "clinic_secrets_2": "upgrade_hidden_passage",
+    "clinic_secrets_3": "upgrade_smuggler_cache",
+    "clinic_security_3": "upgrade_strongbox",
+    "clinic_staff_1": "upgrade_bunks",
+    "clinic_staff_2": "upgrade_dining_table",
+    "clinic_staff_3": "upgrade_master_bench"
+  },
+  "upgrade_out": {
+    "clinic_commerce_2": "fachada: upgrade_shop_window",
+    "clinic_commerce_3": "fachada: upgrade_trade_sign",
+    "clinic_facade_1": "fachada: upgrade_stone_facade",
+    "clinic_facade_2": "fachada: upgrade_garden",
+    "clinic_facade_3": "fachada: upgrade_noble_facade",
+    "clinic_security_1": "fachada: upgrade_reinforced_lock",
+    "clinic_security_2": "fachada: upgrade_guard"
+  },
+  "cast": [
+    {"look": "Sereno", "name": "Médico", "start": [0, [2, 1]], "steps": [
+      {"say": "muele hierbas en el mortero", "secs": 7, "anim": "stir", "zone": "mortar"},
+      {"say": "atiende al enfermo", "secs": 7, "anim": "tend", "zone": "cot"},
+      {"say": "busca un remedio", "secs": 3, "anim": "Interact", "zone": "storage"}
+    ]},
+    {"look": "Moza", "name": "Ayudante", "start": [0, [4, 2]], "steps": [
+      {"say": "cuida al enfermo", "secs": 7, "anim": "tend", "tile": [0, [4, 2]], "look": [4, 1]},
+      {"say": "anota en el libro", "secs": 5, "anim": "Interact", "tile": [0, [3, 4]], "look": [4, 4]}
+    ]},
+    {"look": "Vieja", "name": "Enfermo", "outside": true, "wait": 2, "looks": ["Vieja", "Labrador", "Campesina", "Sereno"], "steps": [
+      {"enter": true},
+      {"say": "espera", "secs": 4, "anim": "sit_bench", "sit": "banco_espera"},
+      {"say": "lo examinan", "secs": 10, "lie": "cot"},
+      {"leave": true, "secs": 5}
+    ]},
+    {"look": "Labrador", "name": "Herido", "start": [0, [3, 2]], "wait": 1, "steps": [
+      {"say": "convalece", "secs": 30, "lie": "catre2"}
+    ]},
+    {"look": "Campesina", "name": "Mujer", "start": [1, [1, 2]], "steps": [
+      {"say": "guisa en el hogar", "secs": 7, "anim": "stir", "zone": "hearth"},
+      {"say": "come a la mesa", "secs": 6, "anim": "eat", "sit": "tab_casa", "look": [0, 3]}
+    ]},
+    {"look": "Vieja", "name": "Abuela", "start": [1, [1, 1]], "wait": 2, "steps": [
+      {"say": "duerme", "secs": 11, "lie": "bed"},
+      {"say": "se levanta", "secs": 3, "tile": [1, [1, 1]]}
+    ]}
+  ]
+}

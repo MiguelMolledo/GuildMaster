@@ -1,0 +1,88 @@
+{
+  "_doc": "The farm at level 1: a boarded barn of 6 x 6 m in one room: the manger and the cow at the back right, sacks and tools by the door, and the home in the left half: bed, hearth, table. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "id": "farm",
+  "level": 1,
+  "tile_m": 1.0,
+  "origin_m": [-2.5, -2.5],
+  "size": [5, 5],
+  "seed": 4,
+  "shell": {"w": 6, "d": 6, "floors": 1, "door_cell": 1},
+  "entrance": {"floor": 0, "tile": [2, 4], "side": "sw"},
+  "rooms": [
+    {"id": "barn", "floor": 0, "type": "storage", "rects": [[0, 0, 4, 4]], "floor_kind": "earth", "wall_style": "timber", "light": "kitchen"}
+  ],
+  "stations": {
+    "pen": {"name": "Cuadra", "kind": "pen", "floor": 0, "tile": [3, 0], "stand": [2, 1], "prop": "pesebre", "pos": [3.3, 0], "snap": "back"},
+    "storage": {"name": "Grano", "kind": "storage", "floor": 0, "tile": [4, 4], "stand": [3, 4], "prop": "sack_pile", "pos": [4.0, 3.95]},
+    "hearth": {"name": "Hogar", "kind": "home", "floor": 0, "tile": [0, 2], "stand": [1, 2], "prop": "hogar_cocina", "pos": [0, 2.5], "snap": "left"},
+    "bed": {"name": "Cama", "kind": "rest", "floor": 0, "tile": [0, 0], "stand": [1, 1], "prop": "cama_estrecha", "snap": "back,left"}
+  },
+  "spots": {"shop": [0, [2, 3]], "kitchen": [0, [1, 3]], "bed": [0, [1, 1]]},
+  "props": [
+    {"id": "x:vaca_comiendo", "floor": 0, "pos": [3.4, 1.25], "rot": 180},
+    {"id": "aperos", "floor": 0, "pos": [4, 2.6], "snap": "right", "name": "aperos"},
+    {"id": "mesa_estrecha", "floor": 0, "tile": [0, 4], "snap": "left,front", "gap": 0.03, "rot": 90, "name": "mesa_casa"},
+    {"id": "taburete", "floor": 0, "pos": [0.75, 3.9], "name": "tab_casa"},
+    {"id": "arcon", "floor": 0, "tile": [1, 0], "snap": "back", "gap": 0.02}
+  ],
+  "upgrades": {
+    "farm_granary": [{"id": "sack_pile", "floor": 0, "auto": "wall", "near": "storage"}],
+    "upgrade_storage_shelves": [{"id": "alacena", "floor": 0, "auto": "wall", "near": "storage"}],
+    "farm_barn": [{"id": "crates_small", "floor": 0, "auto": "wall", "near": "storage"}],
+    "farm_cart": [{"id": "barrel", "floor": 0, "auto": "wall", "near": "door"}],
+    "farm_fair_stand": [{"id": "q:FarmCrate_Apple", "floor": 0, "auto": "floor", "near": "door"}],
+    "farm_brand": [{"id": "escudo_pared", "floor": 0, "auto": "wall", "near": "door"}],
+    "farm_iron_plough": [{"base": "aperos"}],
+    "farm_fields_2": [{"needs": "fuera", "note": "los campos están fuera de la casa"}],
+    "farm_pen_2": [{"needs": "anexo", "note": "el segundo corral son las cuadras del cobertizo, que el tipo trae en el nivel 2"}],
+    "farm_manure": [{"id": "q:Bucket_Wooden_1", "floor": 0, "auto": "floor", "near": "pen"}],
+    "farm_rotation": [{"id": "cesto_fruta", "floor": 0, "auto": "floor", "near": "storage"}],
+    "farm_select_seed": [{"id": "sack", "floor": 0, "auto": "floor", "near": "storage", "walk": true}],
+    "upgrade_master_bench": [{"id": "q:BookStand", "floor": 0, "auto": "floor", "near": "door"}],
+    "upgrade_double_ledger": [{"on": ["mesa_casa"], "id": "q:Book_Stack_2", "off": [0.25, 0.0]}],
+    "upgrade_hidden_passage": [{"id": "tapiz", "floor": 0, "auto": "wall", "near": "storage"}],
+    "upgrade_smuggler_cache": [{"id": "trampilla", "floor": 0, "auto": "floor", "near": "storage", "prio": 1}],
+    "upgrade_strongbox": [{"id": "arca_fuerte", "floor": 0, "auto": "wall", "near": "bed"}],
+    "upgrade_bunks": [{"swap": "bed", "id": "litera"}],
+    "upgrade_dining_table": [{"id": "taburete", "floor": 0, "auto": "floor", "near": "mesa_casa"}]
+  },
+  "upgrade_ids": {
+    "farm_capacity_1": "farm_granary",
+    "farm_capacity_2": "upgrade_storage_shelves",
+    "farm_capacity_3": "farm_barn",
+    "farm_commerce_1": "farm_cart",
+    "farm_commerce_2": "farm_fair_stand",
+    "farm_commerce_3": "farm_brand",
+    "farm_production_1": "farm_iron_plough",
+    "farm_production_2": "farm_fields_2",
+    "farm_production_3": "farm_pen_2",
+    "farm_quality_1": "farm_manure",
+    "farm_quality_2": "farm_rotation",
+    "farm_quality_3": "farm_select_seed",
+    "farm_secrets_1": "upgrade_double_ledger",
+    "farm_secrets_2": "upgrade_hidden_passage",
+    "farm_secrets_3": "upgrade_smuggler_cache",
+    "farm_security_3": "upgrade_strongbox",
+    "farm_staff_1": "upgrade_bunks",
+    "farm_staff_2": "upgrade_dining_table",
+    "farm_staff_3": "upgrade_master_bench"
+  },
+  "upgrade_out": {
+    "farm_facade_1": "fachada: upgrade_stone_facade",
+    "farm_facade_2": "fachada: upgrade_garden",
+    "farm_facade_3": "fachada: upgrade_noble_facade",
+    "farm_security_1": "fachada: upgrade_reinforced_lock",
+    "farm_security_2": "fachada: upgrade_guard"
+  },
+  "cast": [
+    {"look": "Labrador", "name": "Labrador", "start": [0, [2, 2]], "steps": [
+      {"say": "da de comer a la vaca", "secs": 7, "anim": "Interact", "zone": "pen"},
+      {"say": "apila los sacos", "secs": 5, "anim": "PickUp_Table", "zone": "storage", "carry": true}
+    ]},
+    {"look": "Campesina", "name": "Labradora", "start": [0, [1, 2]], "steps": [
+      {"say": "guisa en el hogar", "secs": 7, "anim": "stir", "zone": "hearth"},
+      {"say": "come a la mesa", "secs": 6, "anim": "eat", "sit": "tab_casa", "look": [0, 4]},
+      {"say": "duerme", "secs": 9, "lie": "bed"}
+    ]}
+  ]
+}

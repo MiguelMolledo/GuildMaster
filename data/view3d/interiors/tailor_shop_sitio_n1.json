@@ -1,0 +1,80 @@
+{
+  "_doc": "The tailor's at level 1: one room of 4 x 4 m: the loom at the back, the cutting table on the right wall, the cloth shelves by the shop window. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "id": "tailor_shop",
+  "level": 1,
+  "tile_m": 1.0,
+  "origin_m": [-1.5, -1.5],
+  "size": [3, 3],
+  "seed": 4,
+  "shell": {"w": 4, "d": 4, "floors": 1, "door_cell": 1},
+  "entrance": {"floor": 0, "tile": [2, 2], "side": "sw"},
+  "rooms": [
+    {"id": "workshop", "floor": 0, "type": "workshop", "rects": [[0, 0, 2, 2]], "floor_kind": "planks", "wall_style": "timber", "light": "warm"}
+  ],
+  "stations": {
+    "loom": {"name": "Telar", "kind": "craft", "floor": 0, "tile": [0, 0], "stand": [0, 1], "prop": "telar", "pos": [0.15, 0], "snap": "back,left"},
+    "sewing_table": {"name": "Mesa de corte", "kind": "craft", "floor": 0, "tile": [2, 0], "stand": [1, 1], "prop": "mesa_corte", "pos": [2, 0.3], "snap": "right"},
+    "storage": {"name": "Paños", "kind": "storage", "floor": 0, "tile": [0, 2], "stand": [1, 2], "prop": "estante_panos", "snap": "left"}
+  },
+  "spots": {"shop": [0, [1, 2]]},
+  "props": [],
+  "upgrades": {
+    "tailor_shop_sewing_table_2": [{"id": "mesa_corte", "floor": 0, "auto": "wall", "near": "sewing_table", "zone": "sewing_table_2", "name": "Mesa de corte 2", "kind": "craft"}],
+    "tailor_shop_loom_2": [{"id": "telar", "floor": 0, "auto": "wall", "near": "loom", "zone": "loom_2", "name": "Telar 2", "kind": "craft"}],
+    "upgrade_storage_shelves": [{"id": "estante_panos", "floor": 0, "auto": "wall", "near": "storage"}],
+    "upgrade_counter": [{"id": "maniqui", "floor": 0, "auto": "wall", "near": "door"}],
+    "tailor_treadle": [{"id": "taburete", "floor": 0, "auto": "floor", "near": "loom"}],
+    "tailor_shuttle": [{"id": "estante_pared", "floor": 0, "auto": "wall", "near": "loom"}],
+    "tailor_master_table": [{"id": "maniqui", "floor": 0, "auto": "wall", "near": "sewing_table"}],
+    "tailor_shears": [{"id": "panel_herramientas", "floor": 0, "auto": "wall", "near": "sewing_table"}],
+    "tailor_dyes": [{"id": "tina_tinte", "floor": 0, "auto": "wall", "near": "storage"}],
+    "tailor_seal": [{"id": "escudo_pared", "floor": 0, "auto": "wall", "near": "door"}],
+    "upgrade_master_bench": [{"id": "taburete", "floor": 0, "auto": "floor", "near": "sewing_table"}],
+    "upgrade_double_ledger": [{"on": ["mesa_casa", "sewing_table"], "id": "q:Book_Stack_2", "off": [0.25, 0.0]}],
+    "upgrade_hidden_passage": [{"id": "tapiz", "floor": 0, "auto": "wall", "near": "storage"}],
+    "upgrade_smuggler_cache": [{"id": "trampilla", "floor": 0, "auto": "floor", "near": "storage", "prio": 1}],
+    "upgrade_strongbox": [{"id": "arca_fuerte", "floor": 0, "auto": "wall", "near": "storage"}],
+    "upgrade_bunks": [{"needs": "planta", "note": "no hay vivienda en este nivel: llega con la planta alta"}],
+    "upgrade_dining_table": [{"needs": "planta", "note": "no hay vivienda en este nivel: llega con la planta alta"}]
+  },
+  "upgrade_ids": {
+    "tailor_shop_capacity_1": "tailor_shop_sewing_table_2",
+    "tailor_shop_capacity_2": "upgrade_storage_shelves",
+    "tailor_shop_capacity_3": "tailor_shop_loom_2",
+    "tailor_shop_commerce_1": "upgrade_counter",
+    "tailor_shop_production_1": "tailor_treadle",
+    "tailor_shop_production_2": "tailor_shuttle",
+    "tailor_shop_production_3": "tailor_master_table",
+    "tailor_shop_quality_1": "tailor_shears",
+    "tailor_shop_quality_2": "tailor_dyes",
+    "tailor_shop_quality_3": "tailor_seal",
+    "tailor_shop_secrets_1": "upgrade_double_ledger",
+    "tailor_shop_secrets_2": "upgrade_hidden_passage",
+    "tailor_shop_secrets_3": "upgrade_smuggler_cache",
+    "tailor_shop_security_3": "upgrade_strongbox",
+    "tailor_shop_staff_1": "upgrade_bunks",
+    "tailor_shop_staff_2": "upgrade_dining_table",
+    "tailor_shop_staff_3": "upgrade_master_bench"
+  },
+  "upgrade_out": {
+    "tailor_shop_commerce_2": "fachada: upgrade_shop_window",
+    "tailor_shop_commerce_3": "fachada: upgrade_trade_sign",
+    "tailor_shop_facade_1": "fachada: upgrade_stone_facade",
+    "tailor_shop_facade_2": "fachada: upgrade_garden",
+    "tailor_shop_facade_3": "fachada: upgrade_noble_facade",
+    "tailor_shop_security_1": "fachada: upgrade_reinforced_lock",
+    "tailor_shop_security_2": "fachada: upgrade_guard"
+  },
+  "cast": [
+    {"look": "Tejedora", "name": "Sastra", "start": [0, [1, 1]], "steps": [
+      {"say": "teje en el telar", "secs": 8, "anim": "weave", "zone": "loom"},
+      {"say": "corta el paño", "secs": 6, "anim": "cut_cloth", "zone": "sewing_table"},
+      {"say": "guarda un paño", "secs": 3, "anim": "Interact", "zone": "storage", "carry": true}
+    ]},
+    {"look": "Noble", "name": "Cliente", "outside": true, "wait": 4, "looks": ["Noble", "Mercader", "Cazadora"], "steps": [
+      {"enter": true},
+      {"say": "encarga un jubón", "secs": 6, "anim": "Idle_Talking", "tile": [0, [2, 2]], "look": [2, 1]},
+      {"leave": true, "secs": 6}
+    ]}
+  ]
+}

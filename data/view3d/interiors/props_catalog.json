@@ -1,0 +1,2505 @@
+{
+"_doc": "Subset of GuildMaster data/props/interior.json (footprint, height, category, walkable, hangs) for the 3D interior builder. Copied, not edited: re-copy when GuildMaster changes.",
+"props": {
+"altar": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 64,
+"walkable": false,
+"hangs": false
+},
+"anatomy_chart": {
+"category": "textile",
+"footprint": [
+1,
+1
+],
+"height": 22,
+"walkable": false,
+"hangs": true
+},
+"apothecary_counter": {
+"category": "trade",
+"footprint": [
+2,
+1
+],
+"height": 52,
+"walkable": false,
+"hangs": false
+},
+"apothecary_shelf": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 41,
+"walkable": false,
+"hangs": false
+},
+"apple_basket": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 14,
+"walkable": false,
+"hangs": false
+},
+"archive_cabinet": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 42,
+"walkable": false,
+"hangs": false
+},
+"armor_mannequin": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 34,
+"walkable": false,
+"hangs": false
+},
+"armor_stand_forge": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 35,
+"walkable": false,
+"hangs": false
+},
+"ashlar_stack": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 26,
+"walkable": false,
+"hangs": false
+},
+"balance_scale": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 14,
+"walkable": false,
+"hangs": false
+},
+"balance_table": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 21,
+"walkable": false,
+"hangs": false
+},
+"bandage_basket": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 15,
+"walkable": false,
+"hangs": false
+},
+"bank_counter": {
+"category": "trade",
+"footprint": [
+2,
+1
+],
+"height": 53,
+"walkable": false,
+"hangs": false
+},
+"banker_desk": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 21,
+"walkable": false,
+"hangs": false
+},
+"banner_stand": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 46,
+"walkable": false,
+"hangs": false
+},
+"banner_wall": {
+"category": "textile",
+"footprint": [
+1,
+1
+],
+"height": 27,
+"walkable": false,
+"hangs": true
+},
+"baptismal_font": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 22,
+"walkable": false,
+"hangs": false
+},
+"bar_counter": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 69,
+"walkable": false,
+"hangs": false
+},
+"bar_shelf": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 42,
+"walkable": false,
+"hangs": false
+},
+"bar_stool": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 19,
+"walkable": false,
+"hangs": false
+},
+"barrel": {
+"category": "container",
+"footprint": [
+1,
+1
+],
+"height": 21,
+"walkable": false,
+"hangs": false
+},
+"bed_double": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 79,
+"walkable": false,
+"hangs": false
+},
+"bed_single": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 47,
+"walkable": false,
+"hangs": false
+},
+"bellows": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 21,
+"walkable": false,
+"hangs": false
+},
+"bench_short": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 15,
+"walkable": false,
+"hangs": false
+},
+"big_jar": {
+"category": "container",
+"footprint": [
+1,
+1
+],
+"height": 21,
+"walkable": false,
+"hangs": false
+},
+"bowl_stew": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 12,
+"walkable": false,
+"hangs": false
+},
+"bread_loaves": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 9,
+"walkable": false,
+"hangs": false
+},
+"bucket": {
+"category": "container",
+"footprint": [
+1,
+1
+],
+"height": 13,
+"walkable": false,
+"hangs": false
+},
+"bunk_bed": {
+"category": "trade",
+"footprint": [
+2,
+1
+],
+"height": 78,
+"walkable": false,
+"hangs": false
+},
+"candelabra_tall": {
+"category": "light",
+"footprint": [
+1,
+1
+],
+"height": 37,
+"walkable": false,
+"hangs": false
+},
+"candle": {
+"category": "light",
+"footprint": [
+1,
+1
+],
+"height": 11,
+"walkable": false,
+"hangs": false
+},
+"candle_stand": {
+"category": "light",
+"footprint": [
+1,
+1
+],
+"height": 33,
+"walkable": false,
+"hangs": false
+},
+"candlestick": {
+"category": "light",
+"footprint": [
+1,
+1
+],
+"height": 13,
+"walkable": false,
+"hangs": false
+},
+"carpenter_bench": {
+"category": "trade",
+"footprint": [
+2,
+1
+],
+"height": 50,
+"walkable": false,
+"hangs": false
+},
+"carpenter_mark": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 19,
+"walkable": false,
+"hangs": false
+},
+"cask_row": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 56,
+"walkable": false,
+"hangs": false
+},
+"cask_stand_big": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 24,
+"walkable": false,
+"hangs": false
+},
+"cask_tap": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 23,
+"walkable": false,
+"hangs": false
+},
+"cellar_stairs": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 75,
+"walkable": false,
+"hangs": false
+},
+"chain_coil": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 9,
+"walkable": false,
+"hangs": false
+},
+"chain_post": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 34,
+"walkable": false,
+"hangs": false
+},
+"chair": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 21,
+"walkable": false,
+"hangs": false
+},
+"charcoal_basket": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 14,
+"walkable": false,
+"hangs": false
+},
+"cheese_wheel": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 11,
+"walkable": false,
+"hangs": false
+},
+"chest": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 17,
+"walkable": false,
+"hangs": false
+},
+"chisel_set": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 10,
+"walkable": false,
+"hangs": false
+},
+"chopping_block": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 19,
+"walkable": false,
+"hangs": false
+},
+"client_bench": {
+"category": "trade",
+"footprint": [
+2,
+1
+],
+"height": 65,
+"walkable": false,
+"hangs": false
+},
+"cloth_roll_blue": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 10,
+"walkable": false,
+"hangs": false
+},
+"cloth_roll_red": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 10,
+"walkable": false,
+"hangs": false
+},
+"cloth_shelf": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 39,
+"walkable": false,
+"hangs": false
+},
+"coal_sack": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 19,
+"walkable": false,
+"hangs": false
+},
+"coat_rack": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 32,
+"walkable": false,
+"hangs": false
+},
+"coin_chest": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 15,
+"walkable": false,
+"hangs": false
+},
+"coin_pile": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 6,
+"walkable": false,
+"hangs": false
+},
+"coin_purse": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 14,
+"walkable": false,
+"hangs": false
+},
+"column_drum": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 21,
+"walkable": false,
+"hangs": false
+},
+"contraband_pile": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 25,
+"walkable": false,
+"hangs": false
+},
+"cooking_pot": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 11,
+"walkable": false,
+"hangs": false
+},
+"council_table": {
+"category": "trade",
+"footprint": [
+2,
+1
+],
+"height": 71,
+"walkable": false,
+"hangs": false
+},
+"cradle": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 19,
+"walkable": false,
+"hangs": false
+},
+"crate": {
+"category": "container",
+"footprint": [
+1,
+1
+],
+"height": 16,
+"walkable": false,
+"hangs": false
+},
+"crate_stack": {
+"category": "container",
+"footprint": [
+1,
+1
+],
+"height": 26,
+"walkable": false,
+"hangs": false
+},
+"crockery_shelf": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 34,
+"walkable": false,
+"hangs": false
+},
+"cutting_table": {
+"category": "trade",
+"footprint": [
+2,
+1
+],
+"height": 54,
+"walkable": false,
+"hangs": false
+},
+"dagger_cloth": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 10,
+"walkable": false,
+"hangs": false
+},
+"dice_cup": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 9,
+"walkable": false,
+"hangs": false
+},
+"dice_table": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 17,
+"walkable": false,
+"hangs": false
+},
+"dining_table": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 50,
+"walkable": false,
+"hangs": false
+},
+"display_shelf": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 53,
+"walkable": false,
+"hangs": false
+},
+"dock_rail": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 52,
+"walkable": false,
+"hangs": false
+},
+"double_ledger": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 23,
+"walkable": false,
+"hangs": false
+},
+"dress_form": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 35,
+"walkable": false,
+"hangs": false
+},
+"engraving_bench": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 25,
+"walkable": false,
+"hangs": false
+},
+"examination_cot": {
+"category": "trade",
+"footprint": [
+2,
+1
+],
+"height": 50,
+"walkable": false,
+"hangs": false
+},
+"fabric_stack": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 20,
+"walkable": false,
+"hangs": false
+},
+"fence_table": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 22,
+"walkable": false,
+"hangs": false
+},
+"file_rasp": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 12,
+"walkable": false,
+"hangs": false
+},
+"fireplace": {
+"category": "light",
+"footprint": [
+1,
+1
+],
+"height": 42,
+"walkable": false,
+"hangs": false
+},
+"firewood_pile": {
+"category": "container",
+"footprint": [
+1,
+1
+],
+"height": 19,
+"walkable": false,
+"hangs": false
+},
+"fitting_screen": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 36,
+"walkable": false,
+"hangs": false
+},
+"floor_earth": {
+"category": "structure",
+"footprint": [
+1,
+1
+],
+"height": 16,
+"walkable": true,
+"hangs": false
+},
+"floor_flagstone": {
+"category": "structure",
+"footprint": [
+1,
+1
+],
+"height": 16,
+"walkable": true,
+"hangs": false
+},
+"floor_planks": {
+"category": "structure",
+"footprint": [
+1,
+1
+],
+"height": 16,
+"walkable": true,
+"hangs": false
+},
+"flower_vase": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 14,
+"walkable": false,
+"hangs": false
+},
+"folding_screen": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 30,
+"walkable": false,
+"hangs": false
+},
+"frame_saw": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 29,
+"walkable": false,
+"hangs": false
+},
+"glue_pot": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 17,
+"walkable": false,
+"hangs": false
+},
+"gouges": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 18,
+"walkable": false,
+"hangs": false
+},
+"half_chair": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 19,
+"walkable": false,
+"hangs": false
+},
+"hall_brazier": {
+"category": "light",
+"footprint": [
+1,
+1
+],
+"height": 23,
+"walkable": false,
+"hangs": false
+},
+"hall_firepit": {
+"category": "light",
+"footprint": [
+1,
+1
+],
+"height": 24,
+"walkable": false,
+"hangs": false
+},
+"hat_stand": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 35,
+"walkable": false,
+"hangs": false
+},
+"helmet_shelf": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 23,
+"walkable": false,
+"hangs": false
+},
+"helmet_small": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 14,
+"walkable": false,
+"hangs": false
+},
+"heraldic_stand": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 28,
+"walkable": false,
+"hangs": false
+},
+"herb_bundle": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 13,
+"walkable": false,
+"hangs": false
+},
+"herb_drying_frame": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 32,
+"walkable": false,
+"hangs": false
+},
+"herb_shelf_wall": {
+"category": "textile",
+"footprint": [
+1,
+1
+],
+"height": 15,
+"walkable": false,
+"hangs": true
+},
+"herbs_hanging": {
+"category": "textile",
+"footprint": [
+1,
+1
+],
+"height": 12,
+"walkable": false,
+"hangs": true
+},
+"hidden_passage": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 19,
+"walkable": true,
+"hangs": false
+},
+"horseshoe_crate": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 17,
+"walkable": false,
+"hangs": false
+},
+"horseshoe_nails": {
+"category": "textile",
+"footprint": [
+1,
+1
+],
+"height": 7,
+"walkable": false,
+"hangs": true
+},
+"horseshoes": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 9,
+"walkable": false,
+"hangs": false
+},
+"ingot_pile": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 10,
+"walkable": false,
+"hangs": false
+},
+"ingot_stack": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 15,
+"walkable": false,
+"hangs": false
+},
+"instrument_tray": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 19,
+"walkable": false,
+"hangs": false
+},
+"iron_cage": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 75,
+"walkable": false,
+"hangs": false
+},
+"iron_strongbox": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 19,
+"walkable": false,
+"hangs": false
+},
+"judge_bench": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 81,
+"walkable": false,
+"hangs": false
+},
+"jug": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 14,
+"walkable": false,
+"hangs": false
+},
+"jug_crate": {
+"category": "container",
+"footprint": [
+1,
+1
+],
+"height": 17,
+"walkable": false,
+"hangs": false
+},
+"keg_stack": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 21,
+"walkable": false,
+"hangs": false
+},
+"key_ring": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 9,
+"walkable": false,
+"hangs": false
+},
+"kitchen_hearth": {
+"category": "light",
+"footprint": [
+1,
+1
+],
+"height": 32,
+"walkable": false,
+"hangs": false
+},
+"kitchen_table": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 49,
+"walkable": false,
+"hangs": false
+},
+"ladder": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 38,
+"walkable": false,
+"hangs": false
+},
+"lantern_small": {
+"category": "light",
+"footprint": [
+1,
+1
+],
+"height": 14,
+"walkable": false,
+"hangs": false
+},
+"lectern": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 25,
+"walkable": false,
+"hangs": false
+},
+"ledger_book": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 8,
+"walkable": false,
+"hangs": false
+},
+"ledger_cabinet": {
+"category": "trade",
+"footprint": [
+2,
+1
+],
+"height": 105,
+"walkable": false,
+"hangs": false
+},
+"leech_jars": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 21,
+"walkable": false,
+"hangs": false
+},
+"log_pile": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 16,
+"walkable": false,
+"hangs": false
+},
+"loom": {
+"category": "trade",
+"footprint": [
+2,
+1
+],
+"height": 76,
+"walkable": false,
+"hangs": false
+},
+"lute": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 18,
+"walkable": false,
+"hangs": false
+},
+"mail_chest": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 19,
+"walkable": false,
+"hangs": false
+},
+"market_shelf": {
+"category": "trade",
+"footprint": [
+2,
+1
+],
+"height": 78,
+"walkable": false,
+"hangs": false
+},
+"mason_chisels": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 15,
+"walkable": false,
+"hangs": false
+},
+"mason_crane": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 42,
+"walkable": false,
+"hangs": false
+},
+"mason_mark": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 19,
+"walkable": false,
+"hangs": false
+},
+"mason_templates": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 28,
+"walkable": false,
+"hangs": false
+},
+"mason_toolbox": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 17,
+"walkable": false,
+"hangs": false
+},
+"mason_wedges": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 17,
+"walkable": false,
+"hangs": false
+},
+"master_bench": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 25,
+"walkable": false,
+"hangs": false
+},
+"master_carpenter_bench": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 25,
+"walkable": false,
+"hangs": false
+},
+"master_seal": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 22,
+"walkable": false,
+"hangs": false
+},
+"master_yard": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 28,
+"walkable": false,
+"hangs": false
+},
+"mayor_chair": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 31,
+"walkable": false,
+"hangs": false
+},
+"medical_diploma": {
+"category": "textile",
+"footprint": [
+1,
+1
+],
+"height": 16,
+"walkable": false,
+"hangs": true
+},
+"medicine_chest": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 17,
+"walkable": false,
+"hangs": false
+},
+"minstrel_stage": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 44,
+"walkable": false,
+"hangs": false
+},
+"mirror_standing": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 40,
+"walkable": false,
+"hangs": false
+},
+"money_bags": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 13,
+"walkable": false,
+"hangs": false
+},
+"mortar_table": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 21,
+"walkable": false,
+"hangs": false
+},
+"mugs": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 5,
+"walkable": false,
+"hangs": false
+},
+"nail_box": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 14,
+"walkable": false,
+"hangs": false
+},
+"offering_bowl": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 12,
+"walkable": false,
+"hangs": false
+},
+"onion_string": {
+"category": "textile",
+"footprint": [
+1,
+1
+],
+"height": 17,
+"walkable": false,
+"hangs": true
+},
+"open_book": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 8,
+"walkable": false,
+"hangs": false
+},
+"operating_table": {
+"category": "trade",
+"footprint": [
+2,
+1
+],
+"height": 47,
+"walkable": false,
+"hangs": false
+},
+"pantry_shelf": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 34,
+"walkable": false,
+"hangs": false
+},
+"pew": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 71,
+"walkable": false,
+"hangs": false
+},
+"pincushion": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 10,
+"walkable": false,
+"hangs": false
+},
+"pit_hearth": {
+"category": "trade",
+"footprint": [
+2,
+1
+],
+"height": 98,
+"walkable": false,
+"hangs": false
+},
+"planes_rack": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 26,
+"walkable": false,
+"hangs": false
+},
+"plank_stack": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 13,
+"walkable": false,
+"hangs": false
+},
+"plate_bread": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 10,
+"walkable": false,
+"hangs": false
+},
+"plate_roast": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 9,
+"walkable": false,
+"hangs": false
+},
+"pulpit": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 35,
+"walkable": false,
+"hangs": false
+},
+"quench_tub": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 19,
+"walkable": false,
+"hangs": false
+},
+"quill_inkwell": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 12,
+"walkable": false,
+"hangs": false
+},
+"railing_ne": {
+"category": "structure",
+"footprint": [
+1,
+1
+],
+"height": 20,
+"walkable": false,
+"hangs": false
+},
+"railing_nw": {
+"category": "structure",
+"footprint": [
+1,
+1
+],
+"height": 20,
+"walkable": false,
+"hangs": false
+},
+"round_table": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 16,
+"walkable": false,
+"hangs": false
+},
+"rubble_pile": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 9,
+"walkable": true,
+"hangs": false
+},
+"sack": {
+"category": "container",
+"footprint": [
+1,
+1
+],
+"height": 16,
+"walkable": false,
+"hangs": false
+},
+"sack_pile": {
+"category": "container",
+"footprint": [
+1,
+1
+],
+"height": 19,
+"walkable": false,
+"hangs": false
+},
+"sawhorse": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 17,
+"walkable": false,
+"hangs": false
+},
+"scissors_chalk": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 10,
+"walkable": false,
+"hangs": false
+},
+"scroll_basket": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 17,
+"walkable": false,
+"hangs": false
+},
+"scroll_pile": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 9,
+"walkable": false,
+"hangs": false
+},
+"sewing_chair": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 23,
+"walkable": false,
+"hangs": false
+},
+"shavings_heap": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 8,
+"walkable": true,
+"hangs": false
+},
+"shield_crest": {
+"category": "textile",
+"footprint": [
+1,
+1
+],
+"height": 13,
+"walkable": false,
+"hangs": true
+},
+"shield_stand": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 23,
+"walkable": false,
+"hangs": false
+},
+"shop_counter": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 50,
+"walkable": false,
+"hangs": false
+},
+"small_crane": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 49,
+"walkable": false,
+"hangs": false
+},
+"smith_hammer": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 11,
+"walkable": false,
+"hangs": false
+},
+"smuggler_cache": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 19,
+"walkable": false,
+"hangs": false
+},
+"smuggler_table": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 65,
+"walkable": false,
+"hangs": false
+},
+"spear_rack": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 38,
+"walkable": false,
+"hangs": false
+},
+"spinning_wheel": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 25,
+"walkable": false,
+"hangs": false
+},
+"staircase": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 141,
+"walkable": false,
+"hangs": false
+},
+"standing_lantern": {
+"category": "light",
+"footprint": [
+1,
+1
+],
+"height": 37,
+"walkable": false,
+"hangs": false
+},
+"statue_unfinished": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 36,
+"walkable": false,
+"hangs": false
+},
+"stolen_goods": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 18,
+"walkable": false,
+"hangs": false
+},
+"stone_bench": {
+"category": "trade",
+"footprint": [
+2,
+1
+],
+"height": 52,
+"walkable": false,
+"hangs": false
+},
+"stone_block": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 18,
+"walkable": false,
+"hangs": false
+},
+"stone_chisels": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 10,
+"walkable": false,
+"hangs": false
+},
+"stone_trough": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 15,
+"walkable": false,
+"hangs": false
+},
+"stool": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 11,
+"walkable": false,
+"hangs": false
+},
+"strongbox": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 17,
+"walkable": false,
+"hangs": false
+},
+"sword_blank": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 17,
+"walkable": false,
+"hangs": false
+},
+"sword_rack": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 29,
+"walkable": false,
+"hangs": false
+},
+"tailor_dyes": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 23,
+"walkable": false,
+"hangs": false
+},
+"tailor_master_table": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 23,
+"walkable": false,
+"hangs": false
+},
+"tailor_seal": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 21,
+"walkable": false,
+"hangs": false
+},
+"tailor_shears": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 28,
+"walkable": false,
+"hangs": false
+},
+"tailor_shuttle": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 24,
+"walkable": false,
+"hangs": false
+},
+"tailor_treadle": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 26,
+"walkable": false,
+"hangs": false
+},
+"tankard_rack": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 23,
+"walkable": false,
+"hangs": false
+},
+"tankards": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 9,
+"walkable": false,
+"hangs": false
+},
+"tapestry_green": {
+"category": "textile",
+"footprint": [
+1,
+1
+],
+"height": 25,
+"walkable": false,
+"hangs": true
+},
+"tapestry_red": {
+"category": "textile",
+"footprint": [
+1,
+1
+],
+"height": 25,
+"walkable": false,
+"hangs": true
+},
+"tavern_bench": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 46,
+"walkable": false,
+"hangs": false
+},
+"tavern_chair": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 21,
+"walkable": false,
+"hangs": false
+},
+"tavern_table": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 57,
+"walkable": false,
+"hangs": false
+},
+"template_rack": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 33,
+"walkable": false,
+"hangs": false
+},
+"thread_basket": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 15,
+"walkable": false,
+"hangs": false
+},
+"thread_spools": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 10,
+"walkable": false,
+"hangs": false
+},
+"tongs": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 11,
+"walkable": false,
+"hangs": false
+},
+"tool_board_wall": {
+"category": "textile",
+"footprint": [
+1,
+1
+],
+"height": 18,
+"walkable": false,
+"hangs": true
+},
+"tool_pegboard": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 33,
+"walkable": false,
+"hangs": false
+},
+"tool_rack": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 29,
+"walkable": false,
+"hangs": false
+},
+"town_banner": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 51,
+"walkable": false,
+"hangs": false
+},
+"trapdoor": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 20,
+"walkable": true,
+"hangs": false
+},
+"trapdoor_open": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 23,
+"walkable": true,
+"hangs": false
+},
+"unfinished_barrel": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 21,
+"walkable": false,
+"hangs": false
+},
+"vault_door_wall": {
+"category": "trade",
+"footprint": [
+2,
+1
+],
+"height": 105,
+"walkable": false,
+"hangs": false
+},
+"vice_bench": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 22,
+"walkable": false,
+"hangs": false
+},
+"waiting_bench": {
+"category": "trade",
+"footprint": [
+2,
+1
+],
+"height": 40,
+"walkable": false,
+"hangs": false
+},
+"wall_low_ne": {
+"category": "structure",
+"footprint": [
+1,
+1
+],
+"height": 12,
+"walkable": false,
+"hangs": false
+},
+"wall_low_nw": {
+"category": "structure",
+"footprint": [
+1,
+1
+],
+"height": 12,
+"walkable": false,
+"hangs": false
+},
+"wall_shelf_jars": {
+"category": "textile",
+"footprint": [
+1,
+1
+],
+"height": 14,
+"walkable": false,
+"hangs": true
+},
+"wall_stone_door_ne": {
+"category": "structure",
+"footprint": [
+1,
+1
+],
+"height": 64,
+"walkable": false,
+"hangs": false
+},
+"wall_stone_door_nw": {
+"category": "structure",
+"footprint": [
+1,
+1
+],
+"height": 64,
+"walkable": false,
+"hangs": false
+},
+"wall_stone_ne": {
+"category": "structure",
+"footprint": [
+1,
+1
+],
+"height": 64,
+"walkable": false,
+"hangs": false
+},
+"wall_stone_ne_b": {
+"category": "structure",
+"footprint": [
+1,
+1
+],
+"height": 64,
+"walkable": false,
+"hangs": false
+},
+"wall_stone_nw": {
+"category": "structure",
+"footprint": [
+1,
+1
+],
+"height": 64,
+"walkable": false,
+"hangs": false
+},
+"wall_stone_nw_b": {
+"category": "structure",
+"footprint": [
+1,
+1
+],
+"height": 64,
+"walkable": false,
+"hangs": false
+},
+"wall_timber_door_ne": {
+"category": "structure",
+"footprint": [
+1,
+1
+],
+"height": 64,
+"walkable": false,
+"hangs": false
+},
+"wall_timber_door_nw": {
+"category": "structure",
+"footprint": [
+1,
+1
+],
+"height": 64,
+"walkable": false,
+"hangs": false
+},
+"wall_timber_ne": {
+"category": "structure",
+"footprint": [
+1,
+1
+],
+"height": 64,
+"walkable": false,
+"hangs": false
+},
+"wall_timber_ne_b": {
+"category": "structure",
+"footprint": [
+1,
+1
+],
+"height": 64,
+"walkable": false,
+"hangs": false
+},
+"wall_timber_nw": {
+"category": "structure",
+"footprint": [
+1,
+1
+],
+"height": 64,
+"walkable": false,
+"hangs": false
+},
+"wall_timber_nw_b": {
+"category": "structure",
+"footprint": [
+1,
+1
+],
+"height": 64,
+"walkable": false,
+"hangs": false
+},
+"wardrobe": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 42,
+"walkable": false,
+"hangs": false
+},
+"washbasin_stand": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 23,
+"walkable": false,
+"hangs": false
+},
+"washtub": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 18,
+"walkable": false,
+"hangs": false
+},
+"water_barrel": {
+"category": "trade",
+"footprint": [
+1,
+1
+],
+"height": 23,
+"walkable": false,
+"hangs": false
+},
+"water_pail": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 13,
+"walkable": false,
+"hangs": false
+},
+"wax_seal": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 4,
+"walkable": false,
+"hangs": false
+},
+"weapon_display": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 32,
+"walkable": false,
+"hangs": false
+},
+"weapon_panoply": {
+"category": "furniture",
+"footprint": [
+2,
+1
+],
+"height": 86,
+"walkable": false,
+"hangs": false
+},
+"wicker_basket": {
+"category": "container",
+"footprint": [
+1,
+1
+],
+"height": 15,
+"walkable": false,
+"hangs": false
+},
+"wine_bottle": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 14,
+"walkable": false,
+"hangs": false
+},
+"wine_rack": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 42,
+"walkable": false,
+"hangs": false
+},
+"witness_stand": {
+"category": "furniture",
+"footprint": [
+1,
+1
+],
+"height": 26,
+"walkable": false,
+"hangs": false
+},
+"wood_mallet": {
+"category": "small",
+"footprint": [
+1,
+1
+],
+"height": 13,
+"walkable": false,
+"hangs": false
+}
+}
+}

@@ -846,3 +846,54 @@ static func town_state_text(sim: Sim, chr: String) -> String:
 ## The text of an active microevent with its parameters (names, building, item).
 static func microevent_text(sim: Sim, view: Dictionary) -> String:
 	return notice_text(sim.state, sim.catalog, {"key": str(view.get("text_key", "")), "params": view.get("params", {})})
+
+
+## 3D view (docs/3d/plan.md §1): what a character is doing, read only from the state, with the same sources as the 2D
+## view and the needs (it is the "doing" of Prueba3D's sim trace): work | work_night | home | sleep | social | leisure |
+## inside (another building) while inside; walk | <town activity shown> | work_out | social | market | stand outside.
+static func doing(sim: Sim, id: String, now: int) -> String:
+	var ch: Dictionary = sim.state.characters.get(id, {})
+	var loc := str(ch.get("location", ""))
+	var phase := Clock.phase(now, sim.catalog.time)
+	var t: Dictionary = ch.get("town", {}) if ch.get("town") is Dictionary else {}
+	if loc != "":
+		var sit := Needs.situation(sim, id)
+		if sit in ["work", "work_night", "social", "leisure"]:
+			return sit
+		if str(t.get("state", "")) in ["work", "working"]:  # a townsperson at its workplace (the armory, the town hall...)
+			return "work_night" if phase == "night" else "work"
+		var home := Kin.home_of(sim, id)
+		if loc == home or loc == str(ch.get("home", "")) or str(t.get("state", "")) == "home":
+			return "sleep" if phase == "night" else "home"
+		if loc == Staff.employer(sim.state, id):
+			return "work"
+		return "inside"
+	if not (ch.get("path", []) as Array).is_empty():
+		return "walk"
+	var shown := str(t.get("shown", ""))
+	if shown != "":
+		return shown
+	var ts := str(t.get("state", ""))
+	if ts in ["working", "work"]:
+		return "work_out"
+	if ts in ["social", "market"]:
+		return ts
+	return "stand"
+
+
+## 3D view: the character's place in its family: "head", "spouse" (married), "child" (has parents), "" otherwise.
+static func family_role(state: WorldState, id: String) -> String:
+	var ch: Dictionary = state.characters.get(id, {})
+	if str(state.families.get(str(ch.get("family", "")), {}).get("head", "")) == id:
+		return "head"
+	if str(ch.get("spouse", "")) != "":
+		return "spouse"
+	if not (ch.get("parents", []) as Array).is_empty():
+		return "child"
+	return ""
+
+
+## 3D view: the character is not in the town now (banished, on a trip or driving a caravan, off stage: a guard off duty,
+## a visitor or a bandit not there, a captive), as the 2D view hides them.
+static func offstage(state: WorldState, id: String) -> bool:
+	return Tribunal.is_banished(state, id) or Region.is_away(state, id) or Life.offstage(state, id)

@@ -1,0 +1,1708 @@
+{
+ "_doc": "Character kit catalogue. Paths: @out/ @base/ @anim/ @custom/ = the dirs below. A part is one skinned mesh on the shared 65-bone skeleton; tools/make_char_meshes.gd bakes every part to kit/chars/derived/<id>.res. See docs/personajes.md.",
+ "dirs": {
+  "@out/": "res://kit/chars/Modular Character Outfits - Fantasy[Standard]/",
+  "@base/": "res://kit/chars/Universal Base Characters[Standard]/",
+  "@anim/": "res://kit/chars/Universal Animation Library[Standard]/",
+  "@custom/": "res://kit/chars/custom/"
+ },
+ "skeletons": {
+  "m": {
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Male_Peasant.gltf",
+   "y_offset": 0.0,
+   "_doc": "the male clothes and hair are rigged on the 'Regular' male skeleton (2.4 cm wider hips than the Superhero base body); the Superhero head fits it (bake reports fit)"
+  },
+  "f": {
+   "src": "@base/Base Characters/Godot - UE/Superhero_Female_FullBody.gltf",
+   "y_offset": -0.0173
+  }
+ },
+ "animations": "@anim/Unreal-Godot/UAL1_Standard.glb",
+ "slots": [
+  "head",
+  "eyes",
+  "brows",
+  "hair",
+  "beard",
+  "torso",
+  "arms",
+  "legs",
+  "feet",
+  "acc"
+ ],
+ "defaults": {
+  "m": {
+   "head": "head_m",
+   "brows": "brows_m"
+  },
+  "f": {
+   "head": "head_f",
+   "brows": "brows_f"
+  }
+ },
+ "textures": {
+  "peasant": {
+   "albedo": "@out/Textures/Peasant/T_Peasant_BaseColor.png",
+   "normal": "@out/Textures/Peasant/T_Peasant_Normal.png",
+   "orm": "@out/Textures/Peasant/T_Peasant_ORM.png",
+   "bands": {
+    "a": [
+     0,
+     180,
+     0.0,
+     0.32,
+     0.5,
+     1.0,
+     0.59
+    ],
+    "b": [
+     30,
+     15,
+     0.45,
+     1.0,
+     0.08,
+     0.62,
+     0.21
+    ]
+   },
+   "variants": [
+    "peasant2"
+   ]
+  },
+  "peasant2": {
+   "albedo": "@out/Textures/Peasant/T_Peasant_2_BaseColor.png",
+   "normal": "@out/Textures/Peasant/T_Peasant_Normal.png",
+   "orm": "@out/Textures/Peasant/T_Peasant_ORM.png",
+   "bands": {
+    "a": [
+     0,
+     180,
+     0.0,
+     0.32,
+     0.5,
+     1.0,
+     0.64
+    ],
+    "b": [
+     30,
+     15,
+     0.45,
+     1.0,
+     0.08,
+     0.62,
+     0.15
+    ]
+   },
+   "variants": [
+    "peasant"
+   ]
+  },
+  "ranger": {
+   "albedo": "@out/Textures/Ranger/T_Ranger_BaseColor.png",
+   "normal": "@out/Textures/Ranger/T_Ranger_Normal.png",
+   "orm": "@out/Textures/Ranger/T_Ranger_ORM.png",
+   "bands": {
+    "a": [
+     115,
+     50,
+     0.25,
+     1.0,
+     0.05,
+     1.0,
+     0.22
+    ],
+    "b": [
+     25,
+     15,
+     0.45,
+     1.0,
+     0.1,
+     0.7,
+     0.35
+    ]
+   },
+   "variants": [
+    "ranger3"
+   ]
+  },
+  "ranger3": {
+   "albedo": "@out/Textures/Ranger/T_Ranger_3_BaseColor.png",
+   "normal": "@out/Textures/Ranger/T_Ranger_Normal.png",
+   "orm": "@out/Textures/Ranger/T_Ranger_ORM.png",
+   "bands": {
+    "a": [
+     0,
+     180,
+     0.0,
+     0.32,
+     0.45,
+     1.0,
+     0.5
+    ],
+    "b": [
+     35,
+     15,
+     0.45,
+     1.0,
+     0.05,
+     0.6,
+     0.22
+    ]
+   },
+   "variants": [
+    "ranger"
+   ]
+  },
+  "skin_head_m": {
+   "albedo": "@base/Base Characters/Textures/T_Superhero_Male_Dark.png",
+   "normal": "@base/Base Characters/Textures/T_Superhero_Male_Normal.png"
+  },
+  "skin_head_f": {
+   "albedo": "@base/Base Characters/Textures/T_Superhero_Female_Dark_BaseColor.png",
+   "normal": "@base/Base Characters/Textures/T_Superhero_Female_Normal.png"
+  },
+  "skin_hands_m": {
+   "albedo": "@out/Textures/Base/T_Regular_Male_Dark_BaseColor.png",
+   "normal": "@out/Textures/Base/T_Regular_Male_Normal.png"
+  },
+  "skin_hands_f": {
+   "albedo": "@out/Textures/Base/T_Regular_Female_Dark_BaseColor.png",
+   "normal": "@out/Textures/Base/T_Regular_Female_Normal.png"
+  },
+  "hair1": {
+   "albedo": "@base/Base Characters/Textures/T_Hair_1_BaseColor.png",
+   "normal": "@base/Base Characters/Textures/T_Hair_1_Normal.png"
+  },
+  "hair2": {
+   "albedo": "@base/Base Characters/Textures/T_Hair_2_BaseColor.png",
+   "normal": "@base/Base Characters/Textures/T_Hair_2_Normal.png"
+  },
+  "eyes": {
+   "albedo": "@base/Base Characters/Textures/T_Eye_Brown.png",
+   "roughness": 0.35
+  },
+  "apron": {
+   "albedo": "@custom/T_Apron_BaseColor.png",
+   "bands": {
+    "b": [
+     25,
+     25,
+     0.25,
+     1.0,
+     0.1,
+     0.8,
+     0.42
+    ]
+   },
+   "_doc": "made by us: tools/apron_texture.py"
+  },
+  "skin_head_m_old": {
+   "albedo": "@custom/age/T_Superhero_Male_Dark_old.png",
+   "normal": "@base/Base Characters/Textures/T_Superhero_Male_Normal.png"
+  },
+  "skin_head_m_mature": {
+   "albedo": "@custom/age/T_Superhero_Male_Dark_mature.png",
+   "normal": "@base/Base Characters/Textures/T_Superhero_Male_Normal.png"
+  },
+  "skin_head_f_old": {
+   "albedo": "@custom/age/T_Superhero_Female_Dark_BaseColor_old.png",
+   "normal": "@base/Base Characters/Textures/T_Superhero_Female_Normal.png"
+  },
+  "skin_head_f_mature": {
+   "albedo": "@custom/age/T_Superhero_Female_Dark_BaseColor_mature.png",
+   "normal": "@base/Base Characters/Textures/T_Superhero_Female_Normal.png"
+  },
+  "gown": {
+   "albedo": "@custom/T_Gown_BaseColor.png",
+   "normal": "@custom/T_Gown_Normal.png",
+   "bands": {
+    "a": [
+     0,
+     180,
+     0.0,
+     0.3,
+     0.3,
+     1.0,
+     0.679
+    ],
+    "b": [
+     28,
+     15,
+     0.45,
+     1.0,
+     0.08,
+     0.75,
+     0.411
+    ]
+   },
+   "_doc": "made by us: tools/garment_textures.py"
+  },
+  "dress": {
+   "albedo": "@custom/T_Dress_BaseColor.png",
+   "normal": "@custom/T_Dress_Normal.png",
+   "bands": {
+    "a": [
+     0,
+     180,
+     0.0,
+     0.3,
+     0.3,
+     1.0,
+     0.701
+    ],
+    "b": [
+     28,
+     15,
+     0.45,
+     1.0,
+     0.08,
+     0.75,
+     0.421
+    ]
+   },
+   "_doc": "made by us: tools/garment_textures.py"
+  },
+  "cassock": {
+   "albedo": "@custom/T_Cassock_BaseColor.png",
+   "normal": "@custom/T_Cassock_Normal.png",
+   "bands": {
+    "a": [
+     0,
+     180,
+     0.0,
+     0.3,
+     0.3,
+     1.0,
+     0.599
+    ],
+    "b": [
+     28,
+     15,
+     0.45,
+     1.0,
+     0.08,
+     0.75,
+     0.412
+    ]
+   },
+   "_doc": "made by us: tools/garment_textures.py"
+  },
+  "coat": {
+   "albedo": "@custom/T_Coat_BaseColor.png",
+   "normal": "@custom/T_Coat_Normal.png",
+   "bands": {
+    "a": [
+     0,
+     180,
+     0.0,
+     0.3,
+     0.3,
+     1.0,
+     0.604
+    ],
+    "b": [
+     28,
+     15,
+     0.45,
+     1.0,
+     0.08,
+     0.75,
+     0.412
+    ]
+   },
+   "_doc": "made by us: tools/garment_textures.py"
+  },
+  "tunic": {
+   "albedo": "@custom/T_Tunic_BaseColor.png",
+   "normal": "@custom/T_Tunic_Normal.png",
+   "bands": {
+    "a": [
+     0,
+     180,
+     0.0,
+     0.3,
+     0.3,
+     1.0,
+     0.698
+    ],
+    "b": [
+     28,
+     15,
+     0.45,
+     1.0,
+     0.08,
+     0.75,
+     0.4
+    ]
+   },
+   "_doc": "made by us: tools/garment_textures.py"
+  },
+  "tabard": {
+   "albedo": "@custom/T_Tabard_BaseColor.png",
+   "normal": "@custom/T_Tabard_Normal.png",
+   "bands": {
+    "a": [
+     0,
+     180,
+     0.0,
+     0.3,
+     0.3,
+     1.0,
+     0.659
+    ],
+    "b": [
+     28,
+     15,
+     0.45,
+     1.0,
+     0.08,
+     0.75,
+     0.415
+    ]
+   },
+   "_doc": "made by us: tools/garment_textures.py"
+  },
+  "fur": {
+   "albedo": "@custom/T_Fur_BaseColor.png",
+   "normal": "@custom/T_Fur_Normal.png",
+   "variants": [
+    "fur_ermine"
+   ],
+   "_doc": "made by us: tools/garment_textures.py (no bands: fur keeps its colour; {\"tex\": \"fur_ermine\"} swaps it)"
+  },
+  "fur_ermine": {
+   "albedo": "@custom/T_Fur_Ermine_BaseColor.png",
+   "normal": "@custom/T_Fur_Ermine_Normal.png",
+   "variants": [
+    "fur"
+   ]
+  },
+  "peasant_child": {
+   "albedo": "@custom/child/T_Peasant_BaseColor_child.png",
+   "normal": "@custom/child/T_Peasant_Normal_child.png",
+   "orm": "@custom/child/T_Peasant_ORM_child.png",
+   "bands": {
+    "a": [
+     0,
+     180,
+     0.0,
+     0.32,
+     0.5,
+     1.0,
+     0.59
+    ],
+    "b": [
+     30,
+     15,
+     0.45,
+     1.0,
+     0.08,
+     0.62,
+     0.21
+    ]
+   },
+   "_doc": "children (variant child): the man's shirt without painted pectorals (tools/make_child_textures.py). No variants: a child painted {tex: peasant2} keeps this one"
+  }
+ },
+ "parts": {
+  "head_m": {
+   "slot": "head",
+   "sex": "m",
+   "src": "@base/Base Characters/Godot - UE/Superhero_Male_FullBody.gltf",
+   "node": "SuperHero_Male",
+   "surfaces": [
+    "skin:skin_head_m"
+   ],
+   "attach": [
+    "eyes_m"
+   ],
+   "bake": {
+    "head_cut": {
+     "front_min_w": 0.0,
+     "back_min_w": 0.5
+    }
+   }
+  },
+  "head_m_v": {
+   "slot": "head",
+   "sex": "m",
+   "src": "@base/Base Characters/Godot - UE/Superhero_Male_FullBody.gltf",
+   "node": "SuperHero_Male",
+   "surfaces": [
+    "skin:skin_head_m"
+   ],
+   "attach": [
+    "eyes_m"
+   ],
+   "bake": {
+    "head_cut": {
+     "front_min_w": 0.0,
+     "back_min_w": 0.5,
+     "chest_strip": [
+      1.42,
+      0.04,
+      0.04
+     ]
+    }
+   },
+   "_doc": "with a strip of chest for V-neck shirts (chest_strip = [min y, half width, min z])"
+  },
+  "head_f": {
+   "slot": "head",
+   "sex": "f",
+   "src": "@base/Base Characters/Godot - UE/Superhero_Female_FullBody.gltf",
+   "node": "Superhero_Female",
+   "surfaces": [
+    "skin:skin_head_f"
+   ],
+   "attach": [
+    "eyes_f"
+   ],
+   "bake": {
+    "head_cut": {
+     "front_min_w": 0.0,
+     "back_min_w": 0.5
+    }
+   }
+  },
+  "eyes_m": {
+   "slot": "eyes",
+   "sex": "m",
+   "src": "@base/Base Characters/Godot - UE/Superhero_Male_FullBody.gltf",
+   "node": "Eyes",
+   "surfaces": [
+    "fixed:eyes"
+   ]
+  },
+  "eyes_f": {
+   "slot": "eyes",
+   "sex": "f",
+   "src": "@base/Base Characters/Godot - UE/Superhero_Female_FullBody.gltf",
+   "node": "Eyes",
+   "surfaces": [
+    "fixed:eyes"
+   ]
+  },
+  "brows_m": {
+   "slot": "brows",
+   "sex": "*",
+   "src": "@base/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Eyebrows_Regular.gltf",
+   "node": "Eyebrows_Regular",
+   "surfaces": [
+    "hair:hair1"
+   ]
+  },
+  "brows_f": {
+   "slot": "brows",
+   "sex": "*",
+   "src": "@base/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Eyebrows_Female.gltf",
+   "node": "Eyebrows_Female",
+   "surfaces": [
+    "hair:hair1"
+   ]
+  },
+  "hair_long": {
+   "slot": "hair",
+   "sex": "*",
+   "src": "@base/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Long.gltf",
+   "node": "Hair_Long",
+   "surfaces": [
+    "hair:hair2"
+   ],
+   "tags": [
+    "long_hair"
+   ]
+  },
+  "hair_buns": {
+   "slot": "hair",
+   "sex": "*",
+   "src": "@base/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Buns.gltf",
+   "node": "Hair_Buns",
+   "surfaces": [
+    "hair:hair2"
+   ],
+   "tags": [
+    "long_hair"
+   ]
+  },
+  "hair_buzzed": {
+   "slot": "hair",
+   "sex": "*",
+   "src": "@base/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Buzzed.gltf",
+   "node": "Hair_Buzzed",
+   "surfaces": [
+    "hair:hair1"
+   ],
+   "tags": []
+  },
+  "hair_buzzed_f": {
+   "slot": "hair",
+   "sex": "*",
+   "src": "@base/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_BuzzedFemale.gltf",
+   "node": "Hair_BuzzedFemale",
+   "surfaces": [
+    "hair:hair1"
+   ],
+   "tags": []
+  },
+  "hair_parted": {
+   "slot": "hair",
+   "sex": "*",
+   "src": "@base/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_SimpleParted.gltf",
+   "node": "Hair_SimpleParted",
+   "surfaces": [
+    "hair:hair1"
+   ],
+   "tags": []
+  },
+  "beard": {
+   "slot": "beard",
+   "sex": "*",
+   "src": "@base/Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Beard.gltf",
+   "node": "Hair_Beard",
+   "surfaces": [
+    "hair:hair1"
+   ]
+  },
+  "torso_peasant_m": {
+   "slot": "torso",
+   "outfit": "peasant",
+   "sex": "m",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Male_Peasant.gltf",
+   "node": "Male_Peasant_Body",
+   "surfaces": [
+    "cloth:peasant"
+   ],
+   "head": "head_m_v"
+  },
+  "arms_peasant_m": {
+   "slot": "arms",
+   "outfit": "peasant",
+   "sex": "m",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Male_Peasant.gltf",
+   "node": "Male_Peasant_Arms",
+   "surfaces": [
+    "cloth:peasant",
+    "skin:skin_hands_m"
+   ],
+   "bake": {
+    "mask_hands": true
+   }
+  },
+  "legs_peasant_m": {
+   "slot": "legs",
+   "outfit": "peasant",
+   "sex": "m",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Male_Peasant.gltf",
+   "node": "Male_Peasant_Legs",
+   "surfaces": [
+    "cloth:peasant"
+   ]
+  },
+  "feet_peasant_m": {
+   "slot": "feet",
+   "outfit": "peasant",
+   "sex": "m",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Male_Peasant.gltf",
+   "node": "Male_Peasant_Feet",
+   "surfaces": [
+    "cloth:peasant"
+   ]
+  },
+  "torso_ranger_m": {
+   "slot": "torso",
+   "outfit": "ranger",
+   "sex": "m",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Male_Ranger.gltf",
+   "node": "Male_Ranger_Body",
+   "surfaces": [
+    "cloth:ranger"
+   ],
+   "attach": [
+    "belts_ranger_m"
+   ]
+  },
+  "belts_ranger_m": {
+   "slot": "acc",
+   "outfit": "ranger",
+   "sex": "m",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Male_Ranger.gltf",
+   "node": [
+    "Male_Ranger_Body_Belt_1",
+    "Male_Ranger_Body_Belt_2"
+   ],
+   "surfaces": [
+    "cloth:ranger"
+   ],
+   "paint_from": "torso",
+   "kind": "belts"
+  },
+  "arms_ranger_m": {
+   "slot": "arms",
+   "outfit": "ranger",
+   "sex": "m",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Male_Ranger.gltf",
+   "node": "Male_Ranger_Arms",
+   "surfaces": [
+    "cloth:ranger",
+    "skin:skin_hands_m"
+   ]
+  },
+  "bracers_ranger_m": {
+   "slot": "acc",
+   "outfit": "ranger",
+   "sex": "m",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Male_Ranger.gltf",
+   "node": "Male_Ranger_Arms_Bracer",
+   "surfaces": [
+    "cloth:ranger"
+   ],
+   "paint_from": "arms",
+   "kind": "bracers"
+  },
+  "legs_ranger_m": {
+   "slot": "legs",
+   "outfit": "ranger",
+   "sex": "m",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Male_Ranger.gltf",
+   "node": "Male_Ranger_Legs",
+   "surfaces": [
+    "cloth:ranger"
+   ]
+  },
+  "feet_ranger_m": {
+   "slot": "feet",
+   "outfit": "ranger",
+   "sex": "m",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Male_Ranger.gltf",
+   "node": "Male_Ranger_Feet_Boots",
+   "surfaces": [
+    "cloth:ranger"
+   ]
+  },
+  "hood_ranger_m": {
+   "slot": "acc",
+   "outfit": "ranger",
+   "sex": "m",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Male_Ranger.gltf",
+   "node": "Male_Ranger_Head_Hood",
+   "surfaces": [
+    "cloth:ranger"
+   ],
+   "hides_tags": [
+    "long_hair"
+   ],
+   "kind": "hood"
+  },
+  "pauldron_ranger_m": {
+   "slot": "acc",
+   "outfit": "ranger",
+   "sex": "m",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Male_Ranger.gltf",
+   "node": "Male_Ranger_Acc_Pauldron",
+   "surfaces": [
+    "cloth:ranger"
+   ],
+   "kind": "pauldron"
+  },
+  "torso_peasant_f": {
+   "slot": "torso",
+   "outfit": "peasant",
+   "sex": "f",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Female_Peasant.gltf",
+   "node": "Female_Peasant_Body",
+   "surfaces": [
+    "cloth:peasant"
+   ]
+  },
+  "arms_peasant_f": {
+   "slot": "arms",
+   "outfit": "peasant",
+   "sex": "f",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Female_Peasant.gltf",
+   "node": "Female_Peasant_Arms",
+   "surfaces": [
+    "cloth:peasant"
+   ],
+   "bake": {
+    "mask_hands": true
+   }
+  },
+  "legs_peasant_f": {
+   "slot": "legs",
+   "outfit": "peasant",
+   "sex": "f",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Female_Peasant.gltf",
+   "node": "Female_Peasant_Legs",
+   "surfaces": [
+    "cloth:peasant"
+   ]
+  },
+  "feet_peasant_f": {
+   "slot": "feet",
+   "outfit": "peasant",
+   "sex": "f",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Female_Peasant.gltf",
+   "node": "Female_Peasant_Feet",
+   "surfaces": [
+    "cloth:peasant"
+   ]
+  },
+  "torso_ranger_f": {
+   "slot": "torso",
+   "outfit": "ranger",
+   "sex": "f",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Female_Ranger.gltf",
+   "node": "Female_Ranger_Body",
+   "surfaces": [
+    "cloth:ranger"
+   ],
+   "attach": [
+    "belts_ranger_f"
+   ]
+  },
+  "belts_ranger_f": {
+   "slot": "acc",
+   "outfit": "ranger",
+   "sex": "f",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Female_Ranger.gltf",
+   "node": [
+    "Female_Ranger_Body_Belt_1",
+    "Female_Ranger_Body_Belt_2"
+   ],
+   "surfaces": [
+    "cloth:ranger"
+   ],
+   "paint_from": "torso",
+   "kind": "belts"
+  },
+  "arms_ranger_f": {
+   "slot": "arms",
+   "outfit": "ranger",
+   "sex": "f",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Female_Ranger.gltf",
+   "node": "Female_Ranger_Arms",
+   "surfaces": [
+    "cloth:ranger",
+    "skin:skin_hands_f"
+   ]
+  },
+  "bracers_ranger_f": {
+   "slot": "acc",
+   "outfit": "ranger",
+   "sex": "f",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Female_Ranger.gltf",
+   "node": "Female_Ranger_Arms_Bracer",
+   "surfaces": [
+    "cloth:ranger"
+   ],
+   "paint_from": "arms",
+   "kind": "bracers"
+  },
+  "legs_ranger_f": {
+   "slot": "legs",
+   "outfit": "ranger",
+   "sex": "f",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Female_Ranger.gltf",
+   "node": "Female_Ranger_Legs",
+   "surfaces": [
+    "cloth:ranger"
+   ]
+  },
+  "feet_ranger_f": {
+   "slot": "feet",
+   "outfit": "ranger",
+   "sex": "f",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Female_Ranger.gltf",
+   "node": "Female_Ranger_Feet",
+   "surfaces": [
+    "cloth:ranger"
+   ]
+  },
+  "hood_ranger_f": {
+   "slot": "acc",
+   "outfit": "ranger",
+   "sex": "f",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Female_Ranger.gltf",
+   "node": "Female_Ranger_Head_Hood",
+   "surfaces": [
+    "cloth:ranger"
+   ],
+   "hides_tags": [
+    "long_hair"
+   ],
+   "kind": "hood"
+  },
+  "pauldron_ranger_f": {
+   "slot": "acc",
+   "outfit": "ranger",
+   "sex": "f",
+   "src": "@out/Exports/glTF (Godot-Unreal)/Outfits/Female_Ranger.gltf",
+   "node": "Female_Ranger_Acc_Pauldrons",
+   "surfaces": [
+    "cloth:ranger"
+   ],
+   "kind": "pauldron"
+  },
+  "apron_m": {
+   "slot": "acc",
+   "kind": "apron",
+   "sex": "m",
+   "src": "@custom/Apron_Male.gltf",
+   "node": "Apron_Male",
+   "surfaces": [
+    "cloth:apron"
+   ],
+   "_doc": "made by us in Blender on the male skeleton (tools/make_apron.py): the proof that a new piece is only data"
+  },
+  "head_m_child": {
+   "derive": {
+    "from": "head_m",
+    "warp": "child_m",
+    "strength": 1.0
+   }
+  },
+  "head_m_v_child": {
+   "derive": {
+    "from": "head_m_v",
+    "warp": "child_m",
+    "strength": 1.0
+   }
+  },
+  "head_f_child": {
+   "derive": {
+    "from": "head_f",
+    "warp": "child_f",
+    "strength": 1.0
+   }
+  },
+  "eyes_m_child": {
+   "derive": {
+    "from": "eyes_m",
+    "warp": "child",
+    "strength": 1.0
+   }
+  },
+  "eyes_f_child": {
+   "derive": {
+    "from": "eyes_f",
+    "warp": "child",
+    "strength": 1.0
+   }
+  },
+  "brows_f_child": {
+   "derive": {
+    "from": "brows_f",
+    "warp": "child",
+    "strength": 1.0,
+    "sex": "m"
+   }
+  },
+  "head_m_teen": {
+   "derive": {
+    "from": "head_m",
+    "warp": "child_m",
+    "strength": 0.45
+   }
+  },
+  "head_m_v_teen": {
+   "derive": {
+    "from": "head_m_v",
+    "warp": "child_m",
+    "strength": 0.45
+   }
+  },
+  "head_f_teen": {
+   "derive": {
+    "from": "head_f",
+    "warp": "child_f",
+    "strength": 0.45
+   }
+  },
+  "eyes_m_teen": {
+   "derive": {
+    "from": "eyes_m",
+    "warp": "child",
+    "strength": 0.45
+   }
+  },
+  "eyes_f_teen": {
+   "derive": {
+    "from": "eyes_f",
+    "warp": "child",
+    "strength": 0.45
+   }
+  },
+  "brows_f_teen": {
+   "derive": {
+    "from": "brows_f",
+    "warp": "child",
+    "strength": 0.45,
+    "sex": "m"
+   }
+  },
+  "brows_m_teen": {
+   "derive": {
+    "from": "brows_m",
+    "warp": "child",
+    "strength": 0.45,
+    "sex": "m"
+   }
+  },
+  "hair_buzzed_old": {
+   "derive": {
+    "from": "hair_buzzed",
+    "cut": "receding"
+   },
+   "sex": "m"
+  },
+  "hair_horseshoe": {
+   "derive": {
+    "from": "hair_buzzed",
+    "cut": "horseshoe"
+   }
+  },
+  "head_m_old": {
+   "derive": {
+    "from": "head_m",
+    "warp": "old"
+   }
+  },
+  "head_m_v_old": {
+   "derive": {
+    "from": "head_m_v",
+    "warp": "old"
+   }
+  },
+  "head_f_old": {
+   "derive": {
+    "from": "head_f",
+    "warp": "old"
+   }
+  },
+  "beard_old": {
+   "derive": {
+    "from": "beard",
+    "warp": "old",
+    "sex": "m"
+   }
+  },
+  "torso_peasant_f_child": {
+   "derive": {
+    "from": "torso_peasant_f",
+    "warp": "flat_chest"
+   }
+  },
+  "torso_peasant_f_teen": {
+   "derive": {
+    "from": "torso_peasant_f",
+    "warp": "flat_chest",
+    "strength": 0.5
+   }
+  },
+  "torso_ranger_f_child": {
+   "derive": {
+    "from": "torso_ranger_f",
+    "warp": "flat_chest"
+   }
+  },
+  "torso_ranger_f_teen": {
+   "derive": {
+    "from": "torso_ranger_f",
+    "warp": "flat_chest",
+    "strength": 0.5
+   }
+  },
+  "brows_m_child": {
+   "derive": {
+    "from": "brows_m",
+    "warp": "child",
+    "sex": "m"
+   }
+  },
+  "torso_gown_f": {
+   "slot": "torso",
+   "outfit": "gown",
+   "sex": "f",
+   "src": "@custom/Gown_F.gltf",
+   "node": "Gown_F",
+   "surfaces": [
+    "cloth:gown"
+   ],
+   "_doc": "made by us in Blender on the kit skeleton (tools/make_garment.py): long gown, collar to ankles; wear with legs \"\" (nothing under the skirt)",
+   "head": "head_f_c",
+   "skirt": {
+    "_doc": "skirt bones (tools/make_garment.py skirt=...): CharSkirt hangs each column by gravity out of these leg capsules [radius at the bone, at its child] + margin; floor = clearance over the floor; spread = max deg a column hangs under a neighbour a leg lifts, pleat = every other column x (1 + pleat) (the folds); plumb = how plumb the lower segments fall under a lifted top (0..1), fold = deg every other column hangs out / in there (the folds); freq (Hz) and damp = the spring the angles follow in game; drag = deg the cloth trails per m/s of speed; every = solve 1 frame in N",
+    "legs": {
+     "thigh": [
+      0.1,
+      0.08
+     ],
+     "calf": [
+      0.11,
+      0.075
+     ],
+     "foot": [
+      0.085,
+      0.07
+     ],
+     "ball": [
+      0.065,
+      0.055
+     ]
+    },
+    "margin": 0.02,
+    "floor": 0.02,
+    "spread": 40,
+    "pleat": 0.6,
+    "plumb": 0.8,
+    "fold": 9,
+    "freq": 2.2,
+    "damp": 0.35,
+    "drag": 6
+   }
+  },
+  "torso_dress_f": {
+   "slot": "torso",
+   "outfit": "dress",
+   "sex": "f",
+   "src": "@custom/Dress_F.gltf",
+   "node": "Dress_F",
+   "surfaces": [
+    "cloth:dress"
+   ],
+   "_doc": "made by us in Blender on the kit skeleton (tools/make_garment.py): mid-calf dress (girls; legs \"\")",
+   "head": "head_f_c"
+  },
+  "torso_cassock_m": {
+   "slot": "torso",
+   "outfit": "cassock",
+   "sex": "m",
+   "src": "@custom/Cassock_M.gltf",
+   "node": "Cassock_M",
+   "surfaces": [
+    "cloth:cassock"
+   ],
+   "_doc": "made by us in Blender on the kit skeleton (tools/make_garment.py): cleric's cassock to the ankles, stand collar (band b = collar and cincture); legs \"\"",
+   "head": "head_m_c",
+   "skirt": {
+    "_doc": "skirt bones (tools/make_garment.py skirt=...): CharSkirt hangs each column by gravity out of these leg capsules [radius at the bone, at its child] + margin; floor = clearance over the floor; spread = max deg a column hangs under a neighbour a leg lifts, pleat = every other column x (1 + pleat) (the folds); plumb = how plumb the lower segments fall under a lifted top (0..1), fold = deg every other column hangs out / in there (the folds); freq (Hz) and damp = the spring the angles follow in game; drag = deg the cloth trails per m/s of speed; every = solve 1 frame in N",
+    "legs": {
+     "thigh": [
+      0.1,
+      0.08
+     ],
+     "calf": [
+      0.11,
+      0.075
+     ],
+     "foot": [
+      0.085,
+      0.07
+     ],
+     "ball": [
+      0.065,
+      0.055
+     ]
+    },
+    "margin": 0.02,
+    "floor": 0.02,
+    "spread": 40,
+    "pleat": 0.6,
+    "plumb": 0.8,
+    "fold": 9,
+    "freq": 2.2,
+    "damp": 0.35,
+    "drag": 6
+   }
+  },
+  "torso_coat_m": {
+   "slot": "torso",
+   "outfit": "coat",
+   "sex": "m",
+   "src": "@custom/Coat_M.gltf",
+   "node": "Coat_M",
+   "surfaces": [
+    "cloth:coat"
+   ],
+   "_doc": "made by us in Blender on the kit skeleton (tools/make_garment.py): long doublet / coat to the knees with belt (noble); trousers and boots under",
+   "head": "head_m_c"
+  },
+  "torso_tunic_m": {
+   "slot": "torso",
+   "outfit": "tunic",
+   "sex": "m",
+   "src": "@custom/Tunic_M.gltf",
+   "node": "Tunic_M",
+   "surfaces": [
+    "cloth:tunic"
+   ],
+   "_doc": "made by us in Blender on the kit skeleton (tools/make_garment.py): smooth tunic to mid-thigh with a rope belt (boys, labourers)",
+   "head": "head_m_c"
+  },
+  "tabard_m": {
+   "slot": "acc",
+   "kind": "tabard",
+   "sex": "m",
+   "src": "@custom/Tabard_M.gltf",
+   "node": "Tabard_M",
+   "surfaces": [
+    "cloth:tabard"
+   ],
+   "_doc": "made by us in Blender on the kit skeleton (tools/make_garment.py): guard's tabard over the clothes, open sides, cross and borders in band b"
+  },
+  "mantle_m": {
+   "slot": "acc",
+   "kind": "mantle",
+   "sex": "m",
+   "src": "@custom/Mantle_M.gltf",
+   "node": "Mantle_M",
+   "surfaces": [
+    "cloth:fur"
+   ],
+   "_doc": "made by us in Blender on the kit skeleton (tools/make_garment.py): short fur shoulder cape (noble)"
+  },
+  "mantle_f": {
+   "slot": "acc",
+   "kind": "mantle",
+   "sex": "f",
+   "src": "@custom/Mantle_F.gltf",
+   "node": "Mantle_F",
+   "surfaces": [
+    "cloth:fur"
+   ],
+   "_doc": "made by us in Blender on the kit skeleton (tools/make_garment.py): short fur shoulder cape (noble)"
+  },
+  "torso_peasant_m_child": {
+   "derive": {
+    "from": "torso_peasant_m",
+    "warp": "flat_chest_m"
+   },
+   "_doc": "boys: the shirt without pectorals (flattened chest, normals turned; texture set peasant_child)"
+  },
+  "torso_peasant_m_teen": {
+   "derive": {
+    "from": "torso_peasant_m",
+    "warp": "flat_chest_m",
+    "strength": 0.5
+   }
+  },
+  "torso_gown_f_child": {
+   "derive": {
+    "from": "torso_gown_f",
+    "warp": "flat_chest"
+   }
+  },
+  "torso_gown_f_teen": {
+   "derive": {
+    "from": "torso_gown_f",
+    "warp": "flat_chest",
+    "strength": 0.5
+   }
+  },
+  "torso_dress_f_child": {
+   "derive": {
+    "from": "torso_dress_f",
+    "warp": "flat_chest"
+   }
+  },
+  "torso_dress_f_teen": {
+   "derive": {
+    "from": "torso_dress_f",
+    "warp": "flat_chest",
+    "strength": 0.5
+   }
+  },
+  "head_m_c": {
+   "slot": "head",
+   "sex": "m",
+   "src": "@base/Base Characters/Godot - UE/Superhero_Male_FullBody.gltf",
+   "node": "SuperHero_Male",
+   "surfaces": [
+    "skin:skin_head_m"
+   ],
+   "attach": [
+    "eyes_m"
+   ],
+   "bake": {
+    "head_cut": {
+     "front_min_w": 0.3,
+     "back_min_w": 0.5
+    }
+   },
+   "_doc": "cut higher in front (no shoulder skin under a closed collar): asked by our garments' torso parts (\"head\")"
+  },
+  "head_m_c_child": {
+   "derive": {
+    "from": "head_m_c",
+    "warp": "child_m",
+    "strength": 1.0
+   }
+  },
+  "head_m_c_teen": {
+   "derive": {
+    "from": "head_m_c",
+    "warp": "child_m",
+    "strength": 0.45
+   }
+  },
+  "head_m_c_old": {
+   "derive": {
+    "from": "head_m_c",
+    "warp": "old"
+   }
+  },
+  "head_f_c": {
+   "slot": "head",
+   "sex": "f",
+   "src": "@base/Base Characters/Godot - UE/Superhero_Female_FullBody.gltf",
+   "node": "Superhero_Female",
+   "surfaces": [
+    "skin:skin_head_f"
+   ],
+   "attach": [
+    "eyes_f"
+   ],
+   "bake": {
+    "head_cut": {
+     "front_min_w": 0.3,
+     "back_min_w": 0.5
+    }
+   },
+   "_doc": "cut higher in front (no shoulder skin under a closed collar): asked by our garments' torso parts (\"head\")"
+  },
+  "head_f_c_child": {
+   "derive": {
+    "from": "head_f_c",
+    "warp": "child_f",
+    "strength": 1.0
+   }
+  },
+  "head_f_c_teen": {
+   "derive": {
+    "from": "head_f_c",
+    "warp": "child_f",
+    "strength": 0.45
+   }
+  },
+  "head_f_c_old": {
+   "derive": {
+    "from": "head_f_c",
+    "warp": "old"
+   }
+  },
+  "arms_robe_m": {
+   "derive": {
+    "from": "arms_peasant_m",
+    "drop_box": [
+     [
+      0.0,
+      0.205
+     ],
+     [
+      1.47,
+      1.7
+     ],
+     [
+      -0.2,
+      0.2
+     ]
+    ]
+   },
+   "_doc": "the peasant sleeves without the shoulder cap (it pokes out of our garments' shoulders when the arm comes down): wear with torso gown / dress / cassock / coat / tunic"
+  },
+  "arms_robe_f": {
+   "derive": {
+    "from": "arms_peasant_f",
+    "drop_box": [
+     [
+      0.0,
+      0.19
+     ],
+     [
+      1.43,
+      1.7
+     ],
+     [
+      -0.2,
+      0.2
+     ]
+    ]
+   },
+   "_doc": "see arms_robe_m"
+  }
+ },
+ "ages": {
+  "_doc": "Life stages (docs/personajes.md, Edades). keys: numeric profile per age in years, interpolated between neighbours: height (standing height as a fraction of the adult of that sex), bones (effective uniform scale per bone relative to the body; omit _l/_r for both sides; unlisted bones follow their parent), bend (degrees about the bone's local X added after the animation: + = forward), anim_speed, grey (hair towards white), skin_fade. stages: the first whose until >= age gives variant (part/texture id suffix used when it exists) and parts (forced over the villager's).",
+  "keys": [
+   {
+    "at": 8,
+    "height": 0.72,
+    "anim_speed": 1.05,
+    "bones": {
+     "pelvis": 0.9,
+     "spine_01": 0.93,
+     "spine_02": 0.9,
+     "clavicle": 0.8,
+     "upperarm": 0.88,
+     "hand": 0.86,
+     "neck_01": 0.74,
+     "Head": 1.26,
+     "thigh": 0.95,
+     "foot": 0.88
+    }
+   },
+   {
+    "at": 14,
+    "height": 0.92,
+    "bones": {
+     "pelvis": 0.95,
+     "spine_01": 0.97,
+     "spine_02": 0.95,
+     "clavicle": 0.9,
+     "upperarm": 0.95,
+     "hand": 0.94,
+     "neck_01": 0.9,
+     "Head": 1.1,
+     "thigh": 1.0,
+     "foot": 0.96
+    }
+   },
+   {
+    "at": 20
+   },
+   {
+    "at": 45
+   },
+   {
+    "at": 55,
+    "grey": 0.35,
+    "skin_fade": 0.25,
+    "bend": {
+     "spine_03": 3,
+     "neck_01": 3,
+     "Head": -3
+    }
+   },
+   {
+    "at": 72,
+    "height": 0.97,
+    "anim_speed": 0.8,
+    "grey": 0.92,
+    "skin_fade": 0.6,
+    "bend": {
+     "spine_02": 7,
+     "spine_03": 9,
+     "neck_01": 12,
+     "Head": -14
+    }
+   }
+  ],
+  "stages": [
+   {
+    "name": "child",
+    "until": 11.99,
+    "variant": "child",
+    "parts": {
+     "beard": ""
+    }
+   },
+   {
+    "name": "teen",
+    "until": 16.99,
+    "variant": "teen",
+    "parts": {
+     "beard": ""
+    }
+   },
+   {
+    "name": "adult",
+    "until": 49.99
+   },
+   {
+    "name": "mature",
+    "until": 64.99,
+    "variant": "mature"
+   },
+   {
+    "name": "elder",
+    "until": 200,
+    "variant": "old"
+   }
+  ]
+ },
+ "warps": {
+  "_doc": "Face deformations for derived parts (tools/make_age_parts.gd), in the Head bone space around the landmarks: nose [radius m, scale], eyes [radius m, scale, drop m], jaw [scale x, y, z, fade height m, fade depth m], cheeks [radius m, push m]. A part's derive.strength scales them towards 1. brow: [brow ridge back m, forehead forward m, brow lift m]; neck: [radial scale, neck axis z m] (child_m / child_f: the child face plus a thicker neck).",
+  "child": {
+   "nose": [
+    0.036,
+    0.56
+   ],
+   "eyes": [
+    0.027,
+    1.28,
+    0.003
+   ],
+   "jaw": [
+    0.9,
+    0.7,
+    0.88,
+    0.05,
+    0.07
+   ],
+   "cheeks": [
+    0.046,
+    0.013
+   ],
+   "brow": [
+    0.004,
+    0.003,
+    0.004
+   ]
+  },
+  "old": {
+   "nose": [
+    0.034,
+    1.08
+   ],
+   "cheeks": [
+    0.035,
+    -0.003
+   ],
+   "jaw": [
+    1.0,
+    1.05,
+    0.98,
+    0.05,
+    0.07
+   ]
+  },
+  "flat_chest": {
+   "bone": "spine_03",
+   "flatten": {
+    "center": [
+     0.0,
+     0.0
+    ],
+    "size": [
+     0.15,
+     0.15
+    ],
+    "z0": 0.075,
+    "scale": 0.4
+   }
+  },
+  "child_m": {
+   "nose": [
+    0.036,
+    0.56
+   ],
+   "eyes": [
+    0.027,
+    1.28,
+    0.003
+   ],
+   "jaw": [
+    0.9,
+    0.7,
+    0.88,
+    0.05,
+    0.07
+   ],
+   "cheeks": [
+    0.046,
+    0.013
+   ],
+   "brow": [
+    0.004,
+    0.003,
+    0.004
+   ],
+   "neck": [
+    1.22,
+    -0.03
+   ]
+  },
+  "child_f": {
+   "nose": [
+    0.036,
+    0.56
+   ],
+   "eyes": [
+    0.027,
+    1.28,
+    0.003
+   ],
+   "jaw": [
+    0.9,
+    0.7,
+    0.88,
+    0.05,
+    0.07
+   ],
+   "cheeks": [
+    0.046,
+    0.013
+   ],
+   "brow": [
+    0.004,
+    0.003,
+    0.004
+   ],
+   "neck": [
+    1.15,
+    -0.035
+   ]
+  },
+  "flat_chest_m": {
+   "bone": "spine_03",
+   "flatten": {
+    "center": [
+     0.0,
+     0.02
+    ],
+    "size": [
+     0.15,
+     0.12
+    ],
+    "z0": 0.085,
+    "scale": 0.45
+   }
+  }
+ },
+ "cuts": {
+  "_doc": "Hair cuts for derived parts: drop the triangles above eye height + above (m) + slope x depth behind the eyes - temples x |x|.",
+  "receding": {
+   "above": 0.075,
+   "slope": 0.6,
+   "temples": 0.0
+  },
+  "horseshoe": {
+   "above": 0.05,
+   "slope": 0.22
+  }
+ },
+ "props": {
+  "_doc": "Simple held / worn objects (CharBuilder: def.props = [names]), attached to a bone with BoneAttachment3D. Shapes: [type cylinder|box|sphere|capsule, size [..] (cylinder/capsule: radius, height; box: x, y, z; sphere: radius), position [x, y, z] and rotation degrees [x, y, z] in the bone's space, colour [r, g, b]].",
+  "cane": {
+   "bone": "hand_r",
+   "shapes": [
+    [
+     "cylinder",
+     [
+      0.014,
+      0.92
+     ],
+     [
+      0.0,
+      0.42,
+      0.03
+     ],
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      0.36,
+      0.25,
+      0.15
+     ]
+    ],
+    [
+     "cylinder",
+     [
+      0.02,
+      0.1
+     ],
+     [
+      0.0,
+      -0.05,
+      0.03
+     ],
+     [
+      0,
+      0,
+      90
+     ],
+     [
+      0.3,
+      0.2,
+      0.12
+     ]
+    ]
+   ]
+  },
+  "baby": {
+   "bone": "spine_03",
+   "shapes": [
+    [
+     "capsule",
+     [
+      0.075,
+      0.36
+     ],
+     [
+      0.0,
+      -0.06,
+      0.16
+     ],
+     [
+      0,
+      0,
+      70
+     ],
+     [
+      0.62,
+      0.55,
+      0.44
+     ]
+    ],
+    [
+     "sphere",
+     [
+      0.066
+     ],
+     [
+      0.11,
+      0.0,
+      0.17
+     ],
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      0.9,
+      0.72,
+      0.6
+     ]
+    ],
+    [
+     "box",
+     [
+      0.07,
+      0.62,
+      0.02
+     ],
+     [
+      0.0,
+      0.02,
+      0.1
+     ],
+     [
+      0,
+      0,
+      -38
+     ],
+     [
+      0.5,
+      0.36,
+      0.24
+     ]
+    ]
+   ]
+  }
+ }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "forge",
+  "name_key": "building.forge",
+  "category": "workshop",
+  "parcel_type": "production",
+  "footprint": [
+    3,
+    4
+  ],
+  "build_cost": 100,
+  "build_days": 1,
+  "upkeep": 20,
+  "storage_stacks": 10,
+  "base_employees": 1,
+  "zones": [
+    {
+      "id": "furnace",
+      "kind": "craft"
+    },
+    {
+      "id": "anvil",
+      "kind": "craft"
+    },
+    {
+      "id": "counter",
+      "kind": "sales"
+    },
+    {
+      "id": "storage",
+      "kind": "storage"
+    }
+  ],
+  "upgrade_tree": "forge",
+  "night_production": "manual_only",
+  "includes_housing": true,
+  "tool": "hammer"
+}

@@ -61,6 +61,11 @@ extends Node
 ## player's settings are not touched) and the first-time hints only show in the tutorial's own scripts:
 ## --smoke-script=tutorial (chapters 1 and 2 played, a shot per step) and tutorial_datos (every step finds its target).
 
+## GuildMaster 3D (docs/3d/plan.md): the town is drawn by WorldView3D (game/world3d/) when view_mode is "3d" (data/view.json
+## view_mode, or --view=2d|3d). The capture scripts of the 2D view, the flows and the gallery keep the 2D (WorldView)
+## unless --view=3d; the 3D ones are SMOKE_3D. In 3D the window scales the canvas (canvas_items, whole factor) so the
+## 3D is drawn at the window's real size and the UI keeps its 960×540 grid; interiors are still the 2D InteriorView.
+const SMOKE_3D: Array[String] = ["pueblo3d"]
 const GALLERY: String = "res://game/tools/gallery.tscn"
 const TITLE_TILE: Vector2i = Vector2i(20, 15)  # the camera behind the title (the plaza, docs/ui/maquetas/fondos)
 const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
@@ -87,7 +92,8 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"h6": "res://game/smoke/smoke_h6.gd",
 	"plantillas": "res://game/smoke/smoke_plantillas.gd",
 	"interiores": "res://game/smoke/smoke_interiores.gd", "flow": "res://game/smoke/flow/flow_runner.gd",
-	"equilibrio": "res://game/smoke/smoke_equilibrio.gd", "teclas": "res://game/smoke/smoke_teclas.gd"}
+	"equilibrio": "res://game/smoke/smoke_equilibrio.gd", "teclas": "res://game/smoke/smoke_teclas.gd",
+	"pueblo3d": "res://game/smoke/smoke_pueblo3d.gd"}
 ## Duel prototype (docs/gdd/04e_combate.md §4e.8, not wired to the game): --duel-test opens the duel screen over the
 ## paused game (the protagonist against the rival smith); --duel-kind=<kind>, --duel-weapon=<weapon>, --duel-rival=<chr>.
 const DUEL_SCREEN: String = "res://game/ui/duel_screen.tscn"
@@ -118,6 +124,8 @@ const GAME_SCREEN: String = "res://game/ui/games/game_screen.tscn"
 @onready var _tutorial: Tutorial = %Tutorial
 
 var interior_building: String = ""   # "" = the town is shown
+var view_mode: String = "2d"          # "2d" (WorldView) | "3d" (WorldView3D)
+var _w3: WorldView3D = null               # the 3D town (view_mode "3d")
 var _shots_left: int = 0
 var _shot_every: float = 1.0
 var _shot_timer: float = 0.0
@@ -151,13 +159,18 @@ func _ready() -> void:
 			script_id = a.substr(15)
 		elif a.begins_with("--flow=") or a.begins_with("--flows="):
 			script_id = "flow"   # docs/gdd/07_testing.md §7.6: the flows played through the interface
+	view_mode = resolve_view_mode(args, script_id)
+	if view_mode == "3d":
+		_setup_3d()
 	_interior.order_sink = Game.give
 	_interior.set_active(false)
 	_world.selection_changed.connect(_on_world_selection)
 	_world.building_picked.connect(func(id: String) -> void: _hud.set_building(id))
 	_world.npc_picked.connect(func(id: String) -> void: _hud.open_npc(id))  # H7: a townsperson's sheet
 	_world.plot_picked.connect(open_plot)  # H6: a plot in the building mode: its card
-	_hud.build_mode_changed.connect(func(on: bool) -> void: _world.set_build_mode(on))
+	_hud.build_mode_changed.connect(func(on: bool) -> void:
+		if _w3 == null:
+			_world.set_build_mode(on))
 	_hud.plot_requested.connect(open_plot)
 	_world.manage_requested.connect(func(id: String) -> void:
 		if _owns(id):
@@ -168,8 +181,8 @@ func _ready() -> void:
 	_hud.focus_requested.connect(focus_on)
 	_hud.festival_requested.connect(func(e: Dictionary) -> void:  # fiestas: the feast's card again, from the clock
 		(get_node("CardsLayer/EventCard") as Node).call("reopen_festival", Game.sim, e))
-	_hud.select_requested.connect(func(id: String) -> void: _world.select(id))  # H8: the group (1-2-3, portraits)
-	_hud.deselect_requested.connect(func() -> void: _world.pick_building_id(""))  # ESC forgets the picked building
+	_hud.select_requested.connect(func(id: String) -> void: _select(id))  # H8: the group (1-2-3, portraits)
+	_hud.deselect_requested.connect(func() -> void: _pick_building(""))  # ESC forgets the picked building
 	_new_game.started.connect(_on_new_game_started)
 	_new_game.back_requested.connect(func() -> void:
 		_new_game.close()
@@ -177,7 +190,7 @@ func _ready() -> void:
 	_ending.new_game_pressed.connect(show_new_game)
 	_ending.title_pressed.connect(show_title)
 	_bind_menus()
-	_interior.selection_changed.connect(func(id: String) -> void: _world.select(id))
+	_interior.selection_changed.connect(func(id: String) -> void: _select(id))
 	_interior.close_requested.connect(close_interior)
 	Events.sim_event.connect(_on_sim_event)
 	Game.started.connect(func() -> void:
@@ -201,7 +214,7 @@ func _ready() -> void:
 		else:
 			push_error("unknown --smoke-script=%s" % script_id)
 	elif _shots_left > 0:
-		_world.select(_world.first_selectable())
+		_select(_first_selectable())
 	var opts := Game.parse_args(args)
 	if args.has("--duel-test"):
 		open_duel_test.call_deferred()
@@ -518,7 +531,7 @@ func show_title() -> void:
 		var dusk := int(starts["dusk"])
 		Game.set_time_of_day(st, dusk + (int(starts["night"]) - dusk) * 3 / 4)  # late dusk: torches lit
 		Game.start(st, Game.sim.catalog)
-		_world.camera().center_on(Iso.tile_to_world(TITLE_TILE))
+		_center_on_tile(TITLE_TILE)
 	_set_signs_visible(false)
 	_hud.visible = false
 	Game.set_paused(true)
@@ -583,7 +596,7 @@ func _enter_game() -> void:
 	_hud.visible = true
 	Game.lock_orders(false)
 	Game.set_paused(false)
-	_world.select(_world.first_selectable())
+	_select(_first_selectable())
 
 
 ## Loads a slot (Continue, the load screen) and plays it at the "speed on load" of the options.
@@ -711,7 +724,7 @@ func _close_dynasty() -> void:
 	_pause.close()
 	var st := Game.sim.state
 	var fam := SimQuery.player_family(st)
-	var r := Orders.apply(Game.sim, {"type": "close_dynasty", "actor": SimQuery.family_actor(st, fam, _world.selected_id)})
+	var r := Orders.apply(Game.sim, {"type": "close_dynasty", "actor": SimQuery.family_actor(st, fam, _selected())})
 	Log.info("App", "close dynasty (ok=%s, reason=%s)" % [r.get("ok", false), r.get("reason", "")])
 
 
@@ -736,21 +749,24 @@ func focus_on(target: String) -> void:
 		var d: Array = st.buildings[target].get("door", [])
 		if d.size() == 2:
 			tile = Vector2i(int(d[0]), int(d[1]))
-		_world.pick_building_id(target)
+		_pick_building(target)
 	elif st.characters.has(target):
 		var ch: Dictionary = st.characters[target]
 		var loc := str(ch.get("location", ""))
 		var p: Array = st.buildings.get(loc, {}).get("door", []) if loc != "" else ch.get("position", [])
 		if p.size() == 2:
 			tile = Vector2i(int(p[0]), int(p[1]))
-		if _world.view_of(target) != null and _world.view_of(target).selectable:
+		if _w3 != null:
+			if str(ch.get("controlled_by", "")) == "human":
+				_select(target)
+		elif _world.view_of(target) != null and _world.view_of(target).selectable:
 			_world.select(target)
 	if tile.x == -999:
 		return
 	Log.info("App", "focus %s (tile=%s)" % [target, tile])
 	if interior_building != "":
 		_close_now()
-	_world.camera().center_on(Iso.tile_to_world(tile))
+	_center_on_tile(tile)
 
 
 func audio() -> AudioDirector:
@@ -780,13 +796,13 @@ func _on_world_selection(id: String) -> void:
 func open_interior(building: String, manage: bool, panel: String = "") -> void:
 	if building == "" or not Game.sim.state.buildings.has(building):
 		return
-	Log.info("App", "open interior (building=%s, manage=%s, selected=%s)" % [building, manage, _world.selected_id])
+	Log.info("App", "open interior (building=%s, manage=%s, selected=%s)" % [building, manage, _selected()])
 	_hud.set_build_mode(false)  # H6: no building mode inside
 	_fade_swap(func() -> void:
 		interior_building = building
-		_interior.setup(Game.sim, building, _world.selected_id, manage)
+		_interior.setup(Game.sim, building, _selected(), manage)
 		_interior.set_active(true)
-		_world.set_active(false)
+		_set_town_active(false)
 		_hud.set_interior(true)
 		if panel == "staff":
 			_interior.show_staff(true, "staff"))
@@ -802,13 +818,13 @@ func close_interior() -> void:
 		_close_now()
 		var d: Array = Game.sim.state.buildings.get(bld, {}).get("door", [])
 		if d.size() == 2:
-			_world.camera().center_on(Iso.tile_to_world(Vector2i(int(d[0]), int(d[1])))))
+			_center_on_tile(Vector2i(int(d[0]), int(d[1]))))
 
 
 func _close_now() -> void:
 	interior_building = ""
 	_interior.set_active(false)
-	_world.set_active(true)
+	_set_town_active(true)
 	_hud.set_interior(false)
 
 
@@ -843,7 +859,7 @@ func _on_sim_event(e: Dictionary) -> void:
 		_town_dirty = true   # H6: what stands in the town changed: drawn again once, after the step
 		(func() -> void:
 			_town_dirty = false
-			_world.rebuild_town()).call_deferred()
+			_rebuild_town()).call_deferred()
 	if type == "festival_game_call" and str(e.get("family", "")) == SimQuery.player_family(Game.sim.state):
 		# juegos: the player's competition of the feast begins (the joust, the tournament, the race, the bulls)
 		open_game.call_deferred({"game": str(e["game"]), "actor": actor, "opponents": e.get("opponents", []),
@@ -852,7 +868,7 @@ func _on_sim_event(e: Dictionary) -> void:
 		_pass_control(str(e.get("driver", actor)))
 	elif type == "trip_arrived" and actor == _hud.active_person() and not menu_open():
 		open_city(str(e.get("city", "")))   # viajes: arriving opens the page of the city
-	if type == "building_entered" and actor == _world.selected_id and actor != "":
+	if type == "building_entered" and actor == _selected() and actor != "":
 		if interior_building != str(e.get("building", "")):
 			open_interior(str(e.get("building", "")), false)
 	elif type == "building_left" and interior_building != "" and str(e.get("building", "")) == interior_building:
@@ -865,12 +881,12 @@ func _on_sim_event(e: Dictionary) -> void:
 ## Viajes: when the selected person leaves the map (a trip, a caravan), the control passes to the next one of the
 ## family's group who is at home (GDD 4.10.5); with nobody, the selection stays on the traveller.
 func _pass_control(gone: String) -> void:
-	if gone == "" or gone != _world.selected_id or Game.sim == null:
+	if gone == "" or gone != _selected() or Game.sim == null:
 		return
 	for c: String in Kin.group(Game.sim.state, _hud.family()):
 		if c != gone and not Region.is_away(Game.sim.state, c):
 			Log.info("App", "control passes from %s to %s (away)" % [gone, c])
-			_world.select(c)
+			_select(c)
 			return
 
 
@@ -930,7 +946,11 @@ func _process(delta: float) -> void:
 		_ending.show_ending(Game.sim.state, Game.sim)
 		_audio.play("sfx_ui_seal")  # 02 §7: the seal of the ending appears
 	_background.color = Color.BLACK if interior_building != "" else _bg_color * _world.tint_color
-	_reveal_selection()
+	if _w3 != null:
+		_background.visible = interior_building != ""  # in 3D the town is the background (it covers the 3D otherwise)
+		_w3.keys_on = not menu_open()
+	else:
+		_reveal_selection()
 	if _shots_left <= 0:
 		return
 	_shot_timer += delta
@@ -997,3 +1017,86 @@ func save_shot(shot_name: String) -> String:
 	img.save_png(path)
 	print("[Smoke] shot %s (x%d)" % [path, k])
 	return path
+
+
+## data/view.json view_mode ("2d" | "3d"), or --view=; the 2D capture scripts, the flows and the gallery keep the 2D.
+static func resolve_view_mode(args: PackedStringArray, script_id: String) -> String:
+	for a: String in args:
+		if a.begins_with("--view="):
+			return "3d" if a.substr(7) == "3d" else "2d"
+	if args.has("--gallery") or (script_id != "" and not SMOKE_3D.has(script_id)):
+		return "2d"
+	return "3d" if str(ViewConfig.value("view_mode", "2d")) == "3d" else "2d"
+
+
+## The 3D town in place of WorldView: WorldView3D where WorldView is in the tree; WorldView stays, hidden and frozen,
+## without building itself on every new game (the capture scripts and tests of the 2D still reach it by world()).
+func _setup_3d() -> void:
+	for c: Dictionary in Game.started.get_connections():
+		if (c["callable"] as Callable).get_object() == _world:
+			Game.started.disconnect(c["callable"])
+	_world.set_active(false)
+	_w3 = WorldView3D.new()
+	_w3.name = "WorldView3D"
+	add_child(_w3)
+	move_child(_w3, _world.get_index() + 1)
+	_w3.selection_changed.connect(_on_world_selection)
+	_w3.building_picked.connect(func(id: String) -> void: _hud.set_building(id))
+	_w3.npc_picked.connect(func(id: String) -> void: _hud.open_npc(id))
+	_w3.plot_picked.connect(open_plot)
+	_w3.manage_requested.connect(func(id: String) -> void:
+		if _owns(id):
+			open_interior(id, true))
+	_w3.service_requested.connect(_hud.request_service)
+	if DisplayServer.get_name() != "headless":
+		get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
+		get_tree().root.content_scale_stretch = Window.CONTENT_SCALE_STRETCH_FRACTIONAL  # integer would draw the 3D at 960×540
+	Log.info("App", "view 3d (WorldView3D, canvas_items scale)")
+
+
+func world3d() -> WorldView3D:
+	return _w3
+
+
+## The town shown now (2D or 3D): selection, picked building, camera.
+func _select(id: String) -> void:
+	if _w3 != null:
+		_w3.select(id)
+	else:
+		_world.select(id)
+
+
+func _selected() -> String:
+	return _w3.selected_id if _w3 != null else _world.selected_id
+
+
+func _first_selectable() -> String:
+	return _w3.first_selectable() if _w3 != null else _world.first_selectable()
+
+
+func _pick_building(id: String) -> void:
+	if _w3 != null:
+		_w3.pick_building_id(id)
+	else:
+		_world.pick_building_id(id)
+
+
+func _center_on_tile(t: Vector2i) -> void:
+	if _w3 != null:
+		_w3.center_on_tile(t)
+	else:
+		_world.camera().center_on(Iso.tile_to_world(t))
+
+
+func _set_town_active(on: bool) -> void:
+	if _w3 != null:
+		_w3.set_active(on)
+	else:
+		_world.set_active(on)
+
+
+func _rebuild_town() -> void:
+	if _w3 != null:
+		_w3.rebuild_town()
+	else:
+		_world.rebuild_town()

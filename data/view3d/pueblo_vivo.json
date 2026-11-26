@@ -1,0 +1,56 @@
+{
+  "_doc": "What dresses the town of the sim (scripts/pueblo_vivo.gd over pueblo.gd; docs/construccion.md, «Pueblo vivo»). Every piece id is one of the catalogues of LandmarkBuilder (kit/extras, kit/landmarks). Nothing here stands on a tile the sim walks unless it is on a tile corner or edge and walkers are steered round it (lamps, stone benches, trees, hedges); the rest goes on tiles nobody walks (yards, the well's tile, the board's, water). `well` / `board`: the piece on the plaza well's tile and on the notice board's ('' keeps @pozo / @cartel). `lamps`: `decor` (a post for every lantern of the 2D decor), `plaza` (posts on the corners of the plaza), `shadows` (how many of the lit lamps nearest the camera cast shadows, at night and at zoom <= shadow_zoom), `energy` (light energy at night; the catalogue gives colour and range), `light_at` / `glow_at` (optional, plan x, y, z in the piece; by default the catalogue's light.at and light.glow). `benches`: the piece for the decor benches. `trough`: set into the edge of a yard that faces a street, near the plaza. `cart`: a cart and its beast in the yard nearest the market where they fit. `dock`: a ramp on a yard tile by the river, pier modules on the water and a moored boat. `decor`: decor prop id -> piece placed by its footprint in the yard of its tile. `trees`: decor tree family -> candidates ('q:' Stylized Nature, 't:' kit/trees family), `fruit`: fruit pieces by season for the fruit trees. `yards`: what the yard of a building gets, by its look (type; houses by wealth): pieces (`chance` 0-1, by the dice of the house) and `beasts` (animal id, `n`; they need free ground). `beasts`: `max_animated` (animals animated at once, the nearest the camera; each costs 6 draw calls, a bird 4), `anim_zoom` (past this zoom every animal is its still pose), `roam` (loose animals: where). `crops`: fields of up to `small_max` tiles grow `small`, the rest `big`; `phase`: crop -> season -> 1 sown, 2 growing, 3 harvest (0: bare soil). `banner_colors`: the cloths of the market banners, in turn (market_banner). `crops.mix`: crop -> season -> a field in strips across its long side (sown, young: green shoots, stubble, stooks: ploughed across with a stook on some tiles nobody walks, plot: a vegetable bed). `lamps.well_lamp`: a post on a corner of the fountain's tile, for the middle of the plaza. `convoy`: in the sim (sim3d.gd), a cart and its beast that cross the town along the main road instead of the parked `cart`: `trips` [hour, east|west], `pace` (of a walker's), `outside` (m past the map's edge where it starts and ends). `flock`: pigeons circling over the plaza by day (Flock.make opts). `mill`: the water mill's own look (LandmarkBuilder.build opts: palette of kit/variants).",
+  "well": "fuente_pequena",
+  "board": "tablon_anuncios",
+  "lamps": {"piece": "farola_poste", "decor": true, "plaza": 6, "shadows": 1, "shadow_zoom": 20, "energy": 2.6, "well_lamp": true},
+  "banner_colors": [[0.62, 0.16, 0.12], [0.16, 0.27, 0.52]],
+  "benches": {"piece": "banco_piedra"},
+  "trough": {"piece": "abrevadero"},
+  "cart": {"piece": "carro_bueyes", "beast": "burro", "still": "burro_comiendo"},
+  "convoy": {"cart": "carro_varas_marcha", "animal": "burro", "trips": [[7.5, "east"], [16.5, "west"]], "pace": 0.7, "outside": 14.0},
+  "flock": {"n": 12, "radius": 14.0, "height": 13.0, "speed": 6.0, "spread": 0.2},
+  "mill": {"palette": {"roof": "roof_losa", "stone": "stone_calida", "wood": "wood_gris"}},
+  "dock": {"ramp": "muelle_rampa", "deck": ["muelle_escalera", "muelle_tramo", "muelle_extremo"], "boat": "barca"},
+  "decor": {"beehive": "colmenar", "clothesline": "tendedero", "woodpile": "lenera", "scarecrow": "espantapajaros",
+    "planter": "jardinera", "flower_pots": "macetas", "market_banner": "estandarte_poste"},
+  "trees": {
+    "oak": ["t:roble"], "chestnut": ["q:CommonTree_3", "q:CommonTree_4"], "poplar": ["t:chopo"], "willow": ["q:CommonTree_5", "q:CommonTree_2"],
+    "fir": ["q:Pine_1", "q:Pine_2", "q:Pine_3"], "pine": ["t:pino"], "apple": ["t:frutal:0"], "pear": ["t:frutal:1"], "cherry": ["t:frutal:2"]
+  },
+  "fruit": {"apple": {"piece": "manzano", "seasons": ["summer", "autumn"]}, "pear": {"piece": "peral", "seasons": ["summer", "autumn"]}},
+  "bush": ["Bush_Common_Flowers", "Bush_Common"],
+  "hedge": {"end": "seto_fin", "run": "seto_2m"},
+  "yards": {
+    "farm": [
+      {"piece": "almiar"}, {"piece": "lenera", "chance": 0.5},
+      {"beasts": "gallina", "n": 3, "still": ["gallina_picoteando", "gallina_quieta"]}, {"beasts": "gallo", "n": 1, "still": ["gallo_quieta"]},
+      {"beasts": "oveja", "n": 2, "still": ["oveja_comiendo", "oveja_quieto"]}, {"beasts": "cerdo", "n": 1, "still": ["cerdo_comiendo"]},
+      {"stalls": ["vaca_quieto", "burro_quieto", "cabra_quieto"]}
+    ],
+    "house_humble": [{"piece": "tendedero", "chance": 0.7}, {"beasts": "gallina", "n": 2, "chance": 0.6, "still": ["gallina_picoteando", "gallina_quieta"]}],
+    "house_well": [{"piece": "tendedero", "chance": 0.5}, {"piece": "lenera", "chance": 0.5}],
+    "house_noble": [{"piece": "emparrado", "chance": 0.5}],
+    "tavern_inn": [{"piece": "lenera"}, {"beasts": "caballo", "n": 1, "still": ["caballo_comiendo"]}],
+    "masonry": [{"piece": "sillares"}],
+    "carpentry": [{"piece": "lenera", "chance": 0.5}],
+    "armory": [],
+    "clinic": [{"piece": "colmenar", "chance": 0.5}],
+    "bakery": [{"piece": "lenera"}]
+  },
+  "beasts": {
+    "max_animated": 8, "anim_zoom": 30,
+    "roam": [
+      {"id": "perro", "still": "perro_quieto", "where": "plaza"},
+      {"id": "gato", "still": "gato_quieto", "where": "yard:tavern_inn,house"}
+    ]
+  },
+  "crops": {
+    "small_max": 16, "small": "huerta", "big": "trigo",
+    "mix": {"trigo": {"autumn": {"rows": 3, "strips": ["sown", "stooks", "young", "plot", "young"], "young_h": 0.45, "stubble_h": 0.14,
+      "stook": "gavillas", "stook_every": 2, "plot": "huerta", "plot_phase": 3}}},
+    "phase": {
+      "trigo": {"spring": 2, "summer": 3, "autumn": 1, "winter": 1},
+      "huerta": {"spring": 1, "summer": 2, "autumn": 3, "winter": 0}
+    }
+  }
+}

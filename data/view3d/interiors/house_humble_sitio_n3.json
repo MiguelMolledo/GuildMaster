@@ -1,0 +1,62 @@
+{
+  "_doc": "A humble house at level 3: 4 x 6 m on two floors. Below, the kitchen with the hearth; a steep stair against the left wall; above, the beds. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "id": "house_humble",
+  "level": 3,
+  "tile_m": 1.0,
+  "origin_m": [-1.5, -2.5],
+  "size": [3, 5],
+  "seed": 6,
+  "shell": {"w": 4, "d": 6, "floors": 2, "door_cell": 1},
+  "entrance": {"floor": 0, "tile": [2, 4], "side": "sw"},
+  "rooms": [
+    {"id": "kitchen", "floor": 0, "type": "kitchen", "rects": [[0, 0, 2, 4]], "floor_kind": "stone", "wall_style": "timber", "light": "kitchen"},
+    {"id": "bedroom", "floor": 1, "type": "bedroom", "rects": [[0, 0, 2, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"}
+  ],
+  "stairs": [
+    {"from": [0, 2], "to": [1, 0], "foot": [-0.17, 1.45], "top": [-0.17, -0.6], "tiles": [[0, 0], [0, 1]], "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94}
+  ],
+  "stations": {
+    "hearth": {"name": "Hogar", "kind": "home", "floor": 0, "tile": [2, 0], "stand": [2, 1], "prop": "hogar_cocina", "snap": "back"},
+    "bed": {"name": "Camas", "kind": "rest", "floor": 1, "tile": [2, 2], "stand": [1, 1], "prop": "cama_estrecha", "pos": [2, 1.55], "snap": "right", "rot": 0}
+  },
+  "spots": {"kitchen": [0, [1, 3]], "bed": [1, [1, 1]], "shop": [0, [1, 2]], "cradle": [1, [1, 3]]},
+  "props": [
+    {"id": "arcon", "floor": 0, "tile": [2, 2], "snap": "right", "gap": 0.02},
+    {"id": "mesa_estrecha", "floor": 0, "tile": [0, 3], "snap": "left", "gap": 0.02},
+    {"id": "taburete", "floor": 0, "pos": [0.3, 3.0], "name": "tab1"},
+    {"id": "taburete", "floor": 0, "pos": [0.1, 4.2], "name": "tab2"},
+    {"id": "alacena", "floor": 0, "tile": [2, 3], "snap": "right"},
+    {"id": "estante_pared", "floor": 0, "tile": [0, 3], "snap": "left"},
+    {"id": "tiro", "floor": 1, "tile": [2, 0], "snap": "back"},
+    {"id": "cama_estrecha", "floor": 1, "pos": [0, 3.55], "snap": "left", "rot": 180, "name": "cama2"},
+    {"id": "cuna", "floor": 1, "tile": [2, 3], "snap": "right"},
+    {"id": "arcon", "floor": 1, "tile": [2, 4], "snap": "right,front", "gap": 0.03},
+    {"id": "perchero", "floor": 1, "tile": [1, 4], "snap": "front"},
+    {"id": "ollas_colgadas", "floor": 0, "tile": [1, 0], "snap": "back"},
+    {"id": "ristra_ajos", "floor": 0, "tile": [2, 1], "snap": "right"},
+    {"id": "alfombra_esparto", "floor": 0, "tile": [1, 2], "rot": 0},
+    {"id": "palmatoria", "floor": 0, "pos": [-0.45, 3.0], "y": 0.76},
+    {"id": "orinal", "floor": 1, "pos": [1.3, 2.0]},
+    {"id": "hierbas_secas", "floor": 1, "tile": [1, 0], "snap": "back"},
+    {"id": "palangana_jarro", "floor": 1, "tile": [0, 0], "snap": "left,back", "gap": 0.05},
+    {"id": "rueca", "floor": 1, "pos": [0, 1.5], "snap": "left", "name": "rueca"},
+    {"id": "taburete", "floor": 1, "pos": [0.9, 1.5], "name": "tab_rueca"}
+  ],
+  "cast": [
+    {"look": "Campesina", "name": "Madre", "start": [0, [1, 2]], "steps": [
+      {"say": "guisa en el hogar", "secs": 8, "anim": "stir", "zone": "hearth"},
+      {"say": "come a la mesa", "secs": 6, "anim": "eat", "sit": "tab1", "look": [0, 3]},
+      {"say": "mira la cuna", "secs": 5, "anim": "Interact", "tile": [1, [1, 3]], "look": [2, 3]}
+    ]},
+    {"look": "Labrador", "name": "Padre", "outside": true, "wait": 2, "steps": [
+      {"enter": true},
+      {"say": "descansa", "secs": 6, "anim": "drink", "sit": "tab2", "look": [0, 3]},
+      {"say": "duerme", "secs": 10, "lie": "bed"},
+      {"leave": true, "secs": 5}
+    ]},
+    {"look": "Vieja", "name": "Abuela", "start": [1, [1, 3]], "steps": [
+      {"say": "duerme", "secs": 12, "lie": "cama2"},
+      {"say": "hila en la rueca", "secs": 7, "anim": "sit_bench", "sit": "tab_rueca", "look": [0, 1]}
+    ]}
+  ]
+}

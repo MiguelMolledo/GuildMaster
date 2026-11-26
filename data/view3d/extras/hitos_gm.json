@@ -1,0 +1,38 @@
+{
+ "_doc": "Landmark types of GuildMaster's region maps (data/maps/region_*.json: landmarks[] and boats[]) -> piece or assembly of the catalogues (kit/extras, kit/landmarks). scripts/region_hitos.gd reads this and places them: RegionHitos.build(map) -> Node3D. A tile is `tile` metres. For a type, `variants` are tried from the first: one fits when its footprint `fp` [width, depth] in metres, turned, is no bigger than the landmark's (size x tile) by more than `tol`. `center`: the point of the piece (its own plan coordinates) that goes on the centre of the footprint. `rot`: fixed turn in degrees (anticlockwise from above; 0: the piece's front, -y, looks south = row+). Without `rot`, `face` picks it: among the turns that fit, the one that puts the piece's `side` (front|right|back|left) towards the footprint side with most of the tiles in `to` beside it (groups of tile letters tried in order; '@type' counts the tiles of landmarks of that type) within `reach` tiles. `z`: height of the origin. `walls`: the wall by tiles ('M'), see RegionHitos.walls: storeys of 3 m by region, and its pieces.",
+ "tile": 2.0,
+ "tol": 1.0,
+ "types": {
+  "wall_tower": {"variants": [{"fp": [4, 4], "piece": "murallon_torre", "rot": 0}]},
+  "gate_tower": {"variants": [{"fp": [4, 4], "piece": "murallon_torre_puerta"}], "face": {"to": [["=", ","], ["P"], ["."]], "side": "front", "reach": 1}},
+  "cathedral": {"variants": [{"fp": [12, 20], "piece": "catedral", "center": [0, 10]}], "face": {"to": [["P"], ["="]], "side": "front", "reach": 2}},
+  "church": {"variants": [{"fp": [6, 10], "piece": "ermita", "center": [0, 5.35]}, {"fp": [6, 6], "piece": "ermita_corta", "center": [0, 3.35]}], "face": {"to": [["=", "P"], [","], ["."]], "side": "front", "reach": 2}},
+  "abbey_church": {"variants": [{"fp": [10, 16.5], "piece": "iglesia_abacial", "center": [0, 8.25]}], "face": {"to": [["=", "P"], [","]], "side": "front", "reach": 2}},
+  "cloister": {"variants": [{"fp": [12, 12], "piece": "claustro"}], "face": {"to": [["@abbey_church"], ["@cathedral"]], "side": "back", "reach": 2}},
+  "guesthouse": {"variants": [{"fp": [6, 8], "piece": "hospederia"}], "face": {"to": [["=", "P", ","], ["."]], "side": "front", "reach": 1}},
+  "customs": {"variants": [{"fp": [8, 6], "piece": "aduana_8x6"}, {"fp": [6, 6], "piece": "aduana_6x6"}], "face": {"to": [["=", "P"], ["."]], "side": "front", "reach": 1}},
+  "warehouse": {"variants": [{"fp": [10, 6], "piece": "almacen_10x6"}, {"fp": [8, 6], "piece": "almacen_8x6"}, {"fp": [6, 4], "piece": "almacen_6x4"}],
+                "face": {"to": [["="], ["P"], ["."]], "side": "front", "reach": 1}},
+  "exchange": {"variants": [{"fp": [10, 6], "piece": "lonja_10x6"}, {"fp": [8, 6], "piece": "lonja_8x6"}], "face": {"to": [["=", "P"], ["."]], "side": "front", "reach": 1}},
+  "crane": {"variants": [{"fp": [2, 2], "piece": "grua_torre"}], "face": {"to": [["w", "m"]], "side": "front", "reach": 2}},
+  "shipyard": {"variants": [{"fp": [6, 10], "piece": "astillero"}], "face": {"to": [["w"]], "side": "front", "reach": 2}},
+  "barn": {"variants": [{"fp": [6, 8], "piece": "granero_grande"}, {"fp": [4, 4], "piece": "granero"}], "face": {"to": [["=", ","], ["P"], ["."]], "side": "front", "reach": 1}},
+  "watermill": {"variants": [{"fp": [6, 6], "piece": "molino_agua"}], "face": {"to": [["w"]], "side": "right", "reach": 1}},
+  "threshing": {"variants": [{"fp": [6, 6], "piece": "era_trillo", "rot": 0}, {"fp": [4, 4], "piece": "era_pequena", "rot": 0}]},
+  "mine": {"variants": [{"fp": [6, 6], "piece": "bocamina_6"}], "face": {"to": [["=", ","], ["P"], ["."]], "side": "front", "reach": 1}},
+  "quarry": {"variants": [{"fp": [14, 10], "piece": "cantera_bancos"}], "face": {"to": [["=", ","], ["."]], "side": "front", "reach": 1}},
+  "spoil": {"variants": [{"fp": [8, 6], "piece": "escombrera_8x6", "rot": 0}, {"fp": [6, 6], "piece": "escombrera_6x6", "rot": 0}]},
+  "smelter": {"variants": [{"fp": [6, 6], "piece": "fundicion"}], "face": {"to": [["w"]], "side": "left", "reach": 1}}
+ },
+ "boats": {
+  "ship": {"variants": [{"fp": [4, 8], "piece": "barco_cabotaje", "rot": 0, "z": 0.03}]},
+  "rowboat": {"variants": [{"fp": [2, 4], "piece": "barca", "z": 0.03}], "face": {"to": [["m", "=", "."]], "side": "back", "reach": 3}}
+ },
+ "walls": {
+  "tile": "M", "towers": ["wall_tower", "gate_tower"], "street": ["=", ","],
+  "storeys": {"default": 2, "region_abbey": 1},
+  "core": "murallon_nucleo", "walk": "murallon_adarve", "battlement": "murallon_almenas", "kerb": "murallon_pretil", "plinth": "murallon_zocalo",
+  "arch": {"2": "murallon_arco", "1": "murallon_arco_bajo"}, "storey_m": 3.0, "bake": true
+ },
+ "water": ["w"]
+}

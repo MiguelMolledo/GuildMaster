@@ -1,0 +1,153 @@
+{
+  "_doc": "Sound of the sim town (scripts/audio/sonido.gd, docs/sonido.md). Files by id: assets/audio/<section>/<id>.ogg or its variants <id>_01.ogg, <id>_02.ogg... (one at random each time). A missing file is silence (and a line in the debug log). Levels in dB; hours in game hours (0-24, fractions allowed); radii in metres on the ground from the point the camera looks at.",
+  "buses": {
+    "_doc": "Created at run time under Master. reverb: wet/room of the Efectos and Voces reverb when a house is open (0 outside). duck_db: music down while a house is open. Music is also compressed by the voices (sidechain).",
+    "Master": {"volume_db": 5.0},
+    "Musica": {"volume_db": -9.0},
+    "Ambiente": {"volume_db": -4.0},
+    "Efectos": {"volume_db": -3.0},
+    "Voces": {"volume_db": -2.0},
+    "Lejos": {"volume_db": -6.0, "lowpass_hz": 1400, "send": "Ambiente"},
+    "reverb_open": {"wet": 0.22, "room": 0.38, "damping": 0.6},
+    "duck_open_db": -7.0,
+    "duck_voice": {"threshold_db": -26.0, "ratio": 4.0, "release_ms": 600}
+  },
+  "zoom": {
+    "_doc": "near: up to this camera size the point sounds are heard in their place; far: from this size on the town is one wide ambient (point sounds off, place layers by the whole town's share). radius_near / radius_far: hearing radius of the point sounds at near and at far-1 zoom (linear between). listener_h: listener height over the ground point.",
+    "near": 14.0, "far": 40.0, "radius_near": 16.0, "radius_far": 34.0, "listener_h": 2.0,
+    "steps_zoom": 22.0, "anim_zoom": 30.0
+  },
+  "lugares": {
+    "_doc": "Places under the camera: tiles of the map that make each place (map legend in pueblo.gd) and the radius (m) where its layer fades out. Building types make a place around their footprint. town_share: its weight in the far view.",
+    "plaza": {"tiles": "PSN", "radius": 10.0, "town_share": 0.45},
+    "mercado": {"tiles": "S", "radius": 9.0, "town_share": 0.3},
+    "agua": {"tiles": "wb", "radius": 12.0, "town_share": 0.25},
+    "fuente": {"point": "well", "radius": 9.0, "town_share": 0.0},
+    "campo": {"tiles": "f", "radius": 10.0, "town_share": 0.3},
+    "forja": {"types": ["forge"], "radius": 10.0, "town_share": 0.1},
+    "calle": {"tiles": "=,#", "radius": 6.0, "town_share": 0.6}
+  },
+  "ambiente": {
+    "_doc": "Ambient layers (looped, on the Ambiente bus). Weight = horas (curve by hour, [hour, weight] points) x estacion x clima x lugar x zoom. lugar: the place layer weight (1 if absent); lugar_min: weight left away from it. clima: weight by weather state (missing = 1); lluvia_x / viento_x: weight times the rain intensity / wind. lejos: factor in the far view; cerca: factor in the near view. volume_db: level at weight 1.",
+    "ambient_town_day": {"volume_db": -6.0, "horas": [[0, 0], [5.5, 0], [7, 0.6], [9, 1], [18, 1], [20, 0.4], [21.5, 0]], "lejos": 1.0, "cerca": 0.6, "clima": {"lluvia": 0.5, "tormenta": 0.2, "nieve": 0.5}},
+    "ambient_plaza_dusk": {"volume_db": -7.0, "horas": [[0, 0], [17.5, 0], [19, 1], [21, 0.8], [22.5, 0]], "lugar": "plaza", "lugar_min": 0.35, "clima": {"lluvia": 0.3, "tormenta": 0.0}},
+    "ambient_night": {"volume_db": -6.0, "horas": [[0, 1], [4.5, 1], [6, 0], [20.5, 0], [22, 1], [24, 1]], "clima": {"lluvia": 0.4, "tormenta": 0.2}},
+    "ambient_crickets": {"volume_db": -14.0, "horas": [[0, 0.7], [4.5, 0.5], [5.5, 0], [20, 0], [21.5, 1], [24, 0.7]], "estacion": {"spring": 0.7, "summer": 1.0, "autumn": 0.65, "winter": 0.0}, "lugar": "campo", "lugar_min": 0.6, "clima": {"lluvia": 0.0, "tormenta": 0.0, "nieve": 0.0, "niebla": 0.6}},
+    "ambient_birds_morning": {"volume_db": -9.0, "horas": [[0, 0], [5, 0], [6, 1], [8.5, 0.9], [10.5, 0.15], [17, 0.15], [19, 0.3], [20, 0]], "estacion": {"spring": 1.0, "summer": 0.9, "autumn": 0.6, "winter": 0.25}, "clima": {"lluvia": 0.1, "tormenta": 0.0, "nieve": 0.2, "niebla": 0.5}},
+    "ambient_crowd": {"volume_db": -8.0, "horas": [[0, 0], [7.5, 0], [9, 1], [14, 1], [15.5, 0.5], [19, 0.4], [20.5, 0]], "lugar": "plaza", "lugar_min": 0.0, "lejos": 0.35, "gente": true, "clima": {"lluvia": 0.35, "tormenta": 0.1}},
+    "ambient_field": {"volume_db": -10.0, "horas": [[0, 0.2], [6, 0.6], [9, 1], [18, 1], [21, 0.3], [24, 0.2]], "estacion": {"spring": 1.0, "summer": 1.0, "autumn": 0.8, "winter": 0.5}, "lugar": "campo", "lugar_min": 0.0, "clima": {"lluvia": 0.3, "tormenta": 0.2}},
+    "ambient_river": {"volume_db": -9.0, "horas": [[0, 1], [24, 1]], "lugar": "agua", "lugar_min": 0.0, "lejos": 0.5},
+    "ambient_forge": {"volume_db": -16.0, "horas": [[0, 0], [6.5, 0], [7.5, 1], [19, 1], [20, 0]], "lugar": "forja", "lugar_min": 0.0, "lejos": 0.0, "cerca": 0.6},
+    "ambient_rain_light": {"volume_db": -6.0, "horas": [[0, 1], [24, 1]], "clima": {"despejado": 0.0, "nublado": 0.0, "niebla": 0.0, "nieve": 0.0, "lluvia": 1.0, "tormenta": 0.45}, "lluvia_x": "light"},
+    "ambient_rain_heavy": {"volume_db": -4.0, "horas": [[0, 1], [24, 1]], "clima": {"despejado": 0.0, "nublado": 0.0, "niebla": 0.0, "nieve": 0.0, "lluvia": 1.0, "tormenta": 1.0}, "lluvia_x": "heavy"},
+    "ambient_fiesta_crowd": {"volume_db": -4.0, "horas": [[0, 1], [24, 1]], "suceso": {"fiesta": 1.0, "boda": 1.0, "feria": 1.0, "carnaval": 1.0, "torneo": 1.0, "procesion": 0.35}, "lugar": "plaza", "lugar_min": 0.3, "lejos": 0.6, "clima": {"lluvia": 0.4, "tormenta": 0.2}},
+    "ambient_fiesta_dance": {"volume_db": -6.0, "horas": [[0, 1], [24, 1]], "suceso": {"fiesta": 1.0, "boda": 1.0, "carnaval": 1.0, "feria": 0.6}, "acto": "dance", "lugar": "plaza", "lugar_min": 0.15, "lejos": 0.3, "clima": {"lluvia": 0.2, "tormenta": 0.0}},
+    "ambient_wind": {"volume_db": -8.0, "horas": [[0, 1], [24, 1]], "viento_x": true, "lejos": 1.2, "cerca": 0.8}
+  },
+  "clima": {
+    "_doc": "The weather comes from the node in group 'clima' (estado, intensidad 0..1, viento 0..1, signal relampago(pos)). Without it: despejado, or --so_clima=<estado>[:<intensidad>[:<viento>]] for tests (the clima node itself takes --tiempo=). light / heavy: rain intensity curve of each rain layer. muffle_hz: low-pass of the ambient bus by state (snow and fog dull the town). thunder: speed of sound (m/s, real seconds), the near/far file split (m) and the level by distance.",
+    "light": [[0, 0], [0.15, 0.6], [0.5, 1.0], [0.8, 0.4], [1.0, 0.2]],
+    "heavy": [[0, 0], [0.4, 0], [0.7, 0.7], [1.0, 1.0]],
+    "muffle_hz": {"nieve": 3500, "niebla": 6000},
+    "thunder": {"speed": 343.0, "near_m": 600.0, "near": "sfx_thunder", "far": "sfx_thunder_far", "volume_db": -2.0, "fall_m": 1500.0, "max_delay_s": 6.0}
+  },
+  "musica": {
+    "_doc": "The first rule that matches plays. si: fase (dawn/day/dusk/night of the trace), horas [from, to), estacion, clima (list), lugar (place weight > 0.5 under the camera, near views only), suceso (the kind of the festival standing, data sucesos: from the node of scripts/fiestas_pueblo.gd in group 'suceso', or --suceso=<kind or festival id>). fade: crossfade s; hold: minimum seconds before changing again (a rule with urgent: true changes at once). volume_db per track. gap: seconds of silence between two loops of the same track (0: seamless).",
+    "fade": 5.0, "hold": 25.0,
+    "reglas": [
+      {"id": "music_fiesta", "si": {"suceso": ["fiesta", "boda", "feria", "carnaval", "torneo"]}, "urgent": true},
+      {"id": "music_rain", "si": {"suceso": ["procesion", "luto"]}, "urgent": true},
+      {"id": "music_rain", "si": {"clima": ["lluvia", "tormenta"]}},
+      {"id": "music_night", "si": {"fase": ["night"]}},
+      {"id": "music_dawn", "si": {"fase": ["dawn"]}},
+      {"id": "music_market", "si": {"horas": [8.5, 14.0], "lugar": "plaza"}},
+      {"id": "music_winter_day", "si": {"estacion": ["winter"]}},
+      {"id": "music_autumn_day", "si": {"estacion": ["autumn"]}},
+      {"id": "music_city_day"}
+    ],
+    "volume_db": {"music_city_day": 0.0, "music_night": 1.0, "music_title": -1.0}
+  },
+  "golpes": {
+    "_doc": "Sounds on the frames of an animation (anim name without 'own/'). t: times in the cycle (s); empty = the 'sharp' keys of data/chars/anims.json. id: sound; volume_db; max: how many of that sound at once; reach: m in front of the body where it sounds (the anvil, the bench).",
+    "hammer": {"id": "sfx_hammer", "volume_db": -2.0, "max": 3, "reach": 0.55},
+    "carve": {"id": "sfx_chisel", "volume_db": -5.0, "max": 2, "reach": 0.5},
+    "saw": {"id": "sfx_saw", "t": [0.05, 0.55], "volume_db": -7.0, "max": 2, "reach": 0.5},
+    "saw_low": {"id": "sfx_saw", "t": [0.05, 0.55], "volume_db": -7.0, "max": 2, "reach": 0.5},
+    "plane": {"id": "sfx_plane", "t": [0.1], "volume_db": -8.0, "max": 2, "reach": 0.5},
+    "weave": {"id": "sfx_loom", "volume_db": -7.0, "max": 2, "reach": 0.5},
+    "sweep": {"id": "sfx_broom", "t": [0.2, 1.05], "volume_db": -12.0, "max": 2, "reach": 0.4},
+    "hoe": {"id": "sfx_hoe", "volume_db": -9.0, "max": 2, "reach": 0.6},
+    "dig": {"id": "sfx_hoe", "volume_db": -9.0, "max": 2, "reach": 0.6},
+    "chop": {"id": "sfx_axe", "volume_db": -6.0, "max": 2, "reach": 0.7},
+    "knead": {"id": "sfx_hoe", "volume_db": -20.0, "max": 1, "reach": 0.5},
+    "count_coins": {"id": "sfx_coins", "t": [0.3], "volume_db": -14.0, "max": 1, "reach": 0.4, "every": 3}
+  },
+  "pasos": {
+    "_doc": "Footsteps of who walks near the camera (zoom <= zoom.steps_zoom). Contact times as fractions of the clip; the ground under the foot picks the sound: tiles of piedra = stone (plaza, roads), the rest earth. max: steps at once; radius: m.",
+    "clips": {"Walk": [0.0, 0.5], "Jog_Fwd": [0.0, 0.5], "Sprint": [0.0, 0.5]},
+    "piedra": "PSN=b#", "id_piedra": "sfx_step", "id_tierra": "sfx_step_dirt",
+    "volume_db": -10.0, "max": 5, "radius": 9.0
+  },
+  "puertas": {"id": "sfx_door", "volume_db": -9.0, "max": 2},
+  "animales": {
+    "_doc": "Calls of the animals of PuebloVivo near the camera: id of the beast -> sound, chance per real second, hours when they call, level.",
+    "gallina": {"id": "sfx_hen", "rate": 0.05, "horas": [6, 20], "volume_db": -12.0},
+    "gallo": {"id": "sfx_hen", "rate": 0.02, "horas": [7, 19], "volume_db": -12.0},
+    "oveja": {"id": "sfx_sheep", "rate": 0.03, "horas": [5, 22], "volume_db": -10.0},
+    "cerdo": {"id": "sfx_pig", "rate": 0.04, "horas": [6, 21], "volume_db": -11.0},
+    "burro": {"id": "sfx_donkey", "rate": 0.006, "horas": [6, 20], "volume_db": -9.0},
+    "perro": {"id": "sfx_dog", "rate": 0.015, "horas": [0, 24], "volume_db": -9.0},
+    "caballo": {"id": "sfx_donkey", "rate": 0.0, "horas": [0, 0], "volume_db": -12.0},
+    "max": 3,
+    "gallo_alba": {"id": "sfx_rooster", "crows": 3, "every_min": 9.0, "start": "dawn", "volume_db": -7.0, "far_db": -16.0},
+    "perros_lejos": {"id": "sfx_dog", "rate": 0.05, "horas": [21.5, 5.5], "volume_db": -15.0},
+    "palomas": {"despegue": "sfx_pigeons_takeoff", "arrullo": "sfx_pigeon_coo", "rate": 0.02, "volume_db": -10.0, "radius": 26.0}
+  },
+  "campanas": {
+    "_doc": "The church bells: at each hour in horas, as many strokes as the hour (1-12), spaced every s real seconds; a peal before mass (the first 'mass' state of each day in the trace, misa_antes game minutes earlier). Heard everywhere: near the church positional, far on the Lejos bus.",
+    "id": "sfx_church_bell", "horas": [7, 21], "every": 2.4, "volume_db": -6.0,
+    "misa": "sfx_church_peal", "misa_antes": 12.0, "misa_db": -5.0, "far_db": -14.0, "near_m": 28.0
+  },
+  "mercado": {
+    "_doc": "Vendors and haggling at the stalls while there are people shopping near them (doing shopping/market); the crier at the notice board at the hours listed. every: [min, max] real seconds between two calls.",
+    "voces": ["voice_market_vendor", "voice_market_vendor", "voice_haggle", "voice_market_deal"],
+    "horas": [8, 15], "every": [4.0, 9.0], "volume_db": -6.0, "max": 2, "coins": "sfx_coins", "coins_db": -14.0,
+    "pregon": "voice_board_crier", "pregon_horas": [9.5, 12.5, 17.5], "pregon_db": -3.0,
+    "saludo": "voice_greeting", "saludo_db": -9.0, "dados": "sfx_dice", "dados_db": -12.0
+  },
+  "fuentes": {
+    "_doc": "Fixed looped sources heard in their place (zoom <= zoom.far). The nearest 'players' get a player; the rest wait. fuente: the plaza fountain; rio: points along the river every 'step' m; fragua: the forges while somebody works there (bellows one-shots now and then); hogar: houses with somebody awake inside after dark or at dawn; carro: the cart of the road.",
+    "players": 6,
+    "fuente": {"id": "ambient_fountain", "volume_db": -9.0, "radius": 12.0},
+    "rio": {"id": "ambient_river", "volume_db": -10.0, "radius": 14.0, "step": 10.0},
+    "fragua": {"id": "ambient_forge_fire", "volume_db": -10.0, "radius": 12.0, "fuelle": "sfx_bellows", "fuelle_every": [7.0, 15.0], "fuelle_db": -12.0},
+    "hogar": {"id": "ambient_hearth", "volume_db": -15.0, "radius": 7.0},
+    "carro": {"id": "ambient_cart", "volume_db": -8.0, "radius": 18.0, "rebuzno": "sfx_donkey", "rebuzno_every": [25.0, 60.0]}
+  },
+  "interior": {
+    "_doc": "With a house open: its ambient layer by building type (weight 1 near it) and the reverb of the buses.",
+    "forge": "ambient_forge_fire",
+    "tavern_inn": "ambient_hearth",
+    "house": "ambient_hearth",
+    "volume_db": -12.0
+  },
+  "sucesos": {
+    "_doc": "Festival or event of the town (scripts/fiestas_pueblo.gd, its def id) -> the kind the music rules and the ambient layers (suceso) read. Not listed: no kind (the town sounds as any day).",
+    "st_john": "fiesta", "mayday_corpus": "fiesta", "st_michael": "fiesta", "all_saints_matanza": "fiesta", "christmas": "fiesta",
+    "comedians": "fiesta", "festival": "fiesta", "good_harvest": "fiesta",
+    "noble_wedding": "boda", "neighbours_wedding": "boda",
+    "harvest_fair": "feria", "cattle_fair": "feria",
+    "carnival": "carnaval", "tournament": "torneo",
+    "holy_week": "procesion", "rogation": "procesion", "marquis_visit": "procesion", "pilgrimage": "procesion",
+    "religious_feast": "procesion", "dignitary_visit": "procesion", "preacher": "procesion",
+    "war": "luto", "epidemic": "luto", "famine": "luto"
+  },
+  "fiestas": {
+    "_doc": "Sounds of the festivals in their place, read from scripts/fiestas_pueblo.gd. hoguera: each lit fire of a piece whose name begins with 'piezas' (its flames visible; not the torches) is a looped source on the players of fuentes. comparsa: the drum and dulzaina follow the giants and big-heads (walkers of the festivals in defs). campanas_vuelo: the peal over and over (every [min, max] real s) while a procession walks (from 'antes' game minutes before its start to its end) and around the acts listed (from antes to minutos after). torneo: a lance and the cheers at the lists every [min, max] s from the act desde to the act hasta.",
+    "hoguera": {"id": "ambient_bonfire", "piezas": "hoguera", "volume_db": -4.0, "radius": 20.0},
+    "comparsa": {"id": "ambient_dulzaina", "volume_db": -3.0, "radius": 30.0, "defs": ["carnival"]},
+    "campanas_vuelo": {"id": "sfx_church_peal", "volume_db": -4.0, "every": [7.0, 9.0], "antes": 10.0, "minutos": 20.0, "actos": ["wedding_mass", "reception"]},
+    "torneo": {"defs": ["tournament"], "choque": "sfx_lance_clash", "vitores": "sfx_cheer", "volume_db": -2.0, "vitores_db": -5.0, "radius": 34.0, "every": [5.0, 11.0], "desde": "joust", "hasta": "prize"}
+  },
+  "limites": {"_doc": "Voices at once for the whole town and the one-shot pool.", "voces": 20, "pool": 20}
+}

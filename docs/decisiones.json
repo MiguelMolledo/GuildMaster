@@ -1,6 +1,12 @@
 {
   "tomadas": [
     {
+      "fecha": "2026-11-26",
+      "tema": "M3D-1: cómo entra el 3D en la rama 3d",
+      "decision": "La vista 3D es game/world3d/: WorldView3D (la fachada que usa app.gd, con las mismas señales y llamadas que WorldView) y Town3D, que es el pueblo y la gente de Prueba3D (c79c4fb: pueblo.gd, sim3d.gd, sim3d_chars.gd y sus constructores, copiados con sus nombres) con las lecturas de la traza sustituidas por el estado en vivo: un «feed» con la forma de la traza que se rehace cada minuto de juego, posiciones interpoladas con Game.step_fraction() como en 2D (CharacterView.tile_position) y lo que hace cada uno con SimQuery.doing (la consulta de la traza, ahora en game/sim_query.gd). data/view.json view_mode = \"3d\" (--view=2d|3d); las capturas antiguas, los flujos y la galería siguen en 2D. Render Forward+; en 3D la ventana escala el lienzo (canvas_items, factor fraccionario: con factor entero Godot dibuja el 3D a 960×540 en una ventana de 1600×900). Cifras de presentación 3D sin rutas en data/view3d/; catálogos del kit con rutas en game/world3d/kit_data/. El clima es de la vista (semilla de datos).",
+      "por_que": "Reutiliza la prueba casi entera (casas, gente, luz, clima, faroles) sin tocar la sim ni el guardado, y deja el 2D funcionando para la QA de interfaz hasta portarla (docs/3d/plan.md §3)."
+    },
+    {
       "fecha": "2026-11-25",
       "tema": "GuildMaster pasa a 3D (M3D)",
       "decision": "El owner decide pasar GuildMaster a 3D a partir de la prueba ~/Code/Prueba3D (master c79c4fb). La rama 2d (0c29e28f) queda como copia congelada del juego 2D y no se toca; la migración se hace en la rama 3d. La vista 3D lee la sim en vivo (sin traza), dentro de las reglas de siempre: sim/ no cambia, game/ dibuja y da órdenes, data/ sin rutas. Plan e hitos M3D-0…M3D-8 en docs/3d/plan.md: las dos vistas conviven con view_mode (data/view.json) hasta portar capturas y flujos; render Forward+; en git solo las piezas del kit que el juego carga.",
@@ -1629,6 +1635,11 @@
     }
   ],
   "pendientes": [
+    {
+      "tema": "M3D: decisiones del owner para seguir con el 3D (docs/3d/plan.md §7)",
+      "detalle": "(1) WASD: en 3D mueve la cámara (como la prueba); en 2D andaba con la persona elegida. (2) Kit en git: lo que el juego carga son 1 059 ficheros y 438 MB (265 MB de texturas 4K de los packs de personaje; con texturas a 2K, ~314 MB); hoy no está en git: tools/kit3d/kit.py instalar lo copia de ~/Code/Prueba3D/kit. (3) Clima cosmético en la vista o con reglas en la sim. (4) La biblia de pixel art queda solo para UI y retratos. (5) Cuándo retirar el 2D (M3D-8). (6) Dirección de interfaz (M3D-7).",
+      "opciones": "(2): (a) sellar los 438 MB tal cual con kit.py sellar; (b) reducir antes las texturas de más de 2K (~314 MB) y sellar; (c) LFS o descarga aparte. Recomendado (b)."
+    },
     {
       "tema": "H12 Patrón: lo que espera a los siguientes oficios del Patrón",
       "detalle": "Para cuando entren Molino, Panadería y Carnicería: (1) la harina 12 → 15 (P10, O15 aprobado) y los demand_weight de harina, carne, pan y cerveza de 4.22.3.4, que mueven las cuentas de la Taberna-Posada y por eso no entran hoy; (2) la fiesta de la siega (Verano 2) con encargos de trigo y la feria con el ganado; (3) el calendario de siembra y el corral como panel (docs/ui/mecanicas/campos_y_ganado.md); hoy los campos y el corral se ven y se trabajan en el interior de la Granja.",

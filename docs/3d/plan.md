@@ -153,7 +153,13 @@ Propuesta:
 - Las fuentes que el juego no abre (FBX, carpetas Unity/Unreal de los packs, texturas de 4 K que el horneado ya
   reduce) no entran nunca.
 
-**Medido en M3D-1** (se actualiza en cada tanda): ver §8.
+**Medido en M3D-1**: lo que el juego carga en una partida nueva, el título y los 62 escenarios (incluida la capital y
+los cinco mapas de la región) son 486 ficheros; con sus dependencias, sus `.import` y los catálogos, **1 059 ficheros y
+438 MB** (el kit entero en disco: 1 005 MB). De ellos, 265 MB son de personajes (texturas 4K de los packs de Quaternius:
+392 MB del total son PNG). Reduciendo las texturas de más de 2048 px a 2K quedaría en **~314 MB**. Ninguno pasa de
+50 MB. Como meter cientos de MB en el historial de git no tiene vuelta atrás, **M3D-1 no los sella**: `usados.txt` y
+la herramienta van a git y el kit se instala con `kit.py instalar` (desde `~/Code/Prueba3D/kit`) hasta que el owner
+decida (§7, punto 2). Recomendación: reducir a 2K y sellar.
 
 ## 6. Hitos
 
@@ -202,9 +208,16 @@ Propuesta:
 Se rellena con cada hito (máquina: MacBook Air de 16 GB compartida con otros hilos; los fps bailan, los draw calls son
 la medida estable).
 
-| Medida | M3D-1 |
+| Medida | M3D-1 (2026-11-26) |
 |---|---|
-| fps a 1600×900, pueblo entero | — |
-| draw calls | — |
-| tiempo de montar el pueblo | — |
-| kit en git (ficheros, MB) | — |
+| fps a 1600×900 (resolución real), pueblo entero a zoom 74 | 111 (peor fotograma 139 ms) |
+| fps a 1600×900, calle a zoom 18 | 111 |
+| draw calls (pueblo entero / calle) | 1 870 / 1 400 |
+| triángulos (pueblo entero) | 2,08 M |
+| montar el pueblo (town_e, 18 casas, 24 personas) | 3,2-3,9 s con ventana; 0,8-1,1 s sin ventana |
+| arranque sin ventana (boot_check, por variante) | 4-5 s |
+| kit usado (ficheros, MB) | 1 059 · 438 MB (~314 MB con texturas a 2K); no sellado |
+
+Con la escala entera de antes (el 3D dibujado a 960×540) daba 187-220 fps: el coste está en los píxeles. Dos de cinco
+pasadas con ventana se congelaron mientras corrían a la vez las pruebas de reglas (CPU al 100 %); con la máquina menos
+cargada terminaron todas. Queda vigilado.

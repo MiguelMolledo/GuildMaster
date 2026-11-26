@@ -1,0 +1,100 @@
+{
+  "_doc": "The tailor's at level 2: 4 x 6 m on two floors. Below, the loom behind the shop window, the cutting table, the cloth shelves and a dress form; above, the home. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "id": "tailor_shop",
+  "level": 2,
+  "tile_m": 1.0,
+  "origin_m": [-1.5, -2.5],
+  "size": [3, 5],
+  "seed": 5,
+  "shell": {"w": 4, "d": 6, "floors": 2, "door_cell": 1},
+  "entrance": {"floor": 0, "tile": [2, 4], "side": "sw"},
+  "rooms": [
+    {"id": "workshop", "floor": 0, "type": "workshop", "rects": [[0, 0, 2, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "warm"},
+    {"id": "home", "floor": 1, "type": "kitchen", "rects": [[0, 0, 2, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "kitchen"}
+  ],
+  "stairs": [
+    {"from": [0, 2], "to": [1, 0], "foot": [-0.17, 1.45], "top": [-0.17, -0.6], "tiles": [[0, 0], [0, 1]], "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94}
+  ],
+  "stations": {
+    "loom": {"name": "Telar", "kind": "craft", "floor": 0, "tile": [0, 3], "stand": [1, 3], "prop": "telar", "pos": [0, 3.3], "snap": "left"},
+    "sewing_table": {"name": "Mesa de corte", "kind": "craft", "floor": 0, "tile": [2, 2], "stand": [1, 1], "prop": "mesa_corte", "pos": [2, 1.6], "snap": "right"},
+    "storage": {"name": "Paños", "kind": "storage", "floor": 0, "tile": [2, 0], "stand": [1, 0], "prop": "estante_panos", "snap": "back"},
+    "bed": {"name": "Cama", "kind": "rest", "floor": 1, "tile": [2, 1], "stand": [1, 1], "prop": "cama_estrecha", "pos": [2, 0.55], "snap": "right", "rot": 0},
+    "hearth": {"name": "Hogar", "kind": "home", "floor": 1, "tile": [2, 3], "stand": [1, 3], "prop": "hogar_cocina", "snap": "right"}
+  },
+  "spots": {"shop": [0, [1, 4]], "kitchen": [1, [1, 3]], "bed": [1, [1, 1]], "kitchen_table": [0, 3]},
+  "props": [
+    {"id": "maniqui", "floor": 0, "tile": [2, 3], "snap": "right", "gap": 0.05},
+    {"id": "mesa_estrecha", "floor": 1, "tile": [0, 3], "snap": "left", "gap": 0.02, "name": "mesa_casa"},
+    {"id": "taburete", "floor": 1, "pos": [0.3, 3.0], "name": "tab_casa"},
+    {"id": "arcon", "floor": 1, "tile": [0, 4], "snap": "left,front", "gap": 0.03},
+    {"id": "alacena", "floor": 1, "tile": [0, 2], "snap": "left"}
+  ],
+  "upgrades": {
+    "tailor_shop_sewing_table_2": [{"id": "mesa_corte", "floor": 0, "auto": "wall", "near": "sewing_table", "zone": "sewing_table_2", "name": "Mesa de corte 2", "kind": "craft"}],
+    "tailor_shop_loom_2": [{"id": "telar", "floor": 0, "auto": "wall", "near": "loom", "zone": "loom_2", "name": "Telar 2", "kind": "craft"}],
+    "upgrade_storage_shelves": [{"id": "estante_panos", "floor": 0, "auto": "wall", "near": "storage"}],
+    "upgrade_counter": [{"id": "maniqui", "floor": 0, "auto": "wall", "near": "door"}],
+    "tailor_treadle": [{"id": "taburete", "floor": 0, "auto": "floor", "near": "loom"}],
+    "tailor_shuttle": [{"id": "estante_pared", "floor": 0, "auto": "wall", "near": "loom"}],
+    "tailor_master_table": [{"id": "maniqui", "floor": 0, "auto": "wall", "near": "sewing_table"}],
+    "tailor_shears": [{"id": "panel_herramientas", "floor": 0, "auto": "wall", "near": "sewing_table"}],
+    "tailor_dyes": [{"id": "tina_tinte", "floor": 0, "auto": "wall", "near": "storage"}],
+    "tailor_seal": [{"id": "escudo_pared", "floor": 0, "auto": "wall", "near": "door"}],
+    "upgrade_master_bench": [{"id": "taburete", "floor": 0, "auto": "floor", "near": "sewing_table"}],
+    "upgrade_double_ledger": [{"on": ["mesa_casa", "sewing_table"], "id": "q:Book_Stack_2", "off": [0.25, 0.0]}],
+    "upgrade_hidden_passage": [{"id": "tapiz", "floor": 0, "auto": "wall", "near": "storage"}],
+    "upgrade_smuggler_cache": [{"id": "trampilla", "floor": 0, "auto": "floor", "near": "storage", "prio": 1}],
+    "upgrade_strongbox": [{"id": "arca_fuerte", "floor": 1, "auto": "wall", "near": "bed"}],
+    "upgrade_bunks": [{"swap": "bed", "id": "litera"}],
+    "upgrade_dining_table": [{"needs": "nivel", "note": "la mesa larga no cabe en la vivienda de 4 m de ancho"}]
+  },
+  "upgrade_ids": {
+    "tailor_shop_capacity_1": "tailor_shop_sewing_table_2",
+    "tailor_shop_capacity_2": "upgrade_storage_shelves",
+    "tailor_shop_capacity_3": "tailor_shop_loom_2",
+    "tailor_shop_commerce_1": "upgrade_counter",
+    "tailor_shop_production_1": "tailor_treadle",
+    "tailor_shop_production_2": "tailor_shuttle",
+    "tailor_shop_production_3": "tailor_master_table",
+    "tailor_shop_quality_1": "tailor_shears",
+    "tailor_shop_quality_2": "tailor_dyes",
+    "tailor_shop_quality_3": "tailor_seal",
+    "tailor_shop_secrets_1": "upgrade_double_ledger",
+    "tailor_shop_secrets_2": "upgrade_hidden_passage",
+    "tailor_shop_secrets_3": "upgrade_smuggler_cache",
+    "tailor_shop_security_3": "upgrade_strongbox",
+    "tailor_shop_staff_1": "upgrade_bunks",
+    "tailor_shop_staff_2": "upgrade_dining_table",
+    "tailor_shop_staff_3": "upgrade_master_bench"
+  },
+  "upgrade_out": {
+    "tailor_shop_commerce_2": "fachada: upgrade_shop_window",
+    "tailor_shop_commerce_3": "fachada: upgrade_trade_sign",
+    "tailor_shop_facade_1": "fachada: upgrade_stone_facade",
+    "tailor_shop_facade_2": "fachada: upgrade_garden",
+    "tailor_shop_facade_3": "fachada: upgrade_noble_facade",
+    "tailor_shop_security_1": "fachada: upgrade_reinforced_lock",
+    "tailor_shop_security_2": "fachada: upgrade_guard"
+  },
+  "cast": [
+    {"look": "Tejedora", "name": "Sastra", "start": [0, [1, 2]], "steps": [
+      {"say": "teje en el telar", "secs": 8, "anim": "weave", "zone": "loom"},
+      {"say": "corta el paño", "secs": 6, "anim": "cut_cloth", "zone": "sewing_table"},
+      {"say": "guarda un paño", "secs": 3, "anim": "Interact", "zone": "storage", "carry": true}
+    ]},
+    {"look": "Noble", "name": "Cliente", "outside": true, "wait": 4, "looks": ["Noble", "Mercader", "Cazadora"], "steps": [
+      {"enter": true},
+      {"say": "se prueba un jubón", "secs": 6, "anim": "Idle_Talking", "tile": [0, [1, 4]], "look": [2, 3]},
+      {"leave": true, "secs": 6}
+    ]},
+    {"look": "Campesina", "name": "Mujer", "start": [1, [1, 2]], "steps": [
+      {"say": "guisa en el hogar", "secs": 7, "anim": "stir", "zone": "hearth"},
+      {"say": "come a la mesa", "secs": 6, "anim": "eat", "sit": "tab_casa", "look": [0, 3]}
+    ]},
+    {"look": "Vieja", "name": "Abuela", "start": [1, [1, 1]], "wait": 2, "steps": [
+      {"say": "duerme", "secs": 11, "lie": "bed"},
+      {"say": "se levanta", "secs": 3, "tile": [1, [1, 1]]}
+    ]}
+  ]
+}

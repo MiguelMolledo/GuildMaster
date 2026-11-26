@@ -1,0 +1,110 @@
+{
+  "_doc": "The carpenter's at level 3: 6 x 6 m on two floors. Below, the workshop: bench with its vise at the back, sawhorses, the pole lathe by the front wall, the board rack; a fold-down counter on the shop window; above, the home. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "id": "carpentry",
+  "level": 3,
+  "tile_m": 1.0,
+  "origin_m": [-2.5, -2.5],
+  "size": [5, 5],
+  "seed": 6,
+  "shell": {"w": 6, "d": 6, "floors": 2, "door_cell": 1},
+  "entrance": {"floor": 0, "tile": [2, 4], "side": "sw"},
+  "rooms": [
+    {"id": "workshop", "floor": 0, "type": "workshop", "rects": [[0, 0, 4, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "warm"},
+    {"id": "home", "floor": 1, "type": "kitchen", "rects": [[0, 0, 4, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "kitchen"}
+  ],
+  "stairs": [
+    {"from": [0, 2], "to": [1, 0], "foot": [-0.17, 1.45], "top": [-0.17, -0.6], "tiles": [[0, 0], [0, 1]], "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94}
+  ],
+  "stations": {
+    "sawhorse": {"name": "Caballetes", "kind": "craft", "floor": 0, "tile": [4, 1], "stand": [3, 1], "prop": "caballetes", "pos": [4, 0.75], "snap": "right"},
+    "workbench": {"name": "Banco", "kind": "craft", "floor": 0, "tile": [2, 0], "stand": [2, 1], "prop": "banco_carpintero", "pos": [2.5, 0], "snap": "back"},
+    "storage": {"name": "Tablones", "kind": "storage", "floor": 0, "tile": [1, 0], "stand": [1, 1], "prop": "estante_tablones", "snap": "back"},
+    "hearth": {"name": "Hogar", "kind": "home", "floor": 1, "tile": [4, 1], "stand": [3, 2], "prop": "hogar_cocina", "pos": [4, 1.4], "snap": "right"},
+    "bed": {"name": "Camas", "kind": "rest", "floor": 1, "tile": [2, 0], "stand": [2, 2], "prop": "cama_estrecha", "snap": "back"},
+    "counter": {"name": "Mostrador", "kind": "sales", "floor": 0, "tile": [4, 5], "stand": [4, 4], "reach": 0.95}
+  },
+  "customers": {"counter": [{"tile": [4, 6]}], "reach": 1.2, "street": [[12.0, 6.6], [4.6, 6.6]]},
+  "spots": {"shop": [0, [2, 3]], "kitchen": [1, [1, 3]], "bed": [1, [2, 2]], "kitchen_table": [0, 3]},
+  "props": [
+    {"id": "torno_pedal", "floor": 0, "pos": [0, 3.3], "snap": "left", "name": "torno"},
+    {"id": "cama_estrecha", "floor": 1, "pos": [2.93, 0], "snap": "back", "name": "cama_b"},
+    {"id": "alacena", "floor": 1, "tile": [4, 0], "snap": "back"},
+    {"id": "arcon", "floor": 1, "tile": [4, 4], "snap": "right,front", "gap": 0.03},
+    {"id": "banco", "floor": 1, "pos": [-0.01, 3.4], "snap": "left", "rot": 90, "name": "banco_casa"},
+    {"id": "mesa_estrecha", "floor": 1, "pos": [0.0, 3.4], "rot": 90, "name": "mesa_casa"},
+    {"id": "taburete", "floor": 1, "pos": [0.75, 3.0], "name": "tab_casa"},
+    {"id": "perchero", "floor": 1, "tile": [2, 4], "snap": "front"}
+  ],
+  "upgrades": {
+    "carpentry_workbench_2": [{"id": "banco_carpintero", "floor": 0, "auto": "wall", "near": "workbench", "zone": "workbench_2", "name": "Banco 2", "kind": "craft"}],
+    "carpentry_sawhorse_2": [{"id": "caballetes", "floor": 0, "auto": "wall", "near": "sawhorse", "zone": "sawhorse_2", "name": "Caballetes 2", "kind": "craft", "or_needs": "patio", "or_note": "bajo el cobertizo del patio, que el tipo trae desde el nivel 2"}],
+    "upgrade_storage_shelves": [{"id": "estante_tablones", "floor": 0, "auto": "wall", "near": "storage"}],
+    "upgrade_counter": [{"id": "estante_pared", "floor": 0, "auto": "wall", "near": "door"}],
+    "carpentry_frame_saw": [{"id": "panel_herramientas", "floor": 0, "auto": "wall", "near": "sawhorse"}],
+    "carpentry_vice_bench": [{"built": "el banco de carpintero ya lleva su tornillo"}],
+    "carpentry_master_bench": [{"base": "torno"}],
+    "carpentry_planes": [{"id": "estante_pared", "floor": 0, "auto": "wall", "near": "workbench"}],
+    "carpentry_gouges": [{"id": "panel_herramientas", "floor": 0, "auto": "wall", "near": "workbench"}],
+    "carpentry_mark": [{"id": "escudo_pared", "floor": 0, "auto": "wall", "near": "door"}],
+    "upgrade_master_bench": [{"id": "arcon", "floor": 0, "auto": "wall", "near": "workbench"}],
+    "upgrade_double_ledger": [{"on": ["mesa_casa", "workbench"], "id": "q:Book_Stack_2", "off": [0.25, 0.0]}],
+    "upgrade_hidden_passage": [{"id": "tapiz", "floor": 0, "auto": "wall", "near": "storage"}],
+    "upgrade_smuggler_cache": [{"id": "trampilla", "floor": 0, "auto": "floor", "near": "storage", "prio": 1}],
+    "upgrade_strongbox": [{"id": "arca_fuerte", "floor": 1, "auto": "wall", "near": "cama_b"}],
+    "upgrade_bunks": [{"swap": "cama_b", "id": "litera"}],
+    "upgrade_dining_table": [{"swap": "mesa_casa", "id": "mesa_1x2"}, {"id": "taburete", "floor": 1, "auto": "floor", "near": "mesa_casa"}]
+  },
+  "upgrade_ids": {
+    "carpentry_capacity_1": "carpentry_workbench_2",
+    "carpentry_capacity_2": "upgrade_storage_shelves",
+    "carpentry_capacity_3": "carpentry_sawhorse_2",
+    "carpentry_commerce_1": "upgrade_counter",
+    "carpentry_production_1": "carpentry_frame_saw",
+    "carpentry_production_2": "carpentry_vice_bench",
+    "carpentry_production_3": "carpentry_master_bench",
+    "carpentry_quality_1": "carpentry_planes",
+    "carpentry_quality_2": "carpentry_gouges",
+    "carpentry_quality_3": "carpentry_mark",
+    "carpentry_secrets_1": "upgrade_double_ledger",
+    "carpentry_secrets_2": "upgrade_hidden_passage",
+    "carpentry_secrets_3": "upgrade_smuggler_cache",
+    "carpentry_security_3": "upgrade_strongbox",
+    "carpentry_staff_1": "upgrade_bunks",
+    "carpentry_staff_2": "upgrade_dining_table",
+    "carpentry_staff_3": "upgrade_master_bench"
+  },
+  "upgrade_out": {
+    "carpentry_commerce_2": "fachada: upgrade_shop_window",
+    "carpentry_commerce_3": "fachada: upgrade_trade_sign",
+    "carpentry_facade_1": "fachada: upgrade_stone_facade",
+    "carpentry_facade_2": "fachada: upgrade_garden",
+    "carpentry_facade_3": "fachada: upgrade_noble_facade",
+    "carpentry_security_1": "fachada: upgrade_reinforced_lock",
+    "carpentry_security_2": "fachada: upgrade_guard"
+  },
+  "cast": [
+    {"look": "Labrador", "name": "Carpintero", "start": [0, [2, 2]], "steps": [
+      {"say": "sierra un tablón", "secs": 7, "anim": "saw_low", "zone": "sawhorse"},
+      {"say": "cepilla un tablero", "secs": 7, "anim": "plane", "zone": "workbench"},
+      {"say": "deja la pieza", "secs": 3, "anim": "Interact", "zone": "storage", "carry": true}
+    ]},
+    {"look": "Herrero", "name": "Oficial", "start": [0, [1, 3]], "steps": [
+      {"say": "tornea una pata", "secs": 9, "anim": "Interact", "tile": [0, [1, 3]], "look": [0, 3]},
+      {"say": "barre la viruta", "secs": 5, "anim": "sweep", "tile": [0, [3, 3]]},
+      {"say": "atiende el mostrador", "secs": 7, "zone": "counter"}
+    ]},
+    {"look": "Mercader", "name": "Cliente", "outside": true, "wait": 3, "looks": ["Labrador", "Mercader", "Sereno"], "steps": [
+      {"enter": true},
+      {"say": "compra en el mostrador", "secs": 6, "anim": "Idle_Talking", "window": true},
+      {"leave": true, "secs": 6}
+    ]},
+    {"look": "Campesina", "name": "Mujer", "start": [1, [1, 2]], "steps": [
+      {"say": "guisa en el hogar", "secs": 7, "anim": "stir", "zone": "hearth"},
+      {"say": "come a la mesa", "secs": 6, "anim": "eat", "sit": "tab_casa", "look": [0, 3]}
+    ]},
+    {"look": "Vieja", "name": "Abuela", "start": [1, [1, 1]], "wait": 2, "steps": [
+      {"say": "duerme", "secs": 11, "lie": "bed"},
+      {"say": "se levanta", "secs": 3, "tile": [1, [1, 1]]}
+    ]}
+  ]
+}

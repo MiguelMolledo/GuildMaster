@@ -1,0 +1,307 @@
+{
+ "_doc": "Townsfolk as data for CharBuilder.build(): parts per slot (part id or outfit name), paint per slot. One per animation of the GuildMaster list.",
+ "villagers": [
+  {
+   "name": "Herrero",
+   "sex": "m",
+   "parts": {
+    "torso": "peasant",
+    "arms": "peasant",
+    "legs": "peasant",
+    "feet": "peasant",
+    "hair": "hair_buzzed",
+    "beard": "beard",
+    "acc": [
+     "apron"
+    ]
+   },
+   "paint": {
+    "skin": "tan",
+    "hair": "black",
+    "*": {
+     "tex": "peasant2"
+    },
+    "torso": [
+     "gris",
+     "negro"
+    ],
+    "arms": "gris"
+   },
+   "anim": "Fixing_Kneeling"
+  },
+  {
+   "name": "Campesina",
+   "sex": "f",
+   "parts": {
+    "torso": "peasant",
+    "arms": "peasant",
+    "legs": "peasant",
+    "feet": "peasant",
+    "hair": "hair_buns"
+   },
+   "paint": {
+    "skin": "fair",
+    "hair": "chestnut",
+    "torso": "verde",
+    "arms": "verde"
+   },
+   "anim": "Walk"
+  },
+  {
+   "name": "Guardia",
+   "sex": "m",
+   "parts": {
+    "torso": "ranger",
+    "arms": "ranger",
+    "legs": "ranger",
+    "feet": "ranger",
+    "hair": "hair_buzzed",
+    "acc": [
+     "pauldron",
+     "bracers"
+    ]
+   },
+   "paint": {
+    "skin": "fair",
+    "hair": "dark",
+    "torso": "rojo",
+    "arms": "rojo",
+    "legs": "pardo"
+   },
+   "anim": "Sword_Idle"
+  },
+  {
+   "name": "Tabernero",
+   "sex": "m",
+   "height": 1.02,
+   "parts": {
+    "torso": "peasant",
+    "arms": "peasant",
+    "legs": "peasant",
+    "feet": "peasant",
+    "hair": "hair_parted",
+    "beard": "beard"
+   },
+   "paint": {
+    "skin": "olive",
+    "hair": "brown",
+    "torso": [
+     "crudo",
+     "granate"
+    ],
+    "arms": "crudo"
+   },
+   "anim": "Idle_Talking"
+  },
+  {
+   "name": "Vieja",
+   "sex": "f",
+   "height": 0.95,
+   "parts": {
+    "torso": "peasant",
+    "arms": "peasant",
+    "legs": "peasant",
+    "feet": "peasant",
+    "hair": "hair_buns"
+   },
+   "paint": {
+    "skin": "pale",
+    "hair": "white",
+    "*": {
+     "tex": "peasant2"
+    },
+    "torso": [
+     "gris",
+     "negro"
+    ],
+    "arms": "gris"
+   },
+   "anim": "Sitting_Talking"
+  },
+  {
+   "name": "Noble",
+   "sex": "m",
+   "parts": {
+    "torso": "ranger",
+    "arms": "ranger",
+    "legs": "ranger",
+    "feet": "ranger",
+    "hair": "hair_parted",
+    "beard": "beard"
+   },
+   "paint": {
+    "skin": "pale",
+    "hair": "ash",
+    "*": {
+     "tex": "ranger3"
+    },
+    "torso": [
+     "ocre",
+     "granate"
+    ],
+    "arms": [
+     "ocre",
+     "granate"
+    ],
+    "legs": [
+     "",
+     "negro"
+    ]
+   },
+   "anim": "Walk_Formal"
+  },
+  {
+   "name": "Sereno",
+   "sex": "m",
+   "parts": {
+    "torso": "ranger",
+    "arms": "ranger",
+    "legs": "peasant",
+    "feet": "ranger",
+    "hair": "hair_buzzed",
+    "acc": [
+     "hood"
+    ]
+   },
+   "paint": {
+    "skin": "brown",
+    "hair": "black",
+    "*": {
+     "tex": "ranger3"
+    },
+    "torso": [
+     "gris",
+     "azul_osc"
+    ],
+    "arms": [
+     "gris",
+     "azul_osc"
+    ],
+    "hood_ranger_m": [
+     "",
+     "azul_osc"
+    ],
+    "legs": {
+     "tex": "peasant"
+    }
+   },
+   "anim": "Idle_Torch"
+  },
+  {
+   "name": "Mercader",
+   "sex": "f",
+   "parts": {
+    "torso": "ranger",
+    "arms": "ranger",
+    "legs": "peasant",
+    "feet": "peasant",
+    "hair": "hair_long"
+   },
+   "paint": {
+    "skin": "olive",
+    "hair": "dark",
+    "*": {
+     "tex": "ranger3"
+    },
+    "torso": [
+     "crudo",
+     "mostaza"
+    ],
+    "arms": [
+     "crudo",
+     "mostaza"
+    ],
+    "legs": {
+     "tex": "peasant"
+    },
+    "feet": {
+     "tex": "peasant"
+    }
+   },
+   "anim": "Interact"
+  },
+  {
+   "name": "Labrador",
+   "sex": "m",
+   "parts": {
+    "torso": "peasant",
+    "arms": "peasant",
+    "legs": "peasant",
+    "feet": "peasant",
+    "hair": "hair_parted"
+   },
+   "paint": {
+    "skin": "tan",
+    "hair": "auburn",
+    "torso": [
+     "ocre",
+     "pardo"
+    ],
+    "arms": "ocre"
+   },
+   "anim": "Push"
+  },
+  {
+   "name": "Tejedora",
+   "sex": "f",
+   "parts": {
+    "torso": "peasant",
+    "arms": "peasant",
+    "legs": "peasant",
+    "feet": "peasant",
+    "hair": "hair_long"
+   },
+   "paint": {
+    "skin": "fair",
+    "hair": "blond",
+    "torso": [
+     "azul",
+     "azul_osc"
+    ],
+    "arms": "azul"
+   },
+   "anim": "PickUp_Table"
+  },
+  {
+   "name": "Cazadora",
+   "sex": "f",
+   "parts": {
+    "torso": "ranger",
+    "arms": "ranger",
+    "legs": "ranger",
+    "feet": "ranger",
+    "hair": "hair_buns",
+    "acc": [
+     "hood",
+     "bracers"
+    ]
+   },
+   "paint": {
+    "skin": "tan",
+    "hair": "auburn"
+   },
+   "anim": "Idle"
+  },
+  {
+   "name": "Moza",
+   "sex": "f",
+   "parts": {
+    "torso": "peasant",
+    "arms": "peasant",
+    "legs": "peasant",
+    "feet": "peasant",
+    "hair": "hair_long"
+   },
+   "paint": {
+    "skin": "fair",
+    "hair": "chestnut",
+    "torso": [
+     "crudo",
+     "rojo"
+    ],
+    "arms": "crudo"
+   },
+   "anim": "Dance"
+  }
+ ]
+}

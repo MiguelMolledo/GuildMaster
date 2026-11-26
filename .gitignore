@@ -28,3 +28,7 @@ assets/art/fal_piloto/*/celdas/
 assets/art/fal_piloto/*/local/
 assets/art/fal_piloto/*/i2p/
 assets/art/fal_piloto/_refs/
+
+# Kit 3D (docs/3d/plan.md §5): los packs completos se instalan con tools/kit3d/kit.py instalar; en git solo
+# lo que el juego carga, añadido con git add -f (tools/kit3d/kit.py sellar)
+/kit/

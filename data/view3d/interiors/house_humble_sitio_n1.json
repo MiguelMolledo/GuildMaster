@@ -1,0 +1,42 @@
+{
+  "_doc": "A humble house at level 1: one room of 4 x 4 m (3 x 3 tiles): bed, hearth, chest, a stool by the fire. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "id": "house_humble",
+  "level": 1,
+  "tile_m": 1.0,
+  "origin_m": [-1.5, -1.5],
+  "size": [3, 3],
+  "seed": 4,
+  "shell": {"w": 4, "d": 4, "floors": 1, "door_cell": 1},
+  "entrance": {"floor": 0, "tile": [2, 2], "side": "sw"},
+  "rooms": [
+    {"id": "home", "floor": 0, "type": "kitchen", "rects": [[0, 0, 2, 2]], "floor_kind": "stone", "wall_style": "timber", "light": "kitchen"}
+  ],
+  "stations": {
+    "hearth": {"name": "Hogar", "kind": "home", "floor": 0, "tile": [2, 0], "stand": [1, 0], "prop": "hogar_cocina", "snap": "back"},
+    "bed": {"name": "Cama", "kind": "rest", "floor": 0, "tile": [0, 0], "stand": [1, 1], "prop": "cama_estrecha", "snap": "back,left"}
+  },
+  "spots": {"kitchen": [0, [2, 1]], "bed": [0, [1, 1]], "shop": [0, [1, 1]]},
+  "props": [
+    {"id": "arcon", "floor": 0, "tile": [0, 2], "snap": "left,front", "gap": 0.03},
+    {"id": "taburete", "floor": 0, "pos": [2.2, 0.95], "rot": 180, "name": "taburete"},
+    {"id": "estante_pared", "floor": 0, "tile": [2, 1], "snap": "right"},
+    {"id": "perchero", "floor": 0, "tile": [0, 1], "snap": "left"},
+    {"id": "ollas_colgadas", "floor": 0, "tile": [1, 0], "snap": "back"},
+    {"id": "ristra_ajos", "floor": 0, "tile": [2, 2], "snap": "right"},
+    {"id": "alfombra_esparto", "floor": 0, "tile": [1, 1], "rot": 0},
+    {"id": "palmatoria", "floor": 0, "tile": [0, 2], "y": 0.5},
+    {"id": "orinal", "floor": 0, "pos": [0.62, 0.05]}
+  ],
+  "cast": [
+    {"look": "Campesina", "name": "Vecina", "start": [0, [1, 1]], "steps": [
+      {"say": "guisa en el hogar", "secs": 8, "anim": "stir", "zone": "hearth"},
+      {"say": "se calienta junto al fuego", "secs": 7, "anim": "sit_bench", "sit": "taburete", "look": [2, 0]}
+    ]},
+    {"look": "Labrador", "name": "Vecino", "outside": true, "wait": 3, "steps": [
+      {"enter": true},
+      {"say": "duerme", "secs": 9, "lie": "bed"},
+      {"say": "busca en el arcón", "secs": 3, "anim": "Interact", "tile": [0, [1, 2]], "look": [0, 2]},
+      {"leave": true, "secs": 4}
+    ]}
+  ]
+}

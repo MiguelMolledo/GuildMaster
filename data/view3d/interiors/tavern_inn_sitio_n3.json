@@ -1,0 +1,144 @@
+{
+  "_doc": "The tavern-inn at level 3: 8 x 6 m on 3 floors. Below, the taproom: bar, casks, the big hearth with its cauldron, a long table with benches, a small table and the gaming table. Above, two rooms with four guest beds; on the top floor, the innkeeper's rooms and one more bed. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "id": "tavern_inn",
+  "level": 3,
+  "tile_m": 1.0,
+  "origin_m": [-3.5, -2.5],
+  "size": [7, 5],
+  "seed": 6,
+  "shell": {"w": 8, "d": 6, "floors": 3, "door_cell": 2},
+  "entrance": {"floor": 0, "tile": [4, 4], "side": "sw"},
+  "rooms": [
+    {"id": "hall", "floor": 0, "type": "shop", "rects": [[0, 0, 6, 4]], "floor_kind": "stone", "wall_style": "timber", "light": "warm"},
+    {"id": "room_a", "floor": 1, "type": "bedroom", "rects": [[0, 0, 3, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"},
+    {"id": "room_b", "floor": 1, "type": "bedroom", "rects": [[4, 0, 6, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"},
+    {"id": "keeper", "floor": 2, "type": "bedroom", "rects": [[0, 0, 6, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"}
+  ],
+  "doors": [
+    {"floor": 1, "tile": [4, 2], "side": "nw"}
+  ],
+  "stairs": [
+    {"from": [0, 2], "to": [1, 0], "foot": [-0.17, 1.45], "top": [-0.17, -0.6], "tiles": [[0, 0], [0, 1]], "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94},
+    {"from": [0, 2], "to": [1, 0], "foot": [-0.17, 1.45], "top": [-0.17, -0.6], "tiles": [[0, 0], [0, 1]], "id": "stairs1", "floor": 1, "to_floor": 2, "prop": "escalera_empinada", "width": 0.94}
+  ],
+  "stations": {
+    "bar": {"name": "Barra", "kind": "service", "floor": 0, "tile": [2, 2], "stand": [2, 1], "prop": "barra", "pos": [2.5, 2], "rot": 0},
+    "storage": {"name": "Barriles", "kind": "storage", "floor": 0, "tile": [4, 0], "stand": [4, 1], "prop": "barriles_caballete", "pos": [3.5, 0], "snap": "back"},
+    "kitchen": {"name": "Cocina", "kind": "craft", "floor": 0, "tile": [6, 0], "stand": [5, 1], "prop": "hogar_grande", "pos": [5.6, 0], "snap": "back"},
+    "tables": {"name": "Mesas", "kind": "service", "floor": 0, "tile": [1, 4], "stand": [2, 3], "prop": "mesa_1x2", "pos": [0.6, 3.7], "rot": 90},
+    "gaming_table": {"name": "Mesa de juego", "kind": "service", "floor": 0, "tile": [6, 2], "stand": [5, 2], "prop": "mesa_juego", "snap": "right", "gap": 0.05},
+    "rooms": {"name": "Habitaciones", "kind": "service", "floor": 1, "tile": [2, 0], "stand": [2, 2], "prop": "cama_huesped", "snap": "back"}
+  },
+  "spots": {"shop": [0, [4, 3]], "kitchen": [0, [5, 1]], "bed": [1, [2, 2]]},
+  "props": [
+    {"id": "botellero", "floor": 0, "tile": [2, 0], "snap": "back"},
+    {"id": "banco", "floor": 0, "pos": [0, 3.9], "snap": "left", "rot": 90, "name": "bancoA"},
+    {"id": "banco", "floor": 0, "pos": [1.4, 3.7], "rot": 90, "name": "bancoB"},
+    {"id": "mesa_1x1", "floor": 0, "tile": [6, 4], "snap": "front,right"},
+    {"id": "taburete", "floor": 0, "pos": [5.0, 4.15], "name": "t1"},
+    {"id": "taburete", "floor": 0, "pos": [6.1, 3.05], "name": "t2"},
+    {"id": "taburete", "floor": 0, "pos": [5.05, 2.0], "name": "t3"},
+    {"id": "taburete", "floor": 0, "pos": [6.05, 1.05], "name": "t4"},
+    {"id": "perchero", "floor": 0, "tile": [3, 4], "snap": "front"},
+    {"id": "cama_huesped", "floor": 1, "tile": [3, 0], "snap": "back", "name": "camaB"},
+    {"id": "cama_huesped", "floor": 1, "pos": [0, 3.6], "snap": "left", "rot": 180, "name": "camaC"},
+    {"id": "arcon", "floor": 1, "tile": [3, 4], "snap": "front", "gap": 0.02},
+    {"id": "perchero", "floor": 1, "tile": [1, 4], "snap": "front"},
+    {"id": "tiro", "floor": 1, "pos": [5.6, 0], "snap": "back"},
+    {"id": "cama_huesped", "floor": 1, "pos": [6, 1.5], "snap": "right", "rot": 0, "name": "camaD"},
+    {"id": "cama_huesped", "floor": 1, "pos": [6, 3.6], "snap": "right", "rot": 180, "name": "camaE"},
+    {"id": "arcon", "floor": 1, "tile": [4, 0], "snap": "back", "gap": 0.02},
+    {"id": "mesa_estrecha", "floor": 1, "pos": [4.5, 4], "snap": "front", "gap": 0.02},
+    {"id": "taburete", "floor": 1, "pos": [4.5, 3.25], "name": "t5"},
+    {"id": "ollas_colgadas", "floor": 0, "pos": [6, 0.8], "snap": "right"},
+    {"id": "jamones", "floor": 0, "tile": [1, 0], "snap": "back"},
+    {"id": "ristra_ajos", "floor": 0, "tile": [6, 3], "snap": "right"},
+    {"id": "alfombra_esparto", "floor": 0, "pos": [4.5, 2.5], "rot": 0},
+    {"id": "orinal", "floor": 1, "pos": [2.1, 0.5]},
+    {"id": "orinal", "floor": 1, "pos": [4.4, 0.9]},
+    {"id": "palangana_jarro", "floor": 1, "pos": [1.2, 0], "snap": "back", "gap": 0.05},
+    {"id": "alfombra_esparto", "floor": 1, "pos": [2, 2.2], "rot": 0},
+    {"id": "hierbas_secas", "floor": 1, "pos": [4.5, 4], "snap": "front"},
+    {"id": "tiro", "floor": 2, "pos": [5.6, 0], "snap": "back"},
+    {"id": "cama_estrecha", "floor": 2, "tile": [3, 0], "snap": "back", "name": "cama_dueno"},
+    {"id": "cama_estrecha", "floor": 2, "pos": [3.93, 0], "snap": "back"},
+    {"id": "arcon", "floor": 2, "tile": [6, 0], "snap": "right,back", "gap": 0.03},
+    {"id": "arca_fuerte", "floor": 2, "tile": [6, 2], "snap": "right", "gap": 0.03},
+    {"id": "mesa_estrecha", "floor": 2, "pos": [1.5, 4], "snap": "front", "gap": 0.02},
+    {"id": "taburete", "floor": 2, "pos": [1.5, 3.25]},
+    {"id": "cama_huesped", "floor": 2, "pos": [6, 3.6], "snap": "right", "rot": 180, "name": "camaF"},
+    {"id": "alacena", "floor": 2, "pos": [3.5, 4], "snap": "front"},
+    {"id": "perchero", "floor": 2, "tile": [0, 3], "snap": "left"},
+    {"id": "alfombra_esparto", "floor": 2, "tile": [2, 2], "rot": 0},
+    {"id": "orinal", "floor": 2, "pos": [2.1, 0.5]},
+    {"id": "vasar_loza", "floor": 2, "tile": [5, 4], "snap": "front"},
+    {"id": "palangana_jarro", "floor": 2, "pos": [1.2, 0], "snap": "back", "gap": 0.05}
+  ],
+  "upgrades": {
+    "inn_menu_board": [{"id": "pergamino_pared", "floor": 0, "auto": "wall", "near": "bar"}],
+    "inn_minstrel": [{"id": "taburete", "floor": 0, "auto": "floor", "near": "tables", "zone": "minstrel_corner", "name": "Rincón del juglar", "kind": "service"}],
+    "inn_gaming": [{"base": "gaming_table"}],
+    "inn_barrels": [{"id": "barrel", "floor": 0, "auto": "wall", "near": "storage"}, {"id": "barrel", "floor": 0, "auto": "wall", "near": "storage"}],
+    "inn_reserve": [{"id": "botellero", "floor": 0, "auto": "wall", "near": "bar"}],
+    "inn_cave": [{"needs": "sótano", "note": "la cueva de toneles pide un sótano que la casa no tiene"}],
+    "inn_more_tables": [{"id": "mesa_1x1", "floor": 0, "auto": "floor", "near": "tables", "name": "mesa_extra"}, {"id": "taburete", "floor": 0, "auto": "floor", "near": "mesa_extra"}, {"id": "taburete", "floor": 0, "auto": "floor", "near": "mesa_extra"}],
+    "inn_hearth": [{"needs": "nivel", "note": "una chimenea de salón pide un paño de muro libre con su tiro hasta el tejado: no lo hay"}],
+    "inn_tapestries": [{"id": "tapiz", "floor": 0, "auto": "wall", "near": "tables"}],
+    "inn_oven": [{"built": "la cocina ya tiene el hogar grande con su caldero"}],
+    "inn_spit": [{"id": "estante_pared", "floor": 0, "auto": "wall", "near": "kitchen"}],
+    "inn_pantry": [{"id": "alacena", "floor": 0, "auto": "wall", "near": "kitchen"}],
+    "inn_more_beds": [{"id": "cama_huesped", "floor": 1, "auto": "wall", "near": "rooms"}],
+    "inn_good_room": [{"id": "tapiz", "floor": 1, "auto": "wall", "near": "rooms"}, {"id": "arcon", "floor": 1, "auto": "wall", "near": "rooms"}],
+    "inn_stable": [{"needs": "anexo", "note": "el establo es un anexo en el patio"}],
+    "inn_porter": [{"id": "taburete", "floor": 0, "auto": "floor", "near": "door"}],
+    "inn_cellar_lock": [{"id": "arca_fuerte", "floor": 0, "auto": "wall", "near": "storage"}],
+    "inn_porter_room": [{"id": "arcon", "floor": 0, "auto": "wall", "near": "door"}]
+  },
+  "upgrade_ids": {
+    "tavern_inn_ambience_2": "inn_minstrel",
+    "tavern_inn_ambience_3": "inn_gaming",
+    "tavern_inn_ambience_1": "inn_menu_board",
+    "tavern_inn_cellar_1": "inn_barrels",
+    "tavern_inn_cellar_2": "inn_reserve",
+    "tavern_inn_cellar_3": "inn_cave",
+    "tavern_inn_hall_1": "inn_more_tables",
+    "tavern_inn_hall_2": "inn_hearth",
+    "tavern_inn_hall_3": "inn_tapestries",
+    "tavern_inn_kitchen_1": "inn_oven",
+    "tavern_inn_kitchen_2": "inn_spit",
+    "tavern_inn_kitchen_3": "inn_pantry",
+    "tavern_inn_rooms_1": "inn_more_beds",
+    "tavern_inn_rooms_2": "inn_good_room",
+    "tavern_inn_rooms_3": "inn_stable",
+    "tavern_inn_security_1": "inn_porter",
+    "tavern_inn_security_2": "inn_cellar_lock",
+    "tavern_inn_security_3": "inn_porter_room"
+  },
+  "upgrade_out": {
+  },
+  "cast": [
+    {"look": "Tabernero", "name": "Tabernero", "start": [0, [3, 1]], "steps": [
+      {"say": "sirve en la barra", "secs": 7, "anim": "serve", "zone": "bar"},
+      {"say": "tira una jarra del barril", "secs": 4, "anim": "Interact", "zone": "storage"},
+      {"say": "descansa arriba", "secs": 8, "lie": "cama_dueno"}
+    ]},
+    {"look": "Moza", "name": "Cocinera", "start": [0, [5, 1]], "steps": [
+      {"say": "guisa en el caldero", "secs": 8, "anim": "stir", "zone": "kitchen"},
+      {"say": "sirve el guiso", "secs": 4, "anim": "ladle", "zone": "kitchen"},
+      {"say": "sirve la mesa larga", "secs": 3, "anim": "PickUp_Table", "tile": [0, [2, 4]], "carry": true, "look": [1, 4]},
+      {"say": "sirve la mesa", "secs": 3, "anim": "PickUp_Table", "tile": [0, [5, 3]], "look": [6, 4]}
+    ]},
+    {"look": "Labrador", "name": "Parroquiano", "outside": true, "wait": 1.5, "looks": ["Labrador", "Sereno", "Herrero"], "steps": [
+      {"enter": true},
+      {"say": "pide en la barra", "secs": 5, "anim": "Idle_Talking", "tile": [0, [2, 3]], "look": [2, 2]},
+      {"say": "bebe en la mesa larga", "secs": 9, "anim": "drink", "sit": "bancoB", "face": 180},
+      {"leave": true, "secs": 4}
+    ]},
+    {"look": "Noble", "name": "Huésped", "outside": true, "wait": 5, "looks": ["Noble", "Cazadora", "Guardia", "Mercader"], "steps": [
+      {"enter": true},
+      {"say": "juega a los dados", "secs": 8, "anim": "sit_talk", "sit": "t3", "look": [6, 2]},
+      {"say": "duerme en su cama", "secs": 9, "lie": "camaD"},
+      {"leave": true, "secs": 5}
+    ]}
+  ]
+}

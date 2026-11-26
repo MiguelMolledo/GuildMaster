@@ -1,0 +1,2951 @@
+{
+ "_doc": "Las fiestas (data/festivals.json de GuildMaster) y los sucesos (data/events.json) montados en 3D por datos (fiestas.tscn, scripts/fiestas.gd). `plaza` es la base común: suelo, casas del kit, farolas; cada entrada de `fiestas` añade lo suyo encima, con el mismo formato que data/extras/escenas.json: pieces [id, x, y, rot, {opts}] (opts: goods, awning [r,g,b], tint {material: [r,g,b]}, z, scale), kit [q:Prop | Pieza_del_kit, x, y, rot], animals, chains {piece, from, to}, nature, shots [nombre, x, y, alto, zoom, yaw(, 'noche')]. `where` en las piezas es documentación para la sim: plaza, calle, puerta, iglesia, afueras, balcon. `familias` son las láminas: piezas de cada familia junto a props del kit.",
+ "plaza": {
+  "ground": [
+   {"rect": [-20, -13, 20, 11], "tex": "adoquin"}
+  ],
+  "houses": [
+   {"wealth": "ciudadano", "family": "Ferrer", "at": [-15, 12.5], "rot": 0, "seed": 2},
+   {"wealth": "rico", "family": "Vidal", "at": [-6, 12.5], "rot": 0, "seed": 6},
+   {"wealth": "ciudadano", "family": "Pujol", "at": [4, 12.5], "rot": 0, "seed": 9},
+   {"wealth": "ciudadano", "family": "Soler", "at": [-22, 2], "rot": 90, "seed": 4},
+   {"wealth": "pobre", "family": "Costa", "at": [-22, -7], "rot": 90, "seed": 7},
+   {"wealth": "ciudadano", "family": "Ferrer", "at": [-12, -15.5], "rot": 180, "seed": 11},
+   {"wealth": "ciudadano", "family": "Vidal", "at": [-3, -15.5], "rot": 180, "seed": 13}
+  ],
+  "pieces": [["farola_poste", -18.5, 9.2, 180], ["farola_poste", 8.4, -11, 0], ["banco_piedra", -19.2, -2.6, 90]],
+  "shots": [["z26", -3, -1, 2, 26, 45], ["z12", -4, -1, 2, 12, 45]]
+ },
+ "familias": {
+  "torneo": {
+   "kit": ["Shield_Wooden", "Dummy", "WeaponStand", "Banner_1"],
+   "pieces": [
+    "liza_tramo",
+    "gradas",
+    [
+     "tienda_caballero",
+     {"awning": [0.2, 0.34, 0.6]}
+    ],
+    "armero_lanzas",
+    "estafermo",
+    "escudos_heraldicos",
+    [
+     "escudo_pared",
+     {"z": 2.2}
+    ]
+   ]
+  },
+  "fuego": {
+   "kit": ["Torch_Metal", "CandleStick_Stand", "Lantern_Wall"],
+   "noche": true,
+   "pieces": [
+    "hoguera",
+    "hoguera_brasas",
+    "hoguera_calle",
+    "antorcha_suelo",
+    [
+     "farolillos_6",
+     {"z": 3.2}
+    ]
+   ]
+  },
+  "bodas": {
+   "kit": ["n:Bush_Common_Flowers", "Table_Large", "Chalice"],
+   "pieces": [
+    "arco_flores",
+    "arco_ramas",
+    [
+     "guirnalda_6",
+     {"z": 3.0}
+    ],
+    "mesa_banquete",
+    "petalos"
+   ]
+  },
+  "marques": {
+   "kit": ["Banner_2", "Chair_1", "Chalice"],
+   "pieces": [
+    "palio",
+    "alfombra_paso",
+    [
+     "repostero",
+     {"z": 2.3}
+    ],
+    [
+     "tribuna",
+     {"awning": [0.2, 0.34, 0.6]}
+    ]
+   ]
+  },
+  "procesion": {
+   "kit": ["CandleStick_Stand", "Banner_1", "Candle_1"],
+   "pieces": [
+    "paso_procesion",
+    "hachero_cirios",
+    "cruz_procesional",
+    [
+     "pendon_procesion",
+     {"awning": [0.52, 0.26, 0.54]}
+    ],
+    "alfombra_flores",
+    "arco_ramas"
+   ]
+  },
+  "carnaval": {
+   "kit": ["Dummy", "Stall_Empty", "Bag"],
+   "pieces": [
+    "gigante_rey",
+    "gigante_reina",
+    "cabezudo",
+    "pelele",
+    [
+     "puesto_mascaras",
+     {"awning": [0.52, 0.26, 0.54]}
+    ]
+   ]
+  },
+  "ferias": {"kit": ["FarmCrate_Apple", "Barrel_Apples", "Bag"], "pieces": ["monton_calabazas", "monton_frutos", "corral_valla", "corral_puerta", "tablon_pujas"]},
+  "guerra": {
+   "kit": ["WeaponStand", "Shield_Wooden", "Sword_Bronze"],
+   "pieces": [
+    "tienda_campana",
+    "armero_campana",
+    [
+     "mesa_leva",
+     {"awning": [0.68, 0.2, 0.16]}
+    ],
+    "empalizada",
+    "carro_suministros"
+   ]
+  },
+  "epidemia": {
+   "kit": ["Cauldron", "Bed_Twin1", "Bucket_Wooden_1"],
+   "noche": true,
+   "pieces": [
+    "brasero_sahumerio",
+    [
+     "cruz_tiza",
+     {"z": 1.4}
+    ],
+    "camilla",
+    "carro_tapado"
+   ]
+  },
+  "sucesos": {"kit": ["Stall_Empty", "Cauldron", "Bag", "Crate_Wooden"], "pieces": ["puesto_vacio", "olla_reparto", "saco_roto", "barricada", "grano_rebosante", "carro_cargado", "tablon_pasquines", "tarima_discursos"]}
+ },
+ "fiestas": {
+  "tournament": {
+   "name": "Torneo",
+   "tipo": "fiesta",
+   "gm": "tournament",
+   "note": "la justa en la plaza: liza de cinco tramos, gradas con toldo al norte, tiendas de dos caballeros con sus armeros a los lados, estafermo, escudos de armas, pendones y gallardetes; caballos junto a las tiendas",
+   "pieces": [
+    [
+     "gradas",
+     -3,
+     5.6,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "escudos_heraldicos",
+     5.2,
+     5.4,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "tienda_caballero",
+     -15,
+     -8.5,
+     0,
+     {"awning": [0.2, 0.34, 0.6], "where": "plaza"}
+    ],
+    [
+     "tienda_caballero",
+     13.5,
+     -8.5,
+     0,
+     {"awning": [0.68, 0.2, 0.16], "where": "plaza"}
+    ],
+    [
+     "armero_lanzas",
+     -11.5,
+     -5.5,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "armero_lanzas",
+     10.0,
+     -5.5,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "estafermo",
+     14.5,
+     1.0,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "estandarte_poste",
+     -9,
+     9.0,
+     0,
+     {"awning": [0.2, 0.34, 0.6], "where": "plaza"}
+    ],
+    [
+     "estandarte_poste",
+     3.0,
+     9.0,
+     0,
+     {"awning": [0.68, 0.2, 0.16], "where": "plaza"}
+    ],
+    [
+     "escudo_pared",
+     -6,
+     12.45,
+     0,
+     {"z": 3.6, "where": "balcon"}
+    ],
+    [
+     "escudo_pared",
+     4,
+     12.45,
+     0,
+     {"z": 3.6, "where": "balcon"}
+    ],
+    [
+     "banderolas_6",
+     -9,
+     10.4,
+     0,
+     {"z": 4.8, "where": "calle"}
+    ],
+    [
+     "banderolas_6",
+     -3,
+     10.4,
+     0,
+     {"z": 4.8, "where": "calle"}
+    ],
+    [
+     "banderolas_6",
+     3,
+     10.4,
+     0,
+     {"z": 4.8, "where": "calle"}
+    ],
+    [
+     "banderolas_6",
+     -18,
+     -2.5,
+     90,
+     {"z": 4.6, "where": "calle"}
+    ],
+    [
+     "caballo_quieto",
+     -12.5,
+     -10.5,
+     300,
+     {"where": "plaza"}
+    ],
+    [
+     "caballo_negro_quieto",
+     11.0,
+     -10.0,
+     60,
+     {"where": "plaza"}
+    ]
+   ],
+   "chains": [
+    {"piece": "liza_tramo", "from": [-10, -1], "to": [10, -1]}
+   ],
+   "kit": [["q:Barrel", -16.8, -4.8, 0], ["q:Crate_Wooden", 15.6, -4.6, 20]],
+   "animals": [
+    {"id": "perro", "coat": "blanco", "at": [-6, -6], "wander": [2, -7]}
+   ],
+   "shots": [["liza_z12", 2, 2, 2, 12, 45], ["tiendas_z8", -13, -7, 2, 8, 45], ["gradas_z8", -3, 5, 2, 8, 45]]
+  },
+  "st_john": {
+   "name": "San Juan",
+   "tipo": "fiesta",
+   "gm": "st_john",
+   "note": "la noche de San Juan: la hoguera grande en el centro de la plaza, tres hogueras de calle, farolillos de fachada a fachada y en postes, antorchas clavadas, mesas largas y barriles de la taberna",
+   "pieces": [
+    [
+     "hoguera",
+     -3,
+     -1.5,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "hoguera_calle",
+     -19,
+     -11,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "hoguera_calle",
+     14,
+     8,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "hoguera_calle",
+     2,
+     -13.5,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "farolillos_6",
+     -9,
+     10.4,
+     0,
+     {"z": 4.2, "where": "calle"}
+    ],
+    [
+     "farolillos_6",
+     -3,
+     10.4,
+     0,
+     {"z": 4.2, "where": "calle"}
+    ],
+    [
+     "farolillos_6",
+     3,
+     10.4,
+     0,
+     {"z": 4.2, "where": "calle"}
+    ],
+    [
+     "farolillos_6",
+     -18,
+     -2.5,
+     90,
+     {"z": 4.0, "where": "calle"}
+    ],
+    [
+     "farolillos_6",
+     -9,
+     -12.4,
+     0,
+     {"z": 4.2, "where": "calle"}
+    ],
+    [
+     "estandarte_mercado",
+     8,
+     2,
+     90,
+     {"awning": [0.86, 0.66, 0.22], "where": "plaza"}
+    ],
+    [
+     "farolillos_6",
+     8,
+     2,
+     90,
+     {"z": 3.4, "where": "plaza"}
+    ],
+    [
+     "estandarte_mercado",
+     -12,
+     3,
+     0,
+     {"awning": [0.68, 0.2, 0.16], "where": "plaza"}
+    ],
+    [
+     "farolillos_6",
+     -12,
+     3,
+     0,
+     {"z": 3.4, "where": "plaza"}
+    ],
+    [
+     "antorcha_suelo",
+     -7.5,
+     3.5,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "antorcha_suelo",
+     1.5,
+     3.5,
+     180,
+     {"where": "plaza"}
+    ],
+    [
+     "antorcha_suelo",
+     -7.5,
+     -6.5,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "antorcha_suelo",
+     1.5,
+     -6.5,
+     180,
+     {"where": "plaza"}
+    ],
+    [
+     "mesa_larga",
+     10,
+     -6,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "mesa_larga",
+     10,
+     -9,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "mesa_larga",
+     -13,
+     -6,
+     90,
+     {"where": "plaza"}
+    ]
+   ],
+   "kit": [["q:Barrel", 13.5, -4.5, 0], ["q:Barrel", 14.2, -5.2, 30], ["q:Crate_Wooden", -15, -9, 10]],
+   "animals": [
+    {"id": "gato", "coat": "negro", "at": [-16, 8], "rot": 200, "anim": "quieto"}
+   ],
+   "shots": [["hoguera_z8", -3, -1.5, 2, 8, 45], ["z26_noche", -3, -1, 2, 26, 45, "noche"], ["z12_noche", -4, -1, 2, 12, 45, "noche"], ["hoguera_z8_noche", -3, -1.5, 2, 8, 45, "noche"], ["calle_z8_noche", -17, -9, 2, 8, 45, "noche"]]
+  },
+  "noble_wedding": {
+   "name": "Boda noble",
+   "tipo": "fiesta",
+   "gm": "noble_wedding",
+   "note": "la boda de una familia rica: arco de flores ante la casa de los novios, guirnaldas entre las casas, cuatro mesas de banquete en la plaza, pétalos por el paso, estandartes y gallardetes, músicos en el tablado",
+   "pieces": [
+    [
+     "arco_flores",
+     -6,
+     9.2,
+     0,
+     {"where": "puerta"}
+    ],
+    [
+     "petalos",
+     -6,
+     6.5,
+     0,
+     {"where": "puerta"}
+    ],
+    [
+     "petalos",
+     -6,
+     3.5,
+     20,
+     {"where": "plaza"}
+    ],
+    [
+     "petalos",
+     -6,
+     0.5,
+     70,
+     {"where": "plaza"}
+    ],
+    [
+     "guirnalda_6",
+     -9,
+     10.4,
+     0,
+     {"z": 4.6, "where": "calle"}
+    ],
+    [
+     "guirnalda_6",
+     -3,
+     10.4,
+     0,
+     {"z": 4.6, "where": "calle"}
+    ],
+    [
+     "guirnalda_6",
+     3,
+     10.4,
+     0,
+     {"z": 4.6, "where": "calle"}
+    ],
+    [
+     "guirnalda_6",
+     -18,
+     -2.5,
+     90,
+     {"z": 4.4, "where": "calle"}
+    ],
+    [
+     "guirnalda_6",
+     -9,
+     -12.4,
+     0,
+     {"z": 4.6, "where": "calle"}
+    ],
+    [
+     "guirnalda_4",
+     -13,
+     -12.4,
+     0,
+     {"z": 4.6, "where": "calle"}
+    ],
+    [
+     "mesa_banquete",
+     3,
+     1.5,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "mesa_banquete",
+     3,
+     -1.5,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "mesa_banquete",
+     3,
+     -4.5,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "mesa_banquete",
+     -13,
+     -1,
+     90,
+     {"where": "plaza"}
+    ],
+    [
+     "tablado",
+     12,
+     -6,
+     270,
+     {"where": "plaza"}
+    ],
+    [
+     "estandarte_poste",
+     -1,
+     9.0,
+     0,
+     {"awning": [0.86, 0.66, 0.22], "where": "plaza"}
+    ],
+    [
+     "estandarte_poste",
+     -11,
+     9.0,
+     0,
+     {"awning": [0.86, 0.66, 0.22], "where": "plaza"}
+    ],
+    [
+     "banderolas_6",
+     -15,
+     10.4,
+     0,
+     {"z": 4.8, "where": "calle"}
+    ]
+   ],
+   "kit": [["q:Barrel", 8, 5, 0], ["q:Barrel", 8.8, 5.3, 40], ["q:Crate_Wooden", 9.5, 4.4, 10]],
+   "animals": [
+    {"id": "perro", "coat": "canela", "at": [-14, -8], "wander": [-2, -9]},
+    {"id": "gallina", "at": [14, 3], "wander": [16, 6]}
+   ],
+   "shots": [["arco_z8", -6, 7, 2, 8, 45], ["mesas_z8", 3, -1.5, 2, 8, 45]]
+  },
+  "neighbours_wedding": {
+   "name": "Boda de vecinos",
+   "tipo": "fiesta",
+   "gm": "neighbours_wedding",
+   "note": "una boda de vecinos al atardecer: arco de ramas con flores ante la casa, dos guirnaldas, una mesa de banquete y las mesas largas, pétalos y barriles; más humilde que la noble",
+   "pieces": [
+    [
+     "arco_flores",
+     -15,
+     9.2,
+     0,
+     {"where": "puerta"}
+    ],
+    [
+     "petalos",
+     -15,
+     6.8,
+     0,
+     {"where": "puerta"}
+    ],
+    [
+     "guirnalda_6",
+     -15,
+     10.4,
+     0,
+     {"z": 4.6, "where": "calle"}
+    ],
+    [
+     "guirnalda_4",
+     -18,
+     3.5,
+     90,
+     {"z": 4.4, "where": "calle"}
+    ],
+    [
+     "mesa_banquete",
+     -9,
+     2,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "mesa_larga",
+     -9,
+     -1,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "mesa_larga",
+     -9,
+     -4,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "banderolas_4",
+     -13,
+     -12.4,
+     0,
+     {"z": 4.8, "where": "calle"}
+    ]
+   ],
+   "kit": [["q:Barrel", -4, 4, 0], ["q:Barrel", -3.3, 4.4, 30], ["q:Stool", -4.2, 2.6, 0]],
+   "animals": [
+    {"id": "gato", "coat": "gris", "at": [-19, -2], "rot": 100, "anim": "tumbado"}
+   ],
+   "shots": [["arco_z8", -15, 7, 2, 8, 45]]
+  },
+  "marquis_visit": {
+   "name": "Visita del marqués",
+   "tipo": "fiesta",
+   "gm": "marquis_visit",
+   "note": "la villa recibe al marqués: alfombra de paso desde la entrada de la plaza hasta la tribuna ante la casa rica, el palio al principio de la alfombra, reposteros con escudo en los balcones, estandartes, gallardetes, caballos del séquito y gradas para el pueblo",
+   "pieces": [
+    [
+     "tribuna",
+     -6,
+     8.0,
+     0,
+     {"awning": [0.2, 0.34, 0.6], "where": "plaza"}
+    ],
+    [
+     "palio",
+     -6,
+     -9.5,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "repostero",
+     -6,
+     12.45,
+     0,
+     {"z": 4.3, "where": "balcon"}
+    ],
+    [
+     "repostero",
+     -15,
+     12.45,
+     0,
+     {"z": 4.0, "where": "balcon"}
+    ],
+    [
+     "repostero",
+     4,
+     12.45,
+     0,
+     {"z": 4.0, "where": "balcon"}
+    ],
+    [
+     "repostero",
+     -21.95,
+     2,
+     90,
+     {"z": 3.9, "where": "balcon"}
+    ],
+    [
+     "estandarte_poste",
+     -11,
+     9.0,
+     0,
+     {"awning": [0.2, 0.34, 0.6], "where": "plaza"}
+    ],
+    [
+     "estandarte_poste",
+     -1,
+     9.0,
+     0,
+     {"awning": [0.2, 0.34, 0.6], "where": "plaza"}
+    ],
+    [
+     "gradas",
+     8,
+     0,
+     270,
+     {"where": "plaza"}
+    ],
+    [
+     "banderolas_6",
+     -9,
+     10.4,
+     0,
+     {"z": 4.8, "where": "calle"}
+    ],
+    [
+     "banderolas_6",
+     -3,
+     10.4,
+     0,
+     {"z": 4.8, "where": "calle"}
+    ],
+    [
+     "banderolas_6",
+     3,
+     10.4,
+     0,
+     {"z": 4.8, "where": "calle"}
+    ],
+    [
+     "banderolas_6",
+     -18,
+     -2.5,
+     90,
+     {"z": 4.6, "where": "calle"}
+    ],
+    [
+     "banderolas_6",
+     -9,
+     -12.4,
+     0,
+     {"z": 4.8, "where": "calle"}
+    ],
+    [
+     "caballo_blanco_quieto",
+     -14,
+     -7,
+     70,
+     {"where": "plaza"}
+    ],
+    [
+     "caballo_tordo_quieto",
+     -15.5,
+     -9,
+     100,
+     {"where": "plaza"}
+    ],
+    [
+     "carreta_cubierta",
+     14,
+     -8,
+     70,
+     {"where": "plaza"}
+    ]
+   ],
+   "chains": [
+    {"piece": "alfombra_paso", "from": [-6, -12], "to": [-6, 6]}
+   ],
+   "kit": [["q:Crate_Wooden", -17.5, -5, 10], ["q:Barrel", -17, -6.2, 0]],
+   "animals": [
+    {"id": "perro", "coat": "negro", "at": [12, -4], "wander": [6, -9]}
+   ],
+   "shots": [["tribuna_z8", -6, 7, 2, 8, 45], ["palio_z8", -6, -8, 2, 8, 45]]
+  },
+  "dignitary_visit": {
+   "name": "Visita de un dignatario",
+   "tipo": "suceso",
+   "gm": "dignitary_visit",
+   "note": "la versión corta de la visita (suceso de 1-2 días): tribuna sin dosel teñido, alfombra corta, dos reposteros y un estandarte; sin palio ni gradas",
+   "pieces": [
+    [
+     "tribuna",
+     -6,
+     8.0,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "repostero",
+     -6,
+     12.45,
+     0,
+     {"z": 4.3, "where": "balcon"}
+    ],
+    [
+     "repostero",
+     -15,
+     12.45,
+     0,
+     {"z": 4.0, "where": "balcon"}
+    ],
+    [
+     "estandarte_poste",
+     -1,
+     9.0,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "banderolas_6",
+     -3,
+     10.4,
+     0,
+     {"z": 4.8, "where": "calle"}
+    ],
+    [
+     "caballo_quieto",
+     -14,
+     -7,
+     70,
+     {"where": "plaza"}
+    ]
+   ],
+   "chains": [
+    {"piece": "alfombra_paso", "from": [-6, -6], "to": [-6, 6]}
+   ],
+   "shots": []
+  },
+  "holy_week": {
+   "name": "Semana Santa",
+   "tipo": "fiesta",
+   "gm": "holy_week",
+   "note": "la procesión de Semana Santa por la calle mayor: cruz y pendones morados al frente, el paso a hombros, hacheros de cirios a los lados de la carrera, arcos de ramas en las entradas y reposteros morados en los balcones; los penitentes son personajes de la sim",
+   "pieces": [
+    [
+     "cruz_procesional",
+     -12,
+     1,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "pendon_procesion",
+     -10.5,
+     1.8,
+     0,
+     {"awning": [0.52, 0.26, 0.54], "where": "calle"}
+    ],
+    [
+     "pendon_procesion",
+     -13.5,
+     1.8,
+     0,
+     {"awning": [0.52, 0.26, 0.54], "where": "calle"}
+    ],
+    [
+     "paso_procesion",
+     -12,
+     6.5,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "hachero_cirios",
+     -15.5,
+     -2,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "hachero_cirios",
+     -8.5,
+     -2,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "hachero_cirios",
+     -15.5,
+     -7,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "hachero_cirios",
+     -8.5,
+     -7,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "hachero_cirios",
+     -15.5,
+     3,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "hachero_cirios",
+     -8.5,
+     3,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "arco_ramas",
+     -12,
+     -11.5,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "arco_ramas",
+     4,
+     -11.5,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "repostero",
+     -6,
+     12.45,
+     0,
+     {"z": 4.3, "where": "balcon"}
+    ],
+    [
+     "repostero",
+     4,
+     12.45,
+     0,
+     {"z": 4.0, "where": "balcon"}
+    ],
+    [
+     "escudo_pared",
+     -15,
+     12.45,
+     0,
+     {"z": 3.6, "where": "balcon"}
+    ]
+   ],
+   "shots": [["paso_z8", -12, 5, 2, 8, 45], ["carrera_z12", -12, -2, 2, 12, 45], ["paso_z8_noche", -12, 5, 2, 8, 45, "noche"]]
+  },
+  "rogation": {
+   "name": "Rogativa",
+   "tipo": "fiesta",
+   "gm": "rogation",
+   "note": "la rogativa al atardecer: cruz procesional y pendón saliendo hacia los campos, dos hacheros, un arco de ramas; sin paso ni adornos",
+   "pieces": [
+    [
+     "cruz_procesional",
+     -12,
+     -8,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "pendon_procesion",
+     -10.5,
+     -7,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "hachero_cirios",
+     -14,
+     -5,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "hachero_cirios",
+     -10,
+     -5,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "arco_ramas",
+     -12,
+     -11.5,
+     0,
+     {"where": "afueras"}
+    ]
+   ],
+   "shots": [["cruz_z8", -12, -7, 2, 8, 45]]
+  },
+  "mayday_corpus": {
+   "name": "Los Mayos y el Corpus",
+   "tipo": "fiesta",
+   "gm": "mayday_corpus",
+   "note": "el mayo en el centro de la plaza, la alfombra de flores por la carrera del Corpus con arcos de ramas, el paso con la cruz y el pendón, guirnaldas y pendones en el ayuntamiento, y el cerco de carros para los toros al este con el toro (una vaca negra del kit de extras hace de toro)",
+   "pieces": [
+    [
+     "mayo",
+     -8,
+     -3,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "arco_ramas",
+     -16,
+     4,
+     90,
+     {"where": "calle"}
+    ],
+    [
+     "arco_ramas",
+     -16,
+     -8,
+     90,
+     {"where": "calle"}
+    ],
+    [
+     "paso_procesion",
+     -19,
+     0,
+     90,
+     {"where": "calle"}
+    ],
+    [
+     "cruz_procesional",
+     -19,
+     -4.5,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "pendon_procesion",
+     -19,
+     -5.8,
+     0,
+     {"awning": [0.86, 0.66, 0.22], "where": "calle"}
+    ],
+    [
+     "guirnalda_6",
+     -9,
+     10.4,
+     0,
+     {"z": 4.6, "where": "calle"}
+    ],
+    [
+     "guirnalda_6",
+     -3,
+     10.4,
+     0,
+     {"z": 4.6, "where": "calle"}
+    ],
+    [
+     "guirnalda_6",
+     3,
+     10.4,
+     0,
+     {"z": 4.6, "where": "calle"}
+    ],
+    [
+     "escudo_pared",
+     -6,
+     12.45,
+     0,
+     {"z": 3.6, "where": "balcon"}
+    ],
+    [
+     "estandarte_poste",
+     -1,
+     9.0,
+     0,
+     {"awning": [0.86, 0.66, 0.22], "where": "plaza"}
+    ],
+    [
+     "carro_bueyes",
+     10,
+     8,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "carro_bueyes",
+     15.5,
+     5,
+     60,
+     {"where": "plaza"}
+    ],
+    [
+     "carro_bueyes",
+     17,
+     -1.5,
+     90,
+     {"where": "plaza"}
+    ],
+    [
+     "carro_bueyes",
+     15.5,
+     -8,
+     120,
+     {"where": "plaza"}
+    ],
+    [
+     "carro_bueyes",
+     10,
+     -11,
+     180,
+     {"where": "plaza"}
+    ],
+    [
+     "carro_varas",
+     5.5,
+     -5,
+     250,
+     {"where": "plaza"}
+    ],
+    [
+     "carro_varas",
+     5.5,
+     2,
+     290,
+     {"where": "plaza"}
+    ],
+    [
+     "vaca_negra_quieto",
+     11,
+     -2,
+     220,
+     {"where": "plaza"}
+    ]
+   ],
+   "chains": [
+    {"piece": "alfombra_flores", "from": [-16, -8], "to": [-16, 4]}
+   ],
+   "shots": [["corpus_z8", -16, -2, 2, 8, 45], ["toros_z12", 11, -2, 2, 12, 45]]
+  },
+  "carnival": {
+   "name": "Carnaval",
+   "tipo": "fiesta",
+   "gm": "carnival",
+   "note": "carnaval al atardecer: los gigantes y los cabezudos desfilando por la plaza, el pelele en su palo, el puesto de máscaras, la hoguera del entierro, farolillos y gallardetes, el tablado para la música",
+   "pieces": [
+    [
+     "gigante_rey",
+     -8,
+     -2,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "gigante_reina",
+     -6.4,
+     -2.2,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "cabezudo",
+     -10,
+     -4.5,
+     20,
+     {"where": "plaza"}
+    ],
+    [
+     "cabezudo",
+     -4.5,
+     -4.8,
+     340,
+     {"where": "plaza"}
+    ],
+    [
+     "cabezudo",
+     -7.2,
+     -6,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "pelele",
+     -14,
+     -7,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "puesto_mascaras",
+     6,
+     -7,
+     180,
+     {"awning": [0.52, 0.26, 0.54], "where": "plaza"}
+    ],
+    [
+     "hoguera_calle",
+     2,
+     2,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "tablado",
+     12,
+     -6,
+     270,
+     {"where": "plaza"}
+    ],
+    [
+     "farolillos_6",
+     -9,
+     10.4,
+     0,
+     {"z": 4.2, "where": "calle"}
+    ],
+    [
+     "farolillos_6",
+     -3,
+     10.4,
+     0,
+     {"z": 4.2, "where": "calle"}
+    ],
+    [
+     "farolillos_6",
+     3,
+     10.4,
+     0,
+     {"z": 4.2, "where": "calle"}
+    ],
+    [
+     "banderolas_6",
+     -18,
+     -2.5,
+     90,
+     {"z": 4.6, "where": "calle"}
+    ],
+    [
+     "banderolas_6",
+     -9,
+     -12.4,
+     0,
+     {"z": 4.8, "where": "calle"}
+    ],
+    [
+     "banderolas_4",
+     -13,
+     -12.4,
+     0,
+     {"z": 4.8, "where": "calle"}
+    ],
+    [
+     "estandarte_mercado",
+     -12,
+     4,
+     0,
+     {"awning": [0.52, 0.26, 0.54], "where": "plaza"}
+    ],
+    [
+     "farolillos_6",
+     -12,
+     4,
+     0,
+     {"z": 3.4, "where": "plaza"}
+    ],
+    [
+     "antorcha_suelo",
+     -16,
+     1,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "antorcha_suelo",
+     8,
+     3,
+     0,
+     {"where": "plaza"}
+    ]
+   ],
+   "kit": [["q:Barrel", 10, 4, 0], ["q:Barrel", 10.8, 4.4, 30]],
+   "animals": [
+    {"id": "perro", "coat": "canela", "at": [0, -9], "wander": [-12, -9]}
+   ],
+   "shots": [["gigantes_z8", -7, -3, 2, 8, 45], ["z12_noche", -4, -1, 2, 12, 45, "noche"]]
+  },
+  "harvest_fair": {
+   "name": "La siega y la feria",
+   "tipo": "fiesta",
+   "gm": "harvest_fair",
+   "note": "la feria anual: seis puestos de forasteros con toldos de colores en el anillo de la plaza, montones de calabazas y frutos, el peso público, el tablón de pujas, un corral con ovejas y un caballo en las afueras (al este), gallardetes y el tablado de los juglares",
+   "pieces": [
+    [
+     "puesto_m",
+     -14,
+     -4,
+     90,
+     {"goods": "fruta", "awning": [0.7, 0.2, 0.15], "where": "plaza"}
+    ],
+    [
+     "puesto_m",
+     -14,
+     2,
+     90,
+     {"goods": "telas", "awning": [0.2, 0.35, 0.6], "where": "plaza"}
+    ],
+    [
+     "puesto_s",
+     -9,
+     8,
+     0,
+     {"goods": "ceramica", "awning": [0.8, 0.6, 0.2], "where": "plaza"}
+    ],
+    [
+     "puesto_m",
+     -2,
+     8,
+     0,
+     {"goods": "herramientas", "awning": [0.28, 0.5, 0.3], "where": "plaza"}
+    ],
+    [
+     "puesto_s",
+     4,
+     8,
+     0,
+     {"goods": "botica", "awning": [0.52, 0.26, 0.54], "where": "plaza"}
+    ],
+    [
+     "puesto_l",
+     0,
+     -10,
+     180,
+     {"goods": "sacos", "awning": [0.76, 0.45, 0.22], "where": "plaza"}
+    ],
+    [
+     "monton_calabazas",
+     -9,
+     -6,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "monton_frutos",
+     -5,
+     -6,
+     20,
+     {"where": "plaza"}
+    ],
+    [
+     "peso_publico",
+     4,
+     2,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "tablon_pujas",
+     9,
+     5,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "tablado",
+     13,
+     -7,
+     270,
+     {"where": "plaza"}
+    ],
+    [
+     "banderolas_6",
+     -9,
+     10.4,
+     0,
+     {"z": 4.8, "where": "calle"}
+    ],
+    [
+     "banderolas_6",
+     -3,
+     10.4,
+     0,
+     {"z": 4.8, "where": "calle"}
+    ],
+    [
+     "banderolas_6",
+     3,
+     10.4,
+     0,
+     {"z": 4.8, "where": "calle"}
+    ],
+    [
+     "banderolas_6",
+     -18,
+     -2.5,
+     90,
+     {"z": 4.6, "where": "calle"}
+    ],
+    [
+     "banderolas_6",
+     -9,
+     -12.4,
+     0,
+     {"z": 4.8, "where": "calle"}
+    ],
+    [
+     "banderolas_4",
+     -13,
+     -12.4,
+     0,
+     {"z": 4.8, "where": "calle"}
+    ],
+    [
+     "corral_puerta",
+     23,
+     -2,
+     90,
+     {"where": "afueras"}
+    ],
+    [
+     "oveja_quieto",
+     24.5,
+     2,
+     30,
+     {"where": "afueras"}
+    ],
+    [
+     "oveja_comiendo",
+     26,
+     0,
+     200,
+     {"where": "afueras"}
+    ],
+    [
+     "oveja_negra_quieto",
+     27,
+     3,
+     100,
+     {"where": "afueras"}
+    ],
+    [
+     "caballo_bayo_quieto",
+     26,
+     -6,
+     320,
+     {"where": "afueras"}
+    ],
+    [
+     "carro_varas",
+     14,
+     2,
+     30,
+     {"where": "plaza"}
+    ]
+   ],
+   "chains": [
+    {"piece": "corral_valla", "from": [23, -5], "to": [29, -5]},
+    {"piece": "corral_valla", "from": [29, -5], "to": [29, 5]},
+    {"piece": "corral_valla", "from": [29, 5], "to": [23, 5]},
+    {"piece": "corral_valla", "from": [23, 5], "to": [23, -1]}
+   ],
+   "kit": [["q:Crate_Wooden", -11, -9, 10], ["q:Bag", -10, -9.5, 0], ["q:Barrel", 8, -9, 0]],
+   "animals": [
+    {"id": "gallina", "at": [-7, -2], "wander": [-3, -3]},
+    {"id": "perro", "coat": "blanco", "at": [6, -4], "wander": [10, -1]}
+   ],
+   "shots": [["montones_z8", -7, -6, 2, 8, 45], ["corral_z12", 26, 0, 2, 12, 45], ["puestos_z12", -8, 3, 2, 12, 45]]
+  },
+  "cattle_fair": {
+   "name": "Feria de ganado",
+   "tipo": "fiesta",
+   "gm": "cattle_fair",
+   "note": "la feria de ganado en las afueras (al este de la plaza): dos corrales de vallas móviles con ovejas y caballos, el tablón de pujas, el peso público y carros a la venta",
+   "pieces": [
+    [
+     "corral_puerta",
+     23,
+     -3,
+     90,
+     {"where": "afueras"}
+    ],
+    [
+     "oveja_quieto",
+     24.5,
+     0,
+     30,
+     {"where": "afueras"}
+    ],
+    [
+     "oveja_comiendo",
+     26,
+     -1.5,
+     200,
+     {"where": "afueras"}
+    ],
+    [
+     "oveja_negra_quieto",
+     27,
+     1,
+     100,
+     {"where": "afueras"}
+    ],
+    [
+     "cordero_quieto",
+     25.5,
+     1.5,
+     60,
+     {"where": "afueras"}
+    ],
+    [
+     "corral_puerta",
+     23,
+     9,
+     90,
+     {"where": "afueras"}
+    ],
+    [
+     "caballo_bayo_quieto",
+     26,
+     8,
+     320,
+     {"where": "afueras"}
+    ],
+    [
+     "caballo_tordo_comiendo",
+     28,
+     11,
+     150,
+     {"where": "afueras"}
+    ],
+    [
+     "tablon_pujas",
+     20,
+     -6,
+     0,
+     {"where": "afueras"}
+    ],
+    [
+     "peso_publico",
+     16,
+     -8,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "carro_varas",
+     14,
+     4,
+     30,
+     {"where": "plaza"}
+    ],
+    [
+     "carro_bueyes",
+     10,
+     8,
+     120,
+     {"where": "plaza"}
+    ]
+   ],
+   "chains": [
+    {"piece": "corral_valla", "from": [23, -5], "to": [29, -5]},
+    {"piece": "corral_valla", "from": [29, -5], "to": [29, 3]},
+    {"piece": "corral_valla", "from": [29, 3], "to": [23, 3]},
+    {"piece": "corral_valla", "from": [23, 3], "to": [23, -1]},
+    {"piece": "corral_valla", "from": [23, 5], "to": [29, 5]},
+    {"piece": "corral_valla", "from": [29, 5], "to": [29, 13]},
+    {"piece": "corral_valla", "from": [29, 13], "to": [23, 13]},
+    {"piece": "corral_valla", "from": [23, 13], "to": [23, 11]},
+    {"piece": "corral_valla", "from": [23, 7], "to": [23, 5]}
+   ],
+   "kit": [["q:Bag", 21, -7.5, 0]],
+   "animals": [
+    {"id": "perro", "coat": "negro", "at": [20, 0], "wander": [22, 6]}
+   ],
+   "shots": [["corrales_z12", 26, 4, 2, 12, 45]]
+  },
+  "st_michael": {
+   "name": "San Miguel y la vendimia",
+   "tipo": "fiesta",
+   "gm": "st_michael",
+   "note": "San Miguel al atardecer: guirnaldas en la calle mayor, farolillos en la plaza, el lagar de kit/extras pisando la uva con barriles, mesas largas y una hoguera de calle; todo con piezas que ya había",
+   "pieces": [
+    [
+     "guirnalda_6",
+     -9,
+     10.4,
+     0,
+     {"z": 4.6, "where": "calle"}
+    ],
+    [
+     "guirnalda_6",
+     -3,
+     10.4,
+     0,
+     {"z": 4.6, "where": "calle"}
+    ],
+    [
+     "guirnalda_6",
+     3,
+     10.4,
+     0,
+     {"z": 4.6, "where": "calle"}
+    ],
+    [
+     "farolillos_6",
+     -18,
+     -2.5,
+     90,
+     {"z": 4.0, "where": "calle"}
+    ],
+    [
+     "farolillos_6",
+     -9,
+     -12.4,
+     0,
+     {"z": 4.2, "where": "calle"}
+    ],
+    [
+     "estandarte_mercado",
+     -10,
+     2,
+     0,
+     {"awning": [0.52, 0.26, 0.54], "where": "plaza"}
+    ],
+    [
+     "farolillos_6",
+     -10,
+     2,
+     0,
+     {"z": 3.4, "where": "plaza"}
+    ],
+    [
+     "lagar",
+     4,
+     -4,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "mesa_larga",
+     -4,
+     -6,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "mesa_larga",
+     -4,
+     -9,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "hoguera_calle",
+     10,
+     4,
+     0,
+     {"where": "plaza"}
+    ]
+   ],
+   "kit": [["q:Barrel", 8, -6, 0], ["q:Barrel", 8.8, -5.4, 30], ["q:Barrel", 9.4, -6.6, 60]],
+   "shots": [["z12_noche", -1, -2, 2, 12, 45, "noche"]]
+  },
+  "war": {
+   "name": "Guerra",
+   "tipo": "suceso",
+   "gm": "war",
+   "note": "la villa en guerra: la leva en la plaza (mesa con pendón rojo, armero de campaña), un campamento de tres tiendas al sur, empalizada corta cerrando la entrada del oeste con antorchas, carros de suministros, caballos atados, barriles y cajas",
+   "pieces": [
+    [
+     "mesa_leva",
+     -6,
+     4,
+     0,
+     {"awning": [0.68, 0.2, 0.16], "where": "plaza"}
+    ],
+    [
+     "armero_campana",
+     -1.5,
+     5,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "tienda_campana",
+     -14,
+     -8,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "tienda_campana",
+     -9.5,
+     -8.5,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "tienda_campana",
+     -5,
+     -8,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "hoguera_calle",
+     -9.5,
+     -3.5,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "carro_suministros",
+     8,
+     -4,
+     290,
+     {"where": "plaza"}
+    ],
+    [
+     "carro_suministros",
+     12,
+     2,
+     250,
+     {"where": "plaza"}
+    ],
+    [
+     "antorcha_suelo",
+     -19,
+     -6,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "antorcha_suelo",
+     -19,
+     1,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "estandarte_poste",
+     3,
+     8.5,
+     0,
+     {"awning": [0.68, 0.2, 0.16], "where": "plaza"}
+    ],
+    [
+     "caballo_negro_quieto",
+     14,
+     -9,
+     40,
+     {"where": "plaza"}
+    ],
+    [
+     "caballo_bayo_comiendo",
+     16,
+     -7,
+     330,
+     {"where": "plaza"}
+    ],
+    [
+     "tablon_anuncios",
+     8,
+     9.8,
+     0,
+     {"where": "plaza"}
+    ]
+   ],
+   "chains": [
+    {"piece": "empalizada", "from": [-20, -11], "to": [-20, 5]}
+   ],
+   "kit": [["q:Barrel", 2, 6.5, 0], ["q:Barrel", 2.8, 6.8, 30], ["q:Crate_Wooden", 1.5, 8, 10], ["q:Crate_Wooden", -12, -5, 25], ["q:Bag", -11, -4.8, 0]],
+   "animals": [
+    {"id": "perro", "coat": "negro", "at": [-3, -2], "wander": [4, -6]}
+   ],
+   "shots": [["leva_z8", -5, 4, 2, 8, 45], ["campamento_z12", -10, -7, 2, 12, 45], ["z12_noche", -8, -3, 2, 12, 45, "noche"]]
+  },
+  "epidemic": {
+   "name": "Epidemia",
+   "tipo": "suceso",
+   "gm": "epidemic",
+   "note": "la peste en la villa: braseros de sahumerio en las esquinas y ante las puertas, cruces de tiza en las puertas de las casas apestadas, camillas junto a una puerta, el carro tapado esperando, la plaza vacía; de noche los braseros humean con luz tenue",
+   "pieces": [
+    [
+     "brasero_sahumerio",
+     -15,
+     9.5,
+     0,
+     {"where": "puerta"}
+    ],
+    [
+     "brasero_sahumerio",
+     -6,
+     9.5,
+     0,
+     {"where": "puerta"}
+    ],
+    [
+     "brasero_sahumerio",
+     4,
+     9.5,
+     0,
+     {"where": "puerta"}
+    ],
+    [
+     "brasero_sahumerio",
+     -19,
+     2,
+     0,
+     {"where": "puerta"}
+    ],
+    [
+     "brasero_sahumerio",
+     -3,
+     -3,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "brasero_sahumerio",
+     10,
+     -9,
+     0,
+     {"where": "calle"}
+    ],
+    [
+     "cruz_tiza",
+     -15,
+     12.45,
+     0,
+     {"z": 1.4, "where": "puerta"}
+    ],
+    [
+     "cruz_tiza",
+     4,
+     12.45,
+     0,
+     {"z": 1.4, "where": "puerta"}
+    ],
+    [
+     "cruz_tiza",
+     -21.95,
+     2,
+     90,
+     {"z": 1.4, "where": "puerta"}
+    ],
+    [
+     "cruz_tiza",
+     -21.95,
+     -7,
+     90,
+     {"z": 1.4, "where": "puerta"}
+    ],
+    [
+     "cruz_tiza",
+     -3,
+     -15.45,
+     180,
+     {"z": 1.4, "where": "puerta"}
+    ],
+    [
+     "camilla",
+     -13,
+     8.5,
+     90,
+     {"where": "puerta"}
+    ],
+    [
+     "camilla",
+     -11,
+     -2,
+     20,
+     {"where": "plaza"}
+    ],
+    [
+     "carro_tapado",
+     6,
+     4,
+     200,
+     {"where": "plaza"}
+    ],
+    [
+     "carretilla",
+     -18.5,
+     -3,
+     60,
+     {"where": "calle"}
+    ]
+   ],
+   "kit": [["q:Bucket_Wooden_1", -14, 8, 0], ["q:Crate_Wooden", 8, 7, 10]],
+   "animals": [
+    {"id": "gato", "coat": "negro", "at": [-17, -10], "rot": 120, "anim": "quieto"},
+    {"id": "perro", "coat": "canela", "at": [12, -4], "rot": 200, "anim": "tumbado"}
+   ],
+   "shots": [["puertas_z8", -14, 9, 2, 8, 45], ["z12_noche", -6, 3, 2, 12, 45, "noche"]]
+  },
+  "famine": {
+   "name": "Hambruna",
+   "tipo": "suceso",
+   "gm": "famine",
+   "note": "la hambruna: puestos vacíos en el anillo de la plaza, la olla de reparto con su cola ante la casa rica, sacos rotos, carretilla vacía; sin adornos",
+   "pieces": [
+    [
+     "puesto_vacio",
+     -14,
+     -4,
+     90,
+     {"where": "plaza"}
+    ],
+    [
+     "puesto_vacio",
+     -14,
+     2,
+     90,
+     {"where": "plaza"}
+    ],
+    [
+     "puesto_vacio",
+     -2,
+     8,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "puesto_vacio",
+     4,
+     8,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "olla_reparto",
+     -6,
+     4,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "saco_roto",
+     -9,
+     -7,
+     30,
+     {"where": "plaza"}
+    ],
+    [
+     "saco_roto",
+     8,
+     -3,
+     200,
+     {"where": "calle"}
+    ],
+    [
+     "carretilla",
+     6,
+     2,
+     250,
+     {"where": "plaza"}
+    ]
+   ],
+   "kit": [["q:FarmCrate_Empty", -15, -8, 10], ["q:Bucket_Wooden_1", -5, 6.5, 0]],
+   "animals": [
+    {"id": "perro", "coat": "negro", "at": [2, -6], "wander": [-8, -10]}
+   ],
+   "shots": [["olla_z8", -5, 5, 2, 8, 45]]
+  },
+  "riot": {
+   "name": "Motín",
+   "tipo": "suceso",
+   "gm": "riot",
+   "note": "el motín: barricadas de carros volcados y barriles cerrando las bocacalles del oeste y del sur, antorchas tiradas y clavadas por la plaza, un puesto vacío volcado, pasquines en el tablón; de noche las antorchas alumbran",
+   "pieces": [
+    [
+     "barricada",
+     -17,
+     -3,
+     90,
+     {"where": "calle"}
+    ],
+    [
+     "barricada",
+     -6,
+     -12,
+     180,
+     {"where": "calle"}
+    ],
+    [
+     "antorcha_suelo",
+     -10,
+     -2,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "antorcha_suelo",
+     -3,
+     -6,
+     120,
+     {"where": "plaza"}
+    ],
+    [
+     "antorcha_suelo",
+     4,
+     1,
+     230,
+     {"where": "plaza"}
+    ],
+    [
+     "antorcha_suelo",
+     -13,
+     4,
+     30,
+     {"where": "plaza"}
+    ],
+    [
+     "antorcha_suelo",
+     -8,
+     -9,
+     300,
+     {"where": "calle"}
+    ],
+    [
+     "hoguera_calle",
+     2,
+     -5,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "tablon_pasquines",
+     8.2,
+     9.8,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "puesto_vacio",
+     -5,
+     6,
+     20,
+     {"where": "plaza"}
+    ],
+    [
+     "saco_roto",
+     0,
+     3,
+     0,
+     {"where": "plaza"}
+    ]
+   ],
+   "kit": [["q:Barrel", -9, 2, 0], ["q:Crate_Wooden", -10, 1, 30], ["q:Stool", 6, -8, 40]],
+   "shots": [["barricada_z8", -16, -3, 2, 8, 45], ["z12_noche", -6, -2, 2, 12, 45, "noche"]]
+  },
+  "good_harvest": {
+   "name": "Buena cosecha",
+   "tipo": "suceso",
+   "gm": "good_harvest",
+   "note": "la buena cosecha: granero rebosante ante dos casas, carros cargados de gavillas entrando en la plaza, hacinas y el almiar de kit/extras, gallinas picoteando el grano",
+   "pieces": [
+    [
+     "grano_rebosante",
+     -15,
+     9.5,
+     0,
+     {"where": "puerta"}
+    ],
+    [
+     "grano_rebosante",
+     4,
+     9.5,
+     0,
+     {"where": "puerta"}
+    ],
+    [
+     "carro_cargado",
+     -8,
+     -4,
+     20,
+     {"where": "plaza"}
+    ],
+    [
+     "carro_cargado",
+     6,
+     -2,
+     340,
+     {"where": "plaza"}
+    ],
+    [
+     "gavillas",
+     -13,
+     2,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "gavillas",
+     -10,
+     3,
+     40,
+     {"where": "plaza"}
+    ],
+    [
+     "almiar",
+     14,
+     6,
+     0,
+     {"where": "afueras"}
+    ],
+    [
+     "gallina_picoteando",
+     -13.5,
+     7.5,
+     30,
+     {"where": "puerta"}
+    ],
+    [
+     "gallina_blanca_picoteando",
+     5,
+     7.6,
+     200,
+     {"where": "puerta"}
+    ]
+   ],
+   "kit": [["q:Bag", -12, 8, 0], ["q:FarmCrate_Apple", 2, 8, 10]],
+   "animals": [
+    {"id": "gallina", "at": [-2, 5], "wander": [3, 4]},
+    {"id": "gallina", "coat": "negra", "at": [-6, 2], "wander": [-3, 6]}
+   ],
+   "shots": [["granero_z8", -14, 8, 2, 8, 45]]
+  },
+  "political_crisis": {
+   "name": "Crisis política",
+   "tipo": "suceso",
+   "gm": "political_crisis",
+   "note": "la crisis política: la tarima de discursos ante la casa rica con el pendón de la villa, el tablón lleno de pasquines y otro en la bocacalle, barriles de tribuna improvisada, guardias (caballos) a un lado",
+   "pieces": [
+    [
+     "tarima_discursos",
+     -6,
+     5,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "tablon_pasquines",
+     8.2,
+     9.8,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "tablon_pasquines",
+     -18,
+     -6,
+     90,
+     {"where": "calle"}
+    ],
+    [
+     "pendon_procesion",
+     -9,
+     6.5,
+     0,
+     {"awning": [0.2, 0.34, 0.6], "where": "plaza"}
+    ],
+    [
+     "estandarte_poste",
+     -1,
+     9.0,
+     0,
+     {"awning": [0.2, 0.34, 0.6], "where": "plaza"}
+    ],
+    [
+     "caballo_tordo_quieto",
+     10,
+     -6,
+     300,
+     {"where": "plaza"}
+    ],
+    [
+     "caballo_negro_quieto",
+     12.5,
+     -4.5,
+     320,
+     {"where": "plaza"}
+    ]
+   ],
+   "kit": [["q:Barrel", 2, -4, 0], ["q:Crate_Wooden", 3, -3, 20], ["q:Stool", -11, 0, 0], ["q:Stool", -10, -1.2, 40]],
+   "shots": [["tarima_z8", -6, 4, 2, 8, 45]]
+  },
+  "comedians": {
+   "name": "Los cómicos",
+   "tipo": "fiesta",
+   "gm": "comedians",
+   "note": "el carro de los cómicos abierto en escenario en el centro de la plaza, banderolas en dos estandartes, barriles",
+   "pieces": [
+    [
+     "carro_comicos",
+     -3,
+     -1,
+     0,
+     {"where": "plaza"}
+    ],
+    [
+     "estandarte_mercado",
+     8,
+     2,
+     90,
+     {"awning": [0.68, 0.2, 0.16], "where": "plaza"}
+    ],
+    [
+     "banderolas_4",
+     8,
+     2,
+     90,
+     {"z": 3.4, "where": "plaza"}
+    ]
+   ],
+   "kit": [["q:Barrel", 4, -6, 0], ["q:Barrel", 4.7, -6.4, 30]],
+   "shots": [["z26", -3, -1, 2, 26, 45], ["z12", -3, -2, 1.5, 12, 45], ["carro_z8", -3, -2, 1.5, 8, 45]]
+  },
+  "preacher": {
+   "name": "El predicador",
+   "tipo": "fiesta",
+   "gm": "preacher",
+   "note": "el púlpito portátil ante una casa de la plaza con un pendón morado",
+   "pieces": [
+    [
+     "pulpito_portatil",
+     -6,
+     6,
+     0,
+     {"where": "iglesia"}
+    ],
+    [
+     "pendon_procesion",
+     -4,
+     7,
+     0,
+     {"awning": [0.52, 0.26, 0.54], "where": "iglesia"}
+    ]
+   ],
+   "shots": [["z26", -5, 3, 2, 26, 45], ["z12", -6, 4, 1.5, 12, 45], ["pulpito_z8", -6, 5, 1.5, 8, 45]]
+  },
+  "pilgrimage": {
+   "name": "Peregrinación",
+   "tipo": "fiesta",
+   "gm": "pilgrimage",
+   "note": "bordones con calabazas y veneras ante la iglesia y un pendón azul",
+   "pieces": [
+    [
+     "bordones",
+     -6,
+     8.5,
+     0,
+     {"where": "iglesia"}
+    ],
+    [
+     "bordones",
+     -1.5,
+     8.5,
+     0,
+     {"where": "iglesia"}
+    ],
+    [
+     "pendon_procesion",
+     -9,
+     8,
+     0,
+     {"awning": [0.3, 0.3, 0.55], "where": "calle"}
+    ]
+   ],
+   "shots": [["z26", -4, 3, 2, 26, 45], ["z12", -4, 6, 1.5, 12, 45], ["bordones_z8", -4, 7.5, 1.0, 8, 45]]
+  }
+ },
+ "pueblo": {
+  "_doc": "Montaje de cada fiesta o suceso en el pueblo de la sim (scripts/fiestas_pueblo.gd; docs/fiestas.md «En el pueblo»). pieces: {p: pieza, site: sitio (plaza_centro, plaza_anillo, plaza_n/s/e/o, plaza_alto, calle, calle_alto, balcon, balcon_rico, puerta_anfitrion, puerta_rica, puertas, puertas_plaza, puerta_iglesia, puerta_ayto, iglesia_frente, prado_norte, afueras), n, z (altura), off [lado, fuera] desde la puerta, rot / rot_rel, spread (m entre las del mismo renglón), eve (desde la víspera), flat (se pisa), blocks false (sin obstáculo), door_ok (puede ir ante una puerta), half [x, y] (huella si el catálogo no la da), opts {awning, goods, tint}} o un grupo rígido {group, site, parts [[pieza, x, y, rot, opts]], chains}. lit: pieza -> acto del programa desde el que arde. procession: {at: acto, minutes, length, order: [{p, gap, x, bearers [[x, y, capa]], rows, carry, look}]} recorre route (iglesia: de la puerta de la iglesia a la plaza, la rodea y vuelve; plaza: alrededor de la plaza; loop: da vueltas). priority: quién coge sitio antes.",
+  "st_john": {
+   "priority": 80,
+   "lit": {"hoguera": "bonfires", "hoguera_calle": "bonfires"},
+   "pieces": [
+    {"p": "hoguera", "site": "plaza_centro"},
+    {"p": "hoguera_calle", "site": "calle", "n": 3, "spread": 7},
+    {"p": "antorcha_suelo", "site": "plaza_anillo", "n": 4, "spread": 6},
+    {
+     "group": "ristra_farolillos_6",
+     "site": "plaza_anillo",
+     "n": 3,
+     "spread": 7,
+     "parts": [
+      [
+       "estandarte_mercado",
+       0,
+       0,
+       0,
+       {"awning": [0.86, 0.66, 0.22]}
+      ],
+      [
+       "farolillos_6",
+       0,
+       0,
+       0,
+       {"z": 3.4}
+      ]
+     ]
+    },
+    {"p": "farolillos_6", "site": "calle_alto", "n": 4, "z": 4.4, "blocks": false},
+    {"p": "mesa_larga", "site": "plaza_anillo", "n": 2, "spread": 8},
+    {
+     "p": "estandarte_mercado",
+     "site": "plaza_anillo",
+     "opts": {"awning": [0.86, 0.66, 0.22]}
+    },
+    {"p": "q:Barrel", "site": "plaza_anillo", "n": 2, "spread": 1}
+   ]
+  },
+  "tournament": {
+   "priority": 90,
+   "pieces": [
+    {
+     "group": "torneo",
+     "site": "plaza_centro",
+     "rot": 0,
+     "tries": 400,
+     "parts": [["gradas", 0, -1.2, 180]],
+     "chains": [
+      {"piece": "liza_tramo", "from": [-4, 2.8], "to": [4, 2.8]}
+     ]
+    },
+    {
+     "p": "tienda_caballero",
+     "site": "afueras",
+     "n": 2,
+     "spread": 7,
+     "opts": {"awning": [0.2, 0.34, 0.6]}
+    },
+    {"p": "armero_lanzas", "site": "afueras", "n": 2, "spread": 5},
+    {
+     "p": "estandarte_poste",
+     "site": "plaza_anillo",
+     "n": 2,
+     "spread": 8,
+     "opts": {"awning": [0.68, 0.2, 0.16]}
+    },
+    {"p": "escudos_heraldicos", "site": "plaza_anillo"},
+    {"p": "estafermo", "site": "afueras"},
+    {"p": "caballo_quieto", "site": "afueras"},
+    {"p": "caballo_negro_quieto", "site": "afueras"},
+    {"p": "banderolas_6", "site": "calle_alto", "n": 4, "z": 4.8, "blocks": false},
+    {"p": "escudo_pared", "site": "balcon", "n": 2, "z": 3.6, "blocks": false}
+   ],
+   "reach": 20
+  },
+  "noble_wedding": {
+   "priority": 85,
+   "pieces": [
+    {"p": "arco_flores", "site": "puerta_anfitrion", "off": [0, 1.7], "door_ok": true, "blocks": false, "off_try": 5},
+    {"p": "petalos", "site": "puerta_anfitrion", "off": [0, 3.6], "door_ok": true, "flat": true, "blocks": false, "off_try": 5},
+    {"p": "mesa_banquete", "site": "plaza_centro", "n": 4, "spread": 3.6},
+    {"p": "tablado", "site": "plaza_anillo"},
+    {"p": "guirnalda_6", "site": "calle_alto", "n": 6, "z": 4.6, "blocks": false, "eve": true},
+    {
+     "group": "ristra_guirnalda_6",
+     "site": "plaza_anillo",
+     "n": 3,
+     "spread": 7,
+     "parts": [
+      [
+       "estandarte_mercado",
+       0,
+       0,
+       0,
+       {"awning": [0.86, 0.66, 0.22]}
+      ],
+      [
+       "guirnalda_6",
+       0,
+       0,
+       0,
+       {"z": 3.6}
+      ]
+     ]
+    },
+    {
+     "p": "estandarte_poste",
+     "site": "plaza_anillo",
+     "n": 2,
+     "spread": 8,
+     "opts": {"awning": [0.86, 0.66, 0.22]}
+    },
+    {"p": "q:Barrel", "site": "plaza_anillo", "n": 2, "spread": 1}
+   ]
+  },
+  "neighbours_wedding": {
+   "priority": 70,
+   "pieces": [
+    {"p": "arco_flores", "site": "puerta_anfitrion", "off": [0, 1.7], "door_ok": true, "blocks": false, "off_try": 5},
+    {"p": "petalos", "site": "puerta_anfitrion", "off": [0, 3.6], "door_ok": true, "flat": true, "blocks": false, "off_try": 5},
+    {"p": "mesa_banquete", "site": "plaza_centro"},
+    {"p": "mesa_larga", "site": "plaza_centro", "n": 2, "spread": 3.6},
+    {
+     "group": "ristra_guirnalda_6",
+     "site": "plaza_anillo",
+     "n": 3,
+     "spread": 7,
+     "parts": [
+      [
+       "estandarte_mercado",
+       0,
+       0,
+       0,
+       {"awning": [0.7, 0.2, 0.15]}
+      ],
+      [
+       "guirnalda_6",
+       0,
+       0,
+       0,
+       {"z": 3.6}
+      ]
+     ]
+    },
+    {"p": "q:Barrel", "site": "plaza_anillo", "n": 2, "spread": 1}
+   ]
+  },
+  "marquis_visit": {
+   "priority": 88,
+   "route": "plaza",
+   "procession": {
+    "at": "reception",
+    "minutes": 90,
+    "length": 4,
+    "order": [
+     {
+      "p": "palio",
+      "gap": 0,
+      "turn": true,
+      "bearers": [[-1.3, -1.5], [-1.3, 0], [-1.3, 1.5], [1.3, -1.5], [1.3, 0], [1.3, 1.5]],
+      "look": "noble",
+      "stand": "Idle"
+     }
+    ]
+   },
+   "pieces": [
+    {
+     "p": "tribuna",
+     "site": "plaza_s",
+     "opts": {"awning": [0.2, 0.34, 0.6]},
+     "fixed_rot": true
+    },
+    {"p": "palio", "site": "iglesia_frente", "blocks": false},
+    {"p": "repostero", "site": "balcon", "n": 4, "z": 4.0, "blocks": false},
+    {
+     "p": "estandarte_poste",
+     "site": "plaza_anillo",
+     "n": 2,
+     "spread": 8,
+     "opts": {"awning": [0.2, 0.34, 0.6]}
+    },
+    {"p": "banderolas_6", "site": "calle_alto", "n": 6, "z": 4.8, "blocks": false, "eve": true},
+    {"p": "caballo_blanco_quieto", "site": "plaza_anillo"},
+    {"p": "carreta_cubierta", "site": "afueras"}
+   ]
+  },
+  "holy_week": {
+   "priority": 95,
+   "route": "iglesia",
+   "procession": {
+    "at": "procession",
+    "minutes": 110,
+    "length": 30,
+    "order": [
+     {
+      "p": "cruz_procesional",
+      "gap": 0,
+      "bearers": [[0, 0.5]]
+     },
+     {
+      "p": "pendon_procesion",
+      "gap": 2.2,
+      "x": -1.1,
+      "opts": {"awning": [0.52, 0.26, 0.54]},
+      "bearers": [[-1.1, 0.5]]
+     },
+     {
+      "p": "pendon_procesion",
+      "gap": 0,
+      "x": 1.1,
+      "opts": {"awning": [0.52, 0.26, 0.54]},
+      "bearers": [[1.1, 0.5]]
+     },
+     {"gap": 0.6, "rows": 4, "carry": "carry_torch"},
+     {
+      "p": "paso_procesion",
+      "gap": 4.0,
+      "turn": true,
+      "bearers": [[-0.82, -1.65], [-0.82, -0.7], [-0.82, 0.7], [-0.82, 1.65], [0.82, -1.65], [0.82, -0.7], [0.82, 0.7], [0.82, 1.65]]
+     },
+     {"gap": 2.6, "rows": 3, "carry": "carry_torch"}
+    ]
+   },
+   "pieces": [
+    {"p": "cruz_procesional", "site": "iglesia_frente"},
+    {
+     "p": "pendon_procesion",
+     "site": "iglesia_frente",
+     "n": 2,
+     "spread": 2,
+     "opts": {"awning": [0.52, 0.26, 0.54]}
+    },
+    {"p": "paso_procesion", "site": "iglesia_frente", "spread": 3},
+    {"p": "hachero_cirios", "site": "plaza_anillo", "n": 6, "spread": 5},
+    {"p": "arco_ramas", "site": "calle", "n": 2, "spread": 20, "blocks": false},
+    {"p": "repostero", "site": "balcon", "n": 3, "z": 4.2, "blocks": false},
+    {"p": "escudo_pared", "site": "balcon", "z": 3.6, "blocks": false}
+   ]
+  },
+  "rogation": {
+   "priority": 60,
+   "route": "iglesia",
+   "procession": {
+    "at": "rogation_procession",
+    "minutes": 80,
+    "length": 12,
+    "order": [
+     {
+      "p": "cruz_procesional",
+      "gap": 0,
+      "bearers": [[0, 0.5]]
+     },
+     {
+      "p": "pendon_procesion",
+      "gap": 2.2,
+      "opts": {"awning": [0.52, 0.26, 0.54]},
+      "bearers": [[0, 0.5]]
+     },
+     {"gap": 0.6, "rows": 3}
+    ]
+   },
+   "pieces": [
+    {"p": "cruz_procesional", "site": "iglesia_frente"},
+    {
+     "p": "pendon_procesion",
+     "site": "iglesia_frente",
+     "opts": {"awning": [0.52, 0.26, 0.54]}
+    },
+    {"p": "hachero_cirios", "site": "iglesia_frente", "n": 2, "spread": 3},
+    {"p": "arco_ramas", "site": "calle", "blocks": false}
+   ]
+  },
+  "mayday_corpus": {
+   "priority": 92,
+   "route": "iglesia",
+   "procession": {
+    "at": "corpus_procession",
+    "minutes": 100,
+    "length": 20,
+    "order": [
+     {
+      "p": "cruz_procesional",
+      "gap": 0,
+      "bearers": [[0, 0.5]]
+     },
+     {
+      "p": "pendon_procesion",
+      "gap": 2.2,
+      "opts": {"awning": [0.86, 0.66, 0.22]},
+      "bearers": [[0, 0.5]],
+      "look": "corpus"
+     },
+     {"gap": 0.6, "rows": 2, "look": "corpus"},
+     {
+      "p": "paso_procesion",
+      "gap": 4.0,
+      "turn": true,
+      "bearers": [[-0.82, -1.65], [-0.82, -0.7], [-0.82, 0.7], [-0.82, 1.65], [0.82, -1.65], [0.82, -0.7], [0.82, 0.7], [0.82, 1.65]],
+      "look": "corpus"
+     }
+    ]
+   },
+   "pieces": [
+    {"p": "mayo", "site": "plaza_centro", "eve": true},
+    {"p": "cruz_procesional", "site": "iglesia_frente"},
+    {
+     "p": "pendon_procesion",
+     "site": "iglesia_frente",
+     "opts": {"awning": [0.86, 0.66, 0.22]}
+    },
+    {"p": "paso_procesion", "site": "iglesia_frente", "spread": 3},
+    {"p": "arco_ramas", "site": "calle", "n": 2, "spread": 20, "blocks": false},
+    {"p": "guirnalda_6", "site": "calle_alto", "n": 8, "z": 4.6, "blocks": false, "eve": true},
+    {"p": "escudo_pared", "site": "balcon", "z": 3.6, "blocks": false},
+    {
+     "p": "estandarte_poste",
+     "site": "plaza_anillo",
+     "opts": {"awning": [0.86, 0.66, 0.22]}
+    },
+    {"p": "carro_bueyes", "site": "plaza_anillo", "n": 3, "spread": 6, "needs": "bulls"},
+    {"p": "vaca_negra_quieto", "site": "plaza_anillo", "needs": "bulls"}
+   ]
+  },
+  "carnival": {
+   "priority": 80,
+   "route": "plaza",
+   "procession": {
+    "at": "masks",
+    "minutes": 240,
+    "length": 14,
+    "loop": true,
+    "order": [
+     {"p": "gigante_rey", "gap": 0, "hide_bearer": true},
+     {"p": "gigante_reina", "gap": 2.4},
+     {"p": "cabezudo", "gap": 2.0, "x": -1.0},
+     {"p": "cabezudo", "gap": 0.6, "x": 1.0},
+     {"p": "cabezudo", "gap": 1.6}
+    ]
+   },
+   "pieces": [
+    {"p": "gigante_rey", "site": "iglesia_frente", "blocks": false},
+    {"p": "gigante_reina", "site": "iglesia_frente", "blocks": false},
+    {"p": "cabezudo", "site": "iglesia_frente", "n": 3, "spread": 1.2, "blocks": false},
+    {"p": "pelele", "site": "plaza_centro"},
+    {
+     "p": "puesto_mascaras",
+     "site": "plaza_anillo",
+     "opts": {"awning": [0.52, 0.26, 0.54]}
+    },
+    {"p": "hoguera_calle", "site": "plaza_centro", "spread": 6},
+    {"p": "tablado", "site": "plaza_anillo"},
+    {
+     "group": "ristra_farolillos_6",
+     "site": "plaza_anillo",
+     "n": 3,
+     "spread": 7,
+     "parts": [
+      [
+       "estandarte_mercado",
+       0,
+       0,
+       0,
+       {"awning": [0.52, 0.26, 0.54]}
+      ],
+      [
+       "farolillos_6",
+       0,
+       0,
+       0,
+       {"z": 3.4}
+      ]
+     ]
+    },
+    {"p": "banderolas_6", "site": "calle_alto", "n": 6, "z": 4.8, "blocks": false, "eve": true},
+    {"p": "antorcha_suelo", "site": "plaza_anillo", "n": 3, "spread": 6}
+   ]
+  },
+  "harvest_fair": {
+   "priority": 85,
+   "pieces": [
+    {
+     "p": "puesto_m",
+     "site": "plaza_anillo",
+     "n": 2,
+     "spread": 5,
+     "half": [1.6, 0.8],
+     "opts": {"goods": "fruta", "awning": [0.7, 0.2, 0.15]}
+    },
+    {
+     "p": "puesto_m",
+     "site": "plaza_anillo",
+     "spread": 5,
+     "half": [1.6, 0.8],
+     "opts": {"goods": "telas", "awning": [0.2, 0.34, 0.6]}
+    },
+    {
+     "p": "puesto_s",
+     "site": "plaza_anillo",
+     "n": 2,
+     "spread": 5,
+     "half": [1.3, 0.7],
+     "opts": {"goods": "ceramica", "awning": [0.86, 0.66, 0.22]}
+    },
+    {
+     "p": "puesto_l",
+     "site": "plaza_anillo",
+     "half": [2.2, 1.0],
+     "opts": {"goods": "sacos", "awning": [0.76, 0.45, 0.22]}
+    },
+    {"p": "monton_calabazas", "site": "plaza_anillo"},
+    {"p": "monton_frutos", "site": "plaza_anillo"},
+    {"p": "peso_publico", "site": "plaza_anillo"},
+    {"p": "tablon_pujas", "site": "plaza_anillo"},
+    {"p": "banderolas_6", "site": "calle_alto", "n": 6, "z": 4.8, "blocks": false, "eve": true},
+    {
+     "group": "corral",
+     "site": "afueras",
+     "fixed_rot": false,
+     "parts": [["corral_puerta", -3, -1, 90], ["oveja_quieto", -1, 1, 30], ["oveja_comiendo", 1, -0.5, 200], ["oveja_negra_quieto", 2, 1.8, 100], ["caballo_bayo_quieto", 0.5, -2.2, 320]],
+     "chains": [
+      {"piece": "corral_valla", "from": [-3, -3], "to": [3, -3]},
+      {"piece": "corral_valla", "from": [3, -3], "to": [3, 3]},
+      {"piece": "corral_valla", "from": [3, 3], "to": [-3, 3]},
+      {"piece": "corral_valla", "from": [-3, 3], "to": [-3, 1]}
+     ]
+    },
+    {"p": "carro_varas", "site": "afueras"}
+   ]
+  },
+  "cattle_fair": {
+   "priority": 75,
+   "pieces": [
+    {
+     "group": "corral",
+     "site": "afueras",
+     "fixed_rot": false,
+     "parts": [["corral_puerta", -3, -1, 90], ["oveja_quieto", -1, 1, 30], ["oveja_comiendo", 1, -0.5, 200], ["oveja_negra_quieto", 2, 1.8, 100], ["caballo_bayo_quieto", 0.5, -2.2, 320]],
+     "chains": [
+      {"piece": "corral_valla", "from": [-3, -3], "to": [3, -3]},
+      {"piece": "corral_valla", "from": [3, -3], "to": [3, 3]},
+      {"piece": "corral_valla", "from": [3, 3], "to": [-3, 3]},
+      {"piece": "corral_valla", "from": [-3, 3], "to": [-3, 1]}
+     ]
+    },
+    {
+     "group": "corral",
+     "site": "afueras",
+     "fixed_rot": false,
+     "parts": [["corral_puerta", -3, -1, 90], ["caballo_tordo_comiendo", 0, 0.5, 20], ["caballo_bayo_quieto", 1.5, -1.6, 300], ["cordero_quieto", -1.2, 1.8, 80]],
+     "chains": [
+      {"piece": "corral_valla", "from": [-3, -3], "to": [3, -3]},
+      {"piece": "corral_valla", "from": [3, -3], "to": [3, 3]},
+      {"piece": "corral_valla", "from": [3, 3], "to": [-3, 3]},
+      {"piece": "corral_valla", "from": [-3, 3], "to": [-3, 1]}
+     ]
+    },
+    {"p": "tablon_pujas", "site": "afueras"},
+    {"p": "peso_publico", "site": "plaza_anillo"},
+    {"p": "carro_bueyes", "site": "afueras"}
+   ]
+  },
+  "st_michael": {
+   "priority": 60,
+   "pieces": [
+    {"p": "guirnalda_6", "site": "calle_alto", "n": 3, "z": 4.6, "blocks": false},
+    {
+     "group": "ristra_farolillos_6",
+     "site": "plaza_anillo",
+     "n": 2,
+     "spread": 7,
+     "parts": [
+      [
+       "estandarte_mercado",
+       0,
+       0,
+       0,
+       {"awning": [0.7, 0.2, 0.15]}
+      ],
+      [
+       "farolillos_6",
+       0,
+       0,
+       0,
+       {"z": 3.4}
+      ]
+     ]
+    },
+    {
+     "p": "estandarte_mercado",
+     "site": "plaza_anillo",
+     "opts": {"awning": [0.55, 0.2, 0.4]}
+    },
+    {"p": "lagar", "site": "plaza_centro"},
+    {"p": "mesa_larga", "site": "plaza_anillo", "n": 2, "spread": 6},
+    {"p": "hoguera_calle", "site": "plaza_anillo"},
+    {"p": "q:Barrel", "site": "plaza_anillo", "n": 3, "spread": 1}
+   ]
+  },
+  "all_saints_matanza": {
+   "priority": 70,
+   "lit": {"hoguera_calle": "common_banquet"},
+   "pieces": [
+    {"p": "mesa_larga", "site": "plaza_centro", "n": 2, "spread": 3.6},
+    {"p": "hoguera_calle", "site": "plaza_anillo"},
+    {"p": "cerdo_quieto", "site": "plaza_s", "n": 2, "spread": 2},
+    {"p": "cerdo_negro_tumbado", "site": "plaza_s"},
+    {"p": "banderolas_6", "site": "calle_alto", "n": 4, "z": 4.8, "blocks": false},
+    {"p": "q:Barrel", "site": "plaza_anillo", "n": 2, "spread": 1}
+   ]
+  },
+  "christmas": {
+   "priority": 70,
+   "pieces": [
+    {"p": "farolillos_6", "site": "calle_alto", "n": 6, "z": 4.4, "blocks": false},
+    {
+     "group": "ristra_guirnalda_6",
+     "site": "plaza_anillo",
+     "n": 3,
+     "spread": 7,
+     "parts": [
+      [
+       "estandarte_mercado",
+       0,
+       0,
+       0,
+       {"awning": [0.6, 0.12, 0.1]}
+      ],
+      [
+       "guirnalda_6",
+       0,
+       0,
+       0,
+       {"z": 3.6}
+      ]
+     ]
+    },
+    {"p": "hoguera_calle", "site": "plaza_centro"},
+    {"p": "mesa_larga", "site": "plaza_anillo"}
+   ]
+  },
+  "comedians": {
+   "priority": 50,
+   "pieces": [
+    {"p": "carro_comicos", "site": "plaza_centro", "fixed_rot": false},
+    {"p": "q:Barrel", "site": "plaza_anillo", "n": 2, "spread": 1},
+    {
+     "group": "ristra_banderolas_4",
+     "site": "plaza_anillo",
+     "n": 2,
+     "spread": 7,
+     "parts": [
+      [
+       "estandarte_mercado",
+       0,
+       0,
+       0,
+       {"awning": [0.68, 0.2, 0.16]}
+      ],
+      [
+       "banderolas_4",
+       0,
+       0,
+       0,
+       {"z": 3.4}
+      ]
+     ]
+    }
+   ],
+   "lit": {}
+  },
+  "preacher": {
+   "priority": 50,
+   "pieces": [
+    {"p": "pulpito_portatil", "site": "iglesia_frente"},
+    {
+     "p": "pendon_procesion",
+     "site": "iglesia_frente",
+     "opts": {"awning": [0.52, 0.26, 0.54]}
+    }
+   ]
+  },
+  "pilgrimage": {
+   "priority": 40,
+   "pieces": [
+    {"p": "bordones", "site": "puerta_iglesia", "off": [2.6, 1.4], "off_try": 3},
+    {"p": "bordones", "site": "iglesia_frente"},
+    {
+     "p": "pendon_procesion",
+     "site": "calle",
+     "n": 2,
+     "spread": 10,
+     "opts": {"awning": [0.3, 0.3, 0.55]}
+    }
+   ]
+  },
+  "war": {
+   "priority": 30,
+   "pieces": [
+    {
+     "p": "mesa_leva",
+     "site": "afueras",
+     "opts": {"awning": [0.68, 0.2, 0.16]}
+    },
+    {"p": "armero_campana", "site": "afueras"},
+    {"p": "tienda_campana", "site": "afueras", "n": 3, "spread": 5},
+    {"p": "hoguera_calle", "site": "afueras"},
+    {"p": "carro_suministros", "site": "afueras"},
+    {"p": "caballo_negro_quieto", "site": "afueras"},
+    {
+     "p": "estandarte_poste",
+     "site": "plaza_anillo",
+     "opts": {"awning": [0.68, 0.2, 0.16]}
+    }
+   ]
+  },
+  "epidemic": {
+   "priority": 30,
+   "pieces": [
+    {"p": "brasero_sahumerio", "site": "puertas_plaza", "n": 4, "off": [1.3, 1.2], "spread": 4},
+    {"p": "cruz_tiza", "site": "puertas", "n": 5, "z": 1.4, "blocks": false, "off": [0, 0.06]},
+    {"p": "camilla", "site": "plaza_anillo", "n": 2, "spread": 4},
+    {"p": "carro_tapado", "site": "plaza_anillo"}
+   ]
+  },
+  "famine": {
+   "priority": 30,
+   "pieces": [
+    {"p": "puesto_vacio", "site": "plaza_anillo", "n": 3, "spread": 5, "half": [0.95, 0.5]},
+    {"p": "olla_reparto", "site": "plaza_centro"},
+    {"p": "saco_roto", "site": "plaza_anillo", "n": 2, "spread": 3}
+   ]
+  },
+  "good_harvest": {
+   "priority": 30,
+   "pieces": [
+    {"p": "grano_rebosante", "site": "puertas", "n": 2, "off": [0, 2.4], "door_ok": true},
+    {"p": "carro_cargado", "site": "afueras", "n": 2, "spread": 5},
+    {"p": "gavillas", "site": "plaza_anillo", "n": 2, "spread": 3},
+    {"p": "almiar", "site": "afueras"}
+   ]
+  },
+  "dignitary_visit": {
+   "priority": 40,
+   "pieces": [
+    {"p": "tribuna", "site": "plaza_s", "fixed_rot": true},
+    {"p": "repostero", "site": "balcon", "n": 2, "z": 4.0, "blocks": false},
+    {"p": "estandarte_poste", "site": "plaza_anillo"},
+    {"p": "caballo_quieto", "site": "plaza_anillo"}
+   ]
+  },
+  "riot": {
+   "priority": 30,
+   "pieces": [
+    {"p": "barricada", "site": "calle", "n": 2, "spread": 12},
+    {"p": "antorcha_suelo", "site": "plaza_anillo", "n": 4, "spread": 5},
+    {"p": "tablon_pasquines", "site": "plaza_anillo"},
+    {"p": "hoguera_calle", "site": "plaza_centro"}
+   ]
+  },
+  "political_crisis": {
+   "priority": 30,
+   "pieces": [
+    {"p": "tarima_discursos", "site": "plaza_s", "fixed_rot": true},
+    {"p": "tablon_pasquines", "site": "plaza_anillo", "n": 2, "spread": 8},
+    {
+     "p": "estandarte_poste",
+     "site": "plaza_anillo",
+     "opts": {"awning": [0.2, 0.34, 0.6]}
+    }
+   ]
+  },
+  "festival": {
+   "priority": 20,
+   "pieces": [
+    {"p": "banderolas_6", "site": "calle_alto", "n": 4, "z": 4.8, "blocks": false}
+   ]
+  },
+  "religious_feast": {
+   "priority": 20,
+   "pieces": [
+    {
+     "p": "pendon_procesion",
+     "site": "plaza_anillo",
+     "n": 2,
+     "spread": 8,
+     "opts": {"awning": [0.86, 0.66, 0.22]}
+    }
+   ]
+  }
+ }
+}

@@ -538,6 +538,60 @@
       "estado": "pendiente",
       "entregable": "Arte final, audio, tutorial, balance, accesibilidad, Steam (FASES 12-15 del pipeline).",
       "criterios": []
+    },
+    {
+      "id": "M3D-0",
+      "nombre": "Plan del 3D",
+      "estado": "hecho",
+      "entregable": "docs/3d/plan.md: arquitectura de la vista 3D en vivo, qué viene de Prueba3D, convivencia 2D/3D, render, recursos en git, hitos M3D-1…8, riesgos y decisiones del owner.",
+      "criterios": [
+        {
+          "texto": "Plan escrito, decisión del owner en decisiones.json y artifact registrado",
+          "estado": "hecho",
+          "prueba": "docs/3d/plan.md (commit 22e8c16f)",
+          "fecha": "2026-11-25"
+        }
+      ]
+    },
+    {
+      "id": "M3D-1",
+      "nombre": "Pueblo 3D en vivo",
+      "estado": "en_curso",
+      "entregable": "La partida arranca en el pueblo 3D construido desde el mapa y el estado de la sim, con la gente moviéndose en vivo, luz y clima del reloj, cámara de la prueba y el HUD de hoy.",
+      "criterios": [
+        {
+          "texto": "Partida nueva normal en el pueblo 3D de town_e desde el mapa y state.buildings, gente en vivo interpolada con sus animaciones y ropa",
+          "estado": "hecho",
+          "prueba": "--smoke-script=pueblo3d (reports/shots/pueblo3d_*.png)",
+          "fecha": "2026-11-26"
+        },
+        {
+          "texto": "Hora, día y estación del reloj: luz, noche con faroles, clima",
+          "estado": "hecho",
+          "prueba": "pueblo3d_atardecer, pueblo3d_noche, pueblo3d_noche_calle",
+          "fecha": "2026-11-26"
+        },
+        {
+          "texto": "Cámara de la prueba (WASD, Q/E, RePág/AvPág, zoom 3-90) y HUD de hoy encima",
+          "estado": "hecho",
+          "prueba": "pueblo3d_calle (HUD con fecha, oro, avisos, velocidad)",
+          "fecha": "2026-11-26"
+        },
+        {
+          "texto": "≥ 60 fps a 1600×900 con el pueblo entero",
+          "estado": "hecho",
+          "prueba": "reports/perf/pueblo3d.json: 111 fps, 1 870 draw calls (pueblo entero, ventana 1600×900 a resolución real)",
+          "fecha": "2026-11-26"
+        },
+        {
+          "texto": "run_all en verde y boot_check limpio",
+          "estado": "en_curso"
+        },
+        {
+          "texto": "Kit en git según la decisión del owner",
+          "estado": "pendiente"
+        }
+      ]
     }
   ]
 }

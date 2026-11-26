@@ -1,0 +1,37 @@
+{
+  "_doc": "The bakery at level 1: one room of 4 x 4 m. The mouth of the oven is in the back wall (the oven stands outside, behind it), the kneading trough on the left, the bread shelves by the door, the fold-down counter on the shop window. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "id": "bakery",
+  "level": 1,
+  "tile_m": 1.0,
+  "origin_m": [-1.5, -1.5],
+  "size": [3, 3],
+  "seed": 4,
+  "shell": {"w": 4, "d": 4, "floors": 1, "door_cell": 1, "yard": ["back"]},
+  "entrance": {"floor": 0, "tile": [2, 2], "side": "sw"},
+  "rooms": [
+    {"id": "bakehouse", "floor": 0, "type": "workshop", "rects": [[0, 0, 2, 2]], "floor_kind": "stone", "wall_style": "timber", "light": "kitchen"}
+  ],
+  "stations": {
+    "oven": {"name": "Horno", "kind": "craft", "floor": 0, "tile": [2, 0], "stand": [1, 1], "prop": "boca_horno", "pos": [1.75, 0], "snap": "back"},
+    "trough": {"name": "Artesa", "kind": "craft", "floor": 0, "tile": [0, 0], "stand": [1, 1], "prop": "artesa", "pos": [0, 0.4], "snap": "left"},
+    "storage": {"name": "Pan", "kind": "storage", "floor": 0, "tile": [2, 1], "stand": [1, 2], "prop": "estante_pan", "snap": "right"},
+    "counter": {"name": "Mostrador", "kind": "sales", "floor": 0, "tile": [0, 3], "stand": [0, 2], "reach": 0.95}
+  },
+  "customers": {"counter": [{"tile": [0, 4]}], "reach": 1.2, "street": [[8.0, 4.6], [0.6, 4.6]]},
+  "spots": {"shop": [0, [1, 2]]},
+  "props": [],
+  "cast": [
+    {"look": "Tabernero", "name": "Panadero", "start": [0, [1, 1]], "steps": [
+      {"say": "amasa en la artesa", "secs": 7, "anim": "knead", "zone": "trough"},
+      {"say": "estira la masa", "secs": 5, "anim": "roll_dough", "zone": "trough"},
+      {"say": "mete el pan con la pala", "secs": 6, "anim": "peel", "zone": "oven"},
+      {"say": "pone el pan a enfriar", "secs": 3, "anim": "Interact", "zone": "storage", "carry": true},
+      {"say": "atiende el mostrador", "secs": 7, "zone": "counter"}
+    ]},
+    {"look": "Campesina", "name": "Clienta", "outside": true, "wait": 3, "looks": ["Campesina", "Vieja", "Moza", "Labrador"], "steps": [
+      {"enter": true},
+      {"say": "compra pan en el mostrador", "secs": 6, "anim": "Idle_Talking", "window": true},
+      {"leave": true, "secs": 5}
+    ]}
+  ]
+}

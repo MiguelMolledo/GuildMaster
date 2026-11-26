@@ -1,0 +1,129 @@
+{
+  "_doc": "The bank at level 3: 6 x 8 m on three floors. Below, the vault at the back behind a partition (three strongboxes, the shelves of deeds, the balance) and the hall: the counter with its grille, the desk, the clients' bench. Above, the home; on top, the clerks. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "id": "bank",
+  "level": 3,
+  "tile_m": 1.0,
+  "origin_m": [-2.5, -3.5],
+  "size": [5, 7],
+  "seed": 6,
+  "shell": {"w": 6, "d": 8, "floors": 3, "door_cell": 1},
+  "entrance": {"floor": 0, "tile": [2, 6], "side": "sw"},
+  "rooms": [
+    {"id": "vault", "floor": 0, "type": "storage", "rects": [[0, 0, 4, 2]], "floor_kind": "stone", "wall_style": "stone", "light": "dim"},
+    {"id": "hall", "floor": 0, "type": "shop", "rects": [[0, 3, 4, 6]], "floor_kind": "stone", "wall_style": "timber", "light": "warm"},
+    {"id": "home", "floor": 1, "type": "kitchen", "rects": [[0, 0, 4, 6]], "floor_kind": "planks", "wall_style": "timber", "light": "kitchen"},
+    {"id": "attic", "floor": 2, "type": "bedroom", "rects": [[0, 0, 4, 6]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"}
+  ],
+  "doors": [
+    {"floor": 0, "tile": [2, 3], "side": "ne"}
+  ],
+  "stairs": [
+    {"from": [4, 4], "to": [3, 6], "foot": [4.17, 4.55], "top": [4.17, 6.6], "tiles": [[4, 5], [4, 6]], "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94},
+    {"from": [4, 4], "to": [3, 6], "foot": [4.17, 4.55], "top": [4.17, 6.6], "tiles": [[4, 5], [4, 6]], "id": "stairs1", "floor": 1, "to_floor": 2, "prop": "escalera_empinada", "width": 0.94}
+  ],
+  "stations": {
+    "desk": {"name": "Mostrador", "kind": "service", "floor": 0, "tile": [0, 4], "stand": [1, 3], "prop": "mostrador_reja", "pos": [0.5, 4], "snap": "left", "rot": 0},
+    "ledger": {"name": "Escritorio", "kind": "service", "floor": 0, "tile": [4, 3], "stand": [3, 3], "prop": "escritorio", "snap": "right", "gap": 0.03},
+    "storage": {"name": "Cámara", "kind": "storage", "floor": 0, "tile": [0, 0], "stand": [0, 1], "prop": "arca_fuerte", "snap": "back,left"},
+    "hearth": {"name": "Hogar", "kind": "home", "floor": 1, "tile": [0, 2], "stand": [1, 2], "prop": "hogar_cocina", "snap": "left"},
+    "bed": {"name": "Camas", "kind": "rest", "floor": 1, "tile": [0, 0], "stand": [2, 1], "prop": "cama_estrecha", "snap": "back,left"}
+  },
+  "spots": {"shop": [0, [2, 5]], "kitchen": [1, [1, 2]], "bed": [1, [2, 1]]},
+  "props": [
+    {"id": "arca_fuerte", "floor": 0, "pos": [1.05, 0], "snap": "back"},
+    {"id": "arca_fuerte", "floor": 0, "pos": [2.1, 0], "snap": "back"},
+    {"id": "alacena", "floor": 0, "tile": [4, 0], "snap": "back"},
+    {"id": "mesa_estrecha", "floor": 0, "pos": [4, 1.6], "snap": "right", "gap": 0.02},
+    {"id": "balanza", "floor": 0, "pos": [4.25, 1.6], "y": 0.76, "rot": 90},
+    {"id": "balanza", "floor": 0, "pos": [0.3, 4.05], "y": 1.0},
+    {"id": "banco", "floor": 0, "pos": [0, 5.6], "snap": "left", "rot": 90, "name": "banco_cli"},
+    {"id": "perchero", "floor": 0, "tile": [1, 6], "snap": "front"},
+    {"id": "cama_estrecha", "floor": 1, "pos": [0.93, 0], "snap": "back", "name": "cama_b"},
+    {"id": "arcon", "floor": 1, "tile": [4, 0], "snap": "right,back", "gap": 0.03},
+    {"id": "alacena", "floor": 1, "tile": [3, 0], "snap": "back"},
+    {"id": "mesa_estrecha", "floor": 1, "pos": [4, 1.6], "snap": "right", "gap": 0.02, "name": "mesa_casa"},
+    {"id": "taburete", "floor": 1, "pos": [3.2, 1.6], "name": "tab_casa"},
+    {"id": "banco", "floor": 1, "pos": [-0.01, 4.5], "snap": "left", "rot": 90},
+    {"id": "mesa_1x2", "floor": 1, "pos": [0.1, 4.5], "rot": 90},
+    {"id": "perchero", "floor": 1, "tile": [2, 6], "snap": "front"},
+    {"id": "tiro", "floor": 2, "tile": [0, 2], "snap": "left"},
+    {"id": "litera", "floor": 2, "pos": [0, 5.5], "snap": "left", "rot": 180, "name": "litera"},
+    {"id": "cama_estrecha", "floor": 2, "tile": [2, 0], "snap": "back", "name": "cama_arriba"},
+    {"id": "arcon", "floor": 2, "tile": [4, 0], "snap": "right,back", "gap": 0.03},
+    {"id": "escritorio", "floor": 2, "tile": [4, 2], "snap": "right", "gap": 0.03},
+    {"id": "perchero", "floor": 2, "tile": [2, 6], "snap": "front"}
+  ],
+  "upgrades": {
+    "upgrade_storage_shelves": [{"id": "arca_fuerte", "floor": 0, "auto": "wall", "near": "storage"}],
+    "bank_ledgers": [{"id": "cesto_legajos", "floor": 0, "auto": "floor", "near": "ledger"}],
+    "bank_vault_door": [{"built": "la cámara es la sala del fondo, tras el tabique"}],
+    "bank_sign": [{"id": "escudo_pared", "floor": 0, "auto": "wall", "near": "door"}],
+    "bank_clerk_desk": [{"id": "escritorio", "floor": 0, "auto": "wall", "near": "ledger", "zone": "desk_2", "name": "Escribiente", "kind": "service"}],
+    "bank_branch": [{"id": "banco", "floor": 0, "auto": "wall", "near": "door"}],
+    "bank_exchange": [{"id": "mesa_estrecha", "floor": 0, "auto": "wall", "near": "desk", "name": "mesa_cambio"}, {"on": ["mesa_cambio"], "id": "balanza", "off": [0, 0]}],
+    "bank_report": [{"id": "q:BookStand", "floor": 0, "auto": "floor", "near": "ledger"}],
+    "bank_guarantees": [{"id": "sack", "floor": 0, "auto": "floor", "near": "storage", "walk": true}],
+    "bank_bonds": [{"id": "arcon", "floor": 0, "auto": "wall", "near": "storage"}],
+    "upgrade_master_bench": [{"id": "q:BookStand", "floor": 0, "auto": "floor", "near": "desk"}],
+    "upgrade_double_ledger": [{"on": ["mesa_cambio", "mesa_casa"], "id": "q:Book_Stack_2", "off": [-0.3, 0.0]}],
+    "upgrade_hidden_passage": [{"id": "tapiz", "floor": 0, "auto": "wall", "near": "storage"}],
+    "upgrade_smuggler_cache": [{"id": "trampilla", "floor": 0, "auto": "floor", "near": "storage", "prio": 1}],
+    "upgrade_strongbox": [{"id": "arca_fuerte", "floor": 1, "auto": "wall", "near": "cama_b"}],
+    "upgrade_bunks": [{"swap": "cama_b", "id": "litera"}],
+    "upgrade_dining_table": [{"built": "la vivienda ya tiene la mesa larga con su banco"}]
+  },
+  "upgrade_ids": {
+    "bank_capacity_1": "upgrade_storage_shelves",
+    "bank_capacity_2": "bank_ledgers",
+    "bank_capacity_3": "bank_vault_door",
+    "bank_commerce_1": "bank_sign",
+    "bank_production_1": "bank_clerk_desk",
+    "bank_production_2": "bank_branch",
+    "bank_production_3": "bank_exchange",
+    "bank_quality_1": "bank_report",
+    "bank_quality_2": "bank_guarantees",
+    "bank_quality_3": "bank_bonds",
+    "bank_secrets_1": "upgrade_double_ledger",
+    "bank_secrets_2": "upgrade_hidden_passage",
+    "bank_secrets_3": "upgrade_smuggler_cache",
+    "bank_security_3": "upgrade_strongbox",
+    "bank_staff_1": "upgrade_bunks",
+    "bank_staff_2": "upgrade_dining_table",
+    "bank_staff_3": "upgrade_master_bench"
+  },
+  "upgrade_out": {
+    "bank_commerce_2": "fachada: upgrade_shop_window",
+    "bank_commerce_3": "fachada: upgrade_trade_sign",
+    "bank_facade_1": "fachada: upgrade_stone_facade",
+    "bank_facade_2": "fachada: upgrade_garden",
+    "bank_facade_3": "fachada: upgrade_noble_facade",
+    "bank_security_1": "fachada: upgrade_reinforced_lock",
+    "bank_security_2": "fachada: upgrade_guard"
+  },
+  "cast": [
+    {"look": "Mercader", "name": "Banquero", "start": [0, [1, 3]], "steps": [
+      {"say": "atiende tras la reja", "secs": 8, "anim": "count_coins", "zone": "desk"},
+      {"say": "anota en el libro mayor", "secs": 6, "anim": "write", "zone": "ledger"},
+      {"say": "guarda el oro en la cámara", "secs": 5, "anim": "Interact", "zone": "storage"}
+    ]},
+    {"look": "Sereno", "name": "Escribiente", "start": [0, [3, 1]], "steps": [
+      {"say": "pesa las monedas", "secs": 7, "anim": "count_coins", "tile": [0, [3, 1]], "look": [4, 1]},
+      {"say": "busca una escritura", "secs": 4, "anim": "Interact", "tile": [0, [3, 0]], "look": [4, 0]},
+      {"say": "descansa arriba", "secs": 8, "lie": "litera"}
+    ]},
+    {"look": "Noble", "name": "Cliente", "outside": true, "wait": 2, "looks": ["Noble", "Mercader", "Guardia"], "steps": [
+      {"enter": true},
+      {"say": "espera su turno", "secs": 4, "anim": "sit_bench", "sit": "banco_cli"},
+      {"say": "pide un préstamo", "secs": 7, "anim": "Idle_Talking", "tile": [0, [1, 5]], "look": [1, 4]},
+      {"leave": true, "secs": 6}
+    ]},
+    {"look": "Campesina", "name": "Mujer", "start": [1, [3, 2]], "steps": [
+      {"say": "guisa en el hogar", "secs": 7, "anim": "stir", "zone": "hearth"},
+      {"say": "come a la mesa", "secs": 6, "anim": "eat", "sit": "tab_casa", "look": [4, 1]}
+    ]},
+    {"look": "Vieja", "name": "Abuela", "start": [1, [2, 2]], "wait": 2, "steps": [
+      {"say": "duerme", "secs": 11, "lie": "bed"},
+      {"say": "se levanta", "secs": 3, "tile": [1, [2, 2]]}
+    ]}
+  ]
+}

@@ -1,0 +1,13 @@
+{
+ "_doc": "Furniture made by tools/make_furniture.py (kit/props/<id>.glb, outside git). Front = +Z in Godot, base at the origin, centred. Materials by name (wood, wood_dark, stone, metal, water, sack): load with HouseBuilder.skin_prop like any @ prop. size = [x, z, height] in m. pieces = the InteriorBuilder.PIECES ids it can replace (\"@<id>\").",
+ "props": {
+  "mostrador": {"size": [2.08, 0.71], "height": 1.0, "pieces": ["shop_counter"], "note": "top at 1.0 m; goods shelf at the back (-Z) for the shopkeeper side"},
+  "lingotes": {"size": [0.62, 0.62], "height": 0.23, "pieces": ["ingot_stack", "ingot_pile"]},
+  "pila_temple": {"size": [1.21, 0.56], "height": 0.67, "pieces": ["quench_tub"], "note": "rim at 0.62 m, tongs on the rim"},
+  "banco_corrido": {"size": [1.8, 0.32], "height": 0.45, "seat_h": 0.45, "pieces": [], "note": "seat 0.45 m = sit_bench (docs/personajes.md)"},
+  "taburete": {"size": [0.52, 0.52], "height": 0.45, "seat_h": 0.45, "pieces": ["stool"], "note": "seat 0.45 m = sit_bench; the kit stool (q:Stool) is 0.59 m = sit_stool"},
+  "mesa_taberna": {"size": [1.62, 0.8], "height": 0.76, "pieces": ["dining_table", "kitchen_table"], "note": "top at 0.76 m with tankards and a bread board"},
+  "jarra": {"size": [0.12, 0.1], "height": 0.15, "pieces": [], "note": "for a hand or a table"},
+  "expositor_armas": {"size": [1.52, 0.69], "height": 1.94, "pieces": ["weapon_display", "display_shelf"], "note": "A-frame: four swords in front, an axe, two spears behind"}
+ }
+}

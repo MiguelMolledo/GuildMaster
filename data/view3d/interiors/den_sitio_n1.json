@@ -1,0 +1,68 @@
+{
+  "_doc": "The den at level 1: one room of 4 x 4 m: the forger's desk at the back, the gaming table where the fence deals, the trapdoor of the hiding place in the corner. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "id": "den",
+  "level": 1,
+  "tile_m": 1.0,
+  "origin_m": [-1.5, -1.5],
+  "size": [3, 3],
+  "seed": 4,
+  "shell": {"w": 4, "d": 4, "floors": 1, "door_cell": 1},
+  "entrance": {"floor": 0, "tile": [2, 2], "side": "sw"},
+  "rooms": [
+    {"id": "front", "floor": 0, "type": "shop", "rects": [[0, 0, 2, 2]], "floor_kind": "planks", "wall_style": "timber", "light": "dim"}
+  ],
+  "stations": {
+    "forger_bench": {"name": "Mesa del falsario", "kind": "craft", "floor": 0, "tile": [2, 0], "stand": [2, 1], "prop": "escritorio", "snap": "back"},
+    "fence": {"name": "Perista", "kind": "service", "floor": 0, "tile": [0, 2], "stand": [1, 2], "prop": "mesa_juego", "snap": "left,front", "gap": 0.05},
+    "storage": {"name": "Escondrijo", "kind": "storage", "floor": 0, "tile": [0, 0], "stand": [1, 0], "prop": "trampilla", "snap": "back,left", "gap": 0.02}
+  },
+  "spots": {"shop": [0, [1, 1]]},
+  "props": [
+    {"id": "taburete", "floor": 0, "pos": [0.95, 2.15], "name": "t1"},
+    {"id": "taburete", "floor": 0, "pos": [0.1, 1.1], "name": "t2"}
+  ],
+  "upgrades": {
+  },
+  "upgrade_ids": {
+  },
+  "upgrade_out": {
+    "den_capacity_1": "efecto (sin pieza)",
+    "den_capacity_2": "efecto (sin pieza)",
+    "den_capacity_3": "efecto (sin pieza)",
+    "den_commerce_1": "efecto (sin pieza)",
+    "den_commerce_2": "fachada: upgrade_shop_window",
+    "den_commerce_3": "fachada: upgrade_trade_sign",
+    "den_facade_1": "fachada: upgrade_stone_facade",
+    "den_facade_2": "fachada: upgrade_garden",
+    "den_facade_3": "fachada: upgrade_noble_facade",
+    "den_production_1": "efecto (sin pieza)",
+    "den_production_2": "efecto (sin pieza)",
+    "den_production_3": "efecto (sin pieza)",
+    "den_quality_1": "efecto (sin pieza)",
+    "den_quality_2": "efecto (sin pieza)",
+    "den_quality_3": "efecto (sin pieza)",
+    "den_secrets_1": "efecto (sin pieza)",
+    "den_secrets_2": "efecto (sin pieza)",
+    "den_secrets_3": "efecto (sin pieza)",
+    "den_security_1": "fachada: upgrade_reinforced_lock",
+    "den_security_2": "fachada: upgrade_guard",
+    "den_security_3": "efecto (sin pieza)",
+    "den_staff_1": "efecto (sin pieza)",
+    "den_staff_2": "efecto (sin pieza)",
+    "den_staff_3": "efecto (sin pieza)"
+  },
+  "cast": [
+    {"look": "Sereno", "name": "Pícaro", "start": [0, [2, 1]], "steps": [
+      {"say": "falsifica un sello", "secs": 8, "anim": "Interact", "zone": "forger_bench"},
+      {"say": "esconde el botín", "secs": 4, "anim": "PickUp_Table", "zone": "storage"}
+    ]},
+    {"look": "Cazadora", "name": "Perista", "start": [0, [1, 1]], "steps": [
+      {"say": "cuenta monedas", "secs": 9, "anim": "sit_talk", "sit": "t2", "look": [0, 2]}
+    ]},
+    {"look": "Labrador", "name": "Ladrón", "outside": true, "wait": 3, "looks": ["Labrador", "Guardia"], "steps": [
+      {"enter": true},
+      {"say": "vende lo robado", "secs": 8, "anim": "sit_talk", "sit": "t1", "look": [0, 2]},
+      {"leave": true, "secs": 6}
+    ]}
+  ]
+}
