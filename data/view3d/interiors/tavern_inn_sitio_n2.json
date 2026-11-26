@@ -20,8 +20,8 @@
     {"from": [0, 2], "to": [1, 0], "foot": [-0.17, 1.45], "top": [-0.17, -0.6], "tiles": [[0, 0], [0, 1]], "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94}
   ],
   "stations": {
-    "bar": {"name": "Barra", "kind": "service", "floor": 0, "tile": [2, 2], "stand": [2, 1], "prop": "barra", "pos": [2.5, 2], "rot": 0},
-    "storage": {"name": "Barriles", "kind": "storage", "floor": 0, "tile": [4, 0], "stand": [4, 1], "prop": "barriles_caballete", "pos": [3.5, 0], "snap": "back"},
+    "bar": {"name": "Barra", "kind": "service", "floor": 0, "tile": [2, 2], "stand": [3, 1], "prop": "barra", "pos": [2.5, 2], "rot": 0},
+    "storage": {"name": "Barriles", "kind": "storage", "floor": 0, "tile": [4, 0], "stand": [3, 1], "prop": "barriles_caballete", "pos": [3.5, 0], "snap": "back"},
     "kitchen": {"name": "Cocina", "kind": "craft", "floor": 0, "tile": [6, 0], "stand": [5, 1], "prop": "hogar_grande", "pos": [5.6, 0], "snap": "back"},
     "tables": {"name": "Mesas", "kind": "service", "floor": 0, "tile": [1, 4], "stand": [2, 3], "prop": "mesa_1x2", "pos": [0.6, 3.7], "rot": 90},
     "gaming_table": {"name": "Mesa de juego", "kind": "service", "floor": 0, "tile": [6, 2], "stand": [5, 2], "prop": "mesa_juego", "snap": "right", "gap": 0.05},
@@ -60,12 +60,12 @@
   ],
   "upgrades": {
     "inn_menu_board": [{"id": "pergamino_pared", "floor": 0, "auto": "wall", "near": "bar"}],
-    "inn_minstrel": [{"id": "taburete", "floor": 0, "auto": "floor", "near": "tables", "zone": "minstrel_corner", "name": "Rincón del juglar", "kind": "service"}],
+    "inn_minstrel": [{"zone": "minstrel_corner", "id": "taburete", "name": "Rincón del juglar", "kind": "service", "floor": 0, "tile": [2, 4], "pos": [2.1, 4.2], "stand": [2, 4]}],
     "inn_gaming": [{"base": "gaming_table"}],
     "inn_barrels": [{"id": "barrel", "floor": 0, "auto": "wall", "near": "storage"}, {"id": "barrel", "floor": 0, "auto": "wall", "near": "storage"}],
     "inn_reserve": [{"id": "botellero", "floor": 0, "auto": "wall", "near": "bar"}],
     "inn_cave": [{"needs": "sótano", "note": "la cueva de toneles pide un sótano que la casa no tiene"}],
-    "inn_more_tables": [{"id": "mesa_1x1", "floor": 0, "auto": "floor", "near": "tables", "name": "mesa_extra"}, {"id": "taburete", "floor": 0, "auto": "floor", "near": "mesa_extra"}, {"id": "taburete", "floor": 0, "auto": "floor", "near": "mesa_extra"}],
+    "inn_more_tables": [{"needs": "anexo", "note": "no cabe otra mesa en la sala sin ponerla detrás de la barra o delante de ella: pide la galería o un anexo"}],
     "inn_hearth": [{"needs": "nivel", "note": "una chimenea de salón pide un paño de muro libre con su tiro hasta el tejado: no lo hay"}],
     "inn_tapestries": [{"id": "tapiz", "floor": 0, "auto": "wall", "near": "tables"}],
     "inn_oven": [{"built": "la cocina ya tiene el hogar grande con su caldero"}],
@@ -74,7 +74,7 @@
     "inn_more_beds": [{"id": "cama_huesped", "floor": 1, "auto": "wall", "near": "rooms"}],
     "inn_good_room": [{"id": "tapiz", "floor": 1, "auto": "wall", "near": "rooms"}, {"id": "arcon", "floor": 1, "auto": "wall", "near": "rooms"}],
     "inn_stable": [{"needs": "anexo", "note": "el establo es un anexo en el patio"}],
-    "inn_porter": [{"id": "taburete", "floor": 0, "auto": "floor", "near": "door"}],
+    "inn_porter": [{"id": "taburete", "floor": 0, "pos": [3.05, 4.25]}],
     "inn_cellar_lock": [{"id": "arca_fuerte", "floor": 0, "auto": "wall", "near": "storage"}],
     "inn_porter_room": [{"id": "arcon", "floor": 0, "auto": "wall", "near": "door"}]
   },

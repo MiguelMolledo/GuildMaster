@@ -31,7 +31,7 @@
     {"id": "mesa_estrecha", "floor": 1, "tile": [2, 3], "snap": "right", "gap": 0.02, "name": "mesa_casa"},
     {"id": "taburete", "floor": 1, "pos": [1.7, 3.0], "name": "tab_casa"},
     {"id": "arcon", "floor": 1, "tile": [2, 4], "snap": "right,front", "gap": 0.03},
-    {"id": "alacena", "floor": 1, "tile": [2, 2], "snap": "right"},
+    {"id": "alacena", "floor": 1, "tile": [0, 2], "snap": "left"},
     {"id": "tiro", "floor": 2, "tile": [0, 3], "snap": "left"},
     {"id": "cama_estrecha", "floor": 2, "pos": [0, 0.55], "snap": "left", "rot": 0, "name": "cama_arriba"},
     {"id": "jergon", "floor": 2, "pos": [2, 3.4], "snap": "right", "rot": 180, "name": "jergon"},

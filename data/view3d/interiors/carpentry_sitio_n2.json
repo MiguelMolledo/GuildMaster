@@ -34,7 +34,7 @@
     {"id": "perchero", "floor": 1, "tile": [2, 4], "snap": "front"}
   ],
   "upgrades": {
-    "carpentry_workbench_2": [{"id": "banco_carpintero", "floor": 0, "auto": "wall", "near": "workbench", "zone": "workbench_2", "name": "Banco 2", "kind": "craft"}],
+    "carpentry_workbench_2": [{"zone": "workbench_2", "id": "banco_carpintero", "name": "Banco 2", "kind": "craft", "floor": 0, "tile": [4, 2], "pos": [4, 2.5], "snap": "right", "stand": [3, 3]}],
     "carpentry_sawhorse_2": [{"id": "caballetes", "floor": 0, "auto": "wall", "near": "sawhorse", "zone": "sawhorse_2", "name": "Caballetes 2", "kind": "craft", "or_needs": "patio", "or_note": "bajo el cobertizo del patio, que el tipo trae desde el nivel 2"}],
     "upgrade_storage_shelves": [{"id": "estante_tablones", "floor": 0, "auto": "wall", "near": "storage"}],
     "upgrade_counter": [{"id": "estante_pared", "floor": 0, "auto": "wall", "near": "door"}],

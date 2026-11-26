@@ -31,7 +31,7 @@
     {"id": "mesa_estrecha", "floor": 1, "tile": [0, 3], "snap": "left", "gap": 0.02, "name": "mesa_casa"},
     {"id": "taburete", "floor": 1, "pos": [0.3, 3.0], "name": "tab_casa"},
     {"id": "arcon", "floor": 1, "tile": [0, 4], "snap": "left,front", "gap": 0.03},
-    {"id": "alacena", "floor": 1, "tile": [0, 2], "snap": "left"},
+    {"id": "alacena", "floor": 1, "tile": [2, 2], "snap": "right"},
     {"id": "perchero", "floor": 1, "tile": [2, 3], "snap": "right"},
     {"id": "jergon", "floor": 2, "pos": [2, 0.5], "snap": "right", "rot": 0, "name": "jergon"},
     {"id": "mesa_juego", "floor": 2, "tile": [2, 3], "snap": "right", "gap": 0.05},

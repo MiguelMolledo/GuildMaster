@@ -29,7 +29,7 @@
     {"id": "x:gallina_quieta", "floor": 0, "pos": [1.75, 0.35], "rot": -60, "walk": true},
     {"id": "aperos", "floor": 0, "tile": [4, 3], "snap": "right", "name": "aperos"},
     {"id": "barrel", "floor": 0, "pos": [4.2, 4.2]},
-    {"id": "sack", "floor": 0, "pos": [1.0, 4.2], "rot": 30},
+    {"id": "sack", "floor": 0, "pos": [0.3, 3.05], "rot": 30},
     {"id": "cama_estrecha", "floor": 1, "pos": [2.93, 0], "snap": "back", "name": "cama_b"},
     {"id": "alacena", "floor": 1, "tile": [4, 0], "snap": "back"},
     {"id": "arcon", "floor": 1, "tile": [4, 4], "snap": "right,front", "gap": 0.03},

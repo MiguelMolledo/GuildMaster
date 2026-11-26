@@ -21,7 +21,7 @@
     {"floor": 1, "tile": [6, 3], "side": "nw"}
   ],
   "stairs": [
-    {"from": [10, 4], "to": [9, 6], "foot": [10.17, 4.55], "top": [10.17, 6.6], "tiles": [[10, 5], [10, 6]], "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94}
+    {"from": [10, 6], "to": [10, 3], "foot": [10.17, 5.45], "top": [10.17, 3.4], "tiles": [[10, 4], [10, 5]], "mirror": true, "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94}
   ],
   "stations": {
     "council": {"name": "Concejo", "kind": "service", "floor": 0, "tile": [6, 1], "stand": [5, 2], "prop": "mesa_concejo", "pos": [5.7, 1.0], "rot": 0},
@@ -32,14 +32,14 @@
   "spots": {"shop": [0, [6, 5]], "kitchen": [1, [8, 2]], "bed": [1, [8, 2]]},
   "props": [
     {"id": "silla_alcalde", "floor": 0, "tile": [5, 0], "snap": "back", "name": "silla_alcalde"},
-    {"id": "banco_respaldo", "floor": 0, "pos": [2.75, 0], "snap": "back", "name": "banco_c1"},
+    {"id": "banco", "floor": 0, "pos": [3.15, 0], "snap": "back", "name": "banco_c1"},
     {"id": "banco_respaldo", "floor": 0, "pos": [7.2, 0], "snap": "back", "name": "banco_c2"},
     {"id": "urna_votos", "floor": 0, "pos": [4.9, 1.0], "y": 0.78, "rot": 10},
     {"id": "alfombra_mediana", "floor": 0, "pos": [5.7, 2.6], "rot": 0},
     {"id": "atril_pie", "floor": 0, "pos": [2.8, 2.5], "rot": 180, "name": "atril"},
     {"id": "lampara_hierro", "floor": 0, "pos": [6, 3.5]},
     {"id": "pendon_villa", "floor": 0, "pos": [4.8, 6], "snap": "front", "gap": 0.05},
-    {"id": "pendon_villa", "floor": 0, "pos": [7.2, 6], "snap": "front", "gap": 0.05},
+    {"id": "pendon_villa", "floor": 0, "pos": [2.0, 6], "snap": "front", "gap": 0.05},
     {"id": "pendon_villa", "floor": 0, "pos": [0, 3.2], "snap": "left", "gap": 0.05},
     {"id": "candelabro_pie", "floor": 0, "tile": [3, 6], "snap": "front", "gap": 0.05},
     {"id": "cuadro_retrato", "floor": 0, "tile": [8, 6], "snap": "front"},
@@ -55,15 +55,14 @@
     {"id": "perchero", "floor": 0, "tile": [1, 6], "snap": "front"},
     {"id": "banco", "floor": 0, "pos": [0, 4.5], "snap": "left", "rot": 90, "name": "banco_lobby"},
     {"id": "pergamino_pared", "floor": 0, "pos": [0, 3.5], "snap": "left"},
-    {"id": "silla_alcalde", "floor": 1, "pos": [8, 1.0], "rot": 0, "name": "silla_despacho"},
     {"id": "arca_fuerte", "floor": 1, "tile": [10, 0], "snap": "right,back", "gap": 0.03},
     {"id": "estante_archivo", "floor": 1, "pos": [6.5, 0], "snap": "back"},
     {"id": "alfombra_mediana", "floor": 1, "pos": [8, 2.5], "rot": 0},
-    {"id": "sillon", "floor": 1, "pos": [10, 2.5], "snap": "right", "gap": 0.03, "name": "sillon_despacho"},
+    {"id": "sillon", "floor": 1, "pos": [10, 1.6], "snap": "right", "gap": 0.03, "name": "sillon_despacho"},
     {"id": "cuadro_retrato", "floor": 1, "pos": [10, 1.5], "snap": "right"},
-    {"id": "hogar_repisa", "floor": 1, "pos": [8.5, 6], "snap": "front"},
-    {"id": "pendon_villa", "floor": 1, "pos": [6.3, 6], "snap": "front", "gap": 0.05},
-    {"id": "candelabro_pie", "floor": 1, "tile": [10, 4], "snap": "right", "gap": 0.05},
+    {"id": "hogar_repisa", "floor": 1, "pos": [7.5, 6], "snap": "front"},
+    {"id": "pendon_villa", "floor": 1, "pos": [9.15, 0], "snap": "back", "gap": 0.05},
+    {"id": "candelabro_pie", "floor": 1, "pos": [6.4, 1.2]},
     {"id": "tapiz", "floor": 1, "tile": [7, 0], "snap": "back"},
     {"id": "escritorio", "floor": 1, "tile": [0, 1], "snap": "left", "gap": 0.03, "name": "escr1"},
     {"id": "escritorio", "floor": 1, "tile": [0, 3], "snap": "left", "gap": 0.03, "name": "escr2"},

@@ -36,7 +36,7 @@
     {"id": "perchero", "floor": 1, "tile": [2, 4], "snap": "front"}
   ],
   "upgrades": {
-    "masonry_carving_bench_2": [{"id": "banco_labra", "floor": 0, "auto": "wall", "near": "carving_bench", "zone": "carving_bench_2", "name": "Labra fina 2", "kind": "craft"}],
+    "masonry_carving_bench_2": [{"zone": "carving_bench_2", "id": "banco_labra", "name": "Labra fina 2", "kind": "craft", "floor": 0, "tile": [4, 4], "pos": [4, 4], "snap": "right", "stand": [3, 4]}],
     "masonry_cutting_bench_2": [{"needs": "patio", "note": "el segundo banco de desbaste va al patio: el taller de cantería sigue fuera"}],
     "upgrade_storage_shelves": [{"id": "alacena", "floor": 0, "auto": "wall", "near": "storage"}],
     "upgrade_counter": [{"id": "estante_pared", "floor": 0, "auto": "wall", "near": "door"}],

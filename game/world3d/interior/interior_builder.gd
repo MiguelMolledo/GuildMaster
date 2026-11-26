@@ -76,7 +76,9 @@ const PIECES := {
 	"tapestry_red": [["q:Banner_1_Cloth", Vector3(-0.6, 0.6, 0), 0, Vector3(0.75, 0.75, 0.75)]],
 	"staircase": [["v:Stair_Interior_Solid", Vector3.ZERO, 0, Vector3.ONE]],
 	"_furnace": [["@fragua", Vector3(0.3, 0, 0.1), 0, Vector3(0.95, 0.95, 0.95)]],
-	"_furnace_master": [["@fragua", Vector3(0.3, 0, 0.1), 0, Vector3(1.05, 1.12, 1.05)], ["q:Anvil_Log", Vector3(-0.75, 0, 0.85), 30, Vector3(0.7, 0.7, 0.7)]],
+	# a size up from the furnace, moved off the walls it stands against (it went 0.14 m into the back one); the log that
+	# stood by it took the place of whoever works the furnace
+	"_furnace_master": [["@fragua", Vector3(0.45, 0, 0.15), 0, Vector3(1.05, 1.12, 1.05)]],
 	"_anvil": [["@yunque", Vector3.ZERO, 0, Vector3.ONE]],
 	"bellows": [["q:Bag", Vector3.ZERO, 90, Vector3(1.2, 0.6, 1.2)]],
 	"quench_tub": [["q:Bucket_Wooden_1", Vector3.ZERO, 0, Vector3(2.4, 2.4, 2.4)]],
@@ -1423,10 +1425,43 @@ func _no_go(f: int) -> Dictionary:
 	for k in ["counter", "queue"]:
 		for e: Dictionary in d.get("customers", {}).get(k, []):
 			out[Vector2i(e.tile[0], e.tile[1])] = true
+	for z in zones:  # in front of a counter (the bar, the grille) where the customers stand
+		var prop := String(d.stations.get(z, {}).get("prop", ""))
+		if int(zones[z].floor) == f and muebles().get(prop, {}).get("counter", false) and named.has(z):
+			var face := Vector3(0, 0, 1).rotated(Vector3.UP, deg_to_rad(float(named[z].rot)))
+			out[world_to_tile((named[z].pos as Vector3) + face * 0.75)] = true
 	for t: Vector2i in _res_tiles.get(f, {}):
 		out[t] = true
 	for t: Vector2i in _res_stands.get(f, {}):
 		out[t] = true
+	return out
+
+
+func _stands_alone(f: int, extra: Dictionary) -> Dictionary:
+	## the places of floor f (where the worker of each station stands, and those kept for the stations of the upgrades)
+	## that can be walked to from the door or the landing without stepping on another place, with `extra` taken too
+	var base := Vector2i(-99, -99)
+	if f == 0 and d.has("entrance"):
+		base = Vector2i(d.entrance.tile[0], d.entrance.tile[1])
+	for r: Dictionary in stair_runs:
+		if int(r.to_floor) == f and base == Vector2i(-99, -99):
+			base = r.to
+	var out := {}
+	if base == Vector2i(-99, -99):
+		return out
+	var stands := {}
+	for z in zones:
+		if int(zones[z].floor) == f and room_of[f].has(zones[z].stand):
+			stands[zones[z].stand] = true
+	for t: Vector2i in _res_stands.get(f, {}):
+		stands[t] = true
+	for st: Vector2i in stands:
+		var block := extra.duplicate()
+		for o: Vector2i in stands:
+			if o != st and o != base:
+				block[o] = true
+		if st == base or not path(f, base, st, block).is_empty():
+			out[st] = true
 	return out
 
 
@@ -1486,7 +1521,8 @@ func _find_slot(e: Dictionary, quiet := false) -> Dictionary:
 	var nogo := _no_go(f)
 	var best := {}
 	var best_score := 1e9
-	var why := {"clash": 0, "tiles": 0, "stand": 0, "cut": 0}
+	var why := {"clash": 0, "tiles": 0, "stand": 0, "cut": 0, "through": 0}
+	var alone := _stands_alone(f, {})  # the places reached today without walking through another one
 	for t: Vector2i in room_of[f]:
 		if rooms[room_of[f][t]].get("annex", false):
 			continue
@@ -1546,11 +1582,22 @@ func _find_slot(e: Dictionary, quiet := false) -> Dictionary:
 				if stand == Vector2i(-99, -99):
 					why.stand += 1
 					continue
-			if blocks:
+			if not blocks and mode == "floor" and not e.get("walk", false):
+				extra[t] = true  # a stool or a basket on the floor: not in the way either, though one can step past it
+			if blocks or extra.has(t):
 				for rt: Vector2i in _res_tiles.get(f, {}):
 					extra[rt] = true
 				if not _connected(f, extra):
 					why.cut += 1
+					continue
+				# nor does it leave a place reached only through where somebody else works
+				var still := _stands_alone(f, extra)
+				var lost := false
+				for st: Vector2i in alone:
+					if not still.has(st):
+						lost = true
+				if lost:
+					why.through += 1
 					continue
 			var score := Vector2(at.x - near.x, at.z - near.z).length() + (0.6 if side == "front" else 0.0)
 			if score < best_score - 0.001:

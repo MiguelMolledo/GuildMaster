@@ -19,7 +19,7 @@
     {"floor": 1, "tile": [2, 3], "side": "ne"}
   ],
   "stairs": [
-    {"from": [4, 4], "to": [3, 6], "foot": [4.17, 4.55], "top": [4.17, 6.6], "tiles": [[4, 5], [4, 6]], "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94}
+    {"from": [4, 6], "to": [4, 3], "foot": [4.17, 5.45], "top": [4.17, 3.4], "tiles": [[4, 4], [4, 5]], "mirror": true, "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94}
   ],
   "stations": {
     "hearth": {"name": "Cocina", "kind": "home", "floor": 0, "tile": [2, 0], "stand": [1, 1], "prop": "hogar_grande", "pos": [1.5, 0], "snap": "back"},
@@ -30,7 +30,7 @@
     {"id": "alacena", "floor": 0, "tile": [4, 0], "snap": "back"},
     {"id": "mesa_estrecha", "floor": 0, "pos": [0, 0.6], "snap": "left", "gap": 0.02},
     {"id": "barrel", "floor": 0, "pos": [4.2, 1.8]},
-    {"id": "sack", "floor": 0, "pos": [3.4, 2.2], "rot": 30, "walk": true},
+    {"id": "sack", "floor": 0, "pos": [3.4, 2.0], "rot": 30, "walk": true},
     {"id": "jamones", "floor": 0, "tile": [0, 0], "snap": "left"},
     {"id": "ristra_ajos", "floor": 0, "tile": [0, 2], "snap": "left"},
     {"id": "vasar_loza", "floor": 0, "tile": [4, 1], "snap": "right"},

@@ -22,7 +22,7 @@
     {"id": "jergon", "floor": 0, "pos": [0.45, 2], "snap": "front", "rot": 90, "name": "jergon"}
   ],
   "upgrades": {
-    "masonry_carving_bench_2": [{"id": "banco_labra", "floor": 0, "auto": "wall", "near": "carving_bench", "zone": "carving_bench_2", "name": "Labra fina 2", "kind": "craft"}],
+    "masonry_carving_bench_2": [{"needs": "nivel", "note": "el segundo banco de labra fina solo cabe detrás del primero en el taller de 6 × 4 m: llega con el de 6 × 6"}],
     "masonry_cutting_bench_2": [{"needs": "patio", "note": "el segundo banco de desbaste va al patio: el taller de cantería sigue fuera"}],
     "upgrade_storage_shelves": [{"id": "alacena", "floor": 0, "auto": "wall", "near": "storage"}],
     "upgrade_counter": [{"id": "estante_pared", "floor": 0, "auto": "wall", "near": "door"}],

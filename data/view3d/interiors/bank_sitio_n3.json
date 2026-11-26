@@ -1,5 +1,5 @@
 {
-  "_doc": "The bank at level 3: 6 x 8 m on three floors. Below, the vault at the back behind a partition (three strongboxes, the shelves of deeds, the balance) and the hall: the counter with its grille, the desk, the clients' bench. Above, the home; on top, the clerks. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
+  "_doc": "The bank at level 3: 6 x 8 m on three floors. Below, the vault at the back behind a partition (three strongboxes, the shelves of deeds, the balance) and the hall: the counter with its grille, the desk, the clients' bench; the stair climbs from the front corner along the right wall to the back. Above, the home; on top, the clerks. Schema: docs/interior3d.md, «Interior en sitio» and «Interiores por tipo». Written by tools/sitio_gen.py.",
   "id": "bank",
   "level": 3,
   "tile_m": 1.0,
@@ -18,8 +18,8 @@
     {"floor": 0, "tile": [2, 3], "side": "ne"}
   ],
   "stairs": [
-    {"from": [4, 4], "to": [3, 6], "foot": [4.17, 4.55], "top": [4.17, 6.6], "tiles": [[4, 5], [4, 6]], "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94},
-    {"from": [4, 4], "to": [3, 6], "foot": [4.17, 4.55], "top": [4.17, 6.6], "tiles": [[4, 5], [4, 6]], "id": "stairs1", "floor": 1, "to_floor": 2, "prop": "escalera_empinada", "width": 0.94}
+    {"from": [4, 6], "to": [4, 3], "foot": [4.17, 5.45], "top": [4.17, 3.4], "tiles": [[4, 4], [4, 5]], "mirror": true, "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94},
+    {"from": [4, 6], "to": [4, 3], "foot": [4.17, 5.45], "top": [4.17, 3.4], "tiles": [[4, 4], [4, 5]], "mirror": true, "id": "stairs1", "floor": 1, "to_floor": 2, "prop": "escalera_empinada", "width": 0.94}
   ],
   "stations": {
     "desk": {"name": "Mostrador", "kind": "service", "floor": 0, "tile": [0, 4], "stand": [1, 3], "prop": "mostrador_reja", "pos": [0.5, 4], "snap": "left", "rot": 0},

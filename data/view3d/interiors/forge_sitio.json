@@ -13,25 +13,24 @@
     "porch": [{"side": "left", "from": 0, "to": 1, "ends": "boards"}],
     "chimneys": [{"x": 0.6, "y": 0.43, "piece": "Prop_Chimney_Forge"}, {"x": 0.0, "y": -0.8, "piece": "Prop_Chimney"}],
     "doorways": [{"side": "left", "floor": 0, "cell": 1}],
-    "plain": [{"side": "back", "floor": 1, "cell": 1}, {"side": "left", "floor": 1, "cell": 1}, {"side": "right", "floor": 1, "cell": 1}, {"side": "front", "floor": 1, "cell": 1}, {"side": "right", "floor": 0, "cell": 1}, {"side": "right", "floor": 0, "cell": 2}],
-    "floor_holes": [{"floor": 1, "rect_m": [1.5, 1.0, 3.0, 3.0]}]
+    "plain": [{"side": "back", "floor": 1, "cell": 1}, {"side": "left", "floor": 1, "cell": 1}, {"side": "right", "floor": 1, "cell": 1}, {"side": "front", "floor": 1, "cell": 1}, {"side": "right", "floor": 0, "cell": 1}, {"side": "right", "floor": 0, "cell": 2}]
   },
   "entrance": {"floor": 0, "tile": [4, 4], "side": "sw"},
   "rooms": [
     {"id": "workshop", "floor": 0, "type": "workshop", "rects": [[2, 0, 6, 2]], "floor_kind": "stone", "wall_style": "stone", "light": "forge"},
     {"id": "shop", "floor": 0, "type": "shop", "rects": [[2, 3, 6, 4]], "floor_kind": "stone", "wall_style": "stone", "light": "warm"},
     {"id": "storage", "floor": 0, "type": "storage", "annex": true, "rects": [[0, 0, 0, 2], [1, 2, 1, 2]], "floor_kind": "earth", "wall_style": "timber"},
-    {"id": "bedroom", "floor": 1, "type": "bedroom", "rects": [[2, 0, 6, 2]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"},
-    {"id": "kitchen", "floor": 1, "type": "kitchen", "rects": [[2, 3, 6, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "kitchen"}
+    {"id": "bedroom", "floor": 1, "type": "bedroom", "rects": [[2, 0, 6, 1]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"},
+    {"id": "kitchen", "floor": 1, "type": "kitchen", "rects": [[2, 2, 6, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "kitchen"}
   ],
   "open": [["workshop", "shop"]],
   "doors": [
     {"floor": 0, "tile": [2, 2], "side": "nw"},
-    {"floor": 1, "tile": [4, 3], "side": "ne"}
+    {"floor": 1, "tile": [4, 2], "side": "ne"}
   ],
   "stairs": [
-    {"id": "stairs", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "from": [6, 2], "to": [5, 4],
-      "foot": [6.2, 2.55], "top": [6.2, 4.6], "width": 0.94, "tiles": [[6, 3], [6, 4]]}
+    {"id": "stairs", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "from": [6, 4], "to": [5, 2],
+      "foot": [6.2, 4.0], "top": [6.2, 1.95], "width": 0.94, "tiles": [[6, 2], [6, 3]], "mirror": true}
   ],
   "stations": {
     "furnace": {"floor": 0, "tile": [6, 1], "stand": [5, 1], "pos": [6.02, 0.34], "rot": -90, "reach": 1.3},
@@ -50,7 +49,7 @@
     "apprentice": [4, 2],
     "shop": [0, [4, 3]],
     "kitchen": [1, [3, 3]], "kitchen2": [1, [3, 4]], "kitchen3": [1, [5, 3]],
-    "bed": [1, [3, 1]], "cradle": [1, [6, 2]],
+    "bed": [1, [3, 1]], "cradle": [1, [5, 1]],
     "kitchen_table": [2, 3], "kitchen_hearth": [4, 4]
   },
   "idle": [
@@ -74,14 +73,14 @@
     {"id": "stool", "floor": 1, "pos": [2.75, 3.0], "rot": 90, "seat": true}
   ],
   "upgrades": {
-    "forge_anvil_2": [{"id": "_anvil", "floor": 0, "auto": "floor", "near": "anvil", "zone": "anvil_2", "name": "Yunque 2", "kind": "craft"}],
+    "forge_anvil_2": [{"zone": "anvil_2", "id": "_anvil", "name": "Yunque 2", "kind": "craft", "floor": 0, "tile": [2, 3], "pos": [2.0, 3.2], "rot": 90, "stand": [3, 3], "reach": 0.78}],
     "forge_furnace_2": [{"needs": "anexo", "note": "una segunda fragua pide otro cobertizo con su chimenea, o la casa de 8 m"}],
-    "upgrade_storage_shelves": [{"id": "alacena", "floor": 0, "auto": "wall", "near": "anvil"}],
-    "upgrade_counter": [{"id": "armero_estrecho", "floor": 0, "auto": "wall", "near": "door"}],
-    "forge_bellows": [{"id": "fuelle", "floor": 0, "auto": "wall", "near": "furnace"}],
+    "upgrade_storage_shelves": [{"id": "alacena", "floor": 0, "auto": "wall", "near": "anvil", "or_needs": "anexo", "or_note": "las paredes del taller están llenas: van bajo el cobertizo del almacén"}],
+    "upgrade_counter": [{"id": "armero_estrecho", "floor": 0, "auto": "wall", "near": "door", "or_needs": "anexo", "or_note": "las paredes del taller están llenas: va bajo el cobertizo del almacén"}],
+    "forge_bellows": [{"id": "fuelle", "floor": 0, "tile": [4, 0], "snap": "back"}],
     "forge_tempering_tub": [{"base": "pila"}],
     "forge_master_furnace": [{"swap": "furnace", "id": "_furnace_master"}],
-    "forge_quench_trough": [{"id": "stone_trough", "floor": 0, "auto": "wall", "near": "anvil"}],
+    "forge_quench_trough": [{"id": "stone_trough", "floor": 0, "tile": [2, 1], "snap": "left"}],
     "forge_engraving_bench": [{"id": "escritorio", "floor": 0, "auto": "wall", "near": "door", "or_needs": "patio", "or_note": "la casa crece 2 m sobre su patio (la forja de 6 × 8)"}],
     "forge_master_seal": [{"id": "escudo_pared", "floor": 0, "auto": "wall", "near": "door"}],
     "upgrade_master_bench": [{"id": "banco_carpintero", "floor": 0, "auto": "wall", "near": "anvil", "or_needs": "patio", "or_note": "la casa crece 2 m sobre su patio (la forja de 6 × 8)"}],

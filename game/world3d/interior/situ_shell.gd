@@ -123,6 +123,11 @@ static func apply(def: Dictionary, sd: Dictionary, yard := {}) -> String:
 		sd.clear()
 		sd.merge(m)
 		sh = sd.shell
+		# the shop front the type puts on the house goes with the interior: its counter is now on the mirrored cell
+		if not sh.has("shop") and def.has("shop") and (def.shop as Dictionary).has("cells"):
+			var n: int = int(def.w) / 2
+			def.shop = (def.shop as Dictionary).duplicate()
+			def.shop.cells = (def.shop.cells as Array).map(func(i): return n - 1 - int(i))
 		dbg("interior in place: mounted mirrored (as written: %s)" % why)
 	if sh.has("shop"):
 		var shop: Dictionary = (sh.shop as Dictionary).duplicate()

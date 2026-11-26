@@ -18,7 +18,7 @@
   },
   "spots": {"shop": [0, [2, 2]], "bed": [0, [2, 2]]},
   "props": [
-    {"id": "jergon", "floor": 0, "pos": [0.45, 2], "snap": "front", "rot": 90, "name": "jergon"}
+    {"id": "jergon", "floor": 0, "pos": [3.55, 2], "snap": "front", "rot": 90, "name": "jergon"}
   ],
   "upgrades": {
     "carpentry_workbench_2": [{"id": "banco_carpintero", "floor": 0, "auto": "wall", "near": "workbench", "zone": "workbench_2", "name": "Banco 2", "kind": "craft"}],

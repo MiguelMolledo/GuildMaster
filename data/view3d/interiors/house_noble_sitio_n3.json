@@ -17,11 +17,11 @@
   ],
   "doors": [
     {"floor": 0, "tile": [4, 4], "side": "ne"},
-    {"floor": 1, "tile": [4, 4], "side": "ne"}
+    {"floor": 1, "tile": [3, 4], "side": "ne"}
   ],
   "stairs": [
-    {"from": [6, 6], "to": [5, 8], "foot": [6.17, 6.55], "top": [6.17, 8.6], "tiles": [[6, 7], [6, 8]], "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94},
-    {"from": [6, 6], "to": [5, 8], "foot": [6.17, 6.55], "top": [6.17, 8.6], "tiles": [[6, 7], [6, 8]], "id": "stairs1", "floor": 1, "to_floor": 2, "prop": "escalera_empinada", "width": 0.94}
+    {"from": [6, 7], "to": [6, 4], "foot": [6.17, 6.45], "top": [6.17, 4.4], "tiles": [[6, 5], [6, 6]], "mirror": true, "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94},
+    {"from": [6, 7], "to": [6, 4], "foot": [6.17, 6.45], "top": [6.17, 4.4], "tiles": [[6, 5], [6, 6]], "mirror": true, "id": "stairs1", "floor": 1, "to_floor": 2, "prop": "escalera_empinada", "width": 0.94}
   ],
   "stations": {
     "hearth": {"name": "Cocina", "kind": "home", "floor": 0, "tile": [2, 0], "stand": [1, 1], "prop": "hogar_grande", "pos": [1.6, 0], "snap": "back"},
@@ -32,7 +32,7 @@
     {"id": "alacena", "floor": 0, "tile": [6, 0], "snap": "back"},
     {"id": "mesa_estrecha", "floor": 0, "pos": [0, 0.6], "snap": "left", "gap": 0.02},
     {"id": "barrel", "floor": 0, "pos": [6.2, 2.8]},
-    {"id": "sack", "floor": 0, "pos": [5.4, 3.2], "rot": 30, "walk": true},
+    {"id": "sack", "floor": 0, "pos": [5.4, 3.0], "rot": 30, "walk": true},
     {"id": "jamones", "floor": 0, "tile": [0, 0], "snap": "left"},
     {"id": "ristra_ajos", "floor": 0, "tile": [0, 3], "snap": "left"},
     {"id": "vasar_loza", "floor": 0, "tile": [6, 1], "snap": "right"},
@@ -47,7 +47,7 @@
     {"id": "arcon", "floor": 0, "tile": [0, 4], "snap": "left", "gap": 0.02},
     {"id": "cuadro_paisaje", "floor": 0, "tile": [0, 4], "snap": "left"},
     {"id": "perchero", "floor": 0, "tile": [3, 8], "snap": "front"},
-    {"id": "lampara_hierro", "floor": 0, "pos": [3, 5.5]},
+    {"id": "lampara_hierro", "floor": 0, "pos": [4.6, 4.9]},
     {"id": "tiro", "floor": 1, "pos": [1.6, 0], "snap": "back"},
     {"id": "litera", "floor": 1, "pos": [0, 7.5], "snap": "left", "rot": 180, "name": "litera"},
     {"id": "cuna", "floor": 1, "pos": [1.2, 8], "snap": "front"},
@@ -55,14 +55,13 @@
     {"id": "estante_pared", "floor": 1, "tile": [6, 4], "snap": "right"},
     {"id": "cuadro_retrato", "floor": 1, "tile": [2, 0], "snap": "back"},
     {"id": "botellero", "floor": 0, "tile": [5, 0], "snap": "back"},
-    {"id": "hogar_repisa", "floor": 0, "pos": [6, 5.5], "snap": "right"},
-    {"id": "sillon", "floor": 0, "pos": [5.0, 5.0], "rot": 90, "name": "sillon1"},
-    {"id": "sillon", "floor": 0, "pos": [5.0, 6.0], "rot": 90, "name": "sillon2"},
+    {"id": "hogar_repisa", "floor": 0, "pos": [2.5, 8], "snap": "front"},
+    {"id": "sillon", "floor": 0, "pos": [2.0, 6.95], "rot": 0, "name": "sillon1"},
+    {"id": "sillon", "floor": 0, "pos": [3.2, 6.95], "rot": 0, "name": "sillon2"},
     {"id": "alfombra_grande", "floor": 0, "pos": [3, 5.5], "rot": 0},
     {"id": "soporte_armadura", "floor": 0, "tile": [6, 4], "snap": "right", "gap": 0.06},
     {"id": "candelabro_pie", "floor": 0, "tile": [1, 4]},
-    {"id": "armero_estrecho", "floor": 0, "tile": [0, 8], "snap": "left,front"},
-    {"id": "escritorio_atril", "floor": 0, "pos": [1.5, 8], "snap": "front", "gap": 0.02},
+    {"id": "escritorio_atril", "floor": 0, "pos": [0.6, 8], "snap": "front,left", "gap": 0.02},
     {"id": "arpa", "floor": 0, "pos": [5.2, 8], "snap": "front", "gap": 0.05},
     {"id": "arcon_rico", "floor": 1, "pos": [4.5, 2.0], "name": "arcon_rico"},
     {"id": "laud", "floor": 1, "pos": [4.5, 2.0], "y": 0.6, "rot": 25},
@@ -73,19 +72,21 @@
     {"id": "aguamanil", "floor": 1, "tile": [6, 0], "snap": "right,back", "gap": 0.05},
     {"id": "candelabro_pie", "floor": 1, "tile": [6, 1], "snap": "right", "gap": 0.05},
     {"id": "biombo", "floor": 1, "pos": [1.5, 3], "rot": 0},
-    {"id": "alacena", "floor": 1, "tile": [3, 8], "snap": "front"},
+    {"id": "tiro", "floor": 1, "pos": [2.5, 8], "snap": "front"},
+    {"id": "alacena", "floor": 1, "pos": [4.3, 8], "snap": "front"},
     {"id": "mesa_ajedrez", "floor": 1, "pos": [3.5, 5]},
     {"id": "taburete", "floor": 1, "pos": [3.5, 5.8], "name": "tab_aj"},
     {"id": "alfombra_pequena", "floor": 1, "pos": [2.0, 5.2], "rot": 0},
-    {"id": "sillon", "floor": 1, "pos": [6, 5.5], "snap": "right", "gap": 0.03, "name": "sillon3"},
+    {"id": "sillon", "floor": 1, "tile": [6, 8], "snap": "right,front", "gap": 0.03, "name": "sillon3"},
     {"id": "tiro", "floor": 2, "pos": [1.6, 0], "snap": "back"},
+    {"id": "tiro", "floor": 2, "pos": [2.5, 8], "snap": "front"},
     {"id": "jergon", "floor": 2, "tile": [0, 0], "snap": "back,left", "name": "jergon1"},
     {"id": "jergon", "floor": 2, "tile": [6, 0], "snap": "back,right", "name": "jergon2"},
     {"id": "jergon", "floor": 2, "pos": [0, 7.5], "snap": "left", "rot": 180, "name": "jergon3"},
     {"id": "arcon", "floor": 2, "tile": [0, 3], "snap": "left", "gap": 0.02},
     {"id": "arcon", "floor": 2, "tile": [6, 3], "snap": "right", "gap": 0.02},
-    {"id": "mesa_estrecha", "floor": 2, "pos": [2.5, 8], "snap": "front", "gap": 0.02},
-    {"id": "taburete", "floor": 2, "pos": [2.5, 7.2], "name": "tab4"},
+    {"id": "mesa_estrecha", "floor": 2, "pos": [1.1, 8], "snap": "front", "gap": 0.02},
+    {"id": "taburete", "floor": 2, "pos": [1.1, 7.2], "name": "tab4"},
     {"id": "perchero", "floor": 2, "tile": [3, 0], "snap": "back"},
     {"id": "alfombra_esparto", "floor": 2, "tile": [3, 2], "rot": 0},
     {"id": "rueca", "floor": 2, "pos": [6, 1.5], "snap": "right", "name": "rueca"},
@@ -93,15 +94,15 @@
     {"id": "telar_mano", "floor": 2, "pos": [1.5, 0], "snap": "back", "name": "telar_mano"},
     {"id": "hierbas_secas", "floor": 2, "pos": [4.5, 0], "snap": "back"},
     {"id": "palangana_jarro", "floor": 2, "tile": [0, 2], "snap": "left", "gap": 0.05},
-    {"id": "mantequera", "floor": 2, "tile": [6, 6], "snap": "right", "gap": 0.05},
+    {"id": "mantequera", "floor": 2, "pos": [5.6, 8], "snap": "front", "gap": 0.05},
     {"id": "orinal", "floor": 2, "pos": [0.9, 7.1]},
-    {"id": "arcon", "floor": 2, "pos": [6, 4.5], "snap": "right", "gap": 0.02},
+    {"id": "arcon", "floor": 2, "tile": [6, 7], "snap": "right", "gap": 0.02},
     {"id": "ollas_colgadas", "floor": 2, "tile": [0, 5], "snap": "left"},
     {"id": "vasar_loza", "floor": 2, "pos": [5.2, 0], "snap": "back", "gap": 0.02},
     {"id": "estante_pared", "floor": 2, "pos": [4.5, 8], "snap": "front"},
     {"id": "cesto_fruta", "floor": 2, "pos": [4.3, 7.4]},
     {"id": "aperos", "floor": 2, "tile": [6, 8], "snap": "right,front", "gap": 0.04},
-    {"id": "palmatoria", "floor": 2, "pos": [2.95, 8.05], "y": 0.76, "rot": 20}
+    {"id": "palmatoria", "floor": 2, "pos": [1.55, 8.05], "y": 0.76, "rot": 20}
   ],
   "cast": [
     {"look": "Moza", "name": "Cocinera", "start": [0, [1, 1]], "steps": [
@@ -114,13 +115,13 @@
     {"look": "Noble", "name": "Señor", "outside": true, "wait": 2, "steps": [
       {"enter": true},
       {"say": "cena", "secs": 7, "anim": "eat", "sit": "banco", "off": [-0.3, 0]},
-      {"say": "escribe en el atril", "secs": 5, "anim": "Interact", "tile": [0, [2, 7]], "look": [1, 8]},
+      {"say": "escribe en el atril", "secs": 5, "anim": "Interact", "tile": [0, [1, 7]], "look": [0, 8]},
       {"say": "duerme", "secs": 10, "lie": "bed"},
       {"leave": true, "secs": 5}
     ]},
     {"look": "Mercader", "name": "Señora", "start": [0, [2, 5]], "steps": [
       {"say": "come a la mesa", "secs": 7, "anim": "eat", "sit": "tab1", "look": [0, 5]},
-      {"say": "lee junto al fuego", "secs": 7, "anim": "sit_talk", "sit": "sillon1", "look": [6, 5]},
+      {"say": "lee junto al fuego", "secs": 7, "anim": "sit_talk", "sit": "sillon1", "look": [2, 8]},
       {"say": "se arregla ante el espejo", "secs": 5, "anim": "Interact", "tile": [1, [5, 3]], "look": [6, 3]}
     ]},
     {"look": "Campesina", "name": "Hija", "start": [1, [2, 5]], "age": 12, "steps": [
