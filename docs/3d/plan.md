@@ -287,3 +287,15 @@ cargada terminaron todas. Queda vigilado.
   pasada falla en el 08 y el 10 por otros motivos. El conductor reabre ahora el menú una vez si la entrada no coge el
   clic; falta ver por qué el primero se pierde (una carta que aparece a la vez se lleva el foco, es la sospecha).
   Sin ventana, 01-10 en verde.
+
+## 10. M3D-5, primera tanda (2026-11-26)
+
+| Parte | Estado | Prueba |
+|---|---|---|
+| Obras y mejoras exteriores | La casa cambia de nivel en vivo (obras en armazón, nivel nuevo al acabar); construir, reconvertir y derribar rehacen el pueblo. La fuga `~ArrayMesh` al salir (parcelas con ventana) era el hilo de los LOD de una casa rehecha: el pueblo lo espera antes de irse | `--smoke-script=obras3d`; `parcelas` con ventana en verde |
+| Fiestas | `FiestasPueblo` de Prueba3D alimentado por las fiestas y sucesos del estado de la sim (`Town3D._festivals_now`); se vuelve a montar cuando cambian | `--smoke-script=fiesta3d`: 17/17 fiestas en vigor y con piezas; capturas `reports/shots/fiesta3d_<id>.png` |
+| Medida | Feria de la cosecha + lluvia a 1600×900: 110 fps, peor fotograma 30,7 ms con el sonido del pueblo (112,5 fps y 9,7 ms sin él) | `--smoke-script=fiesta3d --fiesta3d=none --fiesta3d-perf --tiempo=lluvia` → `reports/perf/fiesta3d.json` |
+| Clima y vida | Ya estaban (luz, clima, vida, lluvia_gente); arreglado el humo (blanco) y las chimeneas de una casa rehecha | — |
+| Sonido del pueblo | El de Prueba3D, por id de `data/audio.json` a través del `AudioDirector` (58 ficheros traídos), en los buses del juego; la música sigue siendo la del `AudioDirector` | clip con sonido (Movie Maker) |
+| Pelea de la plaza | Los dos se miran y se cambian golpes; el corro los mira | `--smoke-script=pelea3d` |
+| Pendiente | Duelistas de la pantalla del duelo sin sprites 2D; el menú «Enviar → Forja» con ventana; el fotograma de 109 ms al entrar la persona; la pelea del escenario dura ~0,5 s a ×1 (la guardia la corta enseguida: es de la sim) | — |
