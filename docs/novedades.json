@@ -1,6 +1,29 @@
 [
   {
     "fecha": "2026-11-26",
+    "titulo": "3D: familia, sociedad y política se juegan en el pueblo 3D",
+    "que": "Los 13 flujos de familia, sociedad y política (cortejo y boda, fiesta de boda, regalos, vecinos y familia, edades, escuela, dados, duelo, reto y limosna, juez, tribunal, título y elecciones) pasan a 3D y se juegan de punta a punta con ratón y con teclado. Arreglos: las cartas de una partida anterior ya no se quedan en la pila al cargar otra (el reto esperaba detrás); los hijos ya no salen canosos en 3D; dentro de una casa abierta en sitio ya no se dibujan los sprites 2D de la gente encima del 3D (salían hasta en el tejado vecino) y el anillo de la persona elegida sigue a su cuerpo 3D; el auditor visual de los flujos mide bien en 3D. Tabla en docs/3d/repaso_sociedad.md.",
+    "como_probar": "python3 tools/verifica/verifica.py --window --flows=cortejo_boda,fiesta_boda,regalos,vecinos_familia,edades,escuela,dados,duelo,reto_recibido,juez,tribunal,titulo,elecciones (con --keys, con teclado)",
+    "capturas": [
+      "docs/novedades/sociedad_cortejo_boda.png",
+      "docs/novedades/sociedad_fiesta_boda.png",
+      "docs/novedades/sociedad_regalos.png",
+      "docs/novedades/sociedad_vecinos_familia.png",
+      "docs/novedades/sociedad_edades.png",
+      "docs/novedades/sociedad_escuela.png",
+      "docs/novedades/sociedad_dados.png",
+      "docs/novedades/sociedad_dados_2.png",
+      "docs/novedades/sociedad_duelo.png",
+      "docs/novedades/sociedad_duelo_2.png",
+      "docs/novedades/sociedad_reto_recibido.png",
+      "docs/novedades/sociedad_juez.png",
+      "docs/novedades/sociedad_tribunal.png",
+      "docs/novedades/sociedad_titulo.png",
+      "docs/novedades/sociedad_elecciones.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-26",
     "titulo": "Sin saltos al echar a andar (3D y 2D)",
     "que": "Al mandar a alguien a un sitio, el cuerpo daba un salto de media casilla (1 m en 3D) en el primer fotograma y luego andaba normal; con una orden nueva a mitad de camino, hasta 3 m. La sim aplica la orden y anda su primer minuto en el mismo paso, así que la vista veía el camino ya empezado. Ahora el cuerpo dibujado alcanza a la sim a la velocidad de andar con margen y arranca suave; entrar o salir de un edificio sigue siendo inmediato. Vale para el pueblo 3D (también al levantarse de un banco o al dejar el arrimo de la lluvia) y para el 2D. La sim no cambia.",
     "como_probar": "Elige a tu personaje y haz clic derecho en una calle: echa a andar sin salto. Medida: godot --headless --fixed-fps 60 --path . -- --smoke-script=salto [--view=2d] [--tiempo=lluvia] [--suavizado=no para el antes] -> reports/perf/salto_*.json.",
