@@ -34,21 +34,29 @@ la casa de un solar es del tipo que la sim tiene allí (`pueblo.gd`, `_entries`)
 - **Ejecutor de flujos**: `"start": "<inicio>"` empieza una partida nueva de ese inicio con el reparto fijo; consultas
   3D `in_place3d`, `stations3d`, `zones`, `seen3d`, y de oficio `field`, `applications`, `victim`.
 
+## Segundo bloque (2026-11-26): lo que dejó abierto el repaso
+
+| Punto | Estado | Qué se hizo y cómo se comprobó |
+|---|---|---|
+| Mostrador con sitio propio | **hecho** | En la ventana de la fachada (frente de tienda, `shop` en `data/view3d/building_types.json`) en carpintería 1-2, cantería 1-3 y sastrería 1-2; en la carpintería 1 se movieron el jergón y el almacén, en la cantería 2-3 se quitó una pila de bloques de adorno. `rv_auditoria`: 0 fallos en carpintería, cantería, sastrería, armería, forja y granja 2-3 (la granja 1 ya fallaba antes: cama y hogar). Lo añadido a los datos de la prueba lleva `"gm": "GuildMaster-3d…"` y `traer_prueba.py` nunca lo pisa (lo lista para fundir) |
+| Campos de la granja fuera | **hecho** | `FarmFields3D`: un bancal por campo en el terreno del solar que la casa no cubre, vestido por su estado (tierra, sembrado, creciendo, listo), y la marca de cada campo sobre su bancal. `oficio_granja` con y sin ventana |
+| Rótulos que se pisan | **hecho** | Los nombres de los puestos juntos bajan una línea si taparían a otro (`InteriorView._unstack_labels`); los nombres de la gente dentro (la posada llena) solo del elegido y del que está bajo el ratón. Queda: el nombre de la persona (3D, sobre la cabeza) aún puede tocar el rótulo de un puesto (guarida) |
+| Mancha blanca sobre los tejados | **hecho** | Era el humo de las chimeneas a la hora de comer (16 bocanadas por chimenea que crecían a 4 m, casi blancas, sin luz ni niebla: un disco brillante, más con lluvia). Ahora gris, más fino y apagado con nubes y lluvia; captura a las 12:45 junto a la armería sin mancha |
+| Carta «Nuevo: tu mostrador» | **hecho** | El texto lleva `{building}`: «en tu banco», «en tu carpintería»… (captura de `oficio_banco`) |
+| Mercado: nombre cortado y − / + apagados | **hecho** | La lista de vender ya no corta el nombre; un botón apagado tiene el fondo más oscuro (tema, también en 2D; el color del texto sigue siendo el del token `texto_apagado`) y los − / + apagados del mercado y del banco dicen por qué. Auditoría visual: 0 avisos en cantería, armería y banco |
+| Guarida, ciclo completo | **hecho** | `oficio_guarida` sigue hasta la noche: robar en una casa ajena y vendérselo al perista (con y sin ventana) |
+
 ## Lo que queda
-- **Sitio en el trazado 3D** para el mostrador de los talleres de nivel 1 y 2 (y nivel 3 de la cantería) y para los
-  cuatro campos de la granja: hoy sus marcas van junto a la puerta. Son datos de los trazados que vienen de Prueba3D
-  (`tools/sitio_gen.py`); los campos quizá deban ir fuera, en la huerta.
-- **Rótulos que se pisan**: los cuatro campos de la granja, juntos junto a la puerta; en la guarida, el almacén, la
-  mesa del perista y el nombre de quien está allí, que quedan juntos junto a la puerta y bajo el alero.
-- **Texto de la carta «Nuevo: tu mostrador»**: al banquero le dice «en tu forja» (el texto es el de la forja).
-- **El menú «Enviar → Forja» del recado** que con ventana a veces no coge el clic: sin tocar en este repaso (no era
-  barato); sigue apuntado en `docs/3d/plan.md`.
-- **Hallazgos de la auditoría visual** (también en 2D, no son de la vista): el nombre de la pieza recortado en la lista
-  de vender del mercado («Piedra de afilar excelente ×1»); los botones «−» y «+» apagados que se ven iguales que los
-  encendidos (mercado y banco).
-- **Equilibrio**: el granjero llega al día 5 con 0 de oro (el mantenimiento se come la venta del trigo).
+- **El menú «Enviar → Forja» del recado** que con ventana a veces no coge el clic, y el peor fotograma de 109 ms al
+  entrar la persona: sin tocar en este bloque (el tiempo se fue en los puntos 1-6).
+- **La granja de nivel 1** (`farm_sitio_n1`): la cama solo se alcanza pasando por el hogar (fallo de `rv_auditoria`
+  que ya estaba).
+- **Los campos se ven poco** con la casa abierta desde algunos ángulos (el bancal queda tras la pared o el porche del
+  patio); las marcas sí se ven y se pulsan.
+- **Equilibrio**: el granjero llega al día 5 con 0 de oro (pasado al owner).
 
 ## Pruebas (2026-11-26)
+- Segundo bloque: reglas 1280/1281 y la que fallaba (el color del texto apagado debe salir de `tools/ui/tokens.json`) arreglada y pasada aparte (`--only=test_ui_hud_theme` 7/7); con ventana oficio_carpinteria, canteria, sastreria, granja, armeria, banco y guarida en verde; sin ventana consulta, sastreria y carpinteria.
 - Sin ventana: 8/8 flujos en verde.
 - Con ventana (por `grimoire heavy`): 8/8 en verde.
 - Reglas: 1281/1281. Vista 3D (`--only=world3d`): 6/6.
