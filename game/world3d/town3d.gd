@@ -80,7 +80,8 @@ func _feed() -> Dictionary:
 			"minutes_per_tile": Movement.minutes_per_tile(sim.catalog), "days": [], "live": true},
 		"map": {"size": m.get("size", [0, 0]), "rows": m.get("rows", []), "walkable": mask,
 			"stalls": m.get("stalls", {}), "social_points": m.get("social_points", []), "spawns": m.get("spawns", {})},
-		"families": fams, "buildings": {}, "characters": {}, "festivals": [], "events": []}
+		"families": fams, "buildings": {}, "characters": {}, "festivals": _festivals_now(), "events": _events_now()}
+	_fest_sig = _festival_sig(feed["festivals"], feed["events"])   # what the town is built with
 	for b: String in st.buildings:
 		var d: Dictionary = st.buildings[b]
 		feed["buildings"][b] = {"type": str(d.get("type", "")), "origin": d.get("origin", []),
@@ -201,8 +202,81 @@ func _refresh_minute(now: int) -> void:
 	var season := Clock.season(now, sim.catalog.time)
 	if season != season_id:
 		_change_season(season)
+	_check_festivals()
 	if (added > 0 or rebuilt > 0) and OS.is_debug_build():
 		print("[Town3D] minute %d: %d people added, %d rebuilt (%d in town)" % [now, added, rebuilt, people.size()])
+
+
+# ---------------------------------------------------------------- festivals of the sim (M3D-5)
+## What FiestasPueblo reads (Prueba3D's trace format, tools/sim_trace.gd there): the sim's festivals upcoming and in
+## force, and the global events in force, read from the state as they are now.
+func _festivals_now() -> Array:
+	var f: Dictionary = sim.state.festivals if sim.state.festivals is Dictionary else {}
+	var out: Array = []
+	for key: String in ["active", "upcoming"]:
+		for inst: Dictionary in f.get(key, []):
+			out.append(_festival_record(inst))
+	out.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return int(a["start"]) < int(b["start"]))
+	return out
+
+
+func _festival_record(inst: Dictionary) -> Dictionary:
+	var d := Festivals.def_of(sim, str(inst.get("def", "")))
+	var day := int(inst.get("day", 0))
+	var sched: Array = []
+	for sc: Dictionary in d.get("schedule", []):
+		var needs := str(sc.get("needs", ""))
+		sched.append({"what": str(sc.get("what", "")), "at": day * Clock.MINUTES_PER_DAY + int(sc.get("hour", 0)) * 60,
+			"needs": needs, "on": needs == "" or Festivals.part_on(inst, needs)})
+	return {"id": str(inst.get("id", "")), "def": str(inst.get("def", "")), "kind": str(d.get("kind", "")),
+		"size": str(d.get("size", "")), "day": day, "start": int(inst.get("start", 0)), "end": int(inst.get("end", 0)),
+		"announce": int(inst.get("announce", 0)), "hosts": (inst.get("hosts", []) as Array).duplicate(),
+		"couple": (inst.get("couple", []) as Array).duplicate(), "schedule": sched, "view": Festivals.view_of(sim, inst)}
+
+
+func _events_now() -> Array:
+	var out: Array = []
+	for ev: Dictionary in sim.state.events_active:
+		out.append({"id": str(ev.get("id", "")), "def": str(ev.get("def", "")), "start": int(ev.get("start", 0)),
+			"end": int(ev.get("end", 0)), "by": str(ev.get("by", ""))})
+	return out
+
+
+var _fest_sig: String = ""
+
+
+func _festival_sig(fests: Array, evs: Array) -> String:
+	return JSON.stringify([fests.map(func(x: Dictionary) -> String: return "%s|%d|%d" % [x["id"], x["start"], x["end"]]),
+		evs.map(func(x: Dictionary) -> String: return "%s|%d" % [x["id"], x["end"]])])
+
+
+## Once a game minute: when the sim's festivals or events change (one put on the calendar, one over), the town's
+## festival dressing is laid out again from them (FiestasPueblo plans its pieces when it is made).
+func _check_festivals() -> void:
+	var fests := _festivals_now()
+	var evs := _events_now()
+	var sig := _festival_sig(fests, evs)
+	if sig == _fest_sig:
+		return
+	_fest_sig = sig
+	trace["festivals"] = fests
+	trace["events"] = evs
+	if vivo == null:
+		return
+	var old: Node3D = vivo.get("fiestas")
+	if old != null and is_instance_valid(old):
+		for inst: Dictionary in old.get("insts"):
+			if bool(inst.get("mounted", false)):
+				old.call("_unmount", inst)
+		remove_child(old)
+		old.queue_free()
+	var fp: Node3D = preload("res://game/world3d/town/fiestas_pueblo.gd").new()
+	add_child(fp)
+	fp.call("setup", self)
+	vivo.set("fiestas", fp)
+	if OS.is_debug_build():
+		print("[Town3D] festivals now %s, events %s: the town's dressing laid out again" % [
+			fests.map(func(x: Dictionary) -> String: return str(x["def"])), evs.map(func(x: Dictionary) -> String: return str(x["def"]))])
 
 
 ## The sim's season changed (every 2 days): the light and the weather read it live; the crowns, the leaves and the
