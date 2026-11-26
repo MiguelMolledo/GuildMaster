@@ -150,6 +150,7 @@ static var _muebles := {}
 static var _muebles_loaded := false
 static var _fx_mats := {}
 var _holders: Array = []  # [piece dict, holder node]
+var beds_placed: Array = []  # [{pos (local), rot, id, floor}] of every piece one lies on (the game's inn beds: Inn3D)
 var _wall_mats := {}
 var _simple_mats := {}
 var _rng := RandomNumberGenerator.new()
@@ -887,6 +888,8 @@ func _place(p: Dictionary) -> void:
 		zone_pos[p.zone] = centre
 	if p.has("name") or p.has("zone"):
 		named[String(p.get("name", p.get("zone", "")))] = {"pos": centre, "rot": rot, "id": id, "floor": f}
+	if mueble.has("lie"):
+		beds_placed.append({"pos": centre, "rot": rot, "id": id, "floor": f})  # named or not (the merge frees holders)
 	if mueble.has("fire"):
 		var fv := Vector3(mueble.fire[0], mueble.fire[1], mueble.fire[2]).rotated(Vector3.UP, deg_to_rad(rot))
 		fires.append({"floor": f, "at": centre + fv, "id": id})

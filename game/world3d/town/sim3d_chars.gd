@@ -539,6 +539,7 @@ func _sync_inside(t: float) -> void:
 		var row: Array = _state_at(p.st, t)
 		roster[id] = {def = _chr[id].def, name = String(trace.characters[id].name), station = String(row[4]) if row.size() > 4 else "",
 			doing = String(row[2])}
+	_roster_extra(roster)
 	if inside_view.live:
 		if situ_mode:
 			SituLive.sync(inside_view, roster, _at_place)  # any building: its stations, seats and beds (scripts/situ_live.gd)
@@ -550,6 +551,11 @@ func _sync_inside(t: float) -> void:
 	if n != _inside_night:
 		_inside_night = n
 		inside_view.set_night(n == 1)
+
+
+## The game's people inside that are not townsfolk of the trace (the guests of a tavern): added by Town3D.
+func _roster_extra(_roster: Dictionary) -> void:
+	pass
 
 
 func _process(delta: float) -> void:

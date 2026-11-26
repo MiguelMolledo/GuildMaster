@@ -1,7 +1,8 @@
 {
   "id": "teclas",
   "title": "Teclas: cada una hace algo y no choca",
-  "about": "Auditoría de teclas: en la ciudad y dentro de la forja se pulsa cada tecla de HudKeys (y Espacio, Esc, F5, F9, cámara), se mira qué cambia en la pantalla y se deshace. Falla si no hace nada (salvo las que dependen de algo) o si hace dos cosas a la vez (p. ej. abrir un panel y mover la cámara).",
+  "view": "3d",
+  "about": "Auditoría de teclas: en la ciudad y dentro de la forja se pulsa cada tecla de HudKeys (y Espacio, Esc, F5, F9, cámara), se mira qué cambia en la pantalla y se deshace. Falla si no hace nada (salvo las que dependen de algo) o si hace dos cosas a la vez (p. ej. abrir un panel y mover la cámara). En 3D (controles de hoy): en la ciudad W/A/S/D y las flechas desplazan la cámara, Q/E la giran y RePág/AvPág la inclinan; dentro de una casa abierta en sitio las flechas avisan de que la cámara no se mueve y W/S/D no hacen nada (A abre el almacén). Qué deben hacer W/A/S/D en 3D (cámara o andar con la persona elegida, como en 2D desde 0c29e28f) es una decisión pendiente del owner.",
   "start": {"scenario": "town_e_start"},
   "covers": [],
   "steps": [
@@ -29,12 +30,18 @@
     {"id": "c_panel_storage", "key_audit": "@panel_storage", "context": "ciudad", "does": "almacén (solo dentro)", "soft": true, "may_do_nothing": true},
     {"id": "c_panel_staff", "key_audit": "@panel_staff", "context": "ciudad", "does": "empleados (solo dentro)", "soft": true, "may_do_nothing": true},
     {"id": "c_panel_upgrades", "key_audit": "@panel_upgrades", "context": "ciudad", "does": "mejoras (solo dentro)", "soft": true, "may_do_nothing": true},
-    {"id": "c_cam_W", "key_audit": "W", "context": "ciudad", "does": "cámara arriba", "frames": 20, "soft": true, "camera": true},
+    {"id": "c_cam_W", "key_audit": "W", "context": "ciudad", "does": "cámara adelante (3D: WASD mueve la cámara; decisión pendiente del owner: andar o cámara)", "frames": 20, "soft": true, "camera": true},
     {"id": "c_cam_A", "key_audit": "A", "context": "ciudad", "does": "cámara izquierda", "frames": 20, "soft": true, "camera": true},
     {"id": "c_cam_S", "key_audit": "S", "context": "ciudad", "does": "cámara abajo", "frames": 20, "soft": true, "camera": true},
     {"id": "c_cam_D", "key_audit": "D", "context": "ciudad", "does": "cámara derecha", "frames": 20, "soft": true, "camera": true},
     {"id": "c_cam_Up", "key_audit": "Up", "context": "ciudad", "does": "cámara arriba", "frames": 20, "soft": true, "camera": true},
     {"id": "c_cam_Left", "key_audit": "Left", "context": "ciudad", "does": "cámara izquierda", "frames": 20, "soft": true, "camera": true},
+    {"id": "c_cam_Right", "key_audit": "Right", "context": "ciudad", "does": "cámara derecha", "frames": 20, "soft": true, "camera": true},
+    {"id": "c_cam_Down", "key_audit": "Down", "context": "ciudad", "does": "cámara atrás", "frames": 20, "soft": true, "camera": true},
+    {"id": "c_cam_Q", "key_audit": "Q", "context": "ciudad", "does": "gira la cámara", "frames": 20, "soft": true, "camera": true},
+    {"id": "c_cam_E", "key_audit": "E", "context": "ciudad", "does": "gira la cámara", "frames": 20, "soft": true, "camera": true},
+    {"id": "c_cam_PageUp", "key_audit": "PageUp", "context": "ciudad", "does": "inclina la cámara", "frames": 20, "soft": true, "camera": true},
+    {"id": "c_cam_PageDown", "key_audit": "PageDown", "context": "ciudad", "does": "inclina la cámara", "frames": 20, "soft": true, "camera": true},
     {"id": "dentro", "say": "Contexto: dentro de la forja (gestión)", "context_setup": {"start": {"scenario": "town_e_start"}, "steps": [{"world": {"own": "forge"}, "double": true}], "check": "q.interior() == q.own('forge')"}},
     {"id": "d_group_1", "key_audit": "@group_1", "context": "forja", "does": "elige al familiar 1 (ya elegido: nada)", "soft": true, "may_do_nothing": true},
     {"id": "d_speed_3", "key_audit": "@speed_3", "context": "forja", "does": "×4", "soft": true},
@@ -51,9 +58,13 @@
     {"id": "d_panel_storage", "key_audit": "@panel_storage", "context": "forja", "does": "almacén (solo dentro)", "soft": true},
     {"id": "d_panel_staff", "key_audit": "@panel_staff", "context": "forja", "does": "empleados (solo dentro)", "soft": true},
     {"id": "d_panel_upgrades", "key_audit": "@panel_upgrades", "context": "forja", "does": "mejoras (solo dentro)", "soft": true},
-    {"id": "d_cam_W", "key_audit": "W", "context": "forja", "does": "avisa: la cámara no se mueve dentro", "frames": 20, "soft": true, "camera": true},
+    {"id": "d_W", "key_audit": "W", "context": "forja", "does": "nada dentro (3D: W/S/D no son teclas de la casa; decisión pendiente del owner)", "frames": 20, "soft": true, "may_do_nothing": true},
     {"id": "d_cam_A", "key_audit": "A", "context": "forja", "does": "la sala no se desplaza (A abre el almacén: misma tecla que cam_left, sin choque dentro)", "frames": 20, "soft": true},
-    {"id": "d_cam_S", "key_audit": "S", "context": "forja", "does": "avisa: la cámara no se mueve dentro", "frames": 20, "soft": true, "camera": true},
-    {"id": "d_cam_D", "key_audit": "D", "context": "forja", "does": "avisa: la cámara no se mueve dentro", "frames": 20, "soft": true, "camera": true}
+    {"id": "d_S", "key_audit": "S", "context": "forja", "does": "nada dentro (3D: W/S/D no son teclas de la casa; decisión pendiente del owner)", "frames": 20, "soft": true, "may_do_nothing": true},
+    {"id": "d_D", "key_audit": "D", "context": "forja", "does": "nada dentro (3D: W/S/D no son teclas de la casa; decisión pendiente del owner)", "frames": 20, "soft": true, "may_do_nothing": true},
+    {"id": "d_cam_Up", "key_audit": "Up", "context": "forja", "does": "avisa: la cámara no se mueve dentro", "frames": 20, "soft": true, "camera": true},
+    {"id": "d_cam_Left", "key_audit": "Left", "context": "forja", "does": "avisa: la cámara no se mueve dentro", "frames": 20, "soft": true, "camera": true},
+    {"id": "d_cam_Down", "key_audit": "Down", "context": "forja", "does": "avisa: la cámara no se mueve dentro", "frames": 20, "soft": true, "camera": true},
+    {"id": "d_cam_Right", "key_audit": "Right", "context": "forja", "does": "avisa: la cámara no se mueve dentro", "frames": 20, "soft": true, "camera": true}
   ]
 }

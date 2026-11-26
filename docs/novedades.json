@@ -1,6 +1,19 @@
 [
   {
     "fecha": "2026-11-26",
+    "titulo": "Taberna, parcelas y teclas en el pueblo 3D",
+    "que": "Repaso de las mecánicas de ciudad, economía, región y sistema en 3D (docs/3d/repaso_ciudad.md). La posada se lleva en 3D: los huéspedes son cuerpos sentados en la sala con su pedido y su paciencia encima, las camas de huésped están en la planta alta con su estado, y un clic sirve o hace la cama. El modo construcción (B) pinta las parcelas sobre el pueblo 3D y el clic abre su carta. Los 12 flujos de ciudad, región y sistema se juegan en 3D; teclas audita los controles 3D (W/A/S/D y flechas, Q/E, RePág/AvPág). Qué deben hacer W/A/S/D en 3D queda para el owner.",
+    "como_probar": "Escenario inn_chores: doble clic en la taberna, clic en un huésped que espera, «Planta alta», clic en una cama sin hacer. B en la ciudad: las parcelas; clic en una. python3 tools/verifica/verifica.py --flows=taberna,parcelas,teclas [--window].",
+    "capturas": [
+      "docs/novedades/ciudad_taberna_servir.png",
+      "docs/novedades/ciudad_taberna_camas.png",
+      "docs/novedades/ciudad_parcelas.png",
+      "docs/novedades/ciudad_otra_ciudad.png",
+      "docs/novedades/ciudad_zoom_rotulos.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-26",
     "titulo": "La forja de punta a punta en 3D",
     "que": "Toda la vida de la forja se juega ya sobre el pueblo 3D con la interfaz de siempre: comprar hierro y carbón en el puesto con recado, fundir y forjar (también en Forja viva), vender en la armería, cumplir encargos, pagar la deuda en el libro, contratar y despedir, la cola de producción de los empleados y el árbol de mejoras con su obra. La pasada del jugador nuevo (los diez primeros bloques, jornadas incluidas) pasa entera en 3D.",
     "como_probar": "jugar.command, partida nueva de herrero. Automático: python3 tools/verifica/jugador.py --window --to=10; python3 tools/verifica/verifica.py --window --flows=forja_viva,mejorar,gestion_a_fondo; grimoire heavy -- /opt/homebrew/bin/godot --always-on-top --path . -- --smoke-script=forja3d.",

@@ -1,6 +1,7 @@
 {
   "id": "otra_ciudad",
   "title": "Elegir otra ciudad (plantillas)",
+  "view": "3d",
   "about": "En Partida nueva, «Dónde empiezas»: elegir Bellcaire (la capital) y empezar allí; la ciudad es otro mapa con su plaza, sus puestos y su gente. Después, una ciudad donde el oficio no tiene taller sale apagada y dice por qué.",
   "start": {"new_game": true},
   "covers": [],

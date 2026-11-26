@@ -7,6 +7,9 @@ extends Node2D
 ## occupied, dirty, being made); the minstrel. A view only: it reads Inn's state and gives orders (inn_serve on a
 ## click on a waiting guest, inn_make_bed on a click on a dirty bed) through the interior's order sink.
 ## The art: the kit's floor and walls from VisualPaths.inn_art("interior", floor / wall_ne / ...) when they exist.
+## 3D (docs/3d/plan.md M3D-3): with the house open in place (the interior's projector) the guests are bodies of the 3D
+## interior (Inn3D seats them) and the beds its guest beds: here no figures are made, the orders, bars and bed states
+## are drawn over their projected points and the clicks pick them by those points (Inn3D).
 
 signal message(text: String)
 signal table_clicked             # the gaming table (with its upgrade): the interior opens the Mesa tab
@@ -114,6 +117,13 @@ func guest_family(g: Dictionary) -> Dictionary:
 func sync() -> void:
 	if sim == null:
 		return
+	if _in_3d():
+		for v: Variant in _views.values() + _icons.values():
+			(v as Node).queue_free()
+		_views.clear()
+		_icons.clear()
+		queue_redraw()
+		return
 	var seen := {}
 	for g: Dictionary in Inn.guests(sim, building):
 		var gid := str(g["id"])
@@ -159,6 +169,8 @@ func _sync_icons() -> void:
 			tex = VisualPaths.icon_small(str(Inn.dish(sim, d).get("item", d)))
 		if tex == null:
 			continue
+		if _in_3d():
+			continue  # 3D: the disc with its letters (sync makes no sprites)
 		want[gid] = true
 		if not _icons.has(gid):
 			var sp := Sprite2D.new()
@@ -175,7 +187,53 @@ func _sync_icons() -> void:
 
 
 func guest_count() -> int:
-	return _views.size()
+	return _views.size() if not _in_3d() else Inn.guests(sim, building).size()
+
+
+## The house is open in place in the 3D town (the interior's projector does the room).
+func _in_3d() -> bool:
+	return interior != null and interior.projector != null
+
+
+## Where a guest's order hangs, in this layer's coordinates (Vector2.INF: not shown).
+func _head_of(gid: String) -> Vector2:
+	if _in_3d():
+		var at := Inn3D.guest_screen(interior.projector, gid, Inn3D.HEAD_LIFT)
+		return Vector2.INF if at == Vector2.INF else interior.screen_to_world(at) - position
+	if not _views.has(gid) or not (_views[gid] as CanvasItem).visible:
+		return Vector2.INF
+	return (_views[gid] as Node2D).position - position + Vector2(0, -HEAD)
+
+
+## Where bed i is drawn, in this layer's coordinates (Vector2.INF: not shown, another floor).
+func _bed_of(i: int) -> Vector2:
+	if _in_3d():
+		var at := Inn3D.bed_screen(interior.projector, i)
+		return Vector2.INF if at == Vector2.INF else interior.screen_to_world(at) - position
+	if i >= _bed_pos.size() or (i < _bed_level.size() and int(_bed_level[i]) != shown_level):
+		return Vector2.INF
+	return _bed_pos[i] - position
+
+
+## A waiting guest on screen, where a click serves it (Vector2.INF: not shown): the flows aim here.
+func guest_screen(gid: String) -> Vector2:
+	if _in_3d():
+		return Inn3D.guest_screen(interior.projector, gid, Inn3D.BODY_LIFT)
+	if not _views.has(gid):
+		return Vector2.INF
+	return interior.world_to_screen((_views[gid] as Node2D).position + Vector2(0, -HEAD / 2.0))
+
+
+## The guest is at its place (3D: not walking in to its seat); the flows click a still one first.
+func guest_still(gid: String) -> bool:
+	return Inn3D.guest_still(interior.projector, gid) if _in_3d() else true
+
+
+## Bed i on screen (Vector2.INF: not shown).
+func bed_screen(i: int) -> Vector2:
+	if _in_3d():
+		return Inn3D.bed_screen(interior.projector, i)
+	return interior.world_to_screen(_bed_pos[i]) if i < _bed_pos.size() else Vector2.INF
 
 
 func _draw() -> void:
@@ -185,14 +243,17 @@ func _draw() -> void:
 	var inn := Inn.state_of(sim, building)
 	# beds
 	var beds: Array = inn.get("beds", [])
-	for i: int in mini(beds.size(), _bed_pos.size()):
-		if i < _bed_level.size() and int(_bed_level[i]) != shown_level:
-			continue  # a bed of another floor (the rooms upstairs)
+	for i: int in beds.size():
+		var p := _bed_of(i)
+		if p == Vector2.INF:
+			continue  # a bed of another floor (the rooms upstairs), or without a place
 		var b: Dictionary = beds[i]
-		var p: Vector2 = _bed_pos[i] - position
 		var c := Color.html(str(BED_COLORS.get(str(b.get("state", "")), "#808080")))
 		var good := i == 0 and Upgrades.flag(sim, building, "inn_good_room")
-		_bed(p, c, good)
+		if _in_3d():
+			_bed_mark(p, c, good)   # the bed itself is the 3D piece: its state over it
+		else:
+			_bed(p, c, good)
 		if str(b.get("state", "")) == "making":
 			var span := float(sim.catalog.inn.get("rules", {}).get("make_bed_minutes", 20))
 			var left := clampf(float(int(b.get("until", now)) - now) / maxf(1.0, span), 0.0, 1.0)
@@ -200,9 +261,9 @@ func _draw() -> void:
 	# guests: the order and the patience
 	for g: Dictionary in Inn.guests(sim, building):
 		var gid := str(g["id"])
-		if not _views.has(gid) or not (_views[gid] as CanvasItem).visible:
+		var p := _head_of(gid)
+		if p == Vector2.INF:
 			continue
-		var p: Vector2 = (_views[gid] as Node2D).position - position + Vector2(0, -HEAD)
 		match str(g.get("state", "")):
 			"waiting":
 				_order(p, str(g.get("order", "")))
@@ -246,6 +307,14 @@ func _bed(p: Vector2, c: Color, good: bool) -> void:
 		draw_line(p + Vector2(-hw, -24), p + Vector2(hw, -24), Color.html("#8a2e4a"), 3.0)
 
 
+## 3D: a bed's state over its piece: a disc of the state's colour with a pillow (gold ring: the good room).
+func _bed_mark(p: Vector2, c: Color, good: bool) -> void:
+	draw_circle(p, 9.0, Color.html("#f4ead0"))
+	draw_circle(p, 6.5, c)
+	draw_circle(p + Vector2(-2, -2), 2.0, Color.html("#f0e8d8"))
+	draw_arc(p, 9.0, 0.0, TAU, 20, Color.html("#c8a84e") if good else Color.html("#2a1f14"), 2.0 if good else 1.0)
+
+
 func _bar(p: Vector2, frac: float, c: Color) -> void:
 	var w := 18.0
 	draw_rect(Rect2(p + Vector2(-w / 2.0, 0), Vector2(w, 3)), Color.html("#1e1812"))
@@ -263,6 +332,8 @@ func _order(p: Vector2, dish: String) -> void:
 	draw_colored_polygon(PackedVector2Array([p + Vector2(-4, 8), p + Vector2(4, 8), p + Vector2(0, 13)]), Color.html("#f4ead0"))
 	draw_circle(p, 10.0, Color.html("#f4ead0"))
 	draw_arc(p, 10.0, 0.0, TAU, 20, Color.html("#c8a84e") if kind == "drink" else Color.html("#9a3a24"), 2.0)
+	if tex != null and _in_3d():   # 3D: no sprites over the guests, the icon is drawn in the disc
+		draw_texture(tex, p - tex.get_size() / 2.0)
 	if tex == null:
 		var letter := SimQuery.t_("item." + item).substr(0, 2)
 		draw_string(_font, p + Vector2(-8, 4), letter, HORIZONTAL_ALIGNMENT_CENTER, 16, 10, Color.html("#3a2414"))
@@ -270,6 +341,17 @@ func _order(p: Vector2, dish: String) -> void:
 
 ## The guest under `world` (in the interior's coordinates), "" if none.
 func pick_guest(world: Vector2) -> String:
+	if _in_3d():  # the guest whose chest or head is nearest to the click on screen
+		var screen := interior.world_to_screen(world)
+		var near := ""
+		var nd := 26.0
+		for g: Dictionary in Inn.guests(sim, building):
+			for lift: float in [Inn3D.BODY_LIFT, Inn3D.HEAD_LIFT - 0.4]:
+				var at := Inn3D.guest_screen(interior.projector, str(g["id"]), lift)
+				if at != Vector2.INF and at.distance_to(screen) < nd:
+					nd = at.distance_to(screen)
+					near = str(g["id"])
+		return near
 	var best := ""
 	var best_y := -INF
 	for gid: String in _views:
@@ -281,6 +363,16 @@ func pick_guest(world: Vector2) -> String:
 
 
 func pick_bed(world: Vector2) -> int:
+	if _in_3d():
+		var screen := interior.world_to_screen(world)
+		var near := -1
+		var nd := 30.0
+		for i: int in (Inn.state_of(sim, building).get("beds", []) as Array).size():
+			var at := Inn3D.bed_screen(interior.projector, i)
+			if at != Vector2.INF and at.distance_to(screen) < nd:
+				nd = at.distance_to(screen)
+				near = i
+		return near
 	for i: int in _bed_pos.size():
 		if (world - (_bed_pos[i] as Vector2)).length() < 14.0:
 			return i
@@ -289,6 +381,10 @@ func pick_bed(world: Vector2) -> int:
 
 ## The gaming table under `world` (only once it is built).
 func pick_table(world: Vector2) -> bool:
+	if _in_3d():
+		var at: Vector2 = interior.projector.station_screen("gaming_table")
+		return at != Vector2.INF and InnGames.has_table(sim, building) and Inn3D.shown_floor(interior.projector) == 0 \
+			and at.distance_to(interior.world_to_screen(world)) < 30.0
 	return _table_pos != Vector2.INF and InnGames.has_table(sim, building) and shown_level == 0 \
 		and (world - _table_pos).length() < 22.0
 
