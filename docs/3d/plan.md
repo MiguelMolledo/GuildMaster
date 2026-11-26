@@ -210,13 +210,14 @@ la medida estable).
 
 | Medida | M3D-1 (2026-11-26) |
 |---|---|
-| fps a 1600×900 (resolución real), pueblo entero a zoom 74 | 111 (peor fotograma 139 ms) |
-| fps a 1600×900, calle a zoom 18 | 111 |
+| fps a 1600×900 (resolución real), pueblo entero a zoom 74 | 168 (111 con las pruebas de reglas corriendo a la vez); peor fotograma 136 ms |
+| fps a 1600×900, calle a zoom 18 | 174-183 (111 con la máquina cargada) |
 | draw calls (pueblo entero / calle) | 1 870 / 1 400 |
 | triángulos (pueblo entero) | 2,08 M |
 | montar el pueblo (town_e, 18 casas, 24 personas) | 3,2-3,9 s con ventana; 0,8-1,1 s sin ventana |
 | arranque sin ventana (boot_check, por variante) | 4-5 s |
 | kit usado (ficheros, MB) | 1 059 · 438 MB (~314 MB con texturas a 2K); no sellado |
+| clics reales por la ventana (guion) | selección y `move_to` a la casilla pedida; clic derecho en la forja → entra y abre su interior |
 
 Con la escala entera de antes (el 3D dibujado a 960×540) daba 187-220 fps: el coste está en los píxeles. Dos de cinco
 pasadas con ventana se congelaron mientras corrían a la vez las pruebas de reglas (CPU al 100 %); con la máquina menos

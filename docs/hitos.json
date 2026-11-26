@@ -580,7 +580,13 @@
         {
           "texto": "≥ 60 fps a 1600×900 con el pueblo entero",
           "estado": "hecho",
-          "prueba": "reports/perf/pueblo3d.json: 111 fps, 1 870 draw calls (pueblo entero, ventana 1600×900 a resolución real)",
+          "prueba": "reports/perf/pueblo3d.json: 168 fps con el pueblo entero (1 871 draw calls) y 174 en la calle, ventana 1600×900 a resolución real; 111 con la máquina cargada",
+          "fecha": "2026-11-26"
+        },
+        {
+          "texto": "Adelanto de M3D-2: clics (seleccionar, mover, entrar) y la forja jugable con el interior de hoy",
+          "estado": "hecho",
+          "prueba": "--smoke-script=pueblo3d (clics reales por la ventana; pueblo3d_seleccion, pueblo3d_forja)",
           "fecha": "2026-11-26"
         },
         {
