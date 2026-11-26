@@ -12,6 +12,7 @@
     {"id": "workshop", "floor": 0, "type": "workshop", "rects": [[0, 0, 4, 2]], "floor_kind": "stone", "wall_style": "timber", "light": "warm"}
   ],
   "stations": {
+    "counter": {"name": "Mostrador", "kind": "sales", "floor": 0, "tile": [4, 3], "stand": [4, 2], "reach": 0.95, "gm": "GuildMaster-3d: la sim tiene mostrador desde el nivel 1 (docs/3d/repaso_oficios.md)"},
     "cutting_bench": {"name": "Banco de labra", "kind": "craft", "floor": 0, "tile": [1, 0], "stand": [1, 1], "prop": "banco_labra", "snap": "back"},
     "carving_bench": {"name": "Labra fina", "kind": "craft", "floor": 0, "tile": [3, 0], "stand": [3, 1], "prop": "banco_labra", "snap": "back"},
     "storage": {"name": "Bloques", "kind": "storage", "floor": 0, "tile": [4, 1], "stand": [4, 2], "prop": "bloques", "pos": [4, 0.6], "snap": "right"}

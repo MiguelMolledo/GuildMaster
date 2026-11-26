@@ -16,6 +16,7 @@
     {"from": [0, 2], "to": [1, 0], "foot": [-0.17, 1.45], "top": [-0.17, -0.6], "tiles": [[0, 0], [0, 1]], "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94}
   ],
   "stations": {
+    "counter": {"name": "Mostrador", "kind": "sales", "floor": 0, "tile": [4, 5], "stand": [4, 4], "reach": 0.95, "gm": "GuildMaster-3d: la sim tiene mostrador desde el nivel 1 (docs/3d/repaso_oficios.md)"},
     "sawhorse": {"name": "Caballetes", "kind": "craft", "floor": 0, "tile": [4, 1], "stand": [3, 1], "prop": "caballetes", "pos": [4, 0.75], "snap": "right"},
     "workbench": {"name": "Banco", "kind": "craft", "floor": 0, "tile": [2, 0], "stand": [2, 1], "prop": "banco_carpintero", "pos": [2.5, 0], "snap": "back"},
     "storage": {"name": "Tablones", "kind": "storage", "floor": 0, "tile": [1, 0], "stand": [1, 1], "prop": "estante_tablones", "snap": "back"},

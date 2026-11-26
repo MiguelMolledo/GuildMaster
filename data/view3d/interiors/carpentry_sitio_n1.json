@@ -12,13 +12,14 @@
     {"id": "workshop", "floor": 0, "type": "workshop", "rects": [[0, 0, 4, 2]], "floor_kind": "planks", "wall_style": "timber", "light": "warm"}
   ],
   "stations": {
+    "counter": {"name": "Mostrador", "kind": "sales", "floor": 0, "tile": [4, 3], "stand": [4, 2], "reach": 0.95, "gm": "GuildMaster-3d: la sim tiene mostrador desde el nivel 1 (docs/3d/repaso_oficios.md)"},
     "sawhorse": {"name": "Caballetes", "kind": "craft", "floor": 0, "tile": [4, 1], "stand": [3, 1], "prop": "caballetes", "pos": [4, 0.75], "snap": "right"},
     "workbench": {"name": "Banco", "kind": "craft", "floor": 0, "tile": [1, 0], "stand": [1, 1], "prop": "banco_carpintero", "pos": [1.3, 0], "snap": "back"},
-    "storage": {"name": "Tablones", "kind": "storage", "floor": 0, "tile": [0, 0], "stand": [0, 1], "prop": "estante_tablones", "snap": "back"}
+    "storage": {"name": "Tablones", "kind": "storage", "floor": 0, "tile": [3, 0], "stand": [3, 1], "prop": "estante_tablones", "snap": "back", "gm": "GuildMaster-3d: junto al banco, para que el jergón deje paso al mostrador"}
   },
   "spots": {"shop": [0, [2, 2]], "bed": [0, [2, 2]]},
   "props": [
-    {"id": "jergon", "floor": 0, "pos": [3.55, 2], "snap": "front", "rot": 90, "name": "jergon"}
+    {"id": "jergon", "floor": 0, "pos": [0.45, 2], "snap": "front", "rot": 90, "name": "jergon", "gm": "GuildMaster-3d: al otro lado, para dejar paso al mostrador"}
   ],
   "upgrades": {
     "carpentry_workbench_2": [{"id": "banco_carpintero", "floor": 0, "auto": "wall", "near": "workbench", "zone": "workbench_2", "name": "Banco 2", "kind": "craft"}],

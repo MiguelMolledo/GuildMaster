@@ -8,7 +8,8 @@ tools/ de la lista TOOLS), compara la copia de aquí con la versión <desde> ree
 res://scripts/ → game/world3d/<zona>/, res://data/ → data/view3d/ o game/world3d/kit_data/, InteriorBuilder →
 Interior3DBuilder):
   - si la copia de aquí no se ha tocado, la sustituye por la versión <hasta> reescrita (con --aplicar);
-  - si se tocó aquí (costuras de GuildMaster), no la pisa: la lista para fundirla a mano.
+  - si se tocó aquí (costuras de GuildMaster), no la pisa: la lista para fundirla a mano. Lo que lleva la marca
+    "gm": "GuildMaster-3d…" (piezas añadidas aquí a los trazados de interior) se lista siempre para fundir.
 Los ficheros nuevos de la prueba que no están aquí solo se listan (traerlos es decisión de cada tanda).
 Sin --aplicar solo informa.
 """
@@ -27,6 +28,9 @@ WITH_PATHS = {"data/chars/kit.json", "data/chars/anims.json", "data/interiors/mu
 # herramientas de la prueba que viven aquí (tools/kit3d/prueba/)
 TOOLS = {"tools/rv_auditoria.gd", "tools/sitio_gen.py", "tools/sitio_mejoras.py", "tools/sitio_tabla.py",
          "tools/rv_tabla.py", "tools/rv_lamina.py"}
+
+
+GM_MARK = b'"gm": "GuildMaster-3d'
 
 
 def target(rel):
@@ -96,7 +100,9 @@ def main(argv):
             new.append((rel, dst))
             continue
         mine = open(here, "rb").read()
-        if old is not None and conv(old) != mine:
+        # piezas propias de GuildMaster en los datos de la prueba (el mostrador de los talleres de nivel 1 y 2): se
+        # marcan con "gm" y nunca se pisan, aunque el resto del fichero coincida
+        if old is not None and (conv(old) != mine or GM_MARK in mine):
             merge.append((rel, dst))
             continue
         if cur is None:

@@ -64,10 +64,10 @@
       "lot": [8, 6],
       "base": {"sign": "Carpenter", "banner": {"emblem": "Carpenter", "color": "GREEN"}, "walls": ["Plaster", "Plaster"], "plinth": "UnevenBrick"},
       "levels": [
-        {"floors": 1, "window": "Window_Wide_Flat", "round_door": false,
+        {"floors": 1, "window": "Window_Wide_Flat", "round_door": false, "shop": {"cells": "beside1", "awning": false, "gm": "GuildMaster-3d: la ventana del mostrador (docs/3d/repaso_oficios.md)"},
           "yard": [{"piece": "Prop_SawHorse", "side": "yard:right,left,back", "cell": "run0", "out": 0.95, "along": 0.6},
             {"piece": "Prop_PlankStack", "side": "yard:back,right,left", "cell": "runN", "out": 0.7}]},
-        {"porch": [{"side": "yard:right,left,back", "run": true, "min": 2, "max": 3}],
+        {"shop": {"cells": "beside1", "awning": false, "gm": "GuildMaster-3d: la ventana del mostrador (docs/3d/repaso_oficios.md)"}, "porch": [{"side": "yard:right,left,back", "run": true, "min": 2, "max": 3}],
           "yard": [{"piece": "Prop_SawHorse", "side": "yard:right,left,back", "cell": "run0", "out": 0.95, "along": 0.9},
             {"piece": "Prop_PlankStack", "side": "yard:right,left,back", "cell": "runN", "out": 0.7}]},
         {"walls": ["UnevenBrick", "Plaster"], "balcony": [{"floor": 1}], "shop": {"cells": "beside1", "awning": false},
@@ -165,11 +165,11 @@
       "lot": [8, 6],
       "base": {"sign": "Mason", "banner": {"emblem": "Mason"}, "walls": ["UnevenBrick", "UnevenBrick", "UnevenBrick"]},
       "levels": [
-        {"floors": 1, "window": "Window_Wide_Flat",
+        {"floors": 1, "window": "Window_Wide_Flat", "shop": {"cells": "beside1", "awning": false, "gm": "GuildMaster-3d: la ventana del mostrador (docs/3d/repaso_oficios.md)"},
           "yard": [{"piece": "Prop_StoneBlocks", "side": "yard:right,left,back", "cell": "run0", "out": 0.75}]},
-        {"yard": [{"piece": "Prop_StoneBlocks", "side": "yard:right,left,back", "cell": "run0", "out": 0.75},
+        {"shop": {"cells": "beside", "awning": false, "gm": "GuildMaster-3d: la ventana del mostrador (docs/3d/repaso_oficios.md)"}, "yard": [{"piece": "Prop_StoneBlocks", "side": "yard:right,left,back", "cell": "run0", "out": 0.75},
             {"piece": "Prop_Crane", "side": "yard:right,left,back", "cell": "runN", "out": 1.05, "along": -0.4}]},
-        {"floors": 3, "balcony": [{"floor": 1, "from": 1, "to": 1}],
+        {"floors": 3, "balcony": [{"floor": 1, "from": 1, "to": 1}], "shop": {"cells": "beside", "awning": false, "gm": "GuildMaster-3d: la ventana del mostrador (docs/3d/repaso_oficios.md)"},
           "yard": [{"piece": "Prop_StoneBlocks", "side": "yard:right,left,back", "cell": "run0", "out": 0.75},
             {"piece": "Prop_Crane", "side": "yard:right,left,back", "cell": "runN", "out": 1.05, "along": -0.4}]}
       ]
@@ -180,8 +180,8 @@
       "base": {"sign": "Tailor", "banner": {"emblem": "Tailor", "color": "RED"}, "display": {"cells": "beside", "awning": "RED"}},
       "takes": [[-2, -2], [-2, 0], [0, 0]],
       "levels": [
-        {"floors": 1, "walls": ["Plaster"], "plinth": "UnevenBrick"},
-        {"cloth": [{"floor": 1, "cell": "door"}]},
+        {"floors": 1, "walls": ["Plaster"], "plinth": "UnevenBrick", "shop": {"cells": "beside1", "awning": false, "gm": "GuildMaster-3d: la ventana del mostrador (docs/3d/repaso_oficios.md)"}},
+        {"shop": {"cells": "beside1", "awning": false, "gm": "GuildMaster-3d: la ventana del mostrador (docs/3d/repaso_oficios.md)"}, "cloth": [{"floor": 1, "cell": "door"}]},
         {"floors": 3, "walls": ["UnevenBrick", "Plaster", "Plaster"], "cloth": [{"floor": 1, "cell": "beside1"}, {"floor": 2, "cell": "door"}]}
       ]
     },

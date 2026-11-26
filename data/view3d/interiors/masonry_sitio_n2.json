@@ -16,6 +16,7 @@
     {"from": [0, 2], "to": [1, 0], "foot": [-0.17, 1.45], "top": [-0.17, -0.6], "tiles": [[0, 0], [0, 1]], "id": "stairs0", "floor": 0, "to_floor": 1, "prop": "escalera_empinada", "width": 0.94}
   ],
   "stations": {
+    "counter": {"name": "Mostrador", "kind": "sales", "floor": 0, "tile": [0, 5], "stand": [0, 4], "reach": 0.95, "gm": "GuildMaster-3d: la sim tiene mostrador desde el nivel 1 (docs/3d/repaso_oficios.md)"},
     "cutting_bench": {"name": "Banco de labra", "kind": "craft", "floor": 0, "tile": [2, 0], "stand": [2, 1], "prop": "banco_labra", "snap": "back"},
     "carving_bench": {"name": "Labra fina", "kind": "craft", "floor": 0, "tile": [4, 1], "stand": [3, 1], "prop": "banco_labra", "snap": "right"},
     "storage": {"name": "Bloques", "kind": "storage", "floor": 0, "tile": [4, 3], "stand": [3, 3], "prop": "bloques", "snap": "right"},
@@ -25,7 +26,6 @@
   "spots": {"shop": [0, [2, 3]], "kitchen": [1, [1, 3]], "bed": [1, [2, 2]], "kitchen_table": [0, 3]},
   "props": [
     {"id": "plantillas", "floor": 0, "tile": [3, 0], "snap": "back", "name": "plantillas"},
-    {"id": "bloques", "floor": 0, "pos": [0, 3.6], "snap": "left"},
     {"id": "arcon", "floor": 0, "tile": [1, 0], "snap": "back", "gap": 0.02},
     {"id": "cama_estrecha", "floor": 1, "pos": [2.93, 0], "snap": "back", "name": "cama_b"},
     {"id": "alacena", "floor": 1, "tile": [4, 0], "snap": "back"},

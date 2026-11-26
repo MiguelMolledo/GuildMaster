@@ -9,10 +9,12 @@ extends RefCounted
 const PICK_PERSON: float = 26.0   # screen units around a person's chest
 const PICK_STATION: float = 30.0  # around a station's middle, when the floor under the pointer is not its tile
 const STATION_LIFT: float = 1.0   # the station's middle, metres over its floor
+const FIELD_LIFT: float = 0.5     # a field's mark, metres over its bed
 const FALLBACK_LIFT: float = 0.2  # a zone without a station in the layout (missing()): its mark, by the floor
 
 var town: Town3D = null
 var sim: Sim = null   # the game's (WorldView3D.build): what the building is, for the zones its layout lacks
+var fields: Node3D = null   # the farms' fields outside the house: a field's mark goes over its bed
 var building: String = ""
 
 
@@ -39,6 +41,10 @@ func station_screen(zone: String) -> Vector2:
 	if not ready():
 		return Vector2.INF
 	if not (view().B.zones as Dictionary).has(zone):
+		var bed: Vector3 = fields.call("point", building, zone) if fields != null else Vector3.INF
+		if bed != Vector3.INF:   # a field: over its bed outside
+			var g := town.to_global(bed + Vector3(0, FIELD_LIFT, 0))
+			return Vector2.INF if town.cam.is_position_behind(g) else town.cam.unproject_position(g)
 		var k := missing().find(zone)
 		return _screen(_spot_point(k, missing().size())) if k >= 0 else Vector2.INF
 	var zd: Dictionary = view().B.zones[zone]
@@ -61,9 +67,15 @@ func missing() -> Array:
 		return []
 	var out: Array = []
 	var type := str(sim.state.buildings[building]["type"])
+	var ids: Array = []
 	for z: Dictionary in sim.catalog.buildings().get(type, {}).get("zones", []):
-		if not (view().B.zones as Dictionary).has(str(z["id"])):
-			out.append(str(z["id"]))
+		ids.append(str(z["id"]))
+	for z: String in Fields.zones(sim, building):   # the fields its upgrades add
+		if not ids.has(z):
+			ids.append(z)
+	for z: String in ids:
+		if not (view().B.zones as Dictionary).has(z):
+			out.append(z)
 	return out
 
 
@@ -142,8 +154,8 @@ func is_door(screen: Vector2) -> bool:
 
 ## The station under the mouse lit (the interior's own highlight), "" = none.
 func hover(zone: String) -> void:
-	if ready():
-		view().set_hover(zone)
+	if ready():   # a zone without a station in the layout (missing()) lights nothing inside
+		view().set_hover(zone if (view().B.zones as Dictionary).has(zone) else "")
 
 
 ## Where a person of the sim stands inside, on screen (Vector2.INF if not drawn).

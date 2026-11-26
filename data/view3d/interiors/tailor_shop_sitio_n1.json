@@ -12,9 +12,10 @@
     {"id": "workshop", "floor": 0, "type": "workshop", "rects": [[0, 0, 2, 2]], "floor_kind": "planks", "wall_style": "timber", "light": "warm"}
   ],
   "stations": {
+    "counter": {"name": "Mostrador", "kind": "sales", "floor": 0, "tile": [0, 3], "stand": [0, 2], "reach": 0.95, "gm": "GuildMaster-3d: la sim tiene mostrador desde el nivel 1 (docs/3d/repaso_oficios.md)"},
     "loom": {"name": "Telar", "kind": "craft", "floor": 0, "tile": [0, 0], "stand": [0, 1], "prop": "telar", "pos": [0.15, 0], "snap": "back,left"},
     "sewing_table": {"name": "Mesa de corte", "kind": "craft", "floor": 0, "tile": [2, 0], "stand": [1, 1], "prop": "mesa_corte", "pos": [2, 0.3], "snap": "right"},
-    "storage": {"name": "Paños", "kind": "storage", "floor": 0, "tile": [0, 2], "stand": [1, 2], "prop": "estante_panos", "snap": "left"}
+    "storage": {"name": "Paños", "kind": "storage", "floor": 0, "tile": [1, 0], "stand": [1, 1], "prop": "estante_panos", "snap": "back", "gm": "GuildMaster-3d: al fondo, para dejar la ventana al mostrador"}
   },
   "spots": {"shop": [0, [1, 2]]},
   "props": [],

@@ -90,6 +90,11 @@ func build(s: Sim) -> void:
 	bridge.town = town
 	bridge.sim = s
 	_feed_time()
+	var fields: Node3D = FIELDS.new()   # the farms' fields: beds outside the farmhouse, their marks over them
+	fields.name = "FarmFields3D"
+	town.add_child(fields)
+	fields.call("setup", town, s)
+	bridge.fields = fields
 	if marks != null:
 		marks.build()
 	_setup_build_layer(s)
@@ -441,10 +446,22 @@ func pick_person(screen: Vector2, own: bool) -> String:
 	return best
 
 
-var _ring_name: Label3D = null   # the selected one's name inside the house open in place
+const FIELDS := preload("res://game/world3d/farm_fields3d.gd")   # the farms' fields outside the house
+
+## Inside the house open in place, as in the town: only the selected one's name and the one's under the mouse (each
+## body of the interior carries its NameTag; a full inn printed every guest's over the others).
+func _inside_names() -> void:
+	if in_place == "" or not bridge.ready():
+		return
+	var hovered := bridge.pick_character(get_viewport().get_mouse_position(), func(_id: String) -> bool: return true)
+	for id: Variant in bridge.view().live_actors:
+		var n: Node3D = bridge.view().live_actors[id].node
+		var tag := n.get_node_or_null("NameTag") as Node3D
+		if tag != null:
+			tag.visible = str(id) == selected_id or str(id) == hovered
 
 
-## A ring under the selected person's feet (inside the house open in place, with the name over it).
+## A ring under the selected person's feet.
 func _update_ring() -> void:
 	if town == null:
 		return
@@ -461,19 +478,9 @@ func _update_ring() -> void:
 		_ring.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		town.add_child(_ring)
 	var n: Node3D = town.people[selected_id].node if town.people.has(selected_id) else null
-	var inside := false
 	if (n == null or not n.visible) and in_place != "" and bridge.ready() and bridge.view().live_actors.has(selected_id):
 		n = bridge.view().live_actors[selected_id].node   # inside the house open in place: its body there
-		inside = true
 	_ring.visible = n != null and n.is_visible_in_tree()
 	if _ring.visible:
 		_ring.position = town.to_local(n.global_position) + Vector3(0, 0.05, 0)
-	# inside, the town's own name label stays with the hidden street body: the selected one's name over the ring
-	if _ring_name == null or not is_instance_valid(_ring_name) or _ring_name.get_parent() != town:
-		_ring_name = town._label3d("", 40, Color(1, 1, 1))
-		_ring_name.name = "RingName"
-		town.add_child(_ring_name)
-	_ring_name.visible = inside and _ring.visible and sim != null
-	if _ring_name.visible:
-		_ring_name.text = str(sim.state.characters.get(selected_id, {}).get("name", ""))
-		_ring_name.position = _ring.position + Vector3(0, 2.0, 0)
+	_inside_names()
