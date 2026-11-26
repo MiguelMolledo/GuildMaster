@@ -65,7 +65,7 @@ extends Node
 ## view_mode, or --view=2d|3d). The capture scripts of the 2D view, the flows and the gallery keep the 2D (WorldView)
 ## unless --view=3d; the 3D ones are SMOKE_3D. In 3D the window scales the canvas (canvas_items, whole factor) so the
 ## 3D is drawn at the window's real size and the UI keeps its 960×540 grid; interiors are still the 2D InteriorView.
-const SMOKE_3D: Array[String] = ["pueblo3d", "salto", "abrir3d", "forja3d"]
+const SMOKE_3D: Array[String] = ["pueblo3d", "salto", "abrir3d", "forja3d", "obras3d"]
 const GALLERY: String = "res://game/tools/gallery.tscn"
 const TITLE_TILE: Vector2i = Vector2i(20, 15)  # the camera behind the title (the plaza, docs/ui/maquetas/fondos)
 const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
@@ -94,7 +94,8 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"interiores": "res://game/smoke/smoke_interiores.gd", "flow": "res://game/smoke/flow/flow_runner.gd",
 	"equilibrio": "res://game/smoke/smoke_equilibrio.gd", "teclas": "res://game/smoke/smoke_teclas.gd",
 	"pueblo3d": "res://game/smoke/smoke_pueblo3d.gd", "salto": "res://game/smoke/smoke_salto.gd",
-	"abrir3d": "res://game/smoke/smoke_abrir3d.gd", "forja3d": "res://game/smoke/smoke_forja3d.gd"}
+	"abrir3d": "res://game/smoke/smoke_abrir3d.gd", "forja3d": "res://game/smoke/smoke_forja3d.gd",
+	"obras3d": "res://game/smoke/smoke_obras3d.gd"}
 ## Duel prototype (docs/gdd/04e_combate.md §4e.8, not wired to the game): --duel-test opens the duel screen over the
 ## paused game (the protagonist against the rival smith); --duel-kind=<kind>, --duel-weapon=<weapon>, --duel-rival=<chr>.
 const DUEL_SCREEN: String = "res://game/ui/duel_screen.tscn"

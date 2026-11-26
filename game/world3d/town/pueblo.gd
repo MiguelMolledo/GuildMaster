@@ -1054,9 +1054,9 @@ func _opt_house(h: Node3D) -> void:
 			# its LODs are worked out on another thread (they are most of the cost and only matter from afar): the house
 			# shows at full detail for the few frames that takes
 			var src: ArrayMesh = mm.mesh
-			WorkerThreadPool.add_task(func() -> void:
+			lod_tasks.append(WorkerThreadPool.add_task(func() -> void:
 				var lod: ArrayMesh = opt.with_lods(src)
-				_lods_ready.call_deferred(mm, src, lod))
+				_lods_ready.call_deferred(mm, src, lod)))
 		set_meta("opt_house_chunks", get_meta("opt_house_chunks", []) + [mm])
 	var gmi: MeshInstance3D = opt._commit(g.tools, g.mats, h, "glass", self)
 	if gmi:
@@ -1067,6 +1067,17 @@ func _opt_house(h: Node3D) -> void:
 	set_meta("opt_house_sources", get_meta("opt_house_sources", []) + mine)
 	if cutaway:
 		opt.house_sources(self, true)
+
+
+## The LOD tasks of the houses built again (GuildMaster-3d): waited for before the town goes (WorldView3D._exit_tree,
+## _drop_town); a task that ended after the renderer stopped freed its meshes without it (~ArrayMesh at exit).
+var lod_tasks: Array = []
+
+
+func wait_lod_tasks() -> void:
+	for id: int in lod_tasks:
+		WorkerThreadPool.wait_for_task_completion(id)
+	lod_tasks.clear()
 
 
 func _lods_ready(mm: MeshInstance3D, src: ArrayMesh, lod: ArrayMesh) -> void:

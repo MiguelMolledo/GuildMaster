@@ -114,6 +114,7 @@ func build(s: Sim) -> void:
 func _drop_town() -> void:
 	if town == null:
 		return
+	town.wait_lod_tasks()
 	remove_child(town)
 	town.free()
 	town = null
@@ -134,6 +135,8 @@ func _free_detached() -> void:
 
 ## The quit: the tree frees the town; what it kept out of the tree and the shared caches go here.
 func _exit_tree() -> void:
+	if town != null:
+		town.wait_lod_tasks()   # the LODs of the houses built again: done before the renderer stops
 	if town != null:  # the weather's particles let go of their process materials before the renderer stops
 		for n: Node in town.find_children("*", "GPUParticles3D", true, false):
 			(n as GPUParticles3D).emitting = false

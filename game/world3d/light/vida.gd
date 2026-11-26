@@ -39,6 +39,7 @@ var fireflies: GPUParticles3D
 var smoke: GPUParticles3D
 var forges: Array = []      # [{b: building id, sparks, smoke}]
 var chimneys := {}          # house -> [Vector3 tops]
+var _scanned := {}          # houses built again whose chimneys were looked for
 var _lit_key := ""
 var _next_check := 0.0
 var _clock := 0.0
@@ -710,7 +711,14 @@ func _hearths(t: float, h: float) -> void:
 		cold = true
 	for b in town.bld_anchor:
 		var house: Node3D = town.bld_anchor[b].house
+		if not is_instance_valid(house):
+			continue
 		anchored[house] = true
+		if not chimneys.has(house) and not _scanned.has(house):   # a house built again (an upgrade, works): its chimneys
+			_scanned[house] = true
+			var tops := chimney_tops(house)
+			if not tops.is_empty():
+				chimneys[house] = tops
 		if not chimneys.has(house):
 			continue
 		var on_ := (inside.has(b) or "--humo=todas" in OS.get_cmdline_user_args()) and (meal or cold)
@@ -719,7 +727,10 @@ func _hearths(t: float, h: float) -> void:
 		if on_:
 			for c in chimneys[house]:
 				lit.append(c)
-	for house in chimneys:
+	for house in chimneys.keys():
+		if not is_instance_valid(house):   # the house was built again (GuildMaster-3d: freed, its new one is scanned above)
+			chimneys.erase(house)
+			continue
 		if anchored.has(house):
 			continue
 		var luck := float(absi(hash(String((house as Node).name) + str(int(t / 1440.0)))) % 100) / 100.0
