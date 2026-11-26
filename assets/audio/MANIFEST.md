@@ -30,3 +30,10 @@ retraso y se usa para conciliar.
 
 Tarifas medidas: efecto ~11 créditos por segundo pedido; música ~825 por minuto (1.238 por 90 s); voz ~0,45 por carácter.
 Descartado (pagado, no integrado): 1 toma de `sfx_objective_failed` (28 créditos) y 2 tomas de 1,5 s de `sfx_sale` (34 créditos: la campanilla quedaba cortada) y 1 toma de `voice_greeting` (8 créditos: alargaba «Que Dios os guarde.» a 4 s).
+
+## Traídos de Prueba3D (2026-11-26, M3D-5)
+
+El sonido del pueblo 3D (`game/world3d/audio`, `data/view3d/sonido.json`) pide sus ficheros por id al
+`AudioDirector`. Los que Prueba3D generó para él (ElevenLabs; su gasto, en `~/Code/Prueba3D/assets/audio/MANIFEST.md`)
+se copiaron sin cambios a sus secciones y sus ids se registraron en `data/audio.json`: 16 de ambiente, 6 músicas y 21
+efectos (58 ficheros con sus variantes).

@@ -43,6 +43,10 @@ static func dbg(msg: String) -> void:
 		print("[Sonido] " + msg)
 
 
+## GuildMaster-3d: where the streams of an id come from (AudioDirector.streams); unset in the prueba (by file).
+static var resolver: Callable = Callable()
+
+
 func _load_file(path: String) -> AudioStream:
 	if ResourceLoader.exists(path):
 		return load(path)
@@ -56,7 +60,9 @@ func streams(id: String, loop := false) -> Array:
 	if _lib.has(id):
 		return _lib[id]
 	var out: Array = []
-	for sec in SECTIONS:
+	if resolver.is_valid():   # GuildMaster: by id through the AudioDirector (data/audio.json)
+		out = resolver.call(id)
+	for sec in SECTIONS if not resolver.is_valid() else []:
 		var base := "res://assets/audio/%s/%s" % [sec, id]
 		var s := _load_file(base + ".ogg")
 		if s:

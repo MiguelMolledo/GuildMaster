@@ -51,13 +51,15 @@ const EVENT_FIELDS: Array[String] = ["zone", "phase", "category", "stall", "acti
 const SELECTED_FIELDS: Array[String] = ["actor", "a", "b", "character"]
 const POSITION_FIELDS: Array[String] = ["character", "a", "actor"]
 const POOL_2D: int = 6
+var town_sound: bool = false         # M3D-5: the 3D town plays its own ambience (Town3D's sound): no phase/interior ambient here
 var _players_2d: Array[AudioStreamPlayer2D] = []
 var _next_2d: int = 0
 
 
 func _ready() -> void:
 	load_config()
-	_dummy = AudioServer.get_driver_name() == "Dummy"
+	# the Dummy driver of a headless run is silent; Movie Maker (--write-movie) also runs on it but records the mix
+	_dummy = AudioServer.get_driver_name() == "Dummy" and Engine.get_write_movie_path() == ""
 	for i: int in POOL:
 		var p := AudioStreamPlayer.new()
 		p.name = "Sfx%d" % i
@@ -449,7 +451,7 @@ func _process(delta: float) -> void:
 	var sim: Sim = _game.get("sim")
 	var phase := Clock.phase(int(sim.state.clock["minute"]), sim.catalog.time)
 	play_music(festival_music(sim) if festival_music(sim) != "" else music_for_phase(phase))
-	play_ambient(ambient_for(phase, _interior_type(sim)))
+	play_ambient("" if town_sound else ambient_for(phase, _interior_type(sim)))
 
 
 ## The building type of the interior the app shows ("" = the town or no app).
@@ -487,6 +489,23 @@ func _concerns_player(e: Dictionary) -> bool:
 	if e.has("building"):
 		return SimQuery.building_family(st, str(e["building"])) == fam
 	return true
+
+
+## Every file of `id` loaded (its variants _01, _02...), [] if audio.json does not know it or it has none yet: the 3D
+## town's sound (game/world3d/audio) asks here for what it plays, by id.
+func streams(id: String) -> Array:
+	var sec := section_of(id)
+	if sec == "":
+		if not _silent.has(id):
+			_silent[id] = true
+			_log("unknown sound id %s (not in data/audio.json)" % id)
+		return []
+	var out: Array = []
+	for f: String in VisualPaths.audio_files(sec, id):
+		var a := load(f) as AudioStream
+		if a != null:
+			out.append(a)
+	return out
 
 
 func _stream(id: String) -> AudioStream:

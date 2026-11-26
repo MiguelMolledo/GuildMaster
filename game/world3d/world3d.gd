@@ -185,6 +185,7 @@ func set_active(active: bool) -> void:
 		town.set_process(active)
 		town.set_process_unhandled_input(active)
 		town.cam.current = active
+		town.sound_active(active)
 
 
 func _process(_delta: float) -> void:

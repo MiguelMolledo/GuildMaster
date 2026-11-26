@@ -137,11 +137,20 @@ func _bus(n: String, send := "Master") -> int:
 	return i
 
 
+## GuildMaster-3d: the town's buses send to the game's own (default_bus_layout.tres), so the volume options apply; the
+## music is the AudioDirector's, the Master bus is not touched.
+const GM_SEND := {"Musica": "Music", "Ambiente": "Ambient", "Efectos": "Sfx", "Voces": "Voice", "Lejos": "Ambient"}
+
+
+func _gm() -> bool:
+	return Pool.resolver.is_valid()
+
+
 func _buses() -> void:
 	var b: Dictionary = cfg.buses
 	for n in BUSES:
 		var c: Dictionary = b.get(n, {})
-		var i := _bus(n, String(c.get("send", "Master")))
+		var i := _bus(n, GM_SEND.get(n, "Master") if _gm() else String(c.get("send", "Master")))
 		AudioServer.set_bus_volume_db(i, float(c.get("volume_db", 0.0)) + (_music_offset if n == "Musica" else 0.0))
 		while AudioServer.get_bus_effect_count(i) > 0:
 			AudioServer.remove_bus_effect(i, 0)
@@ -170,6 +179,9 @@ func _buses() -> void:
 	_muffle = AudioEffectLowPassFilter.new()
 	_muffle.cutoff_hz = 20000.0
 	AudioServer.add_bus_effect(AudioServer.get_bus_index("Ambiente"), _muffle)
+	if _gm():
+		dbg("buses: %s, sending to the game's" % ", ".join(BUSES.map(func(n): return "%s -> %s" % [n, GM_SEND.get(n, "Master")])))
+		return
 	AudioServer.set_bus_volume_db(0, float(b.get("Master", {}).get("volume_db", 0.0)))
 	var lim := AudioEffectHardLimiter.new()
 	lim.ceiling_db = -0.5
@@ -354,6 +366,8 @@ func _rule_ok(si: Dictionary) -> bool:
 
 
 func _music() -> void:
+	if _gm():
+		return   # GuildMaster: the music is the AudioDirector's (phase, festival)
 	var m: Dictionary = cfg.musica
 	var want := ""
 	var urgent := false

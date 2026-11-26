@@ -42,11 +42,50 @@ static func transition_arg() -> float:
 	return 1.0
 
 
+## M3D-5: the town's own sound (Prueba3D's, game/world3d/audio) through the game's AudioDirector: its files by id of
+## data/audio.json, its buses into the game's, the music still the AudioDirector's. Off without an AudioDirector, with
+## the Dummy driver (headless: nothing is heard, and a playback stopped while quitting leaks) or with --sonido=no.
+func _sound_on() -> bool:
+	var ad := _audio_director()
+	var dummy := AudioServer.get_driver_name() == "Dummy" and Engine.get_write_movie_path() == ""   # Movie Maker records it
+	if ad == null or dummy or "--sonido=no" in OS.get_cmdline_user_args():
+		return false
+	preload("res://game/world3d/audio/sonido_pool.gd").resolver = ad.streams
+	ad.town_sound = true
+	return true
+
+
+static func _audio_director() -> AudioDirector:
+	var tree := Engine.get_main_loop() as SceneTree
+	return tree.root.get_node_or_null("App/AudioDirector") as AudioDirector if tree != null else null
+
+
+## The town's sound stops with the town (a menu screen, the title) and lets the AudioDirector's ambience back.
+func sound_active(on: bool) -> void:
+	var so := get_node_or_null("Sonido")
+	if so == null:
+		return
+	so.process_mode = Node.PROCESS_MODE_INHERIT if on else Node.PROCESS_MODE_DISABLED
+	for n: String in ["Musica", "Ambiente", "Efectos", "Voces", "Lejos"]:
+		var i := AudioServer.get_bus_index(n)
+		if i >= 0:
+			AudioServer.set_bus_mute(i, not on)
+	var ad := _audio_director()
+	if ad != null:
+		ad.town_sound = on
+
+
+func _exit_tree() -> void:
+	if use_sound:
+		sound_active(false)
+		preload("res://game/world3d/audio/sonido_pool.gd").resolver = Callable()
+
+
 ## Before add_child: the state the town is built from.
 func setup(s: Sim) -> void:
 	sim = s
 	use_cart = false
-	use_sound = false
+	use_sound = _sound_on()
 	transition_k = transition_arg()
 	names_on = false  # the names show for the hovered and the selected only (name_shown)
 	var st := s.state
