@@ -1,6 +1,7 @@
 {
   "id": "gestion_a_fondo",
   "title": "Gestión a fondo",
+  "view": "3d",
   "about": "La forja con dos empleados: el puesto de cada empleado, la gratificación y el despido; la cola (añadir, subir, quitar, parar a quien trabaja); el equipo de la persona (quitar y poner); el libro de avisos; abandonar un encargo; y, aparte, aceptar el ascenso de una aprendiz.",
   "start": {"scenario": "two_employees"},
   "covers": ["set_role", "bonus", "fire", "queue_move", "queue_remove", "stop_work", "unequip", "equip", "read_notices", "abandon_contract", "promote"],

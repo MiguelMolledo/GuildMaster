@@ -1,6 +1,7 @@
 {
   "id": "mejorar",
   "title": "Mejorar la forja",
+  "view": "3d",
   "about": "En gestión, abrir el árbol de Mejoras (M), elegir una disponible, ver su ficha y construirla confirmando el gasto.",
   "start": {"scenario": "forge_upgrades"},
   "covers": ["buy_upgrade"],

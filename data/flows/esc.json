@@ -1,6 +1,7 @@
 {
   "id": "esc",
   "title": "Cada pantalla se cierra con Esc",
+  "view": "3d",
   "about": "Abre cada panel y pantalla (por su tecla o su clic) y comprueba que Esc la cierra: los paneles de la ciudad, los del interior, el menú de un puesto, el menú de pausa con guardar y cargar, el mapa, y las pantallas del título.",
   "start": {"scenario": "town_e_start"},
   "covers": [],

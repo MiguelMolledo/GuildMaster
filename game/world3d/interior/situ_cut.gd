@@ -23,6 +23,7 @@ var on := false
 var top := 0
 var cam_local := Vector2(1, 1)
 var settled := true
+var speed := 1.0  # GuildMaster: the walls drop and the roof melts this many times faster (Town3D: 1 / transition_k)
 var leaves: Array = []   # [node, closed yaw, level, outward]
 var _merged: Array = []
 var _leaf_open := 0.0
@@ -179,8 +180,8 @@ func _step(delta: float) -> void:
 	var done := true
 	var base := house.global_position.y
 	for p in parts:
-		p.cut = move_toward(float(p.cut), float(p.cut_goal), DROP * delta)
-		p.fade = move_toward(float(p.fade), float(p.fade_goal), MELT * delta)
+		p.cut = move_toward(float(p.cut), float(p.cut_goal), DROP * delta * speed)
+		p.fade = move_toward(float(p.fade), float(p.fade_goal), MELT * delta * speed)
 		if p.cut != p.cut_goal or p.fade != p.fade_goal:
 			done = false
 		var mi: MeshInstance3D = p.mi
@@ -191,7 +192,7 @@ func _step(delta: float) -> void:
 			mi.set_instance_shader_parameter("fade", float(p.fade))
 	# the doors swing open while the cut is on
 	var want := 1.0 if on else 0.0
-	_leaf_open = move_toward(_leaf_open, want, delta * 2.5)
+	_leaf_open = move_toward(_leaf_open, want, delta * 2.5 * speed)
 	if _leaf_open != want:
 		done = false
 	for l in leaves:

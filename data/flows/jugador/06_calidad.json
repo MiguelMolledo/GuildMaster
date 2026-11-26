@@ -1,6 +1,7 @@
 {
   "id": "jugador/06_calidad",
   "title": "Jugador 6 · Las cartas «Nuevo» y un encargo de calidad buena",
+  "view": "3d",
   "about": "Día 2, con la fiesta: las cartas que se juntaron y el objetivo de un encargo de calidad «buena»: la espada del capitán, forjada a mano.",
   "start": {
     "keep": true

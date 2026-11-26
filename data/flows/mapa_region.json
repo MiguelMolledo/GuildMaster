@@ -1,6 +1,7 @@
 {
   "id": "mapa_region",
   "title": "El mapa de la región",
+  "view": "3d",
   "about": "El mapa desde R y desde el menú de pausa: las fichas de cada lugar al pasar y al hacer clic, la rueda y Esc.",
   "start": {"scenario": "town_e_start"},
   "covers": [],

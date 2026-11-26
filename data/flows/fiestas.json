@@ -1,6 +1,7 @@
 {
   "id": "fiestas",
   "title": "La víspera de un torneo",
+  "view": "3d",
   "about": "Mañana hay torneo (escenario festival_eve): la carta del pregonero a las 12:00; patrocinar el banquete; y, otra vez la misma víspera, inscribirse en la justa.",
   "start": {"scenario": "festival_eve"},
   "covers": ["festival_sponsor", "game_enter"],

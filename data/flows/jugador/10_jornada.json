@@ -1,6 +1,7 @@
 {
   "id": "jugador/10_jornada",
   "title": "Jugador 10 · Media jornada de oficio",
+  "view": "3d",
   "about": "El oficio de cada día como lo juega un novato: las cartas que llegan, la mejora cuando se abre, pagar la deuda con oro de sobra, hierro con recado, espadas en el yunque y venderlas en la Armería.",
   "start": {
     "keep": true
@@ -400,7 +401,33 @@
         },
         "node": "Send"
       },
-      "item": 0
+      "item": 0,
+      "soft": true
+    },
+    {
+      "id": "h_carbon_reintento",
+      "say": "El menú no cogió el clic: otra vez",
+      "when": "q.visible('MarketPanel') and q.storage('coal') < 3 and not q.order('buy')",
+      "click": {
+        "within": {
+          "within": "BuyList",
+          "prefix": "coal_"
+        },
+        "node": "Send"
+      }
+    },
+    {
+      "id": "h_carbon_destino_2",
+      "when": "q.visible('MarketPanel') and q.storage('coal') < 3 and not q.order('buy')",
+      "popup": {
+        "within": {
+          "within": "BuyList",
+          "prefix": "coal_"
+        },
+        "node": "Send"
+      },
+      "item": 0,
+      "soft": true
     },
     {
       "id": "h_cerrar_puesto",

@@ -92,4 +92,4 @@ func test_view_mode() -> void:
 	eq(ViewConfig.view_mode(PackedStringArray(["--gallery"]), "", SMOKE_3D), "2d", "the gallery")
 	eq(ViewConfig.view_mode(PackedStringArray([]), "", SMOKE_3D), "3d", "the game: data/view.json view_mode")
 	eq(ViewConfig.view_mode(PackedStringArray(["--flow=primer_dia"]), "flow", SMOKE_3D), "3d", "a flow ported to 3D")
-	eq(ViewConfig.view_mode(PackedStringArray(["--flow=parcelas"]), "flow", SMOKE_3D), "2d", "a flow still in 2D")
+	eq(ViewConfig.view_mode(PackedStringArray(["--flow=_sin_vista"]), "flow", SMOKE_3D), "2d", "a flow that names no view (2D)")

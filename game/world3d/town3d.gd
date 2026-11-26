@@ -34,11 +34,20 @@ static func clear_caches() -> void:
 	RoadBuilder._noise = null
 
 
+## --transicion=<k>: the house's opening and closing last k times Prueba3D's (0.2: a flow in a hurry; 0: at once).
+static func transition_arg() -> float:
+	for a: String in OS.get_cmdline_user_args():
+		if a.begins_with("--transicion="):
+			return maxf(0.0, a.substr(13).to_float())
+	return 1.0
+
+
 ## Before add_child: the state the town is built from.
 func setup(s: Sim) -> void:
 	sim = s
 	use_cart = false
 	use_sound = false
+	transition_k = transition_arg()
 	names_on = false  # the names show for the hovered and the selected only (name_shown)
 	var st := s.state
 	mapd = (s.catalog.maps().get(st.map_id, {}) as Dictionary).duplicate(true)
@@ -321,6 +330,7 @@ func open_building(b: String) -> bool:
 	if h == null or not is_instance_valid(h) or not h.has_meta("interior"):
 		return false
 	if inside and situ_house == h:
+		looking = false   # it was open by the zoom: now the game's (its panels come on top)
 		return true
 	if inside:
 		_close_now()
@@ -357,16 +367,18 @@ func premount(b: String) -> void:
 		inside_view.set_process_unhandled_input(false)
 
 
-## Closes the house open in place: the roof comes back; the camera stays on the house (as the 2D town centred on its
-## door): a camera still moving would carry the next click somewhere else.
+## Closes the house open in place as Prueba3D does: the roof comes back, the walls go up and the camera slides back
+## to where it was before the house opened (the flows wait for it: WorldView3D.settling).
 func close_building() -> void:
 	if inside and not _busy:
-		_focus_auto = true   # sim3d_chars._close: no camera move back
+		_focus_auto = looking   # looking (zoom): no camera move back, as in the prueba
+		looking = false
 		_close()
 
 
 ## The same at once (another house opens, the town is rebuilt).
 func _close_now() -> void:
+	looking = false
 	if not inside:
 		return
 	situ_cut.set_on(false, true)
@@ -377,8 +389,53 @@ func _close_now() -> void:
 	_busy = false
 
 
+# ---------------------------------------------------------------- looking inside by zooming in (as Prueba3D)
+## Zooming in over a house with an interior in place (camera size FOCUS_ZOOM or less, no house open by the game)
+## opens it where it stands to look inside: its people at their places, no panels, no orders (a click goes on to the
+## town as always). Zooming out past UNFOCUS_ZOOM or moving away closes it. WorldView3D turns it off while the game
+## has a house open, a menu is open or the keys are off.
+var looking: bool = false
+var look_on: bool = true
+
+
+func _look_update() -> void:
+	if _busy or not situ_mode:
+		return
+	if looking:
+		if not inside:
+			looking = false
+			return
+		var fp := situ_house.global_position
+		var off := Vector2(target.x - fp.x, target.z - fp.z).length()
+		if not look_on or cam.size > UNFOCUS_ZOOM or off > 8.0:
+			close_building()
+		return
+	if inside or not look_on or cam.size > FOCUS_ZOOM:
+		return
+	var h := _house_near(target, 1.0)
+	if h == null:
+		return
+	situ_mode = true
+	_mount(h)
+	live_bld = _bld_of(h)
+	if inside_view == null:
+		return
+	inside_view.set_process_unhandled_input(false)
+	looking = true
+	_open(true)
+	var ui: Variant = inside_view.get("_ui")
+	if ui is CanvasLayer:
+		(ui as CanvasLayer).visible = false
+	if OS.is_debug_build():
+		print("[Town3D] looking inside %s (%s) by zooming in" % [h.name, live_bld])
+
+
 func open_house_building() -> String:
 	return live_bld if inside else ""
+
+
+func _roster_extra(roster: Dictionary) -> void:
+	Inn3D.add_guests(self, roster)  # a tavern open in place: its guests, seated (inn3d.gd)
 
 
 var _reopen: String = ""  # the house open in place was built again (an upgrade done, works): it opens again
@@ -486,6 +543,9 @@ func _process(delta: float) -> void:
 	t_min = float(now) + frac
 	_apply(t_min)
 	_smooth_bodies(delta)
+	_look_update()
+	if inside and situ_cut != null:
+		situ_cut.speed = 1.0 / maxf(transition_k, 0.01)
 	for id: Variant in people:  # names only for who is under the mouse or selected (as the 2D town)
 		var lab: Label3D = people[id].name
 		var on := name_shown.has(id) and (people[id].node as Node3D).visible

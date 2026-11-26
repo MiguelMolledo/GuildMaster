@@ -24,6 +24,39 @@
   },
   {
     "fecha": "2026-11-26",
+    "titulo": "Taberna, parcelas y teclas en el pueblo 3D",
+    "que": "Repaso de las mecánicas de ciudad, economía, región y sistema en 3D (docs/3d/repaso_ciudad.md). La posada se lleva en 3D: los huéspedes son cuerpos sentados en la sala con su pedido y su paciencia encima, las camas de huésped están en la planta alta con su estado, y un clic sirve o hace la cama. El modo construcción (B) pinta las parcelas sobre el pueblo 3D y el clic abre su carta. Los 12 flujos de ciudad, región y sistema se juegan en 3D; teclas audita los controles 3D (W/A/S/D y flechas, Q/E, RePág/AvPág). Qué deben hacer W/A/S/D en 3D queda para el owner.",
+    "como_probar": "Escenario inn_chores: doble clic en la taberna, clic en un huésped que espera, «Planta alta», clic en una cama sin hacer. B en la ciudad: las parcelas; clic en una. python3 tools/verifica/verifica.py --flows=taberna,parcelas,teclas [--window].",
+    "capturas": [
+      "docs/novedades/ciudad_taberna_servir.png",
+      "docs/novedades/ciudad_taberna_camas.png",
+      "docs/novedades/ciudad_parcelas.png",
+      "docs/novedades/ciudad_otra_ciudad.png",
+      "docs/novedades/ciudad_zoom_rotulos.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-26",
+    "titulo": "La forja de punta a punta en 3D",
+    "que": "Toda la vida de la forja se juega ya sobre el pueblo 3D con la interfaz de siempre: comprar hierro y carbón en el puesto con recado, fundir y forjar (también en Forja viva), vender en la armería, cumplir encargos, pagar la deuda en el libro, contratar y despedir, la cola de producción de los empleados y el árbol de mejoras con su obra. La pasada del jugador nuevo (los diez primeros bloques, jornadas incluidas) pasa entera en 3D.",
+    "como_probar": "jugar.command, partida nueva de herrero. Automático: python3 tools/verifica/jugador.py --window --to=10; python3 tools/verifica/verifica.py --window --flows=forja_viva,mejorar,gestion_a_fondo; grimoire heavy -- /opt/homebrew/bin/godot --always-on-top --path . -- --smoke-script=forja3d.",
+    "capturas": [
+      "docs/novedades/m3d4_forja_pausa.png",
+      "docs/novedades/m3d4_mercado.png",
+      "docs/novedades/m3d4_mejoras_obra.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-26",
+    "titulo": "Abrir una casa como en la prueba 3D: la cámara va y vuelve",
+    "que": "Al abrir una casa (Gestionar, doble clic o la persona que entra) la cámara se desliza hasta su frente, se acerca y la enfoca mientras el techo se funde y bajan las paredes del frente; al cerrar, el techo y las paredes vuelven y la cámara regresa a donde estaba, como en la prueba (antes se quedaba encima de la casa). Acercar mucho el zoom sobre una casa la abre para mirar dentro, sin paneles ni órdenes; alejar o moverse la cierra.",
+    "como_probar": "Elige a tu personaje, clic derecho en tu forja o doble clic en ella; Salir. Acerca la rueda sobre una casa. Automático: grimoire heavy -- /opt/homebrew/bin/godot --always-on-top --resolution 1600x900 --path . -- --smoke-script=abrir3d (reports/perf/abrir3d.json); --transicion=<k> acorta o alarga la transición.",
+    "capturas": [
+      "docs/novedades/abrir_casa_transicion.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-26",
     "titulo": "Sin saltos al echar a andar (3D y 2D)",
     "que": "Al mandar a alguien a un sitio, el cuerpo daba un salto de media casilla (1 m en 3D) en el primer fotograma y luego andaba normal; con una orden nueva a mitad de camino, hasta 3 m. La sim aplica la orden y anda su primer minuto en el mismo paso, así que la vista veía el camino ya empezado. Ahora el cuerpo dibujado alcanza a la sim a la velocidad de andar con margen y arranca suave; entrar o salir de un edificio sigue siendo inmediato. Vale para el pueblo 3D (también al levantarse de un banco o al dejar el arrimo de la lluvia) y para el 2D. La sim no cambia.",
     "como_probar": "Elige a tu personaje y haz clic derecho en una calle: echa a andar sin salto. Medida: godot --headless --fixed-fps 60 --path . -- --smoke-script=salto [--view=2d] [--tiempo=lluvia] [--suavizado=no para el antes] -> reports/perf/salto_*.json.",

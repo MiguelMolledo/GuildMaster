@@ -1,6 +1,7 @@
 {
   "id": "jugador/04_deuda",
   "title": "Jugador 4 · La deuda y el libro de cuentas",
+  "view": "3d",
   "about": "El capítulo «Deuda y libro de cuentas» desde el final del de vender: la deuda del HUD, el libro (L), sus pestañas y la de deudas.",
   "start": {
     "keep": true

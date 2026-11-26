@@ -1,6 +1,7 @@
 {
   "id": "jugador/07_empleado",
   "title": "Jugador 7 · El primer empleado",
+  "view": "3d",
   "about": "Cuando abre Empleados (150 de oro o 3 encargos): su carta «Ver capítulo» (o F1), contratar un aprendiz y ponerle la cola de lingotes. Mientras no abre, forjar y vender.",
   "start": {
     "keep": true

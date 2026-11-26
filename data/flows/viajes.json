@@ -1,6 +1,7 @@
 {
   "id": "viajes",
   "title": "Viajar, caravana y tratado",
+  "view": "3d",
   "about": "Con la familia ciudadana: el mapa de la región (R), la ficha de la aldea y «Viajar»; al llegar se abre la página de la ciudad: comprar en su mercado, mirar los tratados y volver. Después, comprar un carro y mandar una caravana.",
   "start": {"scenario": "travel_start"},
   "covers": ["travel", "city_buy", "city_sell", "sign_treaty", "return", "buy_cart", "caravan_send"],

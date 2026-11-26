@@ -1,6 +1,7 @@
 {
   "id": "tratados",
   "title": "Tratados y encargos de fuera",
+  "view": "3d",
   "about": "Barón y alcalde (escenario patron_treaties): el tratado del pueblo desde la ficha de la aldea (en pausa: el botón y la tira dicen que espera; al correr el reloj vota el concejo y llega su carta), el viaje, aceptar y entregar un encargo de la ciudad, firmar y cancelar un tratado de la familia y la vuelta.",
   "start": {"scenario": "patron_treaties"},
   "covers": ["propose_town_treaty", "travel", "city_accept", "city_deliver", "sign_treaty", "cancel_treaty", "return", "buy_cart"],

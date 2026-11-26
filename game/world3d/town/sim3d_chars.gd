@@ -57,6 +57,7 @@ var _inside_night := -1
 var situ_mode := false   # the houses have their interior in place (they carry meta "interior": pueblo.gd)
 var situ_cut: SituCut
 var situ_house: Node3D   # the house whose interior is mounted (one at a time; the player's forge from the start)
+var transition_k := 1.0  # GuildMaster: length of a house's opening and closing (1 = Prueba3D's; flows may shorten it)
 var use_sound := true  # GuildMaster: the town's own sound system (off in the game until it goes through AudioDirector)
 var mount_stats := {}    # house name -> ms of mounting its interior (SituShell.open)
 var _at_place := false       # opening a house: who is already inside appears at its place
@@ -541,6 +542,7 @@ func _sync_inside(t: float) -> void:
 		var row: Array = _state_at(p.st, t)
 		roster[id] = {def = _chr[id].def, name = String(trace.characters[id].name), station = String(row[4]) if row.size() > 4 else "",
 			doing = String(row[2])}
+	_roster_extra(roster)
 	if inside_view.live:
 		if situ_mode:
 			SituLive.sync(inside_view, roster, _at_place)  # any building: its stations, seats and beds (scripts/situ_live.gd)
@@ -552,6 +554,11 @@ func _sync_inside(t: float) -> void:
 	if n != _inside_night:
 		_inside_night = n
 		inside_view.set_night(n == 1)
+
+
+## The game's people inside that are not townsfolk of the trace (the guests of a tavern): added by Town3D.
+func _roster_extra(_roster: Dictionary) -> void:
+	pass
 
 
 func _process(delta: float) -> void:
@@ -795,13 +802,14 @@ func _open(auto: bool) -> void:
 			target = (_back.target as Vector3).lerp(Vector3(fp.x, 1.2, fp.z), k)
 			cam.size = lerpf(_back.size, minf(float(_back.size), FOCUS_SIZE), k)
 			yaw = lerpf(_back.yaw, y1, k)
-			_update_camera(), 0.0, 1.0, 0.7)
+			_update_camera(), 0.0, 1.0, maxf(0.01, 0.7 * transition_k))
 		await tw.finished
 	_busy = false
 
 
 func _close() -> void:
 	_busy = true
+	var closing := inside_view  # GuildMaster: another house may open meanwhile (Town3D._close_now): then stop here
 	if OS.is_debug_build():
 		print("[Sim3DChars] closing %s at minute %.0f" % [situ_house.name, t_min])
 	situ_cut.set_on(false)
@@ -812,10 +820,12 @@ func _close() -> void:
 			target = (from.target as Vector3).lerp(_back.target, k)
 			cam.size = lerpf(from.size, _back.size, k)
 			yaw = lerpf(from.yaw, _back.yaw, k)
-			_update_camera(), 0.0, 1.0, 0.6)
+			_update_camera(), 0.0, 1.0, maxf(0.01, 0.6 * transition_k))
 		await tw.finished
-	while not situ_cut.settled:  # the roof is back before the inside goes
+	while situ_cut != null and inside_view == closing and not situ_cut.settled:  # the roof is back before the inside goes
 		await get_tree().process_frame
+	if inside_view != closing or not inside:
+		return
 	inside_view.activate(false)
 	if inside_view.live:
 		inside_view.live_clear()
@@ -984,6 +994,8 @@ func _ready() -> void:
 	super()
 	if use_sound and not trace.is_empty() and not "--sonido=no" in OS.get_cmdline_user_args():
 		add_child(preload("res://game/world3d/audio/sonido.gd").new(self))  # the sound of the town (docs/sonido.md)
+	if bool((trace.get("meta", {}) as Dictionary).get("live", false)):
+		return  # GuildMaster: the game's town runs none of the prueba's own runners (--abrir, --bench, --vistas...)
 	if "--bench" in OS.get_cmdline_user_args():
 		_bench()
 	elif "--edadshots" in OS.get_cmdline_user_args():

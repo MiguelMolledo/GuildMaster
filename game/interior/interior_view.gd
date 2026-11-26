@@ -648,8 +648,9 @@ func _project() -> void:
 				sv.position = (screen_to_world(at) + Vector2(0, sv.height / 2.0)).round()
 		elif n is CanvasItem:
 			(n as CanvasItem).visible = false
-	if _inn != null:
-		_inn.visible = false
+	if _inn != null:   # the posada: its orders and beds over their 3D points (InnLayer, Inn3D)
+		_inn.visible = true
+		_inn.queue_redraw()
 	var m := get_viewport().get_mouse_position()
 	projector.hover(pick_station(m))
 	_bind_floor_3d()

@@ -1,6 +1,7 @@
 {
   "id": "jugador/03_vender",
   "title": "Jugador 3 · Vender y comprar",
+  "view": "3d",
   "about": "El capítulo «Vender y comprar»: coger la espada, la Armería, vender, salir, el puesto de Recursos y un recado.",
   "start": {
     "keep": true
