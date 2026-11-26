@@ -288,6 +288,17 @@ func _apply(t: float) -> void:
 				var mate := _talk_mate(id, root.position)
 				if mate != Vector3.INF:
 					yaw = atan2(mate.x - root.position.x, mate.z - root.position.z)
+			elif doing in ["brawl", "watch_fight"]:
+				# GuildMaster-3d: the fight of the plaza reads as one: the two face each other and trade blows (jab,
+				# cross, a blow taken, in turns), the ring looks at them
+				var opp := _nearest_doing(id, root.position, "brawl")
+				if opp != Vector3.INF:
+					yaw = atan2(opp.x - root.position.x, opp.z - root.position.z)
+				if doing == "brawl":
+					var beat := int(Time.get_ticks_msec() / 650) + (absi(hash(String(id))) % 2)
+					anim = ["Punch_Jab", "Punch_Cross", "Hit_Chest", "Punch_Jab"][beat % 4]
+					if not _has_anim(e, anim):
+						anim = "Punch_Jab"
 		gait_stats.frames += 1
 		e.yaw = yaw if jumped else lerp_angle(float(e.yaw), yaw, 1.0 - exp(-dt * 10.0))
 		root.rotation.y = e.yaw
@@ -331,6 +342,21 @@ func _has_anim(e: Dictionary, anim: String) -> bool:
 	if not _own():
 		return (e.ap as AnimationPlayer).has_animation(anim)
 	return String((CharBuilder as Script).call("anim_name", e.ap, anim)) != ""
+
+
+## GuildMaster-3d: where the nearest other person doing `what` stands (Vector3.INF if nobody within 6 m).
+func _nearest_doing(id: Variant, at: Vector3, what: String) -> Vector3:
+	var best := Vector3.INF
+	var bd := 6.0
+	for o: Variant in people:
+		if o == id or String(people[o].doing) != what or not (people[o].node as Node3D).visible:
+			continue
+		var q: Vector3 = (people[o].node as Node3D).position
+		var d := q.distance_to(at)
+		if d < bd and d > 0.05:
+			bd = d
+			best = q
+	return best
 
 
 func _play_anim(e: Dictionary, anim: String, fade: float, carry := "") -> void:
