@@ -3,6 +3,7 @@
   "title": "Guardar y cargar",
   "about": "Esc → menú de pausa → Guardar en la ranura 1; jugar un poco; F9 → cargar la ranura 1 y comprobar que el reloj vuelve atrás.",
   "quick": true,
+  "view": "3d",
   "start": {"scenario": "town_e_start"},
   "covers": [],
   "steps": [

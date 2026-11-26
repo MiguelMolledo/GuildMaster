@@ -3,6 +3,7 @@
   "title": "Primer día",
   "about": "Desde la partida nueva: entrar en la forja, sacar lingotes y una espada (modo normal), venderla en la Armería, aceptar y cumplir un encargo y comprar en el puesto con recado. La Forja viva, en el flujo forja_viva.",
   "quick": true,
+  "view": "3d",
   "start": {"new_game": true},
   "covers": ["work_at", "stop_work", "transfer", "enter_building", "exit_building", "sell", "buy", "accept_contract", "deliver_contract", "move_to", "unlock_seen"],
   "steps": [

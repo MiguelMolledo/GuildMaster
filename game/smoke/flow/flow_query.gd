@@ -61,7 +61,7 @@ func who() -> String:
 
 
 func selected() -> String:
-	return str(app.world().selected_id)
+	return str(app.call("_selected"))
 
 
 func ch(id: String = "") -> Dictionary:
@@ -322,6 +322,22 @@ func rival() -> String:
 ## A townsperson seen in the town now (not of the player's family, out in the street), nearest to the active
 ## person; "" if none.
 func npc_near() -> String:
+	var w3: WorldView3D = app.call("world3d")
+	if w3 != null and w3.town != null:   # the 3D town: the nearest one drawn in the street
+		var me3: Node3D = w3.town.people[who()].node if w3.town.people.has(who()) else null
+		var best3 := ""
+		var best3_d := INF
+		var ids3: Array = st().characters.keys()
+		ids3.sort()
+		for id: String in ids3:
+			var c3: Dictionary = st().characters[id]
+			if str(c3.get("family", "")) == fam() or str(c3.get("location", "")) != "" or w3.screen_of(id) == Vector2.INF:
+				continue
+			var d3 := (w3.town.people[id].node as Node3D).position.distance_to(me3.position) if me3 != null else 0.0
+			if d3 < best3_d:
+				best3_d = d3
+				best3 = id
+		return best3
 	var w: WorldView = app.world()
 	var me: Node2D = w.view_of(who())
 	var best := ""
@@ -342,6 +358,16 @@ func npc_near() -> String:
 
 ## A beggar out in the street and seen in the town ("" if none).
 func beggar() -> String:
+	var w3: WorldView3D = app.call("world3d")
+	if w3 != null:
+		var ids3: Array = st().characters.keys()
+		ids3.sort()
+		for id: String in ids3:
+			var c3: Dictionary = st().characters[id]
+			if str((c3.get("visitor", {}) as Dictionary).get("kind", "")) == "beggar" and str(c3.get("location", "")) == "" \
+					and w3.screen_of(id) != Vector2.INF:
+				return id
+		return ""
 	var w: WorldView = app.world()
 	var ids: Array = st().characters.keys()
 	ids.sort()
@@ -361,8 +387,11 @@ func tutorial_step() -> String:
 	return "%s:%s" % [t.get("chapter_id"), t.get("index")]
 
 
-## The town camera's zoom (1 or 2).
+## The town camera's zoom (1 or 2; in 3D, the orthographic size in metres).
 func zoom() -> int:
+	var w3: WorldView3D = app.call("world3d")
+	if w3 != null and w3.town != null:
+		return int(w3.town.cam.size)
 	return int(app.world().camera().current_zoom())
 
 

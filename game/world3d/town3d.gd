@@ -39,6 +39,7 @@ func setup(s: Sim) -> void:
 	sim = s
 	use_cart = false
 	use_sound = false
+	names_on = false  # the names show for the hovered and the selected only (name_shown)
 	var st := s.state
 	mapd = (s.catalog.maps().get(st.map_id, {}) as Dictionary).duplicate(true)
 	season_id = Clock.season(int(st.clock["minute"]), s.catalog.time)
@@ -289,8 +290,20 @@ func _make_hud() -> void:
 	pass  # the game's HUD is on top; the interior in place comes with M3D-3
 
 
+var name_shown: Dictionary = {}  # chr -> true: whose name shows (the hovered and the selected: Marks3D)
+var _dragging: bool = false       # the middle button pans the camera (as the 2D town's)
+
+
 func _unhandled_input(e: InputEvent) -> void:
-	if e is InputEventMouseButton and (e as InputEventMouseButton).pressed \
+	if e is InputEventMouseButton and (e as InputEventMouseButton).button_index == MOUSE_BUTTON_MIDDLE:
+		_dragging = (e as InputEventMouseButton).pressed and keys_on
+		if _dragging:
+			follow_id = ""
+		get_viewport().set_input_as_handled()
+	elif e is InputEventMouseMotion and _dragging:
+		pan_screen((e as InputEventMouseMotion).relative)
+		get_viewport().set_input_as_handled()
+	elif e is InputEventMouseButton and (e as InputEventMouseButton).pressed \
 			and (e as InputEventMouseButton).button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN]:
 		var mb := e as InputEventMouseButton
 		var steps: float = mb.factor if mb.factor > 0.0 else 1.0
@@ -299,6 +312,18 @@ func _unhandled_input(e: InputEvent) -> void:
 	elif e is InputEventMagnifyGesture:
 		_zoom_by(1.0 / maxf(0.2, (e as InputEventMagnifyGesture).factor))  # trackpad pinch
 		get_viewport().set_input_as_handled()
+
+
+## Moves the ground under the pointer by `d` screen units (a middle drag): what was under it stays under it.
+func pan_screen(d: Vector2) -> void:
+	var vp := get_viewport().get_visible_rect().size
+	var k := cam.size / maxf(1.0, vp.y)  # metres per screen unit (orthographic: size = the view's height)
+	var right := Vector3(cam.global_basis.x.x, 0.0, cam.global_basis.x.z).normalized()
+	var fwd := Vector3(-cam.global_basis.z.x, 0.0, -cam.global_basis.z.z).normalized()
+	var s := maxf(0.2, sin(deg_to_rad(pitch)))  # screen up runs along the ground longer than it looks
+	target -= right * d.x * k
+	target += fwd * d.y * k / s
+	_update_camera()
 
 
 func _process(delta: float) -> void:
@@ -311,6 +336,11 @@ func _process(delta: float) -> void:
 		_refresh_minute(now)
 	t_min = float(now) + frac
 	_apply(t_min)
+	for id: Variant in people:  # names only for who is under the mouse or selected (as the 2D town)
+		var lab: Label3D = people[id].name
+		var on := name_shown.has(id) and (people[id].node as Node3D).visible
+		if lab.visible != on:
+			lab.visible = on
 	if follow_id != "" and people.has(follow_id):
 		var n: Node3D = people[follow_id].node
 		if n.visible:

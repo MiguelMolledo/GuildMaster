@@ -3,6 +3,7 @@
   "title": "Pagar la deuda",
   "about": "En una partida nueva: el libro (L), la pestaña Deudas, pagar una parte con el campo de cantidad y luego todo lo que se pueda, con la confirmación si deja el oro por debajo de lo que se cobra al amanecer.",
   "quick": true,
+  "view": "3d",
   "start": {"new_game": true},
   "covers": ["repay_loan"],
   "steps": [

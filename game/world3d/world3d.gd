@@ -12,6 +12,8 @@ extends Node3D
 ## deselects; right with someone selected: on a stall, the board or the town hall goes to its service tile and opens
 ## its panel on arrival, on a building goes in (enter_building), elsewhere walks there (move_to). The building under
 ## the pointer is looked for at roof, wall and ground height along the camera ray.
+## M3D-2: signs, the hover frame and rings, the names (Marks3D); the middle button drags the camera; selecting
+## somebody who is off screen (1-2-3, a portrait, a notice) brings the camera to them; the hand over what can be clicked.
 
 signal selection_changed(char_id: String)
 signal building_picked(building_id: String)   # "" = none
@@ -32,9 +34,17 @@ var keys_on: bool = true  # the camera keys act (the app turns them off while a 
 var _game: Node = null
 var _active: bool = true
 var _baseline: Dictionary = {}  # orphan node ids (debug builds) before the town was built: what is not its own
+var marks: Marks3D = null       # signs, hover frame and rings, names
+var hovered_building: String = ""
+var hovered_character: String = ""
+var _revealed: String = ""      # the selection the camera last looked for
 
 
 func _ready() -> void:
+	marks = Marks3D.new()
+	marks.name = "Marks3D"
+	marks.view = self
+	add_child(marks)
 	_game = get_node_or_null("/root/Game")
 	if _game == null:
 		return
@@ -71,6 +81,9 @@ func build(s: Sim) -> void:
 	town.set_process(_active)
 	town.set_process_unhandled_input(_active)
 	_feed_time()
+	if marks != null:
+		marks.build()
+	_revealed = ""
 	build_ms = Time.get_ticks_msec() - t0
 	_focus_start()
 	ViewConfig.info("WorldView3D", "built (map=%s, houses=%d, people=%d, buildings=%d, ms=%d)" % [s.state.map_id, town.houses.size(),
@@ -131,6 +144,8 @@ func rebuild_town() -> void:
 func set_active(active: bool) -> void:
 	_active = active
 	visible = active
+	if marks != null:
+		marks.visible = active
 	if town != null:
 		town.set_process(active)
 		town.set_process_unhandled_input(active)
@@ -140,6 +155,37 @@ func set_active(active: bool) -> void:
 func _process(_delta: float) -> void:
 	_feed_time()
 	_update_ring()
+	if town == null or not _active:
+		return
+	var mouse := get_viewport().get_mouse_position()
+	var in_town := keys_on and get_viewport().gui_get_hovered_control() == null
+	marks.update(mouse, in_town)
+	if marks.hovered_building != hovered_building or marks.hovered_character != hovered_character:
+		hovered_building = marks.hovered_building
+		hovered_character = marks.hovered_character
+		if in_town:
+			UiFeel.set_hand(hovered_building != "" or hovered_character != "")  # docs/ui/00 §9
+	_reveal()
+
+
+## The camera goes to the selected person when they are off screen (picked by 1-2-3, a portrait or a notice); a
+## person inside a building: its door.
+func _reveal() -> void:
+	if selected_id == _revealed:
+		return
+	_revealed = selected_id
+	if selected_id == "" or sim == null or not sim.state.characters.has(selected_id):
+		return
+	var at := screen_of(selected_id)
+	var rect := get_viewport().get_visible_rect().grow(-60.0)
+	if at != Vector2.INF and rect.has_point(at):
+		return
+	var ch: Dictionary = sim.state.characters[selected_id]
+	var loc := str(ch.get("location", ""))
+	var p: Array = sim.state.buildings.get(loc, {}).get("door", []) if loc != "" else ch.get("position", [])
+	if p.size() == 2:
+		ViewConfig.info("WorldView3D", "camera to %s (tile %s)" % [selected_id, p])
+		town.look_at_tile(Vector2(float(p[0]), float(p[1])))
 
 
 ## The clock the town plays: the fraction of the step and the real seconds per game minute (gaits), the pause.
@@ -205,6 +251,7 @@ func screen_of(id: String) -> Vector2:
 # ---------------------------------------------------------------- clicks
 const PICK_RADIUS: float = 26.0                     # screen units around a person's chest
 const PICK_HEIGHTS: Array[float] = [7.0, 4.5, 2.0, 0.0]  # metres along the ray where a building is looked for
+const SERVICE_HEIGHTS: Array[float] = [2.2, 1.2, 0.0]      # the same for a stall (awning, counter, ground)
 var _ring: MeshInstance3D = null
 
 
@@ -236,14 +283,14 @@ func handle_click(mb: InputEventMouseButton) -> bool:
 		return true
 	if mb.button_index == MOUSE_BUTTON_RIGHT and selected_id != "" and order_sink.is_valid():
 		var tile := tile_under(mb.position)
-		for svc: Dictionary in SimQuery.map_services(st, sim.catalog):
-			if svc["tile"] == tile or (svc.get("tiles", []) as Array).has(tile):
-				var service: Vector2i = svc["service"]
-				if not SimQuery.stands_on(st, selected_id, service):
-					order_sink.call({"type": "move_to", "actor": selected_id, "tile": [service.x, service.y]})
-				ViewConfig.info("WorldView3D", "order to %s %s (actor=%s, tile=%s)" % [svc["kind"], svc["id"], selected_id, service])
-				service_requested.emit(selected_id, str(svc["kind"]), str(svc["id"]), service)
-				return true
+		var svc := service_under(mb.position)
+		if not svc.is_empty():
+			var service: Vector2i = svc["service"]
+			if not SimQuery.stands_on(st, selected_id, service):
+				order_sink.call({"type": "move_to", "actor": selected_id, "tile": [service.x, service.y]})
+			ViewConfig.info("WorldView3D", "order to %s %s (actor=%s, tile=%s)" % [svc["kind"], svc["id"], selected_id, service])
+			service_requested.emit(selected_id, str(svc["kind"]), str(svc["id"]), service)
+			return true
 		var bld := building_under(mb.position)
 		if bld != "":
 			order_sink.call({"type": "enter_building", "actor": selected_id, "building": bld})
@@ -264,6 +311,18 @@ func tile_under(screen: Vector2, h: float = 0.0) -> Vector2i:
 		return Vector2i(-1, -1)
 	var p := o + d * ((h - o.y) / d.y)
 	return Vector2i(floori(p.x / 2.0), floori(p.z / 2.0))
+
+
+## The map service (a stall, the board, the town hall: SimQuery.map_services) under the pointer, looked for along the
+## ray from the awning down to the ground ({} if none).
+func service_under(screen: Vector2) -> Dictionary:
+	var svcs := SimQuery.map_services(sim.state, sim.catalog)
+	for h: float in SERVICE_HEIGHTS:
+		var tile := tile_under(screen, h)
+		for svc: Dictionary in svcs:
+			if svc["tile"] == tile or (svc.get("tiles", []) as Array).has(tile):
+				return svc
+	return {}
 
 
 ## The sim building under the pointer: the first one the ray meets from the roofs down ("" if none).

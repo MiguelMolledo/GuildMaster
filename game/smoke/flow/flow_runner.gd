@@ -222,9 +222,15 @@ func _start(s: Dictionary) -> String:
 		var toast := drv.node("ToastLabel") as CanvasItem
 		if toast != null:
 			toast.visible = false   # a toast of the step before must not count for the next one
-		var v: Node2D = app.world().view_of(str(app.world().selected_id))
-		if v != null:   # a fresh game starts with the camera on its person (the session's camera would stay elsewhere)
-			app.world().camera().center_on(v.position)
+		var w3: WorldView3D = app.call("world3d")
+		if w3 != null:   # the 3D town (docs/3d/plan.md M3D-2): the camera on the selected person
+			var me: Dictionary = Game.sim.state.characters.get(w3.selected_id, {})
+			if me.has("position") and str(me.get("location", "")) == "":
+				w3.center_on_tile(Vector2i(int(me["position"][0]), int(me["position"][1])))
+		else:
+			var v: Node2D = app.world().view_of(str(app.world().selected_id))
+			if v != null:   # a fresh game starts with the camera on its person (the session's camera would stay elsewhere)
+				app.world().camera().center_on(v.position)
 	await get_tree().create_timer(0.6).timeout
 	if bool(s.get("paused", false)):
 		Game.set_paused(true)
@@ -454,14 +460,23 @@ func signature() -> Dictionary:
 					and not shown.has(n):
 				shown.append(n)
 	shown.sort()
-	var cam := Vector2.ZERO
-	if app.interior_building == "":
-		cam = (app.world().camera() as Node2D).position
+	var cam: Variant = Vector2.ZERO
+	var town_cam: Variant = Vector2.ZERO
+	var zoom: Variant = 1
+	var w3: WorldView3D = app.call("world3d")
+	if w3 != null and w3.town != null:   # the 3D town: where the camera looks and its size
+		town_cam = w3.town.target.round()
+		zoom = snappedf(w3.town.cam.size, 0.5)
 	else:
-		cam = app.interior().camera().position
+		town_cam = (app.world().camera() as Node2D).position.round()
+		zoom = app.world().camera().current_zoom()
+	if app.interior_building == "":
+		cam = town_cam
+	else:
+		cam = app.interior().camera().position.round()
 	return {"shown": shown, "speed": Game.speed, "paused": Game.paused, "selected": q.selected(),
-		"interior": app.interior_building, "camera": cam.round(),
-		"town_camera": (app.world().camera() as Node2D).position.round(), "zoom": app.world().camera().current_zoom(),
+		"interior": app.interior_building, "camera": cam,
+		"town_camera": town_cam, "zoom": zoom,
 		"tutorial": q.tutorial_step(), "fullscreen": Settings.value("display/fullscreen"),
 		"toast": q.text("ToastText") if q.visible("ToastLabel") else ""}
 
@@ -651,6 +666,8 @@ func _bring_into_view(world_pos: Vector2) -> void:
 func _click_world(t: Dictionary, button: String, double: bool, shift: bool) -> String:
 	if app.interior_building != "":
 		return "estoy dentro de %s, no en la ciudad" % app.interior_building
+	if app.call("world3d") != null:
+		return await _click_world3d(t, button, double, shift)
 	var w: WorldView = app.world()
 	var st := Game.sim.state
 	var world_pos := Vector2.INF
@@ -742,6 +759,107 @@ func _click_world(t: Dictionary, button: String, double: bool, shift: bool) -> S
 	return ""
 
 
+## The same click on the 3D town (docs/3d/plan.md M3D-2): the target is a point of the 3D world (a tile's middle on
+## the ground, a building's middle at wall height, a person's chest, a service's tile), projected with the town's
+## camera; the point is checked with WorldView3D's own pickers before the click; middle drags bring it into the free
+## part of the screen, as a person would.
+func _click_world3d(t: Dictionary, button: String, double: bool, shift: bool) -> String:
+	var w: WorldView3D = app.call("world3d")
+	if w.town == null:
+		return "no hay pueblo 3D"
+	var st := Game.sim.state
+	var point := Callable()   # -> Vector3 now (people move)
+	var check := Callable()
+	var people := true        # the point must not fall on somebody (a click there would pick them)
+	if t.has("tile"):
+		var tl := Vector2i(int(t["tile"][0]), int(t["tile"][1]))
+		point = func() -> Vector3: return Vector3(tl.x * 2.0 + 1.0, 0.0, tl.y * 2.0 + 1.0)
+		check = func(p: Vector2) -> bool: return w.tile_under(p) == tl and w.building_under(p) == ""
+	elif t.has("building") or t.has("own"):
+		var b := str(t.get("building", ""))
+		if t.has("own"):
+			b = q.own(str(t["own"]))
+		elif not st.buildings.has(b):
+			b = q.building(b)
+		if b == "" or not st.buildings.has(b):
+			return "no hay edificio %s" % JSON.stringify(t)
+		var o: Array = st.buildings[b].get("origin", [0, 0])
+		var f: Array = st.buildings[b].get("footprint", [1, 1])
+		var mid := Vector3(float(o[0]) * 2.0 + float(f[0]), 2.0, float(o[1]) * 2.0 + float(f[1]))
+		point = func() -> Vector3: return mid
+		var bid := b
+		check = func(p: Vector2) -> bool: return w.building_under(p) == bid
+	elif t.has("person") or t.has("npc"):
+		var who := _who_of(t)
+		if who == "" or w.screen_of(who) == Vector2.INF:
+			return "no veo a %s en la ciudad" % who
+		var cid := who
+		point = func() -> Vector3: return (w.town.people[cid].node as Node3D).global_position + Vector3(0, 1.0, 0) \
+			if w.town.people.has(cid) else Vector3.INF
+		var own := str(st.characters[who].get("controlled_by", "")) == "human"
+		check = func(p: Vector2) -> bool: return w.pick_person(p, own) == cid
+		people = false
+	elif t.has("service"):
+		var sid := str(t["service"])
+		var svc := {}
+		for sv: Dictionary in SimQuery.map_services(st, Game.sim.catalog):
+			if str(sv["id"]) == sid or str(sv.get("kind", "")) == sid:
+				svc = sv
+				break
+		if svc.is_empty():
+			return "no hay servicio %s en el mapa" % sid
+		var tl: Vector2i = svc["tile"]
+		var sv := str(svc["id"])
+		point = func() -> Vector3: return Vector3(tl.x * 2.0 + 1.0, 1.2, tl.y * 2.0 + 1.0)
+		check = func(p: Vector2) -> bool: return str(w.service_under(p).get("id", "")) == sv
+	else:
+		return "objetivo del mapa sin tipo: %s" % JSON.stringify(t)
+	if button != "left":
+		people = false   # a right click on the 3D town never picks a person: the service, building or tile decides
+	var at := Vector2.INF
+	var base := Vector2.INF
+	for attempt: int in 4:
+		var p3: Vector3 = point.call()
+		if p3 == Vector3.INF or w.town.cam.is_position_behind(p3):
+			return "no veo %s" % JSON.stringify(t)
+		base = w.town.cam.unproject_position(p3)
+		var free := _free_rect()
+		if free.grow(-40).has_point(base):
+			for off: Vector2 in _offsets():
+				var p := base + off
+				if free.has_point(p) and check.call(p) and (not people or (w.pick_person(p, true) == "" and w.pick_person(p, false) == "")):
+					at = p
+					break
+		if at != Vector2.INF:
+			break
+		# not in the free part (or nothing clickable there): drag it to the middle, as a person would
+		await drv.drag(Vector2(480, 280), Vector2(480, 280) - (base - free.get_center()).limit_length(260.0), "middle")
+		await get_tree().process_frame
+	if at == Vector2.INF:
+		print("[Flow] world miss (3D): target=%s base=%s target_cam=%s free=%s under=%s tile0=%s tile1=%s people=%s/%s" % [t,
+			base, w.town.target, _free_rect(), w.service_under(base).get("id", ""), w.tile_under(base),
+			w.tile_under(base, 1.2), w.pick_person(base, true), w.pick_person(base, false)])
+		return "no encuentro dónde pulsar %s (cerca de %s)" % [JSON.stringify(t), base.round()]
+	await drv.move_to(at)
+	for i: int in 4:   # somebody walking moved while the pointer travelled: aim again
+		if check.call(at):
+			break
+		var now: Vector3 = point.call()
+		if now == Vector3.INF:
+			break
+		var np := w.town.cam.unproject_position(now)
+		for off: Vector2 in _offsets():
+			if check.call(np + off):
+				at = np + off
+				break
+		await drv.move_to(at, 1)
+	var h := drv.hovered()
+	if h != null:   # STOP or PASS: the GUI takes the click, the town does not get it
+		return "en %s lo tapa %s" % [at.round(), UiDriver.path_of(h)]
+	await drv.click_at(at, button, double, shift)
+	return ""
+
+
 ## Points around a target, nearest first (rings of 4 px up to 64 px, 16 points each).
 static func _offsets() -> Array:
 	var out: Array = [Vector2.ZERO]
@@ -762,6 +880,16 @@ func _who_of(t: Dictionary) -> String:
 
 
 func _npc_by(occupation: String) -> String:
+	var w3: WorldView3D = app.call("world3d")
+	if w3 != null:
+		var ids3: Array = Game.sim.state.characters.keys()
+		ids3.sort()
+		for id: String in ids3:
+			var c3: Dictionary = Game.sim.state.characters[id]
+			if (str(c3.get("occupation", "")) == occupation or str(c3.get("profession", "")) == occupation) \
+					and w3.screen_of(id) != Vector2.INF:
+				return id
+		return ""
 	var w: WorldView = app.world()
 	var ids: Array = Game.sim.state.characters.keys()
 	ids.sort()

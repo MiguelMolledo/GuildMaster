@@ -3,6 +3,7 @@
   "title": "Contratar y poner la cola",
   "about": "Doble clic en la forja (gestión), contratar a un aprendiz en Empleados, poner cinco lingotes en la cola de Producción y verlos salir sin mirar.",
   "quick": true,
+  "view": "3d",
   "start": {"scenario": "town_e_start"},
   "covers": ["hire", "queue_add", "queue_loop", "queue_pause", "queue_remove"],
   "steps": [
