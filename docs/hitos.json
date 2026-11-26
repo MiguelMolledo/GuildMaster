@@ -591,7 +591,9 @@
         },
         {
           "texto": "run_all en verde y boot_check limpio",
-          "estado": "en_curso"
+          "estado": "hecho",
+          "prueba": "run_all: 41 pasos en verde en dos tandas (la primera la cortó el límite de 2 h tras tutorial; la segunda, cast…ui: «qa: todo bien»); boot_check 65/65; tests 1274/0 y test_world3d 5/0",
+          "fecha": "2026-11-26"
         },
         {
           "texto": "Kit en git según la decisión del owner",
