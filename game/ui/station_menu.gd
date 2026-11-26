@@ -255,6 +255,7 @@ func _build_den(list: VBoxContainer) -> void:
 		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		var name := "%s ×%d" % [SimQuery.item_name(sim.catalog, Rogue.clean(it)), int(s["qty"])]
 		if zone == "fence":
+			b.name = "Fence_%s_%d" % [Rogue.clean(it), q]
 			b.text = SimQuery.t_("ui.station.fence_sell") % [name, Rogue.fence_price(sim, fam, it, q)]
 			b.pressed.connect(func() -> void: _give({"type": "fence_sell", "actor": actor, "item": it, "quality": q,
 				"qty": int(s["qty"])}))
@@ -262,6 +263,7 @@ func _build_den(list: VBoxContainer) -> void:
 			var lc: Dictionary = sim.catalog.rogue.get("launder", {})
 			var why := "busy" if st.buildings[building].get("laundering") is Dictionary else ("low_dexterity" \
 				if SkillCheck.stat(sim, actor, "dexterity") < int(lc.get("min_dexterity", 5)) else "")
+			b.name = "Launder_%s_%d" % [Rogue.clean(it), q]
 			b.text = SimQuery.t_("ui.station.launder") % name
 			b.disabled = why != ""
 			b.tooltip_text = SimQuery.reason_text(why) if why != "" else SimQuery.t_("ui.station.launder_tip") % int(lc.get("minutes", 30))

@@ -10,6 +10,8 @@
   },
   "covers": [
     "pickpocket",
+    "burgle",
+    "fence_sell",
     "enter_building",
     "exit_building"
   ],
@@ -136,6 +138,114 @@
     },
     {
       "id": "salir",
+      "say": "Salir",
+      "click": {
+        "node": "ExitButton"
+      },
+      "until": "q.interior() == '' and q.location() == ''",
+      "timeout": 20,
+      "fast": 4
+    },
+    {
+      "id": "velocidad",
+      "say": "Mayús+3: ×4",
+      "key": "@speed_3",
+      "expect": [
+        "q.speed() == 4"
+      ]
+    },
+    {
+      "id": "noche",
+      "say": "Espera a la noche: hay una casa ajena con algo que robar",
+      "until": "q.burglable() != ''",
+      "timeout": 60,
+      "fast": 6
+    },
+    {
+      "id": "velocidad_1n",
+      "key": "@speed_1"
+    },
+    {
+      "id": "pausa_n",
+      "say": "Espacio: pausa para apuntar",
+      "key": "@pause_toggle",
+      "expect": [
+        "q.paused()"
+      ]
+    },
+    {
+      "id": "casa",
+      "say": "Clic en la casa: su barra",
+      "world": {
+        "building": "=q.burglable()"
+      },
+      "expect": [
+        "q.shown({'node': 'BurgleButton'})"
+      ]
+    },
+    {
+      "id": "seguir_n",
+      "key": "@pause_toggle",
+      "expect": [
+        "not q.paused()"
+      ]
+    },
+    {
+      "id": "robar_casa",
+      "say": "«Robar en la casa»: va a su puerta y entra",
+      "click": {
+        "node": "BurgleButton"
+      },
+      "until": "q.event('burgle_done') or q.event('burgle_failed')",
+      "timeout": 40,
+      "fast": 4,
+      "expect": [
+        "q.order('burgle') or q.order('move_to')"
+      ]
+    },
+    {
+      "id": "botin_casa",
+      "say": "Lo robado, en la bolsa",
+      "until": "q.stolen() > 0",
+      "timeout": 10,
+      "fast": 4
+    },
+    {
+      "id": "a_la_guarida",
+      "say": "De vuelta a la guarida",
+      "world": {
+        "own": "den"
+      },
+      "button": "right",
+      "until": "q.interior() == q.own('den') and q.location() == q.own('den')",
+      "timeout": 40,
+      "fast": 4
+    },
+    {
+      "id": "perista",
+      "say": "Clic derecho en el perista",
+      "station": "fence",
+      "button": "right",
+      "expect": [
+        "q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "vender_perista",
+      "say": "Venderle lo robado",
+      "click": {
+        "within": "StationMenu",
+        "prefix": "Fence_"
+      },
+      "until": "q.stolen() < q.was('stolen')",
+      "timeout": 10,
+      "expect": [
+        "q.order('fence_sell')",
+        "q.gold() > q.was('gold')"
+      ]
+    },
+    {
+      "id": "salir_2",
       "say": "Salir",
       "click": {
         "node": "ExitButton"

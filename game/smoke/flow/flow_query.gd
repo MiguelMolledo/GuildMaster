@@ -346,6 +346,35 @@ func victim() -> String:
 	return best
 
 
+## The Rogue: the nearest building the active person may burgle now (burgle_reason ""), "" if none.
+func burglable() -> String:
+	var best := ""
+	var best_d := INF
+	var me: Array = ch().get("position", [0, 0])
+	var ids: Array = st().buildings.keys()
+	ids.sort()
+	for b: String in ids:
+		if Rogue.burgle_reason(Game.sim, who(), b) != "":
+			continue
+		var door: Array = st().buildings[b].get("door", [])
+		if door.size() != 2:
+			continue
+		var d := Vector2(float(door[0]) - float(me[0]), float(door[1]) - float(me[1])).length()
+		if d < best_d:
+			best_d = d
+			best = b
+	return best
+
+
+## Stolen pieces in the active person's bag.
+func stolen() -> int:
+	var n := 0
+	for s: Dictionary in ch().get("inventory", {}).get("stacks", []):
+		if Rogue.is_stolen(str(s["item"])):
+			n += int(s["qty"])
+	return n
+
+
 ## The loan applications waiting at the player's Banco.
 func applications() -> int:
 	return Bank.applications(st(), own("bank")).size()
