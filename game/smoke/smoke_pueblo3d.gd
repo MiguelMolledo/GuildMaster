@@ -3,7 +3,9 @@ extends Node
 ## `grimoire heavy` with the engine's --always-on-top and --resolution 1600x900): a new game in Normal (the
 ## blacksmith's start, the new game screen's signal, as the player starts one) at 10:00, running at ×1. It measures the
 ## frame rate and the draw calls with the whole town in view and in the street (vsync off), and takes
-## reports/shots/pueblo3d_<view>.png: the whole town, a street with the protagonist, the plaza, the same street at ×4,
+## reports/shots/pueblo3d_<view>.png: the whole town, a street with the protagonist, real clicks (left on the
+## protagonist selects him and shows the ring, right on the street gives move_to: "clicks" in the json), the plaza, the
+## same street at ×4,
 ## dusk and night (the clock moved on, capture only). Writes reports/perf/pueblo3d.json. Quits when done, or after
 ## `timeout` seconds. --smoke-seed=<n> the game's seed (1).
 
@@ -12,7 +14,7 @@ const PLAZA: Vector2i = Vector2i(20, 15)
 ## [name, what, seconds] in order; "measure_*" counts frames for that long.
 const STEPS: Array = [
 	["vista", "town", 3.0], ["measure_vista", "town", 6.0],
-	["calle", "street", 2.5], ["measure_calle", "street", 6.0],
+	["calle", "street", 2.5], ["measure_calle", "street", 6.0], ["seleccion", "clicks", 1.5],
 	["plaza", "plaza", 2.5],
 	["calle_x4", "street_x4", 3.0],
 	["atardecer", "dusk", 2.5], ["noche", "night", 2.5], ["noche_calle", "night_street", 2.0]]
@@ -158,11 +160,50 @@ func _view(what: String) -> void:
 			town.follow_id = ""
 			town.look_at_tile(Vector2(PLAZA))
 			town.cam.size = 40.0
+		"clicks":
+			_clicks(me)
 		"night_street":
 			town.look_at_tile(Vector2(float(p[0]), float(p[1])))
 			town.cam.size = 16.0
 	town._update_camera()
 	print("[SmokePueblo3D] view %s (cam size %.1f, minute %d)" % [what, town.cam.size, int(Game.sim.state.clock["minute"])])
+
+
+## Real mouse events through the viewport: a left click on the protagonist, a right click two tiles east of him.
+func _clicks(me: String) -> void:
+	var w := _w3()
+	w.select("")
+	var at := w.screen_of(me)
+	var ok_sel := false
+	var order := {}
+	if at != Vector2.INF:
+		_press(MOUSE_BUTTON_LEFT, at)
+		ok_sel = w.selected_id == me
+		var p: Array = Game.sim.state.characters[me]["position"]
+		var tile := Vector2i(int(p[0]) + 2, int(p[1]))
+		var spot := w.town.cam.unproject_position(Vector3(tile.x * 2.0 + 1.0, 0.0, tile.y * 2.0 + 1.0))
+		var before: Array = Game.pending().duplicate()
+		_press(MOUSE_BUTTON_RIGHT, spot)
+		for o: Dictionary in Game.pending():
+			if not before.has(o) and str(o.get("actor", "")) == me:
+				order = o
+		if order.is_empty() and str(Game.sim.state.characters[me].get("path", [])) != "[]":
+			order = {"type": "move_to", "applied": true}
+		order["want_tile"] = [tile.x, tile.y]
+	_perf["clicks"] = {"selected": ok_sel, "order": order}
+	print("[SmokePueblo3D] clicks: selected=%s order=%s" % [ok_sel, JSON.stringify(order)])
+
+
+## As the mouse would: in window pixels (the canvas point through the window's stretch), pushed to the window.
+func _press(button: MouseButton, at: Vector2) -> void:
+	var win := get_tree().root.get_final_transform() * at
+	for pressed: bool in [true, false]:
+		var ev := InputEventMouseButton.new()
+		ev.button_index = button
+		ev.pressed = pressed
+		ev.position = win
+		ev.global_position = win
+		get_tree().root.push_input(ev)
 
 
 func _write_perf() -> void:

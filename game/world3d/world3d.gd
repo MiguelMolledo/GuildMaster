@@ -7,6 +7,11 @@ extends Node3D
 ## (from M3D-2) go out through order_sink (Game.give).
 ## Camera (as in Prueba3D): W/A/S/D or the arrows pan, Shift faster, Q/E turn, RePág/AvPág tilt, the wheel or a
 ## trackpad pinch zoom (orthographic size 3-90), all continuous and eased.
+## Clicks (the first of M3D-2, as in WorldView): left on a person of the player's family selects them (a ring under
+## the feet), on somebody else opens their sheet, on a building picks it (double click: manage it), elsewhere
+## deselects; right with someone selected: on a stall, the board or the town hall goes to its service tile and opens
+## its panel on arrival, on a building goes in (enter_building), elsewhere walks there (move_to). The building under
+## the pointer is looked for at roof, wall and ground height along the camera ray.
 
 signal selection_changed(char_id: String)
 signal building_picked(building_id: String)   # "" = none
@@ -18,6 +23,7 @@ signal town_built(ms: int)                     # a town was built (how long it t
 
 var order_sink: Callable = Callable()
 var town: Town3D = null
+var sim: Sim = null  # the sim of the town shown (the Game's; a test's own)
 var selected_id: String = ""
 var picked_building: String = ""
 var tint_color: Color = Color.WHITE  # WorldView's: the app tints its 2D background with it (none in 3D)
@@ -47,6 +53,7 @@ func _first_build() -> void:
 func build(s: Sim) -> void:
 	if s == null:
 		return
+	sim = s
 	var t0 := Time.get_ticks_msec()
 	_drop_town()
 	_baseline.clear()
@@ -55,7 +62,7 @@ func build(s: Sim) -> void:
 	selected_id = ""
 	picked_building = ""
 	if (s.catalog.maps().get(s.state.map_id, {}).get("rows", []) as Array).is_empty():
-		Log.info("WorldView3D", "no town: map %s has no rows" % s.state.map_id)  # a state without a map (empty_town)
+		ViewConfig.info("WorldView3D", "no town: map %s has no rows" % s.state.map_id)  # a state without a map (empty_town)
 		return
 	town = Town3D.new()
 	town.name = "Town3D"
@@ -66,7 +73,7 @@ func build(s: Sim) -> void:
 	_feed_time()
 	build_ms = Time.get_ticks_msec() - t0
 	_focus_start()
-	Log.info("WorldView3D", "built (map=%s, houses=%d, people=%d, buildings=%d, ms=%d)" % [s.state.map_id, town.houses.size(),
+	ViewConfig.info("WorldView3D", "built (map=%s, houses=%d, people=%d, buildings=%d, ms=%d)" % [s.state.map_id, town.houses.size(),
 		town.people.size(), s.state.buildings.size(), build_ms])
 	town_built.emit(build_ms)
 
@@ -91,7 +98,7 @@ func _free_detached() -> void:
 		if o is Node3D and is_instance_valid(o):  # the town's only: the UI's own detached nodes are not touched
 			(o as Node3D).free()
 			n += 1
-	Log.info("WorldView3D", "detached nodes freed (%d)" % n)
+	ViewConfig.info("WorldView3D", "detached nodes freed (%d)" % n)
 
 
 ## The quit: the tree frees the town; what it kept out of the tree and the shared caches go here.
@@ -106,11 +113,11 @@ func _exit_tree() -> void:
 
 ## H6's rebuild (something stands or no longer stands in the town): built again keeping the camera and the selection.
 func rebuild_town() -> void:
-	if town == null or _game == null or _game.sim == null:
+	if town == null or sim == null:
 		return
 	var keep := [town.target, town.yaw, town.pitch, town.cam.size]
 	var who := selected_id
-	build(_game.sim)
+	build(sim)
 	town.target = keep[0]
 	town.yaw = keep[1]
 	town.pitch = keep[2]
@@ -132,6 +139,7 @@ func set_active(active: bool) -> void:
 
 func _process(_delta: float) -> void:
 	_feed_time()
+	_update_ring()
 
 
 ## The clock the town plays: the fraction of the step and the real seconds per game minute (gaits), the pause.
@@ -149,7 +157,7 @@ func _feed_time() -> void:
 ## The camera on the selected person of the player's family (or on the middle of the map).
 func _focus_start() -> void:
 	var id := first_selectable()
-	var st: WorldState = _game.sim.state if _game != null and _game.sim != null else null
+	var st: WorldState = sim.state if sim != null else null
 	if st != null and id != "":
 		var p: Array = st.characters[id].get("position", [0, 0])
 		town.look_at_tile(Vector2(float(p[0]), float(p[1])))
@@ -159,9 +167,9 @@ func _focus_start() -> void:
 
 ## The first person of the human family who is in the town (sorted by id, as WorldView).
 func first_selectable() -> String:
-	if _game == null or _game.sim == null:
+	if sim == null:
 		return ""
-	var st: WorldState = _game.sim.state
+	var st: WorldState = sim.state
 	var ids: Array = st.characters.keys()
 	ids.sort()
 	for id: Variant in ids:
@@ -192,3 +200,117 @@ func center_on_tile(t: Vector2i) -> void:
 ## Where a person stands on screen (Vector2.INF if not drawn).
 func screen_of(id: String) -> Vector2:
 	return town.screen_of(id) if town != null else Vector2.INF
+
+
+# ---------------------------------------------------------------- clicks
+const PICK_RADIUS: float = 26.0                     # screen units around a person's chest
+const PICK_HEIGHTS: Array[float] = [7.0, 4.5, 2.0, 0.0]  # metres along the ray where a building is looked for
+var _ring: MeshInstance3D = null
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if town == null or not _active or not keys_on or not event is InputEventMouseButton or not event.is_pressed():
+		return
+	if handle_click(event as InputEventMouseButton):
+		get_viewport().set_input_as_handled()
+
+
+func handle_click(mb: InputEventMouseButton) -> bool:
+	var st: WorldState = sim.state
+	if mb.button_index == MOUSE_BUTTON_LEFT:
+		var who := pick_person(mb.position, true)
+		if who != "":
+			select(who)
+			return true
+		var npc := pick_person(mb.position, false)
+		if npc != "":
+			npc_picked.emit(npc)
+			return true
+		var bld := building_under(mb.position)
+		pick_building_id(bld)
+		if bld == "":
+			select("")
+		elif mb.double_click:
+			ViewConfig.info("WorldView3D", "manage %s (double click)" % bld)
+			manage_requested.emit(bld)
+		return true
+	if mb.button_index == MOUSE_BUTTON_RIGHT and selected_id != "" and order_sink.is_valid():
+		var tile := tile_under(mb.position)
+		for svc: Dictionary in SimQuery.map_services(st, sim.catalog):
+			if svc["tile"] == tile or (svc.get("tiles", []) as Array).has(tile):
+				var service: Vector2i = svc["service"]
+				if not SimQuery.stands_on(st, selected_id, service):
+					order_sink.call({"type": "move_to", "actor": selected_id, "tile": [service.x, service.y]})
+				ViewConfig.info("WorldView3D", "order to %s %s (actor=%s, tile=%s)" % [svc["kind"], svc["id"], selected_id, service])
+				service_requested.emit(selected_id, str(svc["kind"]), str(svc["id"]), service)
+				return true
+		var bld := building_under(mb.position)
+		if bld != "":
+			order_sink.call({"type": "enter_building", "actor": selected_id, "building": bld})
+			ViewConfig.info("WorldView3D", "order enter_building (actor=%s, building=%s)" % [selected_id, bld])
+		else:
+			order_sink.call({"type": "move_to", "actor": selected_id, "tile": [tile.x, tile.y]})
+			ViewConfig.info("WorldView3D", "order move_to (actor=%s, tile=%s)" % [selected_id, tile])
+		service_requested.emit(selected_id, "", "", Vector2i.ZERO)
+		return true
+	return false
+
+
+## The tile the camera ray through `screen` meets at height `h` (metres; 1 tile = 2 m).
+func tile_under(screen: Vector2, h: float = 0.0) -> Vector2i:
+	var o := town.cam.project_ray_origin(screen)
+	var d := town.cam.project_ray_normal(screen)
+	if absf(d.y) < 0.0001:
+		return Vector2i(-1, -1)
+	var p := o + d * ((h - o.y) / d.y)
+	return Vector2i(floori(p.x / 2.0), floori(p.z / 2.0))
+
+
+## The sim building under the pointer: the first one the ray meets from the roofs down ("" if none).
+func building_under(screen: Vector2) -> String:
+	for h: float in PICK_HEIGHTS:
+		var b := SimQuery.building_at(sim.state, tile_under(screen, h))
+		if b != "":
+			return b
+	return ""
+
+
+## The person nearest the pointer within PICK_RADIUS: of the player's family (`own`) or anybody else.
+func pick_person(screen: Vector2, own: bool) -> String:
+	var st: WorldState = sim.state
+	var best := ""
+	var best_d := PICK_RADIUS
+	for id: Variant in town.people:
+		var ch: Dictionary = st.characters.get(str(id), {})
+		if (str(ch.get("controlled_by", "")) == "human") != own:
+			continue
+		var at := town.screen_of(str(id))
+		if at == Vector2.INF:
+			continue
+		var d := at.distance_to(screen)
+		if d < best_d:
+			best_d = d
+			best = str(id)
+	return best
+
+
+## A ring under the selected person's feet.
+func _update_ring() -> void:
+	if town == null:
+		return
+	if _ring == null or not is_instance_valid(_ring) or _ring.get_parent() != town:
+		_ring = MeshInstance3D.new()
+		var m := TorusMesh.new()
+		m.inner_radius = 0.42
+		m.outer_radius = 0.55
+		_ring.mesh = m
+		var mat := StandardMaterial3D.new()
+		mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		mat.albedo_color = Color(1.0, 0.85, 0.3)
+		_ring.material_override = mat
+		_ring.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		town.add_child(_ring)
+	var n: Node3D = town.people[selected_id].node if town.people.has(selected_id) else null
+	_ring.visible = n != null and n.visible
+	if _ring.visible:
+		_ring.position = n.position + Vector3(0, 0.05, 0)

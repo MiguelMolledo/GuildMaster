@@ -1021,12 +1021,7 @@ func save_shot(shot_name: String) -> String:
 
 ## data/view.json view_mode ("2d" | "3d"), or --view=; the 2D capture scripts, the flows and the gallery keep the 2D.
 static func resolve_view_mode(args: PackedStringArray, script_id: String) -> String:
-	for a: String in args:
-		if a.begins_with("--view="):
-			return "3d" if a.substr(7) == "3d" else "2d"
-	if args.has("--gallery") or (script_id != "" and not SMOKE_3D.has(script_id)):
-		return "2d"
-	return "3d" if str(ViewConfig.value("view_mode", "2d")) == "3d" else "2d"
+	return ViewConfig.view_mode(args, script_id, SMOKE_3D)
 
 
 ## The 3D town in place of WorldView: WorldView3D where WorldView is in the tree; WorldView stays, hidden and frozen,

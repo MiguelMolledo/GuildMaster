@@ -36,3 +36,14 @@ static func minutes_per_tile(catalog: Catalog) -> int:
 static func info(system: String, msg: String) -> void:
 	if OS.is_debug_build():
 		print("[%s] %s" % [system, msg])
+
+
+## The town's view (docs/3d/plan.md §3): --view=2d|3d, else "2d" for the gallery and the capture scripts that are not
+## 3D ones (`smoke_3d`; `script_id` "" = none), else data/view.json view_mode.
+static func view_mode(args: PackedStringArray, script_id: String, smoke_3d: Array) -> String:
+	for a: String in args:
+		if a.begins_with("--view="):
+			return "3d" if a.substr(7) == "3d" else "2d"
+	if args.has("--gallery") or (script_id != "" and not smoke_3d.has(script_id)):
+		return "2d"
+	return "3d" if str(value("view_mode", "2d")) == "3d" else "2d"
