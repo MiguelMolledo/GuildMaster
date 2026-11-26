@@ -15,6 +15,7 @@ const PLAZA: Vector2i = Vector2i(20, 15)
 const STEPS: Array = [
 	["vista", "town", 3.0], ["measure_vista", "town", 6.0],
 	["calle", "street", 2.5], ["measure_calle", "street", 6.0], ["seleccion", "clicks", 1.5],
+	["forja", "forge", 25.0],
 	["plaza", "plaza", 2.5],
 	["calle_x4", "street_x4", 3.0],
 	["atardecer", "dusk", 2.5], ["noche", "night", 2.5], ["noche_calle", "night_street", 2.0]]
@@ -29,6 +30,7 @@ var _dc_sum: float = 0.0
 var _prim_sum: float = 0.0
 var _worst: float = 0.0
 var _perf: Dictionary = {}
+var _inside_at: float = -1.0  # when the forge's interior opened (the forge step)
 
 
 func _ready() -> void:
@@ -57,7 +59,19 @@ func _process(delta: float) -> void:
 		_worst = maxf(_worst, delta)
 		_dc_sum += RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_DRAW_CALLS_IN_FRAME)
 		_prim_sum += RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_PRIMITIVES_IN_FRAME)
+	if str(step[1]) == "forge" and str(app.get("interior_building")) != "" and _inside_at < 0.0:
+		_inside_at = _t
+	if str(step[1]) == "forge" and _inside_at >= 0.0 and _t - _inside_at > 1.0:
+		_inside_at = -1.0
+		_finish(step)  # the interior opened (after its fade): its shot now
+		_perf["forge"] = {"interior": str(app.get("interior_building")), "seconds": snappedf(_t - 1.0, 0.1)}
+		app.call("close_interior")
+		_next()
+		return
 	if _t >= float(step[2]):
+		if str(step[1]) == "forge":
+			_perf["forge"] = {"interior": "", "seconds": snappedf(_t, 0.1)}
+			print("[SmokePueblo3D] forge: the interior did not open")
 		_finish(step)
 		_next()
 
@@ -162,6 +176,8 @@ func _view(what: String) -> void:
 			town.cam.size = 40.0
 		"clicks":
 			_clicks(me)
+		"forge":
+			_to_forge(me)
 		"night_street":
 			town.look_at_tile(Vector2(float(p[0]), float(p[1])))
 			town.cam.size = 16.0
@@ -195,6 +211,29 @@ func _clicks(me: String) -> void:
 
 
 ## As the mouse would: in window pixels (the canvas point through the window's stretch), pushed to the window.
+## A right click on the player's forge (its door, through the window) at ×4: the protagonist walks there, goes in and
+## the interior opens (today the 2D InteriorView, docs/3d/plan.md M3D-3).
+func _to_forge(me: String) -> void:
+	var w := _w3()
+	w.select(me)
+	var forge := ""
+	for b: String in Game.sim.state.buildings:
+		if SimQuery.is_own(Game.sim.state, me, b) and forge == "":
+			forge = b
+	var d: Array = Game.sim.state.buildings.get(forge, {}).get("door", [])
+	if d.size() != 2:
+		return
+	w.town.follow_id = ""
+	w.town.look_at_tile(Vector2(float(d[0]), float(d[1])))
+	w.town.cam.size = 22.0
+	w.town._update_camera()
+	Game.set_speed(4)
+	var o: Array = Game.sim.state.buildings[forge].get("origin", d)
+	var spot := w.town.cam.unproject_position(Vector3(float(o[0]) * 2.0 + 3.0, 4.5, float(o[1]) * 2.0 + 3.0))
+	print("[SmokePueblo3D] forge %s: right click at %s (building under it: %s)" % [forge, spot, w.building_under(spot)])
+	_press(MOUSE_BUTTON_RIGHT, spot)
+
+
 func _press(button: MouseButton, at: Vector2) -> void:
 	var win := get_tree().root.get_final_transform() * at
 	for pressed: bool in [true, false]:
