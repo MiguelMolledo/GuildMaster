@@ -202,11 +202,13 @@ func _build_applications(body: VBoxContainer) -> void:
 		var row := HBoxContainer.new()
 		var rate := interest_of(a)
 		var q := Bank.quote(sim, int(a["amount"]), int(a["term_days"]), rate)
-		row.add_child(_button("−", "Down", rate <= STEP + 0.0001, "", func() -> void: _nudge(a, -STEP)))
+		var low := rate <= STEP + 0.0001
+		row.add_child(_button("−", "Down", low, SimQuery.t_("ui.bank.rate_lowest") if low else "", func() -> void: _nudge(a, -STEP)))
 		var il := _label(SimQuery.t_("ui.bank.interest") % [roundi(rate * 100.0), int(q["owed"])])
 		il.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		row.add_child(il)
-		row.add_child(_button("+", "Up", rate >= float(a["max_interest"]) - 0.0001, "", func() -> void: _nudge(a, STEP)))
+		var high := rate >= float(a["max_interest"]) - 0.0001
+		row.add_child(_button("+", "Up", high, SimQuery.t_("ui.bank.rate_highest") if high else "", func() -> void: _nudge(a, STEP)))
 		var short := gold < int(a["amount"])
 		row.add_child(_button(SimQuery.t_("ui.bank.grant"), "Grant", short,
 			SimQuery.t_("reason.not_enough_gold") if short else "", func() -> void: grant(id)))

@@ -239,6 +239,8 @@ func _buy_row(o: Dictionary, homes: Array) -> VBoxContainer:
 	bottom.add_theme_constant_override("v_separation", 1)
 	var minus := _button("Minus", "−", func() -> void: set_qty(item, q, qty - 1))
 	minus.disabled = qty <= 1
+	if minus.disabled:
+		minus.tooltip_text = SimQuery.t_("ui.market.minus_min")
 	bottom.add_child(minus)
 	var qty_l := Label.new()
 	qty_l.name = "Qty"
@@ -390,8 +392,7 @@ func _sell_row(o: Dictionary, where: String) -> HFlowContainer:
 	var name_l := Label.new()
 	name_l.name = "Name"
 	name_l.text = "%s ×%d" % [SimQuery.item_label(sim.catalog, item, q), have]
-	name_l.custom_minimum_size = Vector2(150, 0)
-	name_l.clip_text = true
+	name_l.custom_minimum_size = Vector2(150, 0)   # the whole name: a long one («Piedra de afilar excelente») pushes the rest down a line
 	row.add_child(name_l)
 	var price_l := Label.new()
 	price_l.name = "Price"
