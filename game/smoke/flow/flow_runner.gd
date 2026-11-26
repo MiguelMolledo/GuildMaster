@@ -767,6 +767,7 @@ func _click_world3d(t: Dictionary, button: String, double: bool, shift: bool) ->
 	var w: WorldView3D = app.call("world3d")
 	if w.town == null:
 		return "no hay pueblo 3D"
+	await _settle3d()
 	var st := Game.sim.state
 	var point := Callable()   # -> Vector3 now (people move)
 	var check := Callable()
@@ -860,6 +861,18 @@ func _click_world3d(t: Dictionary, button: String, double: bool, shift: bool) ->
 	return ""
 
 
+## 3D: a house opening or closing moves the camera for a moment (as Prueba3D): a person waits for it to stop before
+## aiming (3 s at most).
+func _settle3d() -> void:
+	var w: WorldView3D = app.call("world3d")
+	if w == null:
+		return
+	for i: int in 180:
+		if not w.settling():
+			return
+		await get_tree().process_frame
+
+
 ## Points around a target, nearest first (rings of 4 px up to 64 px, 16 points each).
 static func _offsets() -> Array:
 	var out: Array = [Vector2.ZERO]
@@ -903,6 +916,7 @@ func _npc_by(occupation: String) -> String:
 func _click_station(zone: String, button: String) -> String:
 	if app.interior_building == "":
 		return "no estoy dentro de ningún edificio"
+	await _settle3d()
 	var iv: InteriorView = app.interior()
 	if zone == "*":
 		var zones: Array = (iv.get("_stations") as Dictionary).keys()
@@ -975,6 +989,7 @@ func _click_inn(what: String) -> String:
 func _click_door() -> String:
 	if app.interior_building == "":
 		return "no estoy dentro de ningún edificio"
+	await _settle3d()
 	var iv: InteriorView = app.interior()
 	var at: Vector2 = iv.door_screen()
 	if not iv.is_door(at):

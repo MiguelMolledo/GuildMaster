@@ -263,3 +263,10 @@ cargada terminaron todas. Queda vigilado.
   forjar la espada en Forja viva y verla en el almacén.
 - Traer de Prueba3D: `python3 tools/kit3d/traer_prueba.py <desde> <hasta> [--aplicar]` (tanda del 2026-11-26:
   c79c4fb..39018f0, la revisión de los oficios; auditoría de los trazados con `tools/kit3d/prueba/rv_auditoria.gd`).
+- Transición al abrir y cerrar (2026-11-26, como Prueba3D): la cámara se desliza 0,7 s al frente de la casa, se acerca
+  (tamaño 13) y gira a la diagonal que la ve mejor mientras el techo se funde y bajan las paredes; al cerrar, 0,6 s
+  de vuelta a donde estaba. `--transicion=<k>` la escala (0 = al momento); los flujos esperan a que la cámara pare
+  antes de apuntar (`WorldView3D.settling`). Acercar el zoom (tamaño ≤ 10,5) sobre una casa con trazado la abre para
+  mirar (sin paneles ni órdenes; alejar a más de 17 o moverse la cierra), solo si el juego no tiene otra abierta.
+  Medido a 1600×900: abrir 107-156 fps (peor fotograma 54 ms por Gestionar, 109 ms al entrar la persona), cerrar
+  109-158 fps (peor 32-36 ms).

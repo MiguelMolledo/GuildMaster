@@ -226,6 +226,7 @@ func _feed_time() -> void:
 		return
 	town.frac = _game.step_fraction()
 	town.keys_on = keys_on
+	town.look_on = keys_on and in_place == ""   # zooming in to look inside: not while the game has a house open
 	var sps: float = _game.steps_per_second()
 	town.paused = sps <= 0.0
 	if sps > 0.0:
@@ -278,6 +279,12 @@ func open_house(b: String) -> bool:
 	bridge.building = b
 	ViewConfig.info("WorldView3D", "open %s in place" % b)
 	return true
+
+
+## The camera or a house's cut is still moving (opening, closing): a click now would land somewhere else.
+func settling() -> bool:
+	return town != null and (town._busy or (town.situ_cut != null and is_instance_valid(town.situ_cut)
+		and not town.situ_cut.settled))
 
 
 func close_house() -> void:

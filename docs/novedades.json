@@ -1,6 +1,15 @@
 [
   {
     "fecha": "2026-11-26",
+    "titulo": "Abrir una casa como en la prueba 3D: la cámara va y vuelve",
+    "que": "Al abrir una casa (Gestionar, doble clic o la persona que entra) la cámara se desliza hasta su frente, se acerca y la enfoca mientras el techo se funde y bajan las paredes del frente; al cerrar, el techo y las paredes vuelven y la cámara regresa a donde estaba, como en la prueba (antes se quedaba encima de la casa). Acercar mucho el zoom sobre una casa la abre para mirar dentro, sin paneles ni órdenes; alejar o moverse la cierra.",
+    "como_probar": "Elige a tu personaje, clic derecho en tu forja o doble clic en ella; Salir. Acerca la rueda sobre una casa. Automático: grimoire heavy -- /opt/homebrew/bin/godot --always-on-top --resolution 1600x900 --path . -- --smoke-script=abrir3d (reports/perf/abrir3d.json); --transicion=<k> acorta o alarga la transición.",
+    "capturas": [
+      "docs/novedades/abrir_casa_transicion.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-26",
     "titulo": "Sin saltos al echar a andar (3D y 2D)",
     "que": "Al mandar a alguien a un sitio, el cuerpo daba un salto de media casilla (1 m en 3D) en el primer fotograma y luego andaba normal; con una orden nueva a mitad de camino, hasta 3 m. La sim aplica la orden y anda su primer minuto en el mismo paso, así que la vista veía el camino ya empezado. Ahora el cuerpo dibujado alcanza a la sim a la velocidad de andar con margen y arranca suave; entrar o salir de un edificio sigue siendo inmediato. Vale para el pueblo 3D (también al levantarse de un banco o al dejar el arrimo de la lluvia) y para el 2D. La sim no cambia.",
     "como_probar": "Elige a tu personaje y haz clic derecho en una calle: echa a andar sin salto. Medida: godot --headless --fixed-fps 60 --path . -- --smoke-script=salto [--view=2d] [--tiempo=lluvia] [--suavizado=no para el antes] -> reports/perf/salto_*.json.",
