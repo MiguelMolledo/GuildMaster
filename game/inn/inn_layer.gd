@@ -332,6 +332,8 @@ func _order(p: Vector2, dish: String) -> void:
 	draw_colored_polygon(PackedVector2Array([p + Vector2(-4, 8), p + Vector2(4, 8), p + Vector2(0, 13)]), Color.html("#f4ead0"))
 	draw_circle(p, 10.0, Color.html("#f4ead0"))
 	draw_arc(p, 10.0, 0.0, TAU, 20, Color.html("#c8a84e") if kind == "drink" else Color.html("#9a3a24"), 2.0)
+	if tex != null and _in_3d():   # 3D: no sprites over the guests, the icon is drawn in the disc
+		draw_texture(tex, p - tex.get_size() / 2.0)
 	if tex == null:
 		var letter := SimQuery.t_("item." + item).substr(0, 2)
 		draw_string(_font, p + Vector2(-8, 4), letter, HORIZONTAL_ALIGNMENT_CENTER, 16, 10, Color.html("#3a2414"))
