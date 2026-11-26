@@ -2,6 +2,7 @@
   "id": "escuela",
   "title": "La escuela de una hija",
   "about": "Clara acaba de cumplir 8 (escenario school_age): en el árbol, su fila de escuela; elegir la materia y confirmar (es para siempre).",
+  "view": "3d",
   "start": {"scenario": "school_age"},
   "covers": ["school_choice"],
   "steps": [

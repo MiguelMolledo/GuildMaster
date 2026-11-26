@@ -2,6 +2,7 @@
   "id": "regalos",
   "title": "Regalos, equipo y banquete de boda",
   "about": "Hugo con dos espadas y un martillo en la bolsa (escenario courtship_gifts): equiparse el martillo, regalar a Agnès en el cortejo, regalar a un vecino, pedirla y dar el banquete de boda.",
+  "view": "3d",
   "start": {"scenario": "courtship_gifts"},
   "covers": ["equip", "court_gift", "npc_gift", "court_talk", "court_propose", "festival_host_wedding"],
   "steps": [

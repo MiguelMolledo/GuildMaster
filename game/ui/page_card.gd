@@ -65,6 +65,24 @@ func _ready() -> void:
 	gui_input.connect(func(ev: InputEvent) -> void:
 		if ev is InputEventMouseButton and (ev as InputEventMouseButton).pressed and not bool(data.get("sticky", false)):
 			close())
+	var g := get_node_or_null("/root/Game")
+	if g != null and g.has_signal("started"):
+		g.connect("started", _on_game_started)
+
+
+## Another game started or loaded: the town's cards of the game before go away (shown, docked or waiting), so they
+## neither speak of the other game nor take the room of the new one's cards (the challenge card that waited behind
+## two of them: flow duelo, «pelea_carta»).
+func _on_game_started() -> void:
+	if not _in_cards_layer():
+		return
+	for i: int in range(_waiting.size() - 1, -1, -1):
+		if (_waiting[i] as Array)[0] == self:
+			_waiting.remove_at(i)
+	if visible or suspended:
+		if OS.is_debug_build():
+			print("[PageCard] new game: «%s» closed" % str(data.get("title", "")))
+		close()
 
 
 func _bind() -> void:

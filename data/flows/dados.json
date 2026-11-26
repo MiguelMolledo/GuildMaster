@@ -2,6 +2,7 @@
   "id": "dados",
   "title": "Un juego de dados y una apuesta",
   "about": "La apuesta: en la plaza dos vecinos van a llegar a las manos; la carta del altercado ofrece «Apostar», se abre el corredor de apuestas, se elige a quién y se apuesta. Los dados (a la azar contra el herrero rival): se juegan con sus botones y teclas; en main no hay entrada a los dados por la interfaz (llega con la taberna): los abre el arnés y queda apuntado.",
+  "view": "3d",
   "start": {"scenario": "life_altercation"},
   "covers": ["game_bet", "game_play"],
   "steps": [

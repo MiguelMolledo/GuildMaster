@@ -302,6 +302,10 @@ func _run_step(step: Dictionary, rec: Dictionary, dir: String, seen: Dictionary)
 		var name := "%02d_%s" % [rec["n"], rec["id"]]
 		img.save_png(dir.path_join(name + ".png"))
 		rec["shot"] = name + ".png"
+		var canvas := Vector2i(get_tree().root.get_visible_rect().size)
+		if img.get_size() != canvas:   # 3D: the capture is at the window's size, the controls on the 960×540 canvas
+			img = img.duplicate() as Image
+			img.resize(canvas.x, canvas.y, Image.INTERPOLATE_NEAREST)
 	for f: Dictionary in audit.scan(get_tree().root, img):
 		var key := "%s|%s|%s" % [f["kind"], f["node"], f["text"]]
 		if seen.has(key):

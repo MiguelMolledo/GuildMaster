@@ -2,6 +2,7 @@
   "id": "cortejo_boda",
   "title": "Cortejar y boda",
   "about": "Hugo, soltero, con 76 de afinidad con Agnès: el inventario (I) → Cortejar, una conversación sube la afinidad a 80, «Proponer» pregunta y la boda llega con su carta.",
+  "view": "3d",
   "start": {"scenario": "courtship"},
   "covers": ["court_talk", "court_gift", "propose"],
   "steps": [

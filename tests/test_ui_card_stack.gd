@@ -69,3 +69,30 @@ func test_a_second_modal_waits() -> void:
 	layer.free()
 	PageCard._modal = null
 	PageCard._waiting.clear()
+
+
+func test_a_new_game_clears_the_cards_of_the_game_before() -> void:
+	PageCard._stack.clear()
+	PageCard._waiting.clear()
+	PageCard._modal = null
+	var layer := _layer()
+	var a := _card(layer)
+	var b := _card(layer)
+	var m := _card(layer)
+	var w := _card(layer)
+	a.show_page(_data("Uno"))
+	b.show_page(_data("Dos"))
+	m.show_page(_data("Tres", true))
+	PageCard._waiting.append([w, _data("Cuatro")])
+	for c: PageCard in [a, b, m, w]:   # what Game.started does to every card of the town
+		c._on_game_started()
+	check(not a.visible and not b.visible and not m.visible and not w.visible, "no card of the game before shows")
+	eq(PageCard.stack().size(), 0, "the stack is empty")
+	eq(PageCard._waiting.size(), 0, "nothing waits")
+	var d := _card(layer)
+	d.show_page(_data("Retar a Bernat"))
+	check(d.visible and d.docked, "the new game's card shows at once (flow duelo, pelea_carta)")
+	layer.free()
+	PageCard._stack.clear()
+	PageCard._waiting.clear()
+	PageCard._modal = null

@@ -2,6 +2,7 @@
   "id": "duelo",
   "title": "Duelo",
   "about": "El rival acaba de insultar a Hugo: clic en el rival, «Retar a duelo…», la carta del reto por la ofensa y el lance en la pantalla del duelo con teclas y botones.",
+  "view": "3d",
   "start": {"scenario": "duel_ready"},
   "covers": ["duel_challenge", "duel_answer", "duel_move", "duel_auto", "duel_brawl"],
   "steps": [

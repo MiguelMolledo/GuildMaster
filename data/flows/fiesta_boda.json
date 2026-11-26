@@ -2,6 +2,7 @@
   "id": "fiesta_boda",
   "title": "Fiesta con encargo de boda",
   "about": "Tras la boda de Hugo (cortejo): la carta de la oferta de la fiesta de boda («Dar banquete» si hay oro, si no «Boda sencilla») y, con banquete, los encargos de la fiesta en el tablón (aceptar uno); si sale la víspera de una fiesta con patrocinio, patrocinar una parte.",
+  "view": "3d",
   "start": {"scenario": "courtship"},
   "covers": ["festival_host_wedding", "festival_sponsor", "accept_contract"],
   "steps": [

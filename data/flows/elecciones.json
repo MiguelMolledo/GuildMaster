@@ -2,6 +2,7 @@
   "id": "elecciones",
   "title": "Elecciones",
   "about": "Hugo, ciudadano, en el Ayuntamiento: el organigrama (O), presentarse a Inspector de mercado, una acción de campaña y esperar la votación del cambio de año con su tarjeta de recuento.",
+  "view": "3d",
   "start": {"scenario": "office_campaign"},
   "covers": ["run_for_office", "campaign_action"],
   "steps": [

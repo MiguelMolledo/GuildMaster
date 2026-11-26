@@ -2,6 +2,7 @@
   "id": "edades",
   "title": "Retratos por edad",
   "about": "Una persona de cada franja de retrato (escenario family_ages): 0, 8 (con el pelo blanco de su madre en los datos), 12, 16, 45 y 62; cada una con el retrato de su edad y sexo y sin canas antes de tiempo.",
+  "view": "3d",
   "start": {"scenario": "family_ages"},
   "covers": [],
   "steps": [

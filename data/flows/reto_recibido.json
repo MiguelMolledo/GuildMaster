@@ -2,6 +2,7 @@
   "id": "reto_recibido",
   "title": "Reto recibido y limosna",
   "about": "El herrero rival reta a Hugo: la carta del reto pide Aceptar o Rechazar; se acepta y, en la carta de un reto propio aceptado, se puede retirar. Aparte, la limosna a un mendigo desde su ficha.",
+  "view": "3d",
   "start": {"scenario": "duel_challenged"},
   "covers": ["duel_answer", "duel_withdraw", "give_alms"],
   "steps": [

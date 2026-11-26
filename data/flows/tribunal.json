@@ -2,6 +2,7 @@
   "id": "tribunal",
   "title": "Tribunal",
   "about": "Acusado tras una inspección: la tarjeta de la acusación, preparar la defensa (J) con un testigo y, en la vista, interrogar y concluir; el veredicto con su tarjeta.",
+  "view": "3d",
   "start": {"scenario": "accused_player"},
   "covers": ["witness_action", "trial_cross", "trial_rest"],
   "steps": [

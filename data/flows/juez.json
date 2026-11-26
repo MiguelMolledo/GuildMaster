@@ -2,6 +2,7 @@
   "id": "juez",
   "title": "Juez de la familia",
   "about": "Hugo es el juez (escenario judge_family): al empezar la vista del juicio contra el rival el juego pausa y abre el juicio que preside; dicta el veredicto (contra la balanza pide confirmar).",
+  "view": "3d",
   "start": {"scenario": "judge_family"},
   "covers": ["trial_verdict"],
   "steps": [

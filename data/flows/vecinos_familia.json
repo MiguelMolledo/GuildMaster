@@ -2,6 +2,7 @@
   "id": "vecinos_familia",
   "title": "Vecinos y familia",
   "about": "La ficha de un vecino: hablar, halagar, insultar y amenazar; acusar al rival en su ficha; el árbol de la familia: designar heredero, la escuela de un hijo, el oficio de un adulto; la rutina y las directivas de un familiar; el poder de un cargo; cerrar la dinastía desde el menú.",
+  "view": "3d",
   "start": {"scenario": "plaza_dusk"},
   "covers": ["npc_talk", "npc_flatter", "npc_insult", "npc_threaten", "accuse", "designate_heir", "school_choice", "assign_building", "set_schedule", "set_directives", "use_office_power", "close_dynasty"],
   "steps": [
