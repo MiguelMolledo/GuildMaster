@@ -23,6 +23,7 @@ var _t: float = 0.0
 var _total: float = 0.0
 var _fails: int = 0
 var _sections: Array = []
+var shot_prefix: String = ""   # forja3d: the same captures in the 3D town, named forja3d_<shot>
 var _done_step: bool = false
 
 
@@ -35,7 +36,7 @@ func _ready() -> void:
 	var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {"cast": "fixed"}, 7)
 	app.call("_on_new_game_started", r["state"])
 	_step("pick", func() -> void:
-		app.world().select(HUGO)
+		_select(HUGO)
 		Game.set_speed(4))
 	if _on("forja"):
 		_forja()
@@ -61,7 +62,19 @@ func _step(name_: String, do: Callable, until: Callable = Callable(), wait: floa
 
 
 func _shot(name_: String) -> void:
-	app.save_shot(name_)
+	app.save_shot(shot_prefix + name_)
+
+
+## The town shown (2D WorldView or the 3D town, docs/3d/plan.md): select somebody, send the selected one in.
+func _select(id: String) -> void:
+	app.call("_select", id)
+
+
+func _enter(building: String) -> void:
+	if app.call("world3d") != null:
+		Game.give({"type": "enter_building", "actor": str(app.call("_selected")), "building": building})
+	else:
+		app.world().command_enter(building)
 
 
 func _check(cond: bool, what: String) -> void:
@@ -104,7 +117,7 @@ func _inside() -> bool:
 
 
 func _forja() -> void:
-	_step("enter", func() -> void: app.world().command_enter(BLD), Callable(), 0.2)
+	_step("enter", func() -> void: _enter(BLD), Callable(), 0.2)
 	_step("menu", func() -> void:
 		var iv: InteriorView = app.interior()
 		iv.open_station_menu("anvil", iv.station_screen("anvil") + Vector2(40, -120)), _inside, 1.0)
@@ -121,13 +134,19 @@ func _forja() -> void:
 			"mode": "careful"}))
 	_step("bar", func() -> void:
 		var sv: StationView = app.interior().station_view("furnace")
-		_check(sv.window_from > 0.0, "the touch window on the furnace's bar from the first minute (%.2f)" % sv.window_from)
+		if sv.window_from > 0.0:
+			_check(true, "the touch window on the furnace's bar from the first minute (%.2f)" % sv.window_from)
+		else:   # the master touch left the UI: the Forja viva replaces it (03b §3b.8)
+			print("[SmokeEconomia] note no touch window on the bar (the Forja viva replaced the master touch)")
 		_shot("forja_interior_hoy_barra"),
 		func() -> bool: return app.interior().station_view("furnace").progress > 0.05, 0.3)
 	_step("touch", func() -> void:
 		_shot("forja_interior_hoy_toque")
-		_check(app.interior().station_view("furnace").status() == "window", "the station's mark: the window is open"),
-		func() -> bool: return app.interior().station_view("furnace").window_open, 0.4)
+		var sv: StationView = app.interior().station_view("furnace")
+		if sv.window_from > 0.0:
+			_check(sv.status() == "window", "the station's mark: the window is open"),
+		func() -> bool: return app.interior().station_view("furnace").window_open \
+			or app.interior().station_view("furnace").window_from <= 0.0, 0.4)
 	_step("pause", func() -> void:
 		app.interior().click_station("furnace")   # the master touch
 		Game.set_paused(true)
@@ -158,7 +177,7 @@ func _forja() -> void:
 func _load(scenario: String) -> void:
 	var r := NewGame.from_scenario(scenario)
 	app.call("_on_new_game_started", r["state"])
-	app.world().select(HUGO)
+	_select(HUGO)
 
 
 # --- produccion.md -------------------------------------------------------------------------------------------------
@@ -194,9 +213,9 @@ func _almacen() -> void:
 	_step("alm_enter", func() -> void:
 		var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {"cast": "fixed"}, 7)
 		app.call("_on_new_game_started", r["state"])
-		app.world().select(HUGO)
+		_select(HUGO)
 		Game.set_speed(4), Callable(), 0.4)
-	_step("alm_walk", func() -> void: app.world().command_enter(BLD), Callable(), 0.2)
+	_step("alm_walk", func() -> void: _enter(BLD), Callable(), 0.2)
 	_step("alm_open", func() -> void:
 		Game.give({"type": "transfer", "actor": HUGO, "from": BLD, "to": HUGO, "item": "coal", "quality": 0, "qty": 2})
 		app.interior().show_storage(true), _inside, 1.0)
@@ -222,7 +241,7 @@ func _mercado() -> void:
 	_step("mer_new", func() -> void:
 		var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {"cast": "fixed"}, 7)
 		app.call("_on_new_game_started", r["state"])
-		app.world().select(HUGO)
+		_select(HUGO)
 		Game.set_speed(4), Callable(), 0.4)
 	_step("mer_walk", func() -> void:
 		Game.give({"type": "move_to", "actor": HUGO, "tile": [16, 15]}), Callable(), 0.2)
@@ -270,7 +289,7 @@ func _empleados() -> void:
 	_step("emp_new", func() -> void:
 		var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {"cast": "fixed"}, 7)
 		app.call("_on_new_game_started", r["state"])
-		app.world().select(HUGO)
+		_select(HUGO)
 		app.open_interior(BLD, true), Callable(), 1.0)
 	_step("emp_hire", func() -> void:
 		app.interior().show_staff(true), func() -> bool: return app.interior_building == BLD, 0.6)
@@ -315,7 +334,7 @@ func _mejoras() -> void:
 	_step("upg_new", func() -> void:
 		var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {"cast": "fixed"}, 7)
 		app.call("_on_new_game_started", r["state"])
-		app.world().select(HUGO)
+		_select(HUGO)
 		var fam := SimQuery.building_family(Game.sim.state, BLD)
 		Game.sim.state.families[fam]["gold"] = 65   # the doc's case: 65 gold, 2 ingots, 3 wood
 		var inv: Dictionary = Game.sim.state.buildings[BLD]["inventory"]

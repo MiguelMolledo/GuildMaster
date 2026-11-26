@@ -1,6 +1,7 @@
 {
   "id": "jugador/05_encargo",
   "title": "Jugador 5 · El primer encargo (los martillos del carpintero)",
+  "view": "3d",
   "about": "Lo básico hecho, el jugador sigue su objetivo: aceptar en el tablón el encargo de 2 martillos, forjarlos y entregarlos.",
   "start": {"keep": true},
   "steps": [

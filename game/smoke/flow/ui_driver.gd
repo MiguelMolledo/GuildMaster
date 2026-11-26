@@ -530,7 +530,26 @@ static func path_of(c: Node) -> String:
 
 ## Clicks item `index` of the PopupMenu that `menu` (a MenuButton or OptionButton) has open: the item's row inside the
 ## embedded popup window. Returns "" or why not.
+## A popup's item; when the item does not take the click (a card shown at that moment takes the menu's focus), the
+## menu is opened again from its button and the item clicked once more, as a person would.
 func click_popup_item(menu: Variant, index: int) -> String:
+	var e := await _click_popup_item_once(menu, index)
+	if not e.contains("no recibió el clic"):
+		return e
+	var f := find(menu)
+	if f.has("error") or not (f["node"] is MenuButton or f["node"] is OptionButton):
+		return e
+	_log("popup", "%s: otra vez (%s)" % [path_of(f["node"]), e])
+	var b := f["node"] as Control
+	var pop: PopupMenu = (b as MenuButton).get_popup() if b is MenuButton else (b as OptionButton).get_popup()
+	if not pop.visible:
+		await click_at(b.get_global_rect().get_center())
+		await tree.process_frame
+	var e2 := await _click_popup_item_once(menu, index)
+	return e2 if e2 != "" else ""
+
+
+func _click_popup_item_once(menu: Variant, index: int) -> String:
 	var f := find(menu)
 	if f.has("error"):
 		return str(f["error"])

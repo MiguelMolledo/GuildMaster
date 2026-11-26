@@ -669,6 +669,32 @@
           "prueba": "16 de 18 casas de town_e tienen trazado; la armería se usa en primer_dia (vender); el resto sin flujo propio aún"
         }
       ]
+    },
+    {
+      "id": "M3D-4",
+      "nombre": "La forja jugable de punta a punta en 3D",
+      "estado": "en_curso",
+      "entregable": "Comprar, producir, vender, pagar la deuda, contratar y mejorar con la UI de hoy sobre el 3D; flujos de la forja y pasada de jugador 01-10 en 3D; guion forja3d.",
+      "criterios": [
+        {
+          "texto": "forja_viva, mejorar y gestion_a_fondo en 3D y en verde",
+          "estado": "hecho",
+          "prueba": "verifica --flows=forja_viva,mejorar,gestion_a_fondo, sin ventana y --window: 3/3",
+          "fecha": "2026-11-26"
+        },
+        {
+          "texto": "Pasada de jugador 01-10 en 3D con ventana",
+          "estado": "en_curso",
+          "prueba": "sin ventana 01-10 en verde; con ventana 01-09 en verde y el 10 (a veces el 08) en FALLA por el menú emergente del recado (paso blando; la jornada acaba)",
+          "fecha": "2026-11-26"
+        },
+        {
+          "texto": "Guion --smoke-script=forja3d",
+          "estado": "hecho",
+          "prueba": "28 comprobaciones bien; 2 de medidas de paneles fallan igual en 2D (previas)",
+          "fecha": "2026-11-26"
+        }
+      ]
     }
   ]
 }

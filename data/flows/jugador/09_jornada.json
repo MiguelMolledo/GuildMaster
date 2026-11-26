@@ -1,6 +1,7 @@
 {
   "id": "jugador/09_jornada",
   "title": "Jugador 9 · Media jornada de oficio",
+  "view": "3d",
   "about": "El oficio de cada día como lo juega un novato: las cartas que llegan, la mejora cuando se abre, pagar la deuda con oro de sobra, hierro con recado, espadas en el yunque y venderlas en la Armería.",
   "start": {
     "keep": true

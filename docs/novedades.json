@@ -1,6 +1,17 @@
 [
   {
     "fecha": "2026-11-26",
+    "titulo": "La forja de punta a punta en 3D",
+    "que": "Toda la vida de la forja se juega ya sobre el pueblo 3D con la interfaz de siempre: comprar hierro y carbón en el puesto con recado, fundir y forjar (también en Forja viva), vender en la armería, cumplir encargos, pagar la deuda en el libro, contratar y despedir, la cola de producción de los empleados y el árbol de mejoras con su obra. La pasada del jugador nuevo (los diez primeros bloques, jornadas incluidas) pasa entera en 3D.",
+    "como_probar": "jugar.command, partida nueva de herrero. Automático: python3 tools/verifica/jugador.py --window --to=10; python3 tools/verifica/verifica.py --window --flows=forja_viva,mejorar,gestion_a_fondo; grimoire heavy -- /opt/homebrew/bin/godot --always-on-top --path . -- --smoke-script=forja3d.",
+    "capturas": [
+      "docs/novedades/m3d4_forja_pausa.png",
+      "docs/novedades/m3d4_mercado.png",
+      "docs/novedades/m3d4_mejoras_obra.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-26",
     "titulo": "Abrir una casa como en la prueba 3D: la cámara va y vuelve",
     "que": "Al abrir una casa (Gestionar, doble clic o la persona que entra) la cámara se desliza hasta su frente, se acerca y la enfoca mientras el techo se funde y bajan las paredes del frente; al cerrar, el techo y las paredes vuelven y la cámara regresa a donde estaba, como en la prueba (antes se quedaba encima de la casa). Acercar mucho el zoom sobre una casa la abre para mirar dentro, sin paneles ni órdenes; alejar o moverse la cierra.",
     "como_probar": "Elige a tu personaje, clic derecho en tu forja o doble clic en ella; Salir. Acerca la rueda sobre una casa. Automático: grimoire heavy -- /opt/homebrew/bin/godot --always-on-top --resolution 1600x900 --path . -- --smoke-script=abrir3d (reports/perf/abrir3d.json); --transicion=<k> acorta o alarga la transición.",

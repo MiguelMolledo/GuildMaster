@@ -270,3 +270,20 @@ cargada terminaron todas. Queda vigilado.
   mirar (sin paneles ni órdenes; alejar a más de 17 o moverse la cierra), solo si el juego no tiene otra abierta.
   Medido a 1600×900: abrir 107-156 fps (peor fotograma 54 ms por Gestionar, 109 ms al entrar la persona), cerrar
   109-158 fps (peor 32-36 ms).
+
+**M3D-4 · la forja de punta a punta en 3D (2026-11-26)**
+- En 3D y en verde (sin ventana y con ventana): `forja_viva`, `mejorar`, `gestion_a_fondo`; la pasada de jugador
+  `jugador/01`…`10` en verde sin ventana y 01-09 con ventana (`python3 tools/verifica/jugador.py --window --to=10`): comprar con recado, fundir y forjar, vender
+  en la armería, encargos, pagar la deuda, la calidad, contratar y jornadas enteras, con la UI de hoy sobre la forja
+  abierta en sitio.
+- `--smoke-script=forja3d`: el guion `economia` entero sobre el pueblo 3D (menú del puesto, pausa activa con órdenes
+  numeradas, producción con dos empleados, almacén, comprar y vender en Recursos, el libro y la deuda, contratar y
+  despedir, el árbol de mejoras y su obra): 28 comprobaciones bien. Fallan 2 de medidas de paneles (unos píxeles
+  fuera de su zona) que fallan igual en 2D. La comprobación del toque de maestro quedó vieja al llegar la Forja viva:
+  ahora se anota en vez de esperarla.
+- Pendiente: con ventana, el menú emergente «Enviar → Forja» del recado (carbón en `jugador/10`, a veces hierro en
+  `jugador/08`) no recibe a veces el clic del conductor; el paso blando sigue, el reintento compra y la jornada acaba,
+  pero el bloque queda en FALLA. No es el ratón real (con `warp_mouse` falla igual) ni propio del 3D: en 2D esa misma
+  pasada falla en el 08 y el 10 por otros motivos. El conductor reabre ahora el menú una vez si la entrada no coge el
+  clic; falta ver por qué el primero se pierde (una carta que aparece a la vez se lleva el foco, es la sospecha).
+  Sin ventana, 01-10 en verde.
