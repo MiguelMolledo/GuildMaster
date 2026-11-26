@@ -798,6 +798,8 @@ func open_interior(building: String, manage: bool, panel: String = "") -> void:
 		return
 	Log.info("App", "open interior (building=%s, manage=%s, selected=%s)" % [building, manage, _selected()])
 	_hud.set_build_mode(false)  # H6: no building mode inside
+	if _w3 != null and _open_in_place(building, manage, panel):
+		return
 	_fade_swap(func() -> void:
 		interior_building = building
 		_interior.setup(Game.sim, building, _selected(), manage)
@@ -808,11 +810,33 @@ func open_interior(building: String, manage: bool, panel: String = "") -> void:
 			_interior.show_staff(true, "staff"))
 
 
+## M3D-3: in 3D the house opens where it stands (no fade): the town stays, the game's InteriorView does the bar,
+## the panels and the orders over it with the 3D picks (WorldView3D.bridge). False: no interior in place for it.
+func _open_in_place(building: String, manage: bool, panel: String) -> bool:
+	if interior_building != "" and interior_building != building:
+		_close_now()
+	_interior.projector = _w3.bridge
+	if not _w3.open_house(building):
+		_interior.projector = null
+		return false
+	interior_building = building
+	_interior.setup(Game.sim, building, _selected(), manage)
+	_interior.set_active(true)
+	_hud.set_interior(true)
+	if panel == "staff":
+		_interior.show_staff(true, "staff")
+	Log.info("App", "interior %s open in place (3D)" % building)
+	return true
+
+
 ## Back to the town, centred on the building's door.
 func close_interior() -> void:
 	if interior_building == "":
 		return
 	Log.info("App", "close interior (building=%s)" % interior_building)
+	if _w3 != null and _w3.in_place != "":
+		_close_now()   # 3D: the house closes where it stands, the camera goes back by itself
+		return
 	var bld := interior_building
 	_fade_swap(func() -> void:
 		_close_now()
@@ -824,6 +848,9 @@ func close_interior() -> void:
 func _close_now() -> void:
 	interior_building = ""
 	_interior.set_active(false)
+	_interior.projector = null
+	if _w3 != null:
+		_w3.close_house()
 	_set_town_active(true)
 	_hud.set_interior(false)
 
@@ -947,8 +974,9 @@ func _process(delta: float) -> void:
 		_audio.play("sfx_ui_seal")  # 02 §7: the seal of the ending appears
 	_background.color = Color.BLACK if interior_building != "" else _bg_color * _world.tint_color
 	if _w3 != null:
-		_background.visible = interior_building != ""  # in 3D the town is the background (it covers the 3D otherwise)
-		_w3.keys_on = not menu_open()
+		# in 3D the town is the background (the ColorRect would cover it), but for a 2D interior (no house in place)
+		_background.visible = interior_building != "" and _w3.in_place == ""
+		_w3.keys_on = not menu_open() and interior_building == ""
 	else:
 		_reveal_selection()
 	if _shots_left <= 0:

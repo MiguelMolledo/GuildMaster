@@ -2148,7 +2148,7 @@ event.dignitary_visit.story,A noble's retinue arrives in town. Strangers with fu
 tutorial.chapter.first_steps,First steps,Primeros pasos
 tutorial.chapter.first_steps.desc,"Pick and move your character, the time and the speed, go into your workshop.","Elegir y mover a tu personaje, la hora y la velocidad, entrar en tu taller."
 tutorial.first_steps.welcome,This is {town}. I will show you the basics step by step; the game waits paused while you read.,Esto es {town}. Te enseño lo básico paso a paso; el juego espera en pausa mientras lees.
-tutorial.first_steps.camera,"Move the camera: the arrows, or drag with the middle mouse button. With someone chosen, WASD walks them and the camera follows.","Mueve la cámara: las flechas, o arrastra con el botón central del ratón. Con alguien elegido, WASD lo hace andar y la cámara lo sigue."
+tutorial.first_steps.camera,"Move the camera: WASD or the arrows, Q and E turn it, or drag with the middle mouse button.","Mueve la cámara: WASD o las flechas, Q y E la giran, o arrastra con el botón central del ratón."
 tutorial.first_steps.zoom,The mouse wheel zooms in and out.,La rueda del ratón acerca y aleja la vista.
 tutorial.first_steps.select,"Your protagonist: {head}. A left click picks someone of your family (or keys 1, 2 and 3); on a townsperson, it opens their sheet.","Tu protagonista: {head}. Con clic izquierdo eliges a alguien de tu familia (o con 1, 2 y 3); sobre un vecino, abres su ficha."
 tutorial.first_steps.group,"Top left, your group: up to three family members, keys 1, 2 and 3. Next to them, the whole family's gold.","Arriba a la izquierda, tu grupo: hasta tres familiares, con las teclas 1, 2 y 3. Al lado, el oro de toda la familia."

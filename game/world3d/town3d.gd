@@ -209,6 +209,14 @@ func _change_season(season: String) -> void:
 		v.call("_crowns")
 
 
+## The prueba's count of who is inside each building, over its roof, is not the game's (the HUD and the signs say it):
+## drawn fully transparent (its code shows and hides it).
+func _anchor_buildings() -> void:
+	super()
+	for b: Variant in bld_anchor:
+		(bld_anchor[b].label as Label3D).transparency = 1.0
+
+
 # ---------------------------------------------------------------- what the prueba read from the trace, live
 
 ## Every building can change its look while the game runs (upgrades, works): looked at once per game minute.
@@ -283,25 +291,134 @@ var keys_on: bool = true  # the camera keys act (off while a menu screen is open
 
 
 func _cam_free() -> bool:
-	return keys_on
+	return keys_on and not _busy
 
 
+## The game's HUD is on top: of Prueba3D's own only what its code touches (a hidden hint and forge label). The houses
+## with an interior in place open when the game asks (open_building), not at the start nor by zooming in.
 func _make_hud() -> void:
-	pass  # the game's HUD is on top; the interior in place comes with M3D-3
+	_hint = Label.new()
+	_hint.visible = false
+	add_child(_hint)
+	_forge_label = Label3D.new()
+	_forge_label.visible = false
+	_forge_label.set_meta("was", false)
+	add_child(_forge_label)
+	for h: Node3D in houses:
+		if h.has_meta("interior"):
+			situ_mode = true
+
+
+# ---------------------------------------------------------------- a house open in place (M3D-3)
+
+## Opens the house of sim building `b` where it stands (SituShell: the roof melts, the walls in front go down, the
+## interior of its type and level with its upgrades, the sim's people at their places): false if its house has no
+## interior in place (the game then shows its 2D interior).
+func open_building(b: String) -> bool:
+	if not bld_anchor.has(b):
+		return false
+	var h: Node3D = bld_anchor[b].house
+	if h == null or not is_instance_valid(h) or not h.has_meta("interior"):
+		return false
+	if inside and situ_house == h:
+		return true
+	if inside:
+		_close_now()
+	situ_mode = true
+	_mount(h)
+	live_bld = b
+	if inside_view == null:
+		return false
+	inside_view.set_process_unhandled_input(false)
+	_open(false)
+	var ui: Variant = inside_view.get("_ui")
+	if ui is CanvasLayer:
+		(ui as CanvasLayer).visible = false  # the game's interior bar and panels instead (activate showed it)
+	if OS.is_debug_build():
+		print("[Town3D] open %s in place (%s, %s)" % [b, h.name, String(h.get_meta("interior")).get_file()])
+	return true
+
+
+## Mounts the interior of sim building `b`'s house, closed (the cost of loading its furniture goes to the town's
+## build, not to the first opening). One house is mounted at a time: opening another mounts that one instead.
+func premount(b: String) -> void:
+	if not bld_anchor.has(b) or inside:
+		return
+	var h: Node3D = bld_anchor[b].house
+	if h == null or not is_instance_valid(h) or not h.has_meta("interior"):
+		return
+	situ_mode = true
+	_mount(h)
+	live_bld = b
+	if inside_view != null:
+		var ui: Variant = inside_view.get("_ui")
+		if ui is CanvasLayer:
+			(ui as CanvasLayer).visible = false
+		inside_view.set_process_unhandled_input(false)
+
+
+## Closes the house open in place: the roof comes back; the camera stays on the house (as the 2D town centred on its
+## door): a camera still moving would carry the next click somewhere else.
+func close_building() -> void:
+	if inside and not _busy:
+		_focus_auto = true   # sim3d_chars._close: no camera move back
+		_close()
+
+
+## The same at once (another house opens, the town is rebuilt).
+func _close_now() -> void:
+	if not inside:
+		return
+	situ_cut.set_on(false, true)
+	inside_view.activate(false)
+	if inside_view.live:
+		inside_view.live_clear()
+	inside = false
+	_busy = false
+
+
+func open_house_building() -> String:
+	return live_bld if inside else ""
+
+
+var _reopen: String = ""  # the house open in place was built again (an upgrade done, works): it opens again
+
+
+func _before_rehouse(h: Node3D) -> void:
+	if inside and situ_house == h:
+		_reopen = live_bld
+	super(h)
+
+
+func _rehoused(old: Node3D, nh: Node3D) -> void:
+	super(old, nh)
+	if _reopen != "":
+		var b := _reopen
+		_reopen = ""
+		open_building.call_deferred(b)
+
 
 
 var name_shown: Dictionary = {}  # chr -> true: whose name shows (the hovered and the selected: Marks3D)
-var _dragging: bool = false       # the middle button pans the camera (as the 2D town's)
+var _dragging: bool = false       # the middle button pans the camera (as the 2D town's): pressed over the town,
+                                  # then followed in _input (before the GUI, which keeps the motion over a control)
+
+
+func _input(e: InputEvent) -> void:
+	if not _dragging:
+		return
+	if e is InputEventMouseMotion:
+		pan_screen((e as InputEventMouseMotion).relative)
+	elif e is InputEventMouseButton and (e as InputEventMouseButton).button_index == MOUSE_BUTTON_MIDDLE \
+			and not (e as InputEventMouseButton).pressed:
+		_dragging = false
 
 
 func _unhandled_input(e: InputEvent) -> void:
 	if e is InputEventMouseButton and (e as InputEventMouseButton).button_index == MOUSE_BUTTON_MIDDLE:
-		_dragging = (e as InputEventMouseButton).pressed and keys_on
-		if _dragging:
+		if (e as InputEventMouseButton).pressed and keys_on:
+			_dragging = true
 			follow_id = ""
-		get_viewport().set_input_as_handled()
-	elif e is InputEventMouseMotion and _dragging:
-		pan_screen((e as InputEventMouseMotion).relative)
 		get_viewport().set_input_as_handled()
 	elif e is InputEventMouseButton and (e as InputEventMouseButton).pressed \
 			and (e as InputEventMouseButton).button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN]:
@@ -328,6 +445,8 @@ func pan_screen(d: Vector2) -> void:
 
 func _process(delta: float) -> void:
 	_cam_keys(delta)
+	if _dragging and not keys_on:
+		_dragging = false
 	if sim == null or trace.is_empty():
 		return
 	var now := int(sim.state.clock["minute"])

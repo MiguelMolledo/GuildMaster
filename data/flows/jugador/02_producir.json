@@ -1,6 +1,7 @@
 {
   "id": "jugador/02_producir",
   "title": "Jugador 2 · Producir: el primer lingote y la espada a mano",
+  "view": "3d",
   "about": "El capítulo «Producir» tal como lo pide: el horno, dos lingotes, el yunque en Forja viva, la espada y el almacén.",
   "start": {
     "keep": true

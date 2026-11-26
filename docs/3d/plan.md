@@ -222,3 +222,38 @@ la medida estable).
 Con la escala entera de antes (el 3D dibujado a 960×540) daba 187-220 fps: el coste está en los píxeles. Dos de cinco
 pasadas con ventana se congelaron mientras corrían a la vez las pruebas de reglas (CPU al 100 %); con la máquina menos
 cargada terminaron todas. Queda vigilado.
+
+## 9. Cómo quedan M3D-2 y M3D-3 (2026-11-26)
+
+**M3D-2 · seleccionar y dar órdenes**
+- `game/world3d/marks3d.gd` (`Marks3D`): una capa de lienzo bajo el HUD con las marcas del pueblo colocadas cada
+  fotograma sobre su punto 3D proyectado. Los letreros son los del 2D (`BuildingMarks.Sign`, con su tablilla y la fuente
+  del juego; `sign_mode: "hover"` de `data/view.json` igual que en 2D), los de los puestos, el tablón y el
+  ayuntamiento también. El edificio bajo el ratón enciende su letrero y un marco en el suelo; la persona, un anillo
+  pálido; el nombre solo sale para quien está bajo el ratón o elegido. Coste: 0,1 ms por fotograma.
+- `WorldView3D`: la cámara va a la persona elegida si está fuera de pantalla (1-2-3, retratos, avisos); los puestos se
+  buscan a lo largo del rayo (toldo, mostrador, suelo); `Town3D` arrastra la cámara con el botón central.
+- Flujos: cada flujo dice su vista (`"view": "3d"` en `data/flows/<id>.json`; sin él, 2D) y `ViewConfig.view_mode` la
+  elige también para `--flows=a,b` (3D si todos la piden). `flow_runner` / `flow_query` apuntan al pueblo 3D con los
+  selectores de `WorldView3D`. En 3D: los cuatro `quick` (el paso `ui` de `run_all`) y `jugador/01_inicio` y
+  `02_producir`.
+
+**M3D-3 · interiores en sitio en vivo**
+- La casa se abre donde está con la maquinaria de la prueba (`SituShell`, `SituCut`, `SituLive`, `interior3d.gd`): el
+  techo se funde, bajan las paredes del frente y dentro está el trazado de su tipo y nivel con sus mejoras y la gente
+  de la sim en su puesto (el `station` de cada uno, cada minuto). Sin fundido a negro: el pueblo sigue alrededor.
+- El `InteriorView` de siempre sigue mandando (barra del edificio, Producción, Almacén, Empleados, Mejoras, menú del
+  puesto, Forja viva, órdenes). En 3D tiene un `projector` (`InteriorBridge3D`): no dibuja su sala, y el puente
+  responde dónde están los puestos, las personas y la puerta y qué hay bajo el puntero. Las barras, rótulos y avisos
+  de cada puesto se dibujan sobre su punto 3D. El botón «Planta alta» cambia la planta de la casa abierta.
+- `app.gd`: en 3D `open_interior` abre en sitio; si la casa no tiene trazado en sitio (iglesia, molino), usa el
+  interior 2D de antes con su fundido. El taller del jugador queda montado (cerrado) al construir el pueblo: su primera
+  apertura es inmediata.
+- El tutorial (`AppTutorialContext`) señala en 3D: edificios, puertas, personas, puestos y casillas proyectados, los
+  puestos de la casa abierta desde el puente; la cámara se desplaza en 3D; «zoom» cuenta un cambio del 10 % del tamaño.
+  El texto del paso de cámara pasa a los controles 3D (WASD o flechas, Q/E giran, botón central).
+- Prueba de punta a punta: `python3 tools/verifica/jugador.py --to=2 [--window]` juega con ratón y teclado reales los
+  capítulos «Primeros pasos» y «Producir» del tutorial de la forja en 3D: entrar en la forja, fundir dos lingotes,
+  forjar la espada en Forja viva y verla en el almacén.
+- Traer de Prueba3D: `python3 tools/kit3d/traer_prueba.py <desde> <hasta> [--aplicar]` (tanda del 2026-11-26:
+  c79c4fb..39018f0, la revisión de los oficios; auditoría de los trazados con `tools/kit3d/prueba/rv_auditoria.gd`).

@@ -600,6 +600,75 @@
           "estado": "pendiente"
         }
       ]
+    },
+    {
+      "id": "M3D-2",
+      "nombre": "Seleccionar y dar órdenes en 3D",
+      "estado": "hecho",
+      "entregable": "Clics (selección, mover, entrar, puestos), letreros, resalte, nombres, 1-2-3 con la cámara que busca, arrastre con el botón central y los flujos quick en 3D.",
+      "criterios": [
+        {
+          "texto": "Clic en una persona la selecciona; clic derecho → move_to / enter_building / puesto",
+          "estado": "hecho",
+          "prueba": "--smoke-script=pueblo3d (clics reales); flujo primer_dia en 3D",
+          "fecha": "2026-11-26"
+        },
+        {
+          "texto": "Resalte al pasar, letreros de edificios y puestos, Gestionar y doble clic abren los paneles de hoy",
+          "estado": "hecho",
+          "prueba": "Marks3D; flujo contratar_cola en 3D (doble clic en la forja, Empleados)",
+          "fecha": "2026-11-26"
+        },
+        {
+          "texto": "1-2-3 y retratos sobre el 3D; avisos centran la cámara",
+          "estado": "hecho",
+          "prueba": "WorldView3D._reveal; flujo jugador/01_inicio (paso grupo)",
+          "fecha": "2026-11-26"
+        },
+        {
+          "texto": "Flujos quick de data/flows portados a 3D en verde",
+          "estado": "hecho",
+          "prueba": "verifica --flows=quick (sin ventana y --window): 4/4",
+          "fecha": "2026-11-26"
+        }
+      ]
+    },
+    {
+      "id": "M3D-3",
+      "nombre": "Interiores en sitio en vivo",
+      "estado": "en_curso",
+      "entregable": "La casa se abre donde está con su trazado, sus mejoras y la gente de la sim en su puesto; la UI de hoy encima; el tutorial de la forja jugable entero en 3D.",
+      "criterios": [
+        {
+          "texto": "La forja se abre en sitio con la producción de la sim y la UI de hoy (barra, paneles, menú del puesto, Forja viva)",
+          "estado": "hecho",
+          "prueba": "InteriorView con projector (InteriorBridge3D); jugador/02_producir",
+          "fecha": "2026-11-26"
+        },
+        {
+          "texto": "El tutorial de la forja (Primeros pasos y Producir) se juega entero en 3D con ratón y teclado reales",
+          "estado": "hecho",
+          "prueba": "python3 tools/verifica/jugador.py --to=2 [--window]: 2/2, 0 errores del motor",
+          "fecha": "2026-11-26"
+        },
+        {
+          "texto": "Cerrar no cambia nada (la producción corre se mire o no)",
+          "estado": "hecho",
+          "prueba": "la vista no escribe el estado (L1); pruebas de producción sin vistas abiertas en verde (1279/0)",
+          "fecha": "2026-11-26"
+        },
+        {
+          "texto": "Coste de abrir < 100 ms",
+          "estado": "hecho",
+          "prueba": "el taller del jugador se monta al construir el pueblo (119 ms sin ventana); abrirlo no monta nada",
+          "fecha": "2026-11-26"
+        },
+        {
+          "texto": "Resto de oficios y edificios en sitio con su gente (armería, carpintería...)",
+          "estado": "en_curso",
+          "prueba": "16 de 18 casas de town_e tienen trazado; la armería se usa en primer_dia (vender); el resto sin flujo propio aún"
+        }
+      ]
     }
   ]
 }

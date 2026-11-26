@@ -45,12 +45,20 @@ static func view_mode(args: PackedStringArray, script_id: String, smoke_3d: Arra
 	for a: String in args:
 		if a.begins_with("--view="):
 			return "3d" if a.substr(7) == "3d" else "2d"
-	if script_id == "flow":
+	if script_id == "flow":   # --flow=<id>, or --flows=a,b (one session: 3D if every one of them asks for it)
+		var ids: Array = []
 		for a: String in args:
 			if a.begins_with("--flow="):
-				var d: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/flows/%s.json" % a.substr(7)))
-				return "3d" if d is Dictionary and str((d as Dictionary).get("view", "2d")) == "3d" else "2d"
-		return "2d"
+				ids = [a.substr(7)]
+			elif a.begins_with("--flows="):
+				ids = Array(a.substr(8).split(",", false))
+		if ids.is_empty() or ids.has("all") or ids.has("quick"):
+			return "2d"
+		for id: Variant in ids:
+			var d: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/flows/%s.json" % str(id)))
+			if not (d is Dictionary and str((d as Dictionary).get("view", "2d")) == "3d"):
+				return "2d"
+		return "3d"
 	if args.has("--gallery") or (script_id != "" and not smoke_3d.has(script_id)):
 		return "2d"
 	return "3d" if str(value("view_mode", "2d")) == "3d" else "2d"

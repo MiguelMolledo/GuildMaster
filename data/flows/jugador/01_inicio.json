@@ -1,6 +1,7 @@
 {
   "id": "jugador/01_inicio",
   "title": "Jugador 1 · La partida nueva y los primeros pasos",
+  "view": "3d",
   "about": "Un jugador nuevo: partida por defecto (Vilarrasa, herrero, Normal) con el tutorial; el capítulo «Primeros pasos» tal como lo pide.",
   "start": {"new_game": true},
   "steps": [

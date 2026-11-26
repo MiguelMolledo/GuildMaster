@@ -15,7 +15,7 @@ const PLAZA: Vector2i = Vector2i(20, 15)
 const STEPS: Array = [
 	["vista", "town", 3.0], ["measure_vista", "town", 6.0],
 	["calle", "street", 2.5], ["measure_calle", "street", 6.0], ["seleccion", "clicks", 1.5],
-	["forja", "forge", 25.0],
+	["forja", "forge", 35.0],
 	["plaza", "plaza", 2.5],
 	["calle_x4", "street_x4", 3.0],
 	["atardecer", "dusk", 2.5], ["noche", "night", 2.5], ["noche_calle", "night_street", 2.0]]
@@ -31,6 +31,8 @@ var _prim_sum: float = 0.0
 var _worst: float = 0.0
 var _perf: Dictionary = {}
 var _inside_at: float = -1.0  # when the forge's interior opened (the forge step)
+var _measuring_forge: bool = false
+var _forge_t0: float = 0.0
 
 
 func _ready() -> void:
@@ -61,12 +63,30 @@ func _process(delta: float) -> void:
 		_prim_sum += RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_PRIMITIVES_IN_FRAME)
 	if str(step[1]) == "forge" and str(app.get("interior_building")) != "" and _inside_at < 0.0:
 		_inside_at = _t
-	if str(step[1]) == "forge" and _inside_at >= 0.0 and _t - _inside_at > 1.0:
-		_inside_at = -1.0
-		_finish(step)  # the interior opened (after its fade): its shot now
-		_perf["forge"] = {"interior": str(app.get("interior_building")), "seconds": snappedf(_t - 1.0, 0.1)}
-		app.call("close_interior")
-		_next()
+	if str(step[1]) == "forge" and _inside_at >= 0.0 and _t - _inside_at > 1.2 and not _measuring_forge:
+		_finish(step)  # the house open in place (after its camera move): its shot now
+		_perf["forge"] = {"interior": str(app.get("interior_building")), "seconds": snappedf(_inside_at, 0.1),
+			"in_place": str((app.call("world3d") as WorldView3D).in_place)}
+		_measuring_forge = true
+		_frames = 0
+		_dc_sum = 0.0
+		_prim_sum = 0.0
+		_worst = 0.0
+		_forge_t0 = _t
+		return
+	if _measuring_forge:
+		_frames += 1
+		_worst = maxf(_worst, delta)
+		_dc_sum += RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_DRAW_CALLS_IN_FRAME)
+		if _t - _forge_t0 >= 5.0:
+			var m := {"fps": snappedf(float(_frames) / (_t - _forge_t0), 0.1), "draw_calls": int(_dc_sum / maxf(1.0, _frames)),
+				"worst_frame_ms": snappedf(_worst * 1000.0, 0.1)}
+			_perf["forge"]["open_fps"] = m
+			print("[SmokePueblo3D] forge open: %s" % JSON.stringify(_perf["forge"]))
+			_measuring_forge = false
+			_inside_at = -1.0
+			app.call("close_interior")
+			_next()
 		return
 	if _t >= float(step[2]):
 		if str(step[1]) == "forge":

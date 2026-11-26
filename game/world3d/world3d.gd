@@ -38,6 +38,10 @@ var marks: Marks3D = null       # signs, hover frame and rings, names
 var hovered_building: String = ""
 var hovered_character: String = ""
 var _revealed: String = ""      # the selection the camera last looked for
+var _marks_us: int = 0          # debug: what the marks cost per frame (logged every 600 frames)
+var _marks_n: int = 0
+var bridge: InteriorBridge3D = InteriorBridge3D.new()  # the house open in place, as InteriorView asks for it
+var in_place: String = ""        # the sim building open in place ("" = none): the town takes no clicks meanwhile
 
 
 func _ready() -> void:
@@ -74,16 +78,21 @@ func build(s: Sim) -> void:
 	if (s.catalog.maps().get(s.state.map_id, {}).get("rows", []) as Array).is_empty():
 		ViewConfig.info("WorldView3D", "no town: map %s has no rows" % s.state.map_id)  # a state without a map (empty_town)
 		return
+	in_place = ""
 	town = Town3D.new()
 	town.name = "Town3D"
 	town.setup(s)
 	add_child(town)
 	town.set_process(_active)
 	town.set_process_unhandled_input(_active)
+	bridge.town = town
 	_feed_time()
 	if marks != null:
 		marks.build()
 	_revealed = ""
+	var ws := _workshop(s.state)
+	if ws != "":
+		town.premount(ws)   # the player's workshop opens at once (its furniture loads with the town)
 	build_ms = Time.get_ticks_msec() - t0
 	_focus_start()
 	ViewConfig.info("WorldView3D", "built (map=%s, houses=%d, people=%d, buildings=%d, ms=%d)" % [s.state.map_id, town.houses.size(),
@@ -124,13 +133,27 @@ func _exit_tree() -> void:
 	Town3D.clear_caches()
 
 
+## The player's family's first own building (by id): the workshop the game starts in.
+static func _workshop(st: WorldState) -> String:
+	var fam := SimQuery.player_family(st)
+	var ids: Array = st.buildings.keys()
+	ids.sort()
+	for id: Variant in ids:
+		if str(st.buildings[id].get("owner", "")) == fam and fam != "":
+			return str(id)
+	return ""
+
+
 ## H6's rebuild (something stands or no longer stands in the town): built again keeping the camera and the selection.
 func rebuild_town() -> void:
 	if town == null or sim == null:
 		return
 	var keep := [town.target, town.yaw, town.pitch, town.cam.size]
 	var who := selected_id
+	var was_open := in_place
 	build(sim)
+	if was_open != "":
+		open_house(was_open)
 	town.target = keep[0]
 	town.yaw = keep[1]
 	town.pitch = keep[2]
@@ -158,8 +181,17 @@ func _process(_delta: float) -> void:
 	if town == null or not _active:
 		return
 	var mouse := get_viewport().get_mouse_position()
-	var in_town := keys_on and get_viewport().gui_get_hovered_control() == null
+	var in_town := keys_on and in_place == "" and get_viewport().gui_get_hovered_control() == null
+	var t0 := Time.get_ticks_usec()
 	marks.update(mouse, in_town)
+	_marks_us += Time.get_ticks_usec() - t0
+	_marks_n += 1
+	if _marks_n == 600 and OS.is_debug_build():
+		print("[WorldView3D] marks: %.3f ms per frame (600 frames)" % (float(_marks_us) / 600000.0))
+		_marks_us = 0
+		_marks_n = 0
+	if in_place != "":
+		marks.visible = false   # the town's signs and rings wait while a house is open
 	if marks.hovered_building != hovered_building or marks.hovered_character != hovered_character:
 		hovered_building = marks.hovered_building
 		hovered_character = marks.hovered_character
@@ -237,6 +269,24 @@ func pick_building_id(id: String) -> void:
 	building_picked.emit(id)
 
 
+## M3D-3: opens sim building `b` in place (the game's InteriorView then uses `bridge`); false if its house has no
+## interior in place (the game shows its 2D interior instead).
+func open_house(b: String) -> bool:
+	if town == null or not town.open_building(b):
+		return false
+	in_place = b
+	bridge.building = b
+	ViewConfig.info("WorldView3D", "open %s in place" % b)
+	return true
+
+
+func close_house() -> void:
+	if town != null and in_place != "":
+		town.close_building()
+		ViewConfig.info("WorldView3D", "close %s" % in_place)
+	in_place = ""
+
+
 ## The camera over a tile of the map (a notice clicked, the title's plaza, back from an interior).
 func center_on_tile(t: Vector2i) -> void:
 	if town != null:
@@ -256,7 +306,8 @@ var _ring: MeshInstance3D = null
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if town == null or not _active or not keys_on or not event is InputEventMouseButton or not event.is_pressed():
+	if town == null or not _active or not keys_on or in_place != "" or not event is InputEventMouseButton \
+			or not event.is_pressed():
 		return
 	if handle_click(event as InputEventMouseButton):
 		get_viewport().set_input_as_handled()

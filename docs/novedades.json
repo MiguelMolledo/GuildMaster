@@ -1,6 +1,18 @@
 [
   {
     "fecha": "2026-11-26",
+    "titulo": "GuildMaster en 3D: la forja se abre donde está y el tutorial se juega entero",
+    "que": "Al entrar en un edificio (o al gestionarlo), la casa se abre en el pueblo: el techo se funde, bajan las paredes del frente y dentro está su trazado con sus mejoras y la gente de la sim trabajando en su puesto, sin fundido a negro. Encima, la interfaz de siempre: la barra del edificio, Producción, Almacén, Empleados, Mejoras, el menú de cada puesto (clic derecho en el horno o el yunque) y la Forja viva; las barras y nombres de los puestos flotan sobre ellos. «Planta alta» enseña la otra planta. El tutorial de la forja (Primeros pasos y Producir) se juega entero así. En el pueblo: letreros sobre los edificios y los puestos, resalte del edificio y de la persona bajo el ratón, nombres solo al pasar o al elegir, la cámara va a quien eliges con 1-2-3 o los retratos, y se arrastra con el botón central.",
+    "como_probar": "Doble clic en jugar.command (la copia jugable ya lleva el kit 3D). Partida nueva con tutorial. Automático: python3 tools/verifica/jugador.py --to=2 --window (los dos capítulos con ratón y teclado reales) y python3 tools/verifica/verifica.py --window --flows=quick.",
+    "capturas": [
+      "docs/novedades/m3d3_forja_menu_horno.png",
+      "docs/novedades/m3d3_forja_viva.png",
+      "docs/novedades/m3d3_forja_almacen.png",
+      "docs/novedades/m3d2_letreros.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-26",
     "titulo": "GuildMaster en 3D (rama 3d): el pueblo en vivo",
     "que": "La partida ya se juega sobre el pueblo 3D de la prueba: town_e se monta desde el mapa de la partida y el estado de la sim (casas por tipo y nivel, patios, árboles, setos, puestos, molino, iglesia) y la gente anda, trabaja, se sienta y charla según la sim minuto a minuto, vestida por oficio, familia y edad. La luz sigue al reloj (amanecer, día, atardecer, noche con faroles y ventanas encendidas) y hay clima. Cámara como la de la prueba: WASD o flechas, Q/E giran, RePág/AvPág inclinan, rueda o pellizco para el zoom (3 a 90), todo continuo. El HUD de siempre va encima. Clic izquierdo elige a tu gente (anillo bajo los pies) o un edificio (doble clic: gestionar); clic derecho la manda andar, entrar o ir a un puesto. Al entrar en la forja se abre su interior de siempre (el 3D en sitio llega en M3D-3), así que la partida se puede seguir con el tutorial. Con --view=2d se ve el pueblo 2D como antes.",
     "como_probar": "Rama 3d, worktree ~/Code/GuildMaster-3d (necesita kit/: python3 tools/kit3d/kit.py instalar). Abre el juego y empieza una partida nueva. Automático: grimoire heavy --timeout 5m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --resolution 1600x900 --path . -- --smoke-script=pueblo3d (capturas en reports/shots/pueblo3d_*.png y fps en reports/perf/pueblo3d.json).",

@@ -16,6 +16,10 @@ extends Node2D
 ## same room opened from the map; leaving just closes it. Employees inside stand at their station like anybody
 ## else (CharacterView shows their badge); the station shows the cycle's bar.
 
+## 3D (docs/3d/plan.md M3D-3): with a `projector` (InteriorBridge3D: the house open in place in the 3D town) the room is
+## not drawn here; the stations, people and door are picked and placed by the projector, and each station's marks
+## (name, bar, flash) are drawn over its 3D point. Everything else (bar, panels, menus, orders) is as in 2D.
+
 signal selection_changed(char_id: String)
 signal close_requested   # leave without an order (management mode, or nobody of the family inside)
 ## H3: a click on the counter of a public shop (the Armory) with someone inside: open the market panel of `stall`.
@@ -46,6 +50,7 @@ var _zoom: int = 2
 var _bound: bool = false
 var _player_family: String = ""
 var _inn: InnLayer = null        # posada: the guests and the beds of a Taberna-Posada (null in other buildings)
+var projector: InteriorBridge3D = null  # 3D: the house open in place does the room (null: the 2D room)
 
 
 ## The layer that holds the interior scene (under the objects).
@@ -239,6 +244,8 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 		(get_node("%" + n) as Button).set_pressed_no_signal(false)
 	_setup_inn(s, bld, who)
 	_setup_bank(s, bld, who)
+	room_layer().visible = projector == null
+	_floor_button_3d = null
 	sync()
 	ViewConfig.info("Interior", "setup (building=%s, manage=%s, size=%s, door=%s, stations=%d, selected=%s)" % [bld,
 		manage_mode, size_tiles, door_tile, _stations.size(), who])
@@ -618,6 +625,53 @@ func sync() -> void:
 	if _inn != null:
 		_inn.sync()
 	_refresh_marks()
+	if projector != null:
+		_project()
+
+
+## 3D: nothing of the 2D room shows but each station's marks, which hang over its 3D point (projector.station_screen).
+func _project() -> void:
+	var stage := get_node_or_null("InteriorStage") as CanvasItem
+	if stage != null and stage.visible:
+		stage.visible = false
+		stage.process_mode = Node.PROCESS_MODE_DISABLED
+	for n: Node in objects().get_children():
+		if n is StationView:
+			var sv := n as StationView
+			var at := projector.station_screen(sv.zone)
+			sv.visible = at != Vector2.INF
+			if sv.look() != null:
+				sv.look().visible = false
+			if at != Vector2.INF:
+				sv.position = (screen_to_world(at) + Vector2(0, sv.height / 2.0)).round()
+		elif n is CanvasItem:
+			(n as CanvasItem).visible = false
+	if _inn != null:
+		_inn.visible = false
+	var m := get_viewport().get_mouse_position()
+	projector.hover(pick_station(m))
+	_bind_floor_3d()
+
+
+var _floor_button_3d: Button = null
+
+
+## The room's floor button (InteriorStage's «Planta alta») shows the other floor of the house open in place.
+func _bind_floor_3d() -> void:
+	var b := get_node_or_null("%Ui/Root/FloorButton") as Button
+	if b == null:
+		b = get_node_or_null("%Ui/FloorButton") as Button
+	if b == null or b == _floor_button_3d:
+		return
+	_floor_button_3d = b
+	for c: Dictionary in b.pressed.get_connections():
+		b.pressed.disconnect(c["callable"])
+	b.visible = projector.floors() > 1
+	b.text = SimQuery.t_("ui.interior.floor_up")
+	b.pressed.connect(func() -> void:
+		var top := projector.toggle_floor()
+		b.text = SimQuery.t_("ui.interior.floor_down" if top > 0 else "ui.interior.floor_up")
+		ViewConfig.info("Interior", "3D floor %d" % top))
 
 
 var _marks_sig: String = ""
@@ -684,15 +738,21 @@ func world_to_screen(world: Vector2) -> Vector2:
 
 
 func station_screen(zone: String) -> Vector2:
+	if projector != null:
+		return projector.station_screen(zone)
 	var sv := station_view(zone)
 	return world_to_screen(sv.position + Vector2(0, -sv.height / 2.0))
 
 
 func door_screen() -> Vector2:
+	if projector != null:
+		return projector.door_screen()
 	return world_to_screen(Iso.tile_to_world(door_tile))
 
 
 func pick_character(screen: Vector2) -> String:
+	if projector != null:
+		return projector.pick_character(screen, func(id: String) -> bool: return _views.has(id) and (_views[id] as CharacterView).selectable)
 	var world := screen_to_world(screen)
 	var best := ""
 	var best_y := -INF
@@ -705,6 +765,9 @@ func pick_character(screen: Vector2) -> String:
 
 
 func pick_station(screen: Vector2) -> String:
+	if projector != null:
+		var z3 := projector.pick_station(screen)
+		return z3 if _stations.has(z3) else ""
 	var world := screen_to_world(screen)
 	for z: String in _stations:
 		var sv: StationView = _stations[z]
@@ -719,6 +782,8 @@ func pick_station(screen: Vector2) -> String:
 
 ## The door: its floor tile or the opening in the wall above it.
 func is_door(screen: Vector2) -> bool:
+	if projector != null:
+		return projector.is_door(screen)
 	var world := screen_to_world(screen)
 	if Iso.world_to_tile(world) == door_tile:
 		return true
