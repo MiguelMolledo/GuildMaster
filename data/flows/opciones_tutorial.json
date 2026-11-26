@@ -1,6 +1,7 @@
 {
   "id": "opciones_tutorial",
   "title": "Opciones, tutorial y desbloqueos",
+  "view": "3d",
   "about": "Desde el título: Opciones (idioma a inglés y vuelta, pantalla completa no), Volver; partida nueva con tutorial: su primer paso y saltarlo con Tab; F1 con los capítulos del tutorial.",
   "start": {"title": true},
   "covers": [],

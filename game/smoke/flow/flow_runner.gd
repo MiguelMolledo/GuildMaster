@@ -463,19 +463,23 @@ func signature() -> Dictionary:
 	var cam: Variant = Vector2.ZERO
 	var town_cam: Variant = Vector2.ZERO
 	var zoom: Variant = 1
+	var turn := 0
+	var tilt := 0
 	var w3: WorldView3D = app.call("world3d")
-	if w3 != null and w3.town != null:   # the 3D town: where the camera looks and its size
-		town_cam = w3.town.target.round()
+	if w3 != null and w3.town != null:   # the 3D town: where the camera looks on the ground (in decimetres) and its size
+		town_cam = (Vector2(w3.town.target.x, w3.town.target.z) * 10.0).round()
 		zoom = snappedf(w3.town.cam.size, 0.5)
+		turn = roundi(w3.town.yaw)    # Q / E
+		tilt = roundi(w3.town.pitch)  # RePág / AvPág
 	else:
 		town_cam = (app.world().camera() as Node2D).position.round()
 		zoom = app.world().camera().current_zoom()
-	if app.interior_building == "":
-		cam = town_cam
+	if app.interior_building == "" or (w3 != null and w3.in_place != ""):
+		cam = town_cam   # (a house open in place: the town's camera is the room's)
 	else:
 		cam = app.interior().camera().position.round()
 	return {"shown": shown, "speed": Game.speed, "paused": Game.paused, "selected": q.selected(),
-		"interior": app.interior_building, "camera": cam,
+		"interior": app.interior_building, "camera": cam, "turn": turn, "tilt": tilt,
 		"town_camera": town_cam, "zoom": zoom,
 		"tutorial": q.tutorial_step(), "fullscreen": Settings.value("display/fullscreen"),
 		"toast": q.text("ToastText") if q.visible("ToastLabel") else ""}
@@ -497,6 +501,10 @@ static func sig_diff(a: Dictionary, b: Dictionary) -> Array:
 			out.append("%s %s→%s" % [k, a[k], b[k]])
 	if (a["camera"] as Vector2).distance_to(b["camera"]) > 4.0:
 		out.append("mueve la cámara")
+	if absi(int(a.get("turn", 0)) - int(b.get("turn", 0))) >= 2:
+		out.append("mueve la cámara (gira)")
+	if absi(int(a.get("tilt", 0)) - int(b.get("tilt", 0))) >= 2:
+		out.append("mueve la cámara (inclina)")
 	elif str(a["interior"]) != "" and (a["town_camera"] as Vector2).distance_to(b["town_camera"]) > 4.0:
 		out.append("mueve la cámara de la ciudad (detrás del interior)")
 	return out
@@ -774,7 +782,22 @@ func _click_world3d(t: Dictionary, button: String, double: bool, shift: bool) ->
 	if t.has("tile"):
 		var tl := Vector2i(int(t["tile"][0]), int(t["tile"][1]))
 		point = func() -> Vector3: return Vector3(tl.x * 2.0 + 1.0, 0.0, tl.y * 2.0 + 1.0)
-		check = func(p: Vector2) -> bool: return w.tile_under(p) == tl and w.building_under(p) == ""
+		check = func(p: Vector2) -> bool: return w.tile_under(p) == tl and (w.build_mode or w.building_under(p) == "")
+	elif t.has("plot"):   # H6, the building mode: a plot ("plot_01") or the plot of a building ({"own": "forge"})
+		if w.build_layer == null or not w.build_mode:
+			return "el modo construcción no está puesto"
+		var pid := str(t["plot"]) if t["plot"] is String else ""
+		if t["plot"] is Dictionary:
+			var pb := q.own(str(t["plot"].get("own", ""))) if t["plot"].has("own") else q.building(str(t["plot"].get("building", "")))
+			pid = Plots.plot_of(Game.sim, pb)
+		var plot := Plots.get_plot(Game.sim, pid)
+		if plot.is_empty():
+			return "no hay parcela %s" % JSON.stringify(t)
+		var po: Array = plot.get("origin", [0, 0])
+		var ps: Array = plot.get("size", [1, 1])
+		var pmid := Vector3((float(po[0]) + float(ps[0]) / 2.0) * 2.0, 0.0, (float(po[1]) + float(ps[1]) / 2.0) * 2.0)
+		point = func() -> Vector3: return pmid
+		check = func(p: Vector2) -> bool: return w.build_layer.plot_at(w.tile_under(p)) == pid
 	elif t.has("building") or t.has("own"):
 		var b := str(t.get("building", ""))
 		if t.has("own"):
@@ -797,7 +820,8 @@ func _click_world3d(t: Dictionary, button: String, double: bool, shift: bool) ->
 		point = func() -> Vector3: return (w.town.people[cid].node as Node3D).global_position + Vector3(0, 1.0, 0) \
 			if w.town.people.has(cid) else Vector3.INF
 		var own := str(st.characters[who].get("controlled_by", "")) == "human"
-		check = func(p: Vector2) -> bool: return w.pick_person(p, own) == cid
+		# a click on somebody else picks the family first (WorldView3D.handle_click): a point where none of it is near
+		check = func(p: Vector2) -> bool: return w.pick_person(p, own) == cid and (own or w.pick_person(p, true) == "")
 		people = false
 	elif t.has("service"):
 		var sid := str(t["service"])
@@ -937,26 +961,29 @@ func _click_inn(what: String) -> String:
 	var inn: InnLayer = iv.inn_layer()
 	if inn == null:
 		return "la sala no es de una posada"
-	var targets: Array = []   # [world point, guest id or bed index]
+	var targets: Array = []   # [screen point, guest id or bed index] (InnLayer: the 2D room or the 3D house in place)
 	if what == "guest":
-		var views: Dictionary = inn.get("_views")
-		var ids: Array = views.keys()
+		var ids: Array = []
+		for g: Dictionary in Inn.guests(Game.sim, inn.building):
+			ids.append(str(g["id"]))
 		ids.sort()
 		for gid: String in ids:
-			if str(Inn.guest(Game.sim, inn.building, gid).get("state", "")) == "waiting":
-				targets.append([(views[gid] as Node2D).position + Vector2(0, -InnLayer.HEAD / 2.0), gid])
+			if str(Inn.guest(Game.sim, inn.building, gid).get("state", "")) == "waiting" and inn.guest_screen(gid) != Vector2.INF:
+				if inn.guest_still(gid):
+					targets.push_front([inn.guest_screen(gid), gid])   # one already seated first (3D: they walk in)
+				else:
+					targets.append([inn.guest_screen(gid), gid])
 	elif what == "bed":
 		var beds: Array = Inn.state_of(Game.sim, inn.building).get("beds", [])
-		var pos: Array = inn.get("_bed_pos")
-		for i: int in mini(beds.size(), pos.size()):
-			if str(beds[i].get("state", "")) == "dirty":
-				targets.append([pos[i], i])
+		for i: int in beds.size():
+			if str(beds[i].get("state", "")) == "dirty" and inn.bed_screen(i) != Vector2.INF:
+				targets.append([inn.bed_screen(i), i])
 	else:
 		return "inn: «guest» o «bed», no %s" % what
 	if targets.is_empty():
-		return "no hay %s en la sala" % ("nadie esperando" if what == "guest" else "camas sin hacer")
+		return "no hay %s en la sala" % ("nadie esperando" if what == "guest" else "camas sin hacer a la vista")
 	for t: Array in targets:
-		var base: Vector2 = iv.world_to_screen(t[0])
+		var base: Vector2 = t[0]
 		for off: Vector2 in _offsets():
 			var at := base + off
 			var w := iv.screen_to_world(at)
@@ -964,6 +991,13 @@ func _click_inn(what: String) -> String:
 			if not hit or iv.pick_character(at) != "":
 				continue
 			await drv.move_to(at)
+			for i: int in 4:   # a guest walking to its seat moved while the pointer travelled: aim again
+				var now := inn.guest_screen(str(t[1])) if what == "guest" else inn.bed_screen(int(t[1]))
+				var still: bool = inn.pick_guest(iv.screen_to_world(at)) == str(t[1]) if what == "guest" else inn.pick_bed(iv.screen_to_world(at)) == int(t[1])
+				if still or now == Vector2.INF:
+					break
+				at = now
+				await drv.move_to(at, 1)
 			var h := drv.hovered()
 			if h != null:
 				return "%s: lo tapa %s" % [what, UiDriver.path_of(h)]

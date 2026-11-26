@@ -42,6 +42,8 @@ var _marks_us: int = 0          # debug: what the marks cost per frame (logged e
 var _marks_n: int = 0
 var bridge: InteriorBridge3D = InteriorBridge3D.new()  # the house open in place, as InteriorView asks for it
 var in_place: String = ""        # the sim building open in place ("" = none): the town takes no clicks meanwhile
+var build_mode: bool = false     # H6: the building mode (B): the plots over the town, a left click is a plot's
+var build_layer: BuildLayer3D = null
 
 
 func _ready() -> void:
@@ -89,6 +91,7 @@ func build(s: Sim) -> void:
 	_feed_time()
 	if marks != null:
 		marks.build()
+	_setup_build_layer(s)
 	_revealed = ""
 	var ws := _workshop(s.state)
 	if ws != "":
@@ -315,6 +318,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func handle_click(mb: InputEventMouseButton) -> bool:
 	var st: WorldState = sim.state
+	if build_mode and build_layer != null and mb.button_index == MOUSE_BUTTON_LEFT:
+		var plot := build_layer.plot_at(tile_under(mb.position))  # H6: in the building mode a click is a plot's
+		if plot != "":
+			ViewConfig.info("WorldView3D", "plot picked %s" % plot)
+			plot_picked.emit(plot)
+			return true
 	if mb.button_index == MOUSE_BUTTON_LEFT:
 		var who := pick_person(mb.position, true)
 		if who != "":
@@ -352,6 +361,26 @@ func handle_click(mb: InputEventMouseButton) -> bool:
 		service_requested.emit(selected_id, "", "", Vector2i.ZERO)
 		return true
 	return false
+
+
+## H6: the building mode (04 §4.9): the plots over the town (BuildLayer3D) and a click on one is the plot's.
+func set_build_mode(on: bool) -> void:
+	build_mode = on
+	if build_layer != null:
+		build_layer.set_on(on)
+
+
+func _setup_build_layer(s: Sim) -> void:
+	if build_layer == null:
+		var layer := CanvasLayer.new()
+		layer.name = "BuildCanvas"
+		layer.layer = 0   # under the marks (1) and the HUD
+		add_child(layer)
+		build_layer = BuildLayer3D.new()
+		build_layer.view = self
+		layer.add_child(build_layer)
+	build_layer.setup(self, s, SimQuery.player_family(s.state))
+	build_layer.set_on(build_mode)
 
 
 ## The tile the camera ray through `screen` meets at height `h` (metres; 1 tile = 2 m).

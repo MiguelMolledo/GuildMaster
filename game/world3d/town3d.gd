@@ -381,6 +381,10 @@ func open_house_building() -> String:
 	return live_bld if inside else ""
 
 
+func _roster_extra(roster: Dictionary) -> void:
+	Inn3D.add_guests(self, roster)  # a tavern open in place: its guests, seated (inn3d.gd)
+
+
 var _reopen: String = ""  # the house open in place was built again (an upgrade done, works): it opens again
 
 

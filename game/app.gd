@@ -170,7 +170,9 @@ func _ready() -> void:
 	_world.plot_picked.connect(open_plot)  # H6: a plot in the building mode: its card
 	_hud.build_mode_changed.connect(func(on: bool) -> void:
 		if _w3 == null:
-			_world.set_build_mode(on))
+			_world.set_build_mode(on)
+		else:
+			_w3.set_build_mode(on))
 	_hud.plot_requested.connect(open_plot)
 	_world.manage_requested.connect(func(id: String) -> void:
 		if _owns(id):
@@ -196,6 +198,7 @@ func _ready() -> void:
 	Game.started.connect(func() -> void:
 		_close_now()
 		_hud.close_panels()
+		_hud.set_build_mode(false)  # a new game or a load starts out of the building mode
 		_tutorial.stop()
 		if _tutorial.ctx != null:
 			_tutorial.ctx.clear_cache())

@@ -55,7 +55,8 @@ static func view_mode(args: PackedStringArray, script_id: String, smoke_3d: Arra
 		if ids.is_empty() or ids.has("all") or ids.has("quick"):
 			return "2d"
 		for id: Variant in ids:
-			var d: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/flows/%s.json" % str(id)))
+			var fp := "res://data/flows/%s.json" % str(id)
+			var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(fp)) if FileAccess.file_exists(fp) else null
 			if not (d is Dictionary and str((d as Dictionary).get("view", "2d")) == "3d"):
 				return "2d"
 		return "3d"

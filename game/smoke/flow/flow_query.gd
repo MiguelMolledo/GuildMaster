@@ -10,6 +10,7 @@ var step_orders: Array = []    # [{type, via}] orders the UI gave during this st
 var step_events: Array = []    # sim events published during this step
 var flow_orders: Array = []    # the whole flow's
 var _was: Dictionary = {}
+var _kept: Dictionary = {}   # keep / kept
 
 
 func _init(a: Node, d: UiDriver) -> void:
@@ -393,6 +394,23 @@ func zoom() -> int:
 	if w3 != null and w3.town != null:
 		return int(w3.town.cam.size)
 	return int(app.world().camera().current_zoom())
+
+
+## The 3D town's camera size (orthographic, continuous: the wheel eases it), 0 in 2D: the flows compare it with the
+## one they kept (keep / kept).
+func town_zoom() -> float:
+	var w3: WorldView3D = app.call("world3d")
+	return float(w3.town.cam.size) if w3 != null and w3.town != null else 0.0
+
+
+## Keeps a value for a later check of the same flow (true, so it can stand in an "expect"); kept(k) gives it back.
+func keep(k: String, v: Variant) -> bool:
+	_kept[k] = v
+	return true
+
+
+func kept(k: String) -> Variant:
+	return _kept.get(k)
 
 
 ## Whether unlock `id` of 03b is open for the player's family (the jugador pass waits for staff, upgrades...).

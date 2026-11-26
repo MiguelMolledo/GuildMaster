@@ -499,6 +499,23 @@ func _style(type: String, w: int, d: int, site := {}) -> Dictionary:
 				sd = alt
 				why = ""
 				break
+	if why != "":
+		# none drawn for this house with its storeys (the tavern of level 3 on a 6 m lot): the house of the nearest
+		# level's interior drawn for its footprint, with that interior's storeys, so the business still opens in place
+		for l: int in [level - 1, level - 2, level + 1, level + 2]:
+			var alt := situ_for(id, l).duplicate(true) if l >= 1 and l <= 3 else {}
+			if alt.is_empty() or int(alt.shell.w) != w or int(alt.shell.d) != d:
+				continue
+			var def2 := def.duplicate(true)
+			def2.floors = int(alt.shell.floors)
+			if SituShell.apply(def2, alt, yard) == "":
+				if OS.is_debug_build():
+					print("[Pueblo] interior in place: %s level %d takes the interior of level %d and its %d storeys (%s)" % [
+						id, level, l, int(alt.shell.floors), why])
+				def = def2
+				sd = alt
+				why = ""
+				break
 	if why == "":
 		def["_situ_data"] = sd
 		if (sd.shell as Dictionary).has("porch"):

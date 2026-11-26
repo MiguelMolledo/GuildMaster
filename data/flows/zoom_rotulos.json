@@ -1,15 +1,16 @@
 {
   "id": "zoom_rotulos",
   "title": "Rótulos con zoom",
-  "about": "La plaza al atardecer (corrillos, frases, burbujas) a ×1 y a ×2: los carteles, los nombres, las frases y las burbujas guardan su tamaño en pantalla y no se amontonan; las frases largas van en dos líneas.",
+  "view": "3d",
+  "about": "La plaza al atardecer (corrillos, frases, burbujas) a ×1 y a ×2: los carteles, los nombres, las frases y las burbujas guardan su tamaño en pantalla y no se amontonan; las frases largas van en dos líneas. En 3D el zoom es continuo (la rueda acerca y aleja con suavidad): se compara el tamaño de la cámara con el de antes.",
   "start": {"scenario": "plaza_dusk"},
   "covers": [],
   "steps": [
-    {"id": "plaza_x1", "say": "La plaza a ×1", "wait": 1.0},
-    {"id": "x2", "say": "x2: la rueda acerca", "wheel": {"up": true, "times": 1}, "expect": ["q.zoom() == 2"]},
-    {"id": "plaza_x2", "say": "A ×2: los rótulos del mismo tamaño en pantalla", "wait": 1.0},
+    {"id": "plaza_x1", "say": "La plaza a ×1", "wait": 1.0, "expect": ["q.keep('z0', q.town_zoom())"]},
+    {"id": "x2", "say": "La rueda acerca", "wheel": {"up": true, "times": 1}, "until": "q.town_zoom() < 0.95 * q.kept('z0')", "timeout": 4},
+    {"id": "plaza_x2", "say": "Más cerca: los rótulos del mismo tamaño en pantalla", "wait": 1.0},
     {"id": "corrillos", "say": "Corrillos: frases y burbujas", "key": "@speed_3", "until": "q.hour() >= 19", "timeout": 20, "fast": 4},
     {"id": "corrillos_x2", "wait": 1.0},
-    {"id": "x1", "say": "La rueda aleja: ×1", "wheel": {"up": false, "times": 1}, "expect": ["q.zoom() == 1"]}
+    {"id": "x1", "say": "La rueda aleja: como al principio", "wheel": {"up": false, "times": 1}, "until": "abs(q.town_zoom() - q.kept('z0')) < 0.05 * q.kept('z0')", "timeout": 4}
   ]
 }

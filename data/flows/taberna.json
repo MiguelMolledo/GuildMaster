@@ -1,6 +1,7 @@
 {
   "id": "taberna",
   "title": "Comprar la taberna y llevar un turno",
+  "view": "3d",
   "about": "En una partida nueva la Taberna-Posada está en venta: su barra de selección dice el precio y, sin oro bastante, por qué no se puede. Con la taberna ya comprada (escenario innkeeper_start, el protagonista dentro una hora antes de abrir): el panel de la taberna (botón de la barra), la carta (quitar y poner un plato, su precio, el plato del día), las habitaciones (hacer una cama si alguna está por hacer), la licencia, la noche a ×4 y, al alba, cuando los huéspedes se van, hacer una de sus camas (con el teclado: Tab hasta el botón e Intro); Esc cierra el panel.",
   "start": {"new_game": true},
   "covers": ["buy_building", "inn_set_menu", "inn_set_price", "inn_set_special", "inn_make_bed", "inn_buy_license", "inn_serve"],
@@ -35,6 +36,7 @@
     {"id": "sala_escena", "say": "La sala llena con camas sin hacer (escenario inn_chores)", "restart": {"scenario": "inn_chores"}},
     {"id": "sala_dentro", "say": "Doble clic en la taberna propia (Hugo ya está dentro)", "when": "q.interior() == ''", "world": {"own": "tavern_inn"}, "double": true, "until": "q.interior() == q.own('tavern_inn')", "timeout": 6},
     {"id": "servir", "say": "Clic en un parroquiano que espera: servirle", "inn": "guest", "expect": ["q.order('inn_serve')"]},
+    {"id": "planta_alta", "say": "«Planta alta»: las habitaciones de arriba (en 3D, las camas están en el piso de arriba)", "when": "q.visible('FloorButton')", "click": {"node": "FloorButton"}},
     {"id": "hacer_cama", "say": "Clic en una cama sin hacer", "inn": "bed", "expect": ["q.order('inn_make_bed')"]}
   ]
 }

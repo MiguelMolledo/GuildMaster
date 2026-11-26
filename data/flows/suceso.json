@@ -1,6 +1,7 @@
 {
   "id": "suceso",
   "title": "Responder a un suceso",
+  "view": "3d",
   "about": "Una tarjeta de microevento en la columna (elegir una opción) y, aparte, el secuestro de un familiar con su carta (pagar, negociar, rescatar o nada).",
   "start": {"scenario": "microevent_card"},
   "covers": ["resolve_microevent", "resolve_incident"],
