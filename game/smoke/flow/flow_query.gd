@@ -77,6 +77,37 @@ func interior() -> String:
 	return str(app.interior_building)
 
 
+## 3D (docs/3d/plan.md M3D-3): the house shown inside is open in place in the 3D town.
+func in_place3d() -> bool:
+	var w3: Variant = app.call("world3d")
+	return w3 != null and interior() != "" and (w3 as WorldView3D).bridge.ready()
+
+
+## 3D: how many zones of the building shown inside the open house places as stations (all of its type: in place).
+func stations3d() -> int:
+	var w3: Variant = app.call("world3d")
+	if w3 == null or interior() == "":
+		return 0
+	var n := 0
+	for z: Dictionary in Game.sim.catalog.buildings().get(str(st().buildings[interior()]["type"]), {}).get("zones", []):
+		if (w3 as WorldView3D).bridge.has_station(str(z["id"])):
+			n += 1
+	return n
+
+
+## 3D: zones of the building shown inside (its type's), to compare with stations3d().
+func zones() -> int:
+	if interior() == "":
+		return 0
+	return (Game.sim.catalog.buildings().get(str(st().buildings[interior()]["type"]), {}).get("zones", []) as Array).size()
+
+
+## 3D: `id` (default the active person) is drawn inside the open house, on screen.
+func seen3d(id: String = "") -> bool:
+	var w3: Variant = app.call("world3d")
+	return w3 != null and (w3 as WorldView3D).bridge.person_screen(id if id != "" else who()) != Vector2.INF
+
+
 func tile() -> Array:
 	return ch().get("position", [])
 
@@ -284,6 +315,40 @@ func touch_open(zone: String) -> bool:
 func working(zone: String) -> bool:
 	var b := interior() if interior() != "" else own("forge")
 	return not SimQuery.job_view(Game.sim, b, zone).is_empty()
+
+
+## The state of a field of the building shown inside (fallow, plowed, growing, ready, rotten).
+func field(zone: String) -> String:
+	return str(Fields.peek(st(), interior() if interior() != "" else own("farm"), zone).get("state", "fallow"))
+
+
+## The Rogue: the nearest one standing in the street, drawn, whose purse the active person may pick (pickpocket_reason
+## "" or only too far), "" if none.
+func victim() -> String:
+	var w3: WorldView3D = app.call("world3d")
+	var best := ""
+	var best_d := INF
+	var me: Array = ch().get("position", [0, 0])
+	var ids: Array = st().characters.keys()
+	ids.sort()
+	for id: String in ids:
+		if not Rogue.pickpocket_reason(Game.sim, who(), id) in ["", "too_far"]:
+			continue
+		if not (st().characters[id].get("path", []) as Array).is_empty():
+			continue   # a walker is gone by the time the thief gets to where she was
+		if w3 != null and w3.screen_of(id) == Vector2.INF:
+			continue
+		var p: Array = st().characters[id].get("position", [0, 0])
+		var d := Vector2(float(p[0]) - float(me[0]), float(p[1]) - float(me[1])).length()
+		if d >= 3.0 and d < best_d:   # not at the thief's elbow: a click there picks the thief
+			best_d = d
+			best = id
+	return best
+
+
+## The loan applications waiting at the player's Banco.
+func applications() -> int:
+	return Bank.applications(st(), own("bank")).size()
 
 
 ## The quality of the first stack of `item` in the bag (-1 if none).

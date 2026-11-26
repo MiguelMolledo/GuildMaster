@@ -1,0 +1,249 @@
+{
+  "id": "oficio_sastreria",
+  "title": "Oficio: sastrería en 3D",
+  "about": "Partida nueva de sastre: entrar en la sastrería (abierta en sitio), paño en el telar, ropa de trabajo en la mesa de coser, cogerla del almacén y venderla en el puesto de ropa.",
+  "view": "3d",
+  "start": {
+    "start": "artisan_tailor",
+    "at": "08:00"
+  },
+  "covers": [
+    "enter_building",
+    "work_at",
+    "stop_work",
+    "transfer",
+    "exit_building",
+    "sell"
+  ],
+  "steps": [
+    {
+      "id": "entrar",
+      "say": "Clic derecho en la sastrería: entra",
+      "world": {
+        "own": "tailor_shop"
+      },
+      "button": "right",
+      "until": "q.interior() == q.own('tailor_shop') and q.location() == q.own('tailor_shop')",
+      "timeout": 30,
+      "fast": 4,
+      "expect": [
+        "q.order('enter_building')"
+      ]
+    },
+    {
+      "id": "en_sitio",
+      "say": "La casa se abre en sitio: sus puestos y su gente dentro",
+      "until": "q.in_place3d()",
+      "timeout": 10,
+      "expect": [
+        "q.stations3d() == q.zones()",
+        "q.seen3d()"
+      ]
+    },
+    {
+      "id": "menu_loom",
+      "say": "Clic derecho en el telar: su menú",
+      "station": "loom",
+      "button": "right",
+      "expect": [
+        "q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "receta_tailor_cloth",
+      "say": "La receta tailor_cloth",
+      "click": {
+        "via": "RecipeList",
+        "fn": "get_node",
+        "args": [
+          "Row_tailor_cloth"
+        ],
+        "type": "Button"
+      },
+      "expect": [
+        "q.order('work_at')",
+        "not q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "trabajando_loom",
+      "say": "Trabaja en su puesto (captura)",
+      "wait": 1.5,
+      "expect": [
+        "q.working('loom')",
+        "q.seen3d()"
+      ]
+    },
+    {
+      "id": "hecho_cloth",
+      "say": "Espera 2 de cloth",
+      "until": "q.storage('cloth') >= 2",
+      "timeout": 90,
+      "fast": 6
+    },
+    {
+      "id": "parar_loom",
+      "say": "Clic derecho en el puesto y Parar",
+      "when": "q.working('loom')",
+      "station": "loom",
+      "button": "right"
+    },
+    {
+      "id": "parar_boton_loom",
+      "when": "q.visible('StationMenu')",
+      "click": {
+        "node": "StopButton"
+      },
+      "expect": [
+        "q.order('stop_work')"
+      ]
+    },
+    {
+      "id": "menu_sewing_table",
+      "say": "Clic derecho en la mesa de coser: su menú",
+      "station": "sewing_table",
+      "button": "right",
+      "expect": [
+        "q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "receta_tailor_work_clothes",
+      "say": "La receta tailor_work_clothes",
+      "click": {
+        "via": "RecipeList",
+        "fn": "get_node",
+        "args": [
+          "Row_tailor_work_clothes"
+        ],
+        "type": "Button"
+      },
+      "expect": [
+        "q.order('work_at')",
+        "not q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "trabajando_sewing_table",
+      "say": "Trabaja en su puesto (captura)",
+      "wait": 1.5,
+      "expect": [
+        "q.working('sewing_table')",
+        "q.seen3d()"
+      ]
+    },
+    {
+      "id": "hecho_work_clothes",
+      "say": "Espera 1 de work_clothes",
+      "until": "q.storage('work_clothes') >= 1",
+      "timeout": 90,
+      "fast": 6
+    },
+    {
+      "id": "parar_sewing_table",
+      "say": "Clic derecho en el puesto y Parar",
+      "when": "q.working('sewing_table')",
+      "station": "sewing_table",
+      "button": "right"
+    },
+    {
+      "id": "parar_boton_sewing_table",
+      "when": "q.visible('StationMenu')",
+      "click": {
+        "node": "StopButton"
+      },
+      "expect": [
+        "q.order('stop_work')"
+      ]
+    },
+    {
+      "id": "almacen",
+      "say": "El botón Almacén",
+      "click": {
+        "node": "StorageButton"
+      },
+      "expect": [
+        "q.visible('StoragePanel')"
+      ]
+    },
+    {
+      "id": "coger_work_clothes",
+      "say": "Clic en work_clothes del almacén: a la bolsa",
+      "click": {
+        "within": "BuildingGrid",
+        "prefix": "work_clothes_"
+      },
+      "until": "q.bag('work_clothes') > 0",
+      "timeout": 10,
+      "expect": [
+        "q.order('transfer')"
+      ]
+    },
+    {
+      "id": "salir",
+      "say": "Salir",
+      "click": {
+        "node": "ExitButton"
+      },
+      "until": "q.interior() == '' and q.location() == ''",
+      "timeout": 20,
+      "fast": 4,
+      "expect": [
+        "q.order('exit_building')"
+      ]
+    },
+    {
+      "id": "espera_mercado",
+      "say": "Espera a que abra el mercado",
+      "when": "not q.market_open('clothier')",
+      "until": "q.market_open('clothier')",
+      "timeout": 60,
+      "fast": 6
+    },
+    {
+      "id": "al_puesto",
+      "say": "Clic derecho en el puesto clothier",
+      "world": {
+        "service": "clothier"
+      },
+      "button": "right",
+      "until": "q.visible('MarketPanel')",
+      "timeout": 30,
+      "fast": 4
+    },
+    {
+      "id": "pestana_vender",
+      "click": {
+        "node": "SellTab"
+      }
+    },
+    {
+      "id": "vender_work_clothes",
+      "say": "Vender work_clothes",
+      "click": {
+        "within": {
+          "within": "SellList",
+          "prefix": "work_clothes_"
+        },
+        "node": "SellOne"
+      },
+      "until": "q.bag('work_clothes') < q.was('bag', 'work_clothes')",
+      "timeout": 10,
+      "expect": [
+        "q.order('sell')",
+        "q.event('market_sold')",
+        "q.gold() > q.was('gold') or q.event('upkeep_charged')"
+      ]
+    },
+    {
+      "id": "cerrar_mercado",
+      "click": {
+        "within": "MarketPanel",
+        "node": "CloseButton"
+      },
+      "expect": [
+        "not q.visible('MarketPanel')"
+      ]
+    }
+  ]
+}

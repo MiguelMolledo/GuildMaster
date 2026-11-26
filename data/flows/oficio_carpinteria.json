@@ -1,0 +1,249 @@
+{
+  "id": "oficio_carpinteria",
+  "title": "Oficio: carpintería en 3D",
+  "about": "Partida nueva de carpintero: entrar en la carpintería (abierta en sitio), tablones en el caballete, un barril en el banco, cogerlo del almacén y venderlo en el puesto de mercancías.",
+  "view": "3d",
+  "start": {
+    "start": "artisan_carpenter",
+    "at": "08:00"
+  },
+  "covers": [
+    "enter_building",
+    "work_at",
+    "stop_work",
+    "transfer",
+    "exit_building",
+    "sell"
+  ],
+  "steps": [
+    {
+      "id": "entrar",
+      "say": "Clic derecho en la carpintería: entra",
+      "world": {
+        "own": "carpentry"
+      },
+      "button": "right",
+      "until": "q.interior() == q.own('carpentry') and q.location() == q.own('carpentry')",
+      "timeout": 30,
+      "fast": 4,
+      "expect": [
+        "q.order('enter_building')"
+      ]
+    },
+    {
+      "id": "en_sitio",
+      "say": "La casa se abre en sitio: sus puestos y su gente dentro",
+      "until": "q.in_place3d()",
+      "timeout": 10,
+      "expect": [
+        "q.stations3d() == q.zones()",
+        "q.seen3d()"
+      ]
+    },
+    {
+      "id": "menu_sawhorse",
+      "say": "Clic derecho en el caballete: su menú",
+      "station": "sawhorse",
+      "button": "right",
+      "expect": [
+        "q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "receta_carpentry_planks",
+      "say": "La receta carpentry_planks",
+      "click": {
+        "via": "RecipeList",
+        "fn": "get_node",
+        "args": [
+          "Row_carpentry_planks"
+        ],
+        "type": "Button"
+      },
+      "expect": [
+        "q.order('work_at')",
+        "not q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "trabajando_sawhorse",
+      "say": "Trabaja en su puesto (captura)",
+      "wait": 1.5,
+      "expect": [
+        "q.working('sawhorse')",
+        "q.seen3d()"
+      ]
+    },
+    {
+      "id": "hecho_planks",
+      "say": "Espera 2 de planks",
+      "until": "q.storage('planks') >= 2",
+      "timeout": 90,
+      "fast": 6
+    },
+    {
+      "id": "parar_sawhorse",
+      "say": "Clic derecho en el puesto y Parar",
+      "when": "q.working('sawhorse')",
+      "station": "sawhorse",
+      "button": "right"
+    },
+    {
+      "id": "parar_boton_sawhorse",
+      "when": "q.visible('StationMenu')",
+      "click": {
+        "node": "StopButton"
+      },
+      "expect": [
+        "q.order('stop_work')"
+      ]
+    },
+    {
+      "id": "menu_workbench",
+      "say": "Clic derecho en el banco: su menú",
+      "station": "workbench",
+      "button": "right",
+      "expect": [
+        "q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "receta_carpentry_barrel",
+      "say": "La receta carpentry_barrel",
+      "click": {
+        "via": "RecipeList",
+        "fn": "get_node",
+        "args": [
+          "Row_carpentry_barrel"
+        ],
+        "type": "Button"
+      },
+      "expect": [
+        "q.order('work_at')",
+        "not q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "trabajando_workbench",
+      "say": "Trabaja en su puesto (captura)",
+      "wait": 1.5,
+      "expect": [
+        "q.working('workbench')",
+        "q.seen3d()"
+      ]
+    },
+    {
+      "id": "hecho_barrel",
+      "say": "Espera 1 de barrel",
+      "until": "q.storage('barrel') >= 1",
+      "timeout": 90,
+      "fast": 6
+    },
+    {
+      "id": "parar_workbench",
+      "say": "Clic derecho en el puesto y Parar",
+      "when": "q.working('workbench')",
+      "station": "workbench",
+      "button": "right"
+    },
+    {
+      "id": "parar_boton_workbench",
+      "when": "q.visible('StationMenu')",
+      "click": {
+        "node": "StopButton"
+      },
+      "expect": [
+        "q.order('stop_work')"
+      ]
+    },
+    {
+      "id": "almacen",
+      "say": "El botón Almacén",
+      "click": {
+        "node": "StorageButton"
+      },
+      "expect": [
+        "q.visible('StoragePanel')"
+      ]
+    },
+    {
+      "id": "coger_barrel",
+      "say": "Clic en barrel del almacén: a la bolsa",
+      "click": {
+        "within": "BuildingGrid",
+        "prefix": "barrel_"
+      },
+      "until": "q.bag('barrel') > 0",
+      "timeout": 10,
+      "expect": [
+        "q.order('transfer')"
+      ]
+    },
+    {
+      "id": "salir",
+      "say": "Salir",
+      "click": {
+        "node": "ExitButton"
+      },
+      "until": "q.interior() == '' and q.location() == ''",
+      "timeout": 20,
+      "fast": 4,
+      "expect": [
+        "q.order('exit_building')"
+      ]
+    },
+    {
+      "id": "espera_mercado",
+      "say": "Espera a que abra el mercado",
+      "when": "not q.market_open('goods')",
+      "until": "q.market_open('goods')",
+      "timeout": 60,
+      "fast": 6
+    },
+    {
+      "id": "al_puesto",
+      "say": "Clic derecho en el puesto goods",
+      "world": {
+        "service": "goods"
+      },
+      "button": "right",
+      "until": "q.visible('MarketPanel')",
+      "timeout": 30,
+      "fast": 4
+    },
+    {
+      "id": "pestana_vender",
+      "click": {
+        "node": "SellTab"
+      }
+    },
+    {
+      "id": "vender_barrel",
+      "say": "Vender barrel",
+      "click": {
+        "within": {
+          "within": "SellList",
+          "prefix": "barrel_"
+        },
+        "node": "SellOne"
+      },
+      "until": "q.bag('barrel') < q.was('bag', 'barrel')",
+      "timeout": 10,
+      "expect": [
+        "q.order('sell')",
+        "q.event('market_sold')",
+        "q.gold() > q.was('gold') or q.event('upkeep_charged')"
+      ]
+    },
+    {
+      "id": "cerrar_mercado",
+      "click": {
+        "within": "MarketPanel",
+        "node": "CloseButton"
+      },
+      "expect": [
+        "not q.visible('MarketPanel')"
+      ]
+    }
+  ]
+}

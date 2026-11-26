@@ -190,7 +190,8 @@ func _write(dir: String, res: Dictionary) -> void:
 	f.close()
 
 
-## Where the flow starts: {"scenario": id} (a saved game, playing), {"title": true} (the title screen),
+## Where the flow starts: {"scenario": id} (a saved game, playing), {"start": id} (a new game from data/starts,
+## fixed cast; "difficulty", default normal), {"title": true} (the title screen),
 ## {"new_game": true} (the new game screen), {"keep": true} (as the flow before left it: the jugador pass); "seed",
 ## "speed", "at": "HH:MM", "paused".
 func _start(s: Dictionary) -> String:
@@ -206,8 +207,12 @@ func _start(s: Dictionary) -> String:
 		app.show_title()
 		app.show_new_game()
 	else:
-		var sc := str(s.get("scenario", Game.DEFAULT_SCENARIO))
-		var r := NewGame.from_scenario(sc, seed_value)
+		var sc := str(s.get("start", s.get("scenario", Game.DEFAULT_SCENARIO)))
+		var r: Dictionary
+		if s.has("start"):   # a new game from a start of data/starts (a trade), with today's fixed cast
+			r = NewGame.from_start(Game.sim.catalog, sc, str(s.get("difficulty", "normal")), {"cast": "fixed"}, seed_value)
+		else:
+			r = NewGame.from_scenario(sc, seed_value)
 		if not bool(r.get("ok", false)):
 			return "escenario %s: %s" % [sc, r.get("error", "")]
 		var state: WorldState = r["state"]

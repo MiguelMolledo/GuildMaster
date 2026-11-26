@@ -1,0 +1,249 @@
+{
+  "id": "oficio_canteria",
+  "title": "Oficio: cantería en 3D",
+  "about": "Partida nueva de cantero: entrar en la cantería (abierta en sitio), sillares en el banco de corte, una muela en el banco de tallar, cogerla del almacén y venderla en el puesto de mercancías.",
+  "view": "3d",
+  "start": {
+    "start": "artisan_mason",
+    "at": "08:00"
+  },
+  "covers": [
+    "enter_building",
+    "work_at",
+    "stop_work",
+    "transfer",
+    "exit_building",
+    "sell"
+  ],
+  "steps": [
+    {
+      "id": "entrar",
+      "say": "Clic derecho en la cantería: entra",
+      "world": {
+        "own": "masonry"
+      },
+      "button": "right",
+      "until": "q.interior() == q.own('masonry') and q.location() == q.own('masonry')",
+      "timeout": 30,
+      "fast": 4,
+      "expect": [
+        "q.order('enter_building')"
+      ]
+    },
+    {
+      "id": "en_sitio",
+      "say": "La casa se abre en sitio: sus puestos y su gente dentro",
+      "until": "q.in_place3d()",
+      "timeout": 10,
+      "expect": [
+        "q.stations3d() == q.zones()",
+        "q.seen3d()"
+      ]
+    },
+    {
+      "id": "menu_cutting_bench",
+      "say": "Clic derecho en el banco de corte: su menú",
+      "station": "cutting_bench",
+      "button": "right",
+      "expect": [
+        "q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "receta_masonry_ashlar",
+      "say": "La receta masonry_ashlar",
+      "click": {
+        "via": "RecipeList",
+        "fn": "get_node",
+        "args": [
+          "Row_masonry_ashlar"
+        ],
+        "type": "Button"
+      },
+      "expect": [
+        "q.order('work_at')",
+        "not q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "trabajando_cutting_bench",
+      "say": "Trabaja en su puesto (captura)",
+      "wait": 1.5,
+      "expect": [
+        "q.working('cutting_bench')",
+        "q.seen3d()"
+      ]
+    },
+    {
+      "id": "hecho_ashlar",
+      "say": "Espera 2 de ashlar",
+      "until": "q.storage('ashlar') >= 2",
+      "timeout": 90,
+      "fast": 6
+    },
+    {
+      "id": "parar_cutting_bench",
+      "say": "Clic derecho en el puesto y Parar",
+      "when": "q.working('cutting_bench')",
+      "station": "cutting_bench",
+      "button": "right"
+    },
+    {
+      "id": "parar_boton_cutting_bench",
+      "when": "q.visible('StationMenu')",
+      "click": {
+        "node": "StopButton"
+      },
+      "expect": [
+        "q.order('stop_work')"
+      ]
+    },
+    {
+      "id": "menu_carving_bench",
+      "say": "Clic derecho en el banco de tallar: su menú",
+      "station": "carving_bench",
+      "button": "right",
+      "expect": [
+        "q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "receta_masonry_grindstone",
+      "say": "La receta masonry_grindstone",
+      "click": {
+        "via": "RecipeList",
+        "fn": "get_node",
+        "args": [
+          "Row_masonry_grindstone"
+        ],
+        "type": "Button"
+      },
+      "expect": [
+        "q.order('work_at')",
+        "not q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "trabajando_carving_bench",
+      "say": "Trabaja en su puesto (captura)",
+      "wait": 1.5,
+      "expect": [
+        "q.working('carving_bench')",
+        "q.seen3d()"
+      ]
+    },
+    {
+      "id": "hecho_grindstone",
+      "say": "Espera 1 de grindstone",
+      "until": "q.storage('grindstone') >= 1",
+      "timeout": 90,
+      "fast": 6
+    },
+    {
+      "id": "parar_carving_bench",
+      "say": "Clic derecho en el puesto y Parar",
+      "when": "q.working('carving_bench')",
+      "station": "carving_bench",
+      "button": "right"
+    },
+    {
+      "id": "parar_boton_carving_bench",
+      "when": "q.visible('StationMenu')",
+      "click": {
+        "node": "StopButton"
+      },
+      "expect": [
+        "q.order('stop_work')"
+      ]
+    },
+    {
+      "id": "almacen",
+      "say": "El botón Almacén",
+      "click": {
+        "node": "StorageButton"
+      },
+      "expect": [
+        "q.visible('StoragePanel')"
+      ]
+    },
+    {
+      "id": "coger_grindstone",
+      "say": "Clic en grindstone del almacén: a la bolsa",
+      "click": {
+        "within": "BuildingGrid",
+        "prefix": "grindstone_"
+      },
+      "until": "q.bag('grindstone') > 0",
+      "timeout": 10,
+      "expect": [
+        "q.order('transfer')"
+      ]
+    },
+    {
+      "id": "salir",
+      "say": "Salir",
+      "click": {
+        "node": "ExitButton"
+      },
+      "until": "q.interior() == '' and q.location() == ''",
+      "timeout": 20,
+      "fast": 4,
+      "expect": [
+        "q.order('exit_building')"
+      ]
+    },
+    {
+      "id": "espera_mercado",
+      "say": "Espera a que abra el mercado",
+      "when": "not q.market_open('goods')",
+      "until": "q.market_open('goods')",
+      "timeout": 60,
+      "fast": 6
+    },
+    {
+      "id": "al_puesto",
+      "say": "Clic derecho en el puesto goods",
+      "world": {
+        "service": "goods"
+      },
+      "button": "right",
+      "until": "q.visible('MarketPanel')",
+      "timeout": 30,
+      "fast": 4
+    },
+    {
+      "id": "pestana_vender",
+      "click": {
+        "node": "SellTab"
+      }
+    },
+    {
+      "id": "vender_grindstone",
+      "say": "Vender grindstone",
+      "click": {
+        "within": {
+          "within": "SellList",
+          "prefix": "grindstone_"
+        },
+        "node": "SellOne"
+      },
+      "until": "q.bag('grindstone') < q.was('bag', 'grindstone')",
+      "timeout": 10,
+      "expect": [
+        "q.order('sell')",
+        "q.event('market_sold')",
+        "q.gold() > q.was('gold') or q.event('upkeep_charged')"
+      ]
+    },
+    {
+      "id": "cerrar_mercado",
+      "click": {
+        "within": "MarketPanel",
+        "node": "CloseButton"
+      },
+      "expect": [
+        "not q.visible('MarketPanel')"
+      ]
+    }
+  ]
+}

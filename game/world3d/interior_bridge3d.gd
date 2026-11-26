@@ -9,8 +9,10 @@ extends RefCounted
 const PICK_PERSON: float = 26.0   # screen units around a person's chest
 const PICK_STATION: float = 30.0  # around a station's middle, when the floor under the pointer is not its tile
 const STATION_LIFT: float = 1.0   # the station's middle, metres over its floor
+const FALLBACK_LIFT: float = 0.2  # a zone without a station in the layout (missing()): its mark, by the floor
 
 var town: Town3D = null
+var sim: Sim = null   # the game's (WorldView3D.build): what the building is, for the zones its layout lacks
 var building: String = ""
 
 
@@ -34,8 +36,11 @@ func _screen(local: Vector3) -> Vector2:
 
 ## The middle of a station's tiles on screen (Vector2.INF if the interior has no such zone).
 func station_screen(zone: String) -> Vector2:
-	if not ready() or not (view().B.zones as Dictionary).has(zone):
+	if not ready():
 		return Vector2.INF
+	if not (view().B.zones as Dictionary).has(zone):
+		var k := missing().find(zone)
+		return _screen(_spot_point(k, missing().size())) if k >= 0 else Vector2.INF
 	var zd: Dictionary = view().B.zones[zone]
 	var c := Vector3.ZERO
 	for t: Vector2i in zd.tiles:
@@ -45,7 +50,33 @@ func station_screen(zone: String) -> Vector2:
 
 
 func has_station(zone: String) -> bool:
-	return ready() and (view().B.zones as Dictionary).has(zone)
+	return ready() and ((view().B.zones as Dictionary).has(zone) or missing().has(zone))
+
+
+## The zones of the sim's building that the 3D layout has no station for (the counter of a level-1 workshop, the farm's
+## fields): their marks stand where SituLive puts whoever works on them (the layout's "shop" spot, else the entrance),
+## side by side.
+func missing() -> Array:
+	if not ready() or sim == null or not sim.state.buildings.has(building):
+		return []
+	var out: Array = []
+	var type := str(sim.state.buildings[building]["type"])
+	for z: Dictionary in sim.catalog.buildings().get(type, {}).get("zones", []):
+		if not (view().B.zones as Dictionary).has(str(z["id"])):
+			out.append(str(z["id"]))
+	return out
+
+
+func _spot_point(k: int, n: int) -> Vector3:
+	var B: Variant = view().B
+	var sp: Dictionary = B.d.get("spots", {})
+	var f := 0
+	var t := Vector2i(int(B.d.entrance.tile[0]), int(B.d.entrance.tile[1]))
+	if sp.get("shop") is Array and sp["shop"][1] is Array:
+		f = int(sp["shop"][0])
+		t = Vector2i(int(sp["shop"][1][0]), int(sp["shop"][1][1]))
+	# low, by the floor: the marks of the stations next to the door hang at STATION_LIFT and would cover these
+	return B.tile_pos(f, t) + Vector3(0.7 * (float(k) - float(n - 1) / 2.0), FALLBACK_LIFT, 0.0)
 
 
 ## The street door's tile on screen.
@@ -66,8 +97,8 @@ func pick_station(screen: Vector2) -> String:
 		return z
 	var best := ""
 	var bd := PICK_STATION
-	for zone: String in view().B.zones:
-		if view().zone_name(zone) == "":
+	for zone: String in (view().B.zones as Dictionary).keys() + missing():
+		if view().B.zones.has(zone) and view().zone_name(zone) == "":
 			continue
 		var at := station_screen(zone)
 		if at != Vector2.INF and at.distance_to(screen) < bd:
