@@ -648,12 +648,38 @@ func _project() -> void:
 				sv.position = (screen_to_world(at) + Vector2(0, sv.height / 2.0)).round()
 		elif n is CanvasItem:
 			(n as CanvasItem).visible = false
+	_unstack_labels()
 	if _inn != null:   # the posada: its orders and beds over their 3D points (InnLayer, Inn3D)
 		_inn.visible = true
 		_inn.queue_redraw()
 	var m := get_viewport().get_mouse_position()
 	projector.hover(pick_station(m))
 	_bind_floor_3d()
+
+
+## 3D: stations close together (by the door of a small house) would print their names over each other: from the top
+## down, a name that would cover one already placed goes a line lower.
+func _unstack_labels() -> void:
+	var svs: Array = []
+	for n: Node in objects().get_children():
+		if n is StationView and (n as StationView).visible:
+			svs.append(n)
+	svs.sort_custom(func(a: StationView, b: StationView) -> bool: return a.position.y < b.position.y)
+	var placed: Array = []
+	for sv: StationView in svs:
+		sv.set_label_dy(0.0)
+		var r := sv.label_rect()
+		for i: int in 6:
+			var hit := false
+			for q: Rect2 in placed:
+				if q.grow(1.0).intersects(r):
+					hit = true
+					break
+			if not hit:
+				break
+			sv.set_label_dy(sv.label_dy + r.size.y)
+			r = sv.label_rect()
+		placed.append(r)
 
 
 var _floor_button_3d: Button = null

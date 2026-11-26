@@ -60,6 +60,24 @@ func setup(zone_id: String, text: String, cfg: Dictionary, look: Node2D = null) 
 	add_child(_flash)
 
 
+## 3D (InteriorView._project): the name pushed down when it would cover another station's.
+var label_dy: float = 0.0
+
+
+func set_label_dy(dy: float) -> void:
+	label_dy = dy
+	if _label != null:
+		_label.position.y = 6.0 + dy
+
+
+## Where the name's text is, in the parent's space (its real width, not the label's box).
+func label_rect() -> Rect2:
+	if _label == null or not _label.visible:
+		return Rect2(position, Vector2.ZERO)
+	var w := minf(_label.get_minimum_size().x, _label.size.x)
+	return Rect2(position + Vector2(-w / 2.0, _label.position.y), Vector2(w, _label.size.y))
+
+
 ## The station's scene (its look).
 func look() -> Node2D:
 	return _look
