@@ -72,6 +72,7 @@ var _walk_follow: String = ""  # who the camera follows: the one the keys walk, 
 var _walk_sent: String = ""    # the route of the keys' last order: the same one is not given twice in a row
 var _walk_route: Array = []    # that route, and the minute it was given in (the sim takes it on its next step)
 var _walk_minute: int = -1
+var follow_limit: float = INF  # tiles a body may catch up this frame (set in _process; INF: exactly where the sim says)
 
 
 func _ready() -> void:
@@ -1059,7 +1060,13 @@ func _process(delta: float) -> void:
 	if state == null:
 		return
 	_walk_keys(delta)
+	if _game != null and not "--suavizado=no" in OS.get_cmdline_user_args():
+		# the bodies catch up with the sim at 1.7 times a diagonal walk at most (CharacterView.follow: no jump when
+		# a walk starts); sync() called by hand (tests) places them exactly
+		var sps: float = maxf(float(_game.steps_per_second()), 1.0 / float(_game.seconds_per_minute()))
+		follow_limit = 1.7 * sqrt(2.0) / float(maxi(1, _minutes_per_tile)) * sps * delta
 	sync(_game.step_fraction() if _game != null else 0.0)
+	follow_limit = INF
 	_follow_walker(delta)
 	update_hover(get_viewport().get_mouse_position())
 	if build_mode and build_layer != null:
@@ -1144,7 +1151,7 @@ func sync(frac: float) -> void:
 		v.visible = str(ch.get("location", "")) == "" and not Tribunal.is_banished(state, id) \
 			and not Region.is_away(state, id) and not Life.offstage(state, id)  # H11: banished: away; viajes: on a trip
 		# or driving a caravan; vida: a guard off duty, a visitor or a bandit not there, a captive
-		v.follow(ch, _minutes_per_tile, frac)
+		v.follow(ch, _minutes_per_tile, frac, follow_limit)
 		v.follow_badge(state, _player_family)
 		_follow_town(id, v)
 	_take_turns()

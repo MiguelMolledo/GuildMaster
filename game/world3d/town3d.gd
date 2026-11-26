@@ -431,6 +431,36 @@ func _unhandled_input(e: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 
+## The bodies never jump when somebody starts walking or changes path (the owner saw it: «da un salto y luego anda»).
+## The sim gives an order and walks its first minute in the same step, so the next tile is already half way when the
+## view first sees the path; a new path drops the old progress; a seat, a stall's shelter in the rain or the jitter
+## put the standing body off its tile. Here the drawn body follows the place _apply computed at most at SMOOTH_K times
+## the walking speed (a diagonal step), so it catches up in a few frames instead of popping; a real jump (more than
+## SMOOTH_SNAP metres: going in or out, appearing) or a body that was not drawn goes straight. Only the view.
+const SMOOTH_K: float = 1.7
+const SMOOTH_SNAP: float = 3.5
+var _drawn: Dictionary = {}   # chr -> where its body was drawn last frame
+var smooth_on: bool = not ("--suavizado=no" in OS.get_cmdline_user_args())
+
+
+func _smooth_bodies(delta: float) -> void:
+	var sps := 1.0 / maxf(real_per_minute, 0.0001)   # game minutes per real second (the last running speed in pause)
+	var lim := SMOOTH_K * 2.0 * sqrt(2.0) / maxf(mpt, 1.0) * sps * delta
+	for id: Variant in people:
+		var n: Node3D = people[id].node
+		if not n.visible:
+			_drawn.erase(id)
+			continue
+		var want := n.position
+		var was: Vector3 = _drawn.get(id, Vector3.INF)
+		if not smooth_on or was == Vector3.INF or was.distance_to(want) > SMOOTH_SNAP:
+			_drawn[id] = want
+			continue
+		var at := was.move_toward(want, lim)
+		n.position = at
+		_drawn[id] = at
+
+
 ## Moves the ground under the pointer by `d` screen units (a middle drag): what was under it stays under it.
 func pan_screen(d: Vector2) -> void:
 	var vp := get_viewport().get_visible_rect().size
@@ -455,6 +485,7 @@ func _process(delta: float) -> void:
 		_refresh_minute(now)
 	t_min = float(now) + frac
 	_apply(t_min)
+	_smooth_bodies(delta)
 	for id: Variant in people:  # names only for who is under the mouse or selected (as the 2D town)
 		var lab: Label3D = people[id].name
 		var on := name_shown.has(id) and (people[id].node as Node3D).visible

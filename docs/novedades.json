@@ -1,6 +1,15 @@
 [
   {
     "fecha": "2026-11-26",
+    "titulo": "Sin saltos al echar a andar (3D y 2D)",
+    "que": "Al mandar a alguien a un sitio, el cuerpo daba un salto de media casilla (1 m en 3D) en el primer fotograma y luego andaba normal; con una orden nueva a mitad de camino, hasta 3 m. La sim aplica la orden y anda su primer minuto en el mismo paso, así que la vista veía el camino ya empezado. Ahora el cuerpo dibujado alcanza a la sim a la velocidad de andar con margen y arranca suave; entrar o salir de un edificio sigue siendo inmediato. Vale para el pueblo 3D (también al levantarse de un banco o al dejar el arrimo de la lluvia) y para el 2D. La sim no cambia.",
+    "como_probar": "Elige a tu personaje y haz clic derecho en una calle: echa a andar sin salto. Medida: godot --headless --fixed-fps 60 --path . -- --smoke-script=salto [--view=2d] [--tiempo=lluvia] [--suavizado=no para el antes] -> reports/perf/salto_*.json.",
+    "capturas": [
+      "docs/novedades/salto_antes_despues.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-26",
     "titulo": "GuildMaster en 3D: la forja se abre donde está y el tutorial se juega entero",
     "que": "Al entrar en un edificio (o al gestionarlo), la casa se abre en el pueblo: el techo se funde, bajan las paredes del frente y dentro está su trazado con sus mejoras y la gente de la sim trabajando en su puesto, sin fundido a negro. Encima, la interfaz de siempre: la barra del edificio, Producción, Almacén, Empleados, Mejoras, el menú de cada puesto (clic derecho en el horno o el yunque) y la Forja viva; las barras y nombres de los puestos flotan sobre ellos. «Planta alta» enseña la otra planta. El tutorial de la forja (Primeros pasos y Producir) se juega entero así. En el pueblo: letreros sobre los edificios y los puestos, resalte del edificio y de la persona bajo el ratón, nombres solo al pasar o al elegir, la cámara va a quien eliges con 1-2-3 o los retratos, y se arrastra con el botón central.",
     "como_probar": "Doble clic en jugar.command (la copia jugable ya lleva el kit 3D). Partida nueva con tutorial. Automático: python3 tools/verifica/jugador.py --to=2 --window (los dos capítulos con ratón y teclado reales) y python3 tools/verifica/verifica.py --window --flows=quick.",

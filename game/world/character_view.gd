@@ -400,8 +400,21 @@ static func tile_position(ch: Dictionary, minutes_per_tile: int, frac: float) ->
 
 
 ## Follows the state: whole world pixels (D2); walks towards the next tile of its path, idles when it has none.
-func follow(ch: Dictionary, minutes_per_tile: int, frac: float) -> void:
-	position = Iso.tilef_to_world(tile_position(ch, minutes_per_tile, frac)).round()
+## `max_tiles` (WorldView, per frame): the drawn body catches up with the sim's place at most that many tiles a frame,
+## so it does not jump half a tile when an order starts a walk (the sim walks the first minute in the same step) or a
+## new path drops the old progress; more than SNAP_TILES away (in or out of a building, appearing) it goes straight.
+const SNAP_TILES: float = 1.75
+var _drawn_t: Vector2 = Vector2.INF
+
+
+func follow(ch: Dictionary, minutes_per_tile: int, frac: float, max_tiles: float = INF) -> void:
+	var t := tile_position(ch, minutes_per_tile, frac)
+	if not visible:
+		_drawn_t = Vector2.INF
+	elif max_tiles < INF and _drawn_t != Vector2.INF and _drawn_t.distance_to(t) <= SNAP_TILES:
+		t = _drawn_t.move_toward(t, max_tiles)
+	_drawn_t = t if visible else Vector2.INF
+	position = Iso.tilef_to_world(t).round()
 	var path: Array = ch.get("path", [])
 	if path.is_empty():
 		play_motion("idle", facing)
