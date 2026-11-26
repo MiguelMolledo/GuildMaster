@@ -196,12 +196,16 @@
       "click": {
         "node": "BurgleButton"
       },
-      "until": "q.event('burgle_done') or q.event('burgle_failed')",
-      "timeout": 40,
-      "fast": 4,
       "expect": [
-        "q.order('burgle') or q.order('move_to')"
+        "q.order('burgle')"
       ]
+    },
+    {
+      "id": "robando",
+      "say": "Espera a que entre y salga con algo",
+      "until": "q.event('burgle_done') or q.event('burgle_failed') or q.stolen() > 0",
+      "timeout": 40,
+      "fast": 4
     },
     {
       "id": "botin_casa",

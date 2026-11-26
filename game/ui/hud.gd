@@ -394,7 +394,10 @@ func _show_building(sim: Sim) -> void:
 		var ch: Dictionary = sim.state.characters[id]
 		if str(ch.get("controlled_by", "")) == "human" and SimQuery.is_own(sim.state, id, building_id):
 			own = true
-	_building_name.text = SimQuery.building_label(sim.state, sim.catalog, building_id)
+	# the whole name, or the trade alone when the bar is short of room (the Rogue's two buttons: «Sastrería de Tejedor»
+	# did not fit in 140 px)
+	var full := SimQuery.building_label(sim.state, sim.catalog, building_id)
+	_fit(_building_name, [full, SimQuery.building_name(sim.state, sim.catalog, building_id)])
 	var color := "texto_tenue"
 	var icon := "icon_llave"
 	if own:
@@ -424,23 +427,27 @@ func _show_building(sim: Sim) -> void:
 	_selection_action.visible = false
 	var sale := bool(sim.state.buildings[building_id].get("for_sale", false))
 	_buy_button.visible = sale
-	_burgle_button.visible = false
-	_spy_button.visible = false
+	# each one shown or hidden once (refreshed every game minute): hiding a button for a moment cancels a click that
+	# is half way (the mouse down on it, the release after the refresh)
+	var burgle_on := false
+	var spy_on := false
 	var who := active_person()
 	if who != "" and Rogue.den_of(sim.state, family()) != "" and not own:  # the Rogue: «Robar el almacén»
 		var bwhy := Rogue.burgle_reason(sim, who, building_id)
-		_burgle_button.visible = bwhy != "bad_target"
+		burgle_on = bwhy != "bad_target"
 		_burgle_button.text = tr("hud.burgle")
 		_burgle_button.disabled = bwhy != ""
 		var lock := Rogue.lock_of(sim, building_id)
 		var p := SkillCheck.chance(sim, SkillCheck.stat(sim, who, "stealth"), lock)
 		_burgle_button.tooltip_text = SimQuery.reason_text(bwhy) if bwhy != "" else tr("hud.burgle_tip") % [lock, roundi(p * 100.0)]
 		var swhy := Spy.spy_reason(sim, who, building_id)  # the spy: «Espiar»
-		_spy_button.visible = swhy != "bad_target"
+		spy_on = swhy != "bad_target"
 		_spy_button.text = tr("hud.spy")
 		_spy_button.disabled = swhy != ""
 		_spy_button.tooltip_text = SimQuery.reason_text(swhy) if swhy != "" else tr("hud.spy_tip") % [
 			int(sim.catalog.rogue.get("spy", {}).get("minutes", 120)) / 60, roundi(Spy.chance(sim, who, building_id) * 100.0)]
+	_burgle_button.visible = burgle_on
+	_spy_button.visible = spy_on
 	_table_button.visible = show_table_button(sim, building_id)
 	_table_button.text = tr("hud.inn_table")
 	_table_button.tooltip_text = tr("hud.inn_table_tip")
