@@ -97,7 +97,9 @@ func _init(c: Node) -> void:
 		fireflies = _bugs(7)
 	if on.humo:
 		_find_chimneys()
-		smoke = _smoke_particles(3, Color(0.84, 0.84, 0.86), 0.7)
+		# grey and thin: light, opaque puffs of 4 m piled up over a chimney read as a white blot on the roof
+		# (GuildMaster-3d, docs/3d/repaso_oficios.md)
+		smoke = _smoke_particles(3, Color(0.66, 0.66, 0.68), 0.34)
 	if on.forja:
 		_forges()
 	if OS.is_debug_build():
@@ -561,7 +563,7 @@ func _smoke_particles(kind: int, col: Color, opac: float) -> GPUParticles3D:
 	pm.turbulence_noise_strength = 0.6
 	pm.turbulence_influence_min = 0.03
 	pm.turbulence_influence_max = 0.08
-	var p := _gp("Humo", 1, 6.0, Vector2(1.5, 1.5), _vida_mat(kind, col, opac), pm)
+	var p := _gp("Humo", 1, 6.0, Vector2(1.1, 1.1), _vida_mat(kind, col, opac), pm)
 	p.visible = false
 	p.emitting = false
 	return p
@@ -660,6 +662,9 @@ func update(t: float) -> void:
 	for g in [leaves, smoke, butterflies]:
 		if g:
 			((g.draw_pass_1 as QuadMesh).material as ShaderMaterial).set_shader_parameter("light", maxf(day, 0.12))
+	if smoke:   # under clouds and rain the smoke is as grey as the day (unshaded, it kept the full sun)
+		var dull := 1.0 - 0.35 * float(clima.now.nubes) - 0.3 * rain
+		((smoke.draw_pass_1 as QuadMesh).material as ShaderMaterial).set_shader_parameter("light", maxf(day * dull, 0.12))
 	if _clock >= _next_check:
 		_next_check = _clock + 1.0
 		_hearths(t, h)
