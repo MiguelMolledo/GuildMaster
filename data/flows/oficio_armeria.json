@@ -1,0 +1,127 @@
+{
+  "id": "oficio_armeria",
+  "title": "Oficio: armería en 3D",
+  "about": "Partida nueva de banquero (con oro para comprar): ir a la Armería del pueblo (abierta en sitio, el armero en su mostrador), comprar un martillo en el mostrador y volver a venderlo.",
+  "view": "3d",
+  "start": {
+    "start": "scholar_banker",
+    "at": "09:00"
+  },
+  "covers": [
+    "enter_building",
+    "buy",
+    "sell",
+    "exit_building"
+  ],
+  "steps": [
+    {
+      "id": "espera_tienda",
+      "say": "Espera a que abra la Armería",
+      "when": "not q.market_open('armory')",
+      "until": "q.market_open('armory')",
+      "timeout": 60,
+      "fast": 6
+    },
+    {
+      "id": "entrar",
+      "say": "Clic derecho en la Armería: entra",
+      "world": {
+        "building": "armory"
+      },
+      "button": "right",
+      "until": "q.interior() == q.building('armory') and q.location() == q.building('armory')",
+      "timeout": 30,
+      "fast": 4,
+      "expect": [
+        "q.order('enter_building')"
+      ]
+    },
+    {
+      "id": "en_sitio",
+      "say": "La Armería se abre en sitio: su mostrador y su gente dentro",
+      "until": "q.in_place3d()",
+      "timeout": 10,
+      "expect": [
+        "q.stations3d() == q.zones()",
+        "q.seen3d()"
+      ]
+    },
+    {
+      "id": "mostrador",
+      "say": "Clic en el mostrador",
+      "station": "counter",
+      "button": "left",
+      "until": "q.visible('MarketPanel')",
+      "timeout": 8
+    },
+    {
+      "id": "pestana_comprar",
+      "click": {
+        "node": "BuyTab"
+      }
+    },
+    {
+      "id": "comprar_martillo",
+      "say": "Comprar",
+      "click": {
+        "within": {
+          "within": "BuyList",
+          "prefix": "hammer_"
+        },
+        "node": "Buy"
+      },
+      "until": "q.bag('hammer') > 0",
+      "timeout": 10,
+      "expect": [
+        "q.order('buy')",
+        "q.gold() < q.was('gold')"
+      ]
+    },
+    {
+      "id": "pestana_vender",
+      "click": {
+        "node": "SellTab"
+      }
+    },
+    {
+      "id": "vender_martillo",
+      "say": "Venderlo",
+      "click": {
+        "within": {
+          "within": "SellList",
+          "prefix": "hammer_"
+        },
+        "node": "SellOne"
+      },
+      "until": "q.bag('hammer') < q.was('bag', 'hammer')",
+      "timeout": 10,
+      "expect": [
+        "q.order('sell')",
+        "q.gold() > q.was('gold')"
+      ]
+    },
+    {
+      "id": "cerrar_mercado",
+      "click": {
+        "within": "MarketPanel",
+        "node": "CloseButton"
+      },
+      "expect": [
+        "not q.visible('MarketPanel')"
+      ]
+    },
+    {
+      "id": "salir",
+      "say": "Salir",
+      "click": {
+        "node": "ExitButton"
+      },
+      "until": "q.interior() == '' and q.location() == ''",
+      "timeout": 20,
+      "fast": 4,
+      "expect": [
+        "q.order('exit_building')"
+      ]
+    }
+  ]
+}
