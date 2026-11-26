@@ -130,7 +130,10 @@ func _def_for(id: String, c: Dictionary) -> Dictionary:
 	elif job == "" and occ == "" and String(c.get("family_role", "")) == "head":
 		job = {"blacksmith": "smith", "carpenter": "carpenter", "mason": "mason", "tailor": "tailor"}.get(prof, "")
 	var skin: String = SKIN_BY_SIM[int(vis.skin) % SKIN_BY_SIM.size()] if vis.has("skin") else ["fair", "olive", "tan"][h % 3]
-	var hair: String = HAIR_BY_SIM[int(vis.hair) % HAIR_BY_SIM.size()] if vis.has("hair") else ["dark", "brown"][h % 2]
+	# the palette's aged tone (the white) is drawn with the natural one, as in 2D (Identity.natural_hair): a girl of 8
+	# never has white hair; the grey of the old comes from the age (CharAge)
+	var hair: String = HAIR_BY_SIM[Identity.natural_hair(int(vis.hair)) % HAIR_BY_SIM.size()] if vis.has("hair") \
+		else ["dark", "brown"][h % 2]
 	var parts: Dictionary = PEASANT.duplicate()
 	parts.hair = (["hair_long", "hair_buns", "hair_buzzed_f"] if female else ["hair_parted", "hair_buzzed", "hair_parted"])[(h / 3) % 3]
 	if not female and (h / 11) % 3 == 0:

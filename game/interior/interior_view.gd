@@ -631,10 +631,12 @@ func sync() -> void:
 
 ## 3D: nothing of the 2D room shows but each station's marks, which hang over its 3D point (projector.station_screen).
 func _project() -> void:
-	var stage := get_node_or_null("InteriorStage") as CanvasItem
-	if stage != null and stage.visible:
-		stage.visible = false
-		stage.process_mode = Node.PROCESS_MODE_DISABLED
+	# InteriorStage is a Node: as CanvasItem it was null and kept placing and showing the 2D people every frame after
+	# this hid them (a family at home drawn as sprites over the 3D, some over the next roof). Its placement stops; its
+	# input (customers, floors) stays.
+	var stage := get_node_or_null("InteriorStage")
+	if stage != null and stage.is_processing():
+		stage.set_process(false)
 	for n: Node in objects().get_children():
 		if n is StationView:
 			var sv := n as StationView

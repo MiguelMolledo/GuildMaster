@@ -421,6 +421,8 @@ func _update_ring() -> void:
 		_ring.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		town.add_child(_ring)
 	var n: Node3D = town.people[selected_id].node if town.people.has(selected_id) else null
-	_ring.visible = n != null and n.visible
+	if (n == null or not n.visible) and in_place != "" and bridge.ready() and bridge.view().live_actors.has(selected_id):
+		n = bridge.view().live_actors[selected_id].node   # inside the house open in place: its body there
+	_ring.visible = n != null and n.is_visible_in_tree()
 	if _ring.visible:
-		_ring.position = n.position + Vector3(0, 0.05, 0)
+		_ring.position = town.to_local(n.global_position) + Vector3(0, 0.05, 0)
