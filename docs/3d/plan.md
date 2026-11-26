@@ -219,6 +219,12 @@ la medida estable).
 | kit usado (ficheros, MB) | 1 059 · 438 MB (~314 MB con texturas a 2K); no sellado |
 | clics reales por la ventana (guion) | selección y `move_to` a la casilla pedida; clic derecho en la forja → entra y abre su interior |
 
+**M3D-2 y M3D-3 (2026-11-26, misma máquina, 1600×900):** pueblo entero 111-170 fps (1 889 draw calls: +18 de los
+letreros), calle 89-111, la forja abierta en sitio 107 fps (1 711 draw calls); las marcas cuestan 0,1 ms por fotograma.
+En las mismas condiciones la copia de M3D-1 daba 172-186: la máquina compartida hace bailar los fps ±40 % entre
+pasadas (con Hearthstone abierto, 39-57). Montar el taller del jugador: 119 ms sin ventana, dentro de la construcción
+del pueblo; abrirlo después no monta nada. Sin ese montaje previo, la primera apertura costaba 493 ms.
+
 Con la escala entera de antes (el 3D dibujado a 960×540) daba 187-220 fps: el coste está en los píxeles. Dos de cinco
 pasadas con ventana se congelaron mientras corrían a la vez las pruebas de reglas (CPU al 100 %); con la máquina menos
 cargada terminaron todas. Queda vigilado.
