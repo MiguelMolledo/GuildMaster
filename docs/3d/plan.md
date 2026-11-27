@@ -299,3 +299,14 @@ cargada terminaron todas. Queda vigilado.
 | Sonido del pueblo | El de Prueba3D, por id de `data/audio.json` a través del `AudioDirector` (58 ficheros traídos), en los buses del juego; la música sigue siendo la del `AudioDirector` | clip con sonido (Movie Maker) |
 | Pelea de la plaza | Los dos se miran y se cambian golpes; el corro los mira | `--smoke-script=pelea3d` |
 | Pendiente | Duelistas de la pantalla del duelo sin sprites 2D; el menú «Enviar → Forja» con ventana; el fotograma de 109 ms al entrar la persona; la pelea del escenario dura ~0,5 s a ×1 (la guardia la corta enseguida: es de la sim) | — |
+
+## 11. Pendiente tras la tanda del 2026-11-27
+
+- **Fotograma al entrar en una casa (60-140 ms)**: `abrir3d` cuenta ahora las tuberías de render compiladas por
+  fotograma. Al abrir la casa se compilan ~870, pero los peores fotogramas no compilan ninguna en ese mismo fotograma
+  (Godot las compila aparte): la sospecha de la compilación queda sin confirmar y no se precalentó nada. Falta medir
+  con la máquina despierta qué hay en esos fotogramas (el corte de la casa, el reparto de la gente dentro).
+- **Fiestas pequeñas** (predicador, romería, rogativas, feria de ganado) con más piezas y su captura: sin empezar.
+- **M3D-6 (región)**: sin empezar.
+- Las pasadas con ventana se colgaban o iban muy lentas esa mañana (el Mac se dormía a ratos: el reloj saltaba y
+  Godot con ventana no pasaba del arranque); sin ventana, todo normal.

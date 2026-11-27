@@ -16,6 +16,17 @@ var _stage: int = 0
 var _forge: String = ""
 var _frames: Array = []     # [stage, delta] while measuring
 var _perf: Dictionary = {}
+var _pc_last: int = 0
+
+
+## Render pipelines compiled so far (every kind): a frame that compiles many waits for them.
+func _pipelines() -> int:
+	var n := 0
+	for k: int in [RenderingServer.RENDERING_INFO_PIPELINE_COMPILATIONS_CANVAS, RenderingServer.RENDERING_INFO_PIPELINE_COMPILATIONS_MESH,
+			RenderingServer.RENDERING_INFO_PIPELINE_COMPILATIONS_SURFACE, RenderingServer.RENDERING_INFO_PIPELINE_COMPILATIONS_DRAW,
+			RenderingServer.RENDERING_INFO_PIPELINE_COMPILATIONS_SPECIALIZATION]:
+		n += RenderingServer.get_rendering_info(k)
+	return n
 
 
 func _ready() -> void:
@@ -30,7 +41,9 @@ func _process(delta: float) -> void:
 		return
 	var w3 := app.call("world3d") as WorldView3D
 	if _stage in [2, 3]:
-		_frames.append([_stage, delta])
+		var pc := _pipelines()
+		_frames.append([_stage, delta, pc - _pc_last])   # + pipelines compiled in that frame
+		_pc_last = pc
 	match _stage:
 		0:
 			if _t > 0.5:
@@ -93,12 +106,22 @@ func _process(delta: float) -> void:
 
 func _write() -> void:
 	var seq: Array = []   # the abrir frames in order: where the worst ones fall (the frame of the order, the cut...)
+	var comp: Array = []
 	for f: Array in _frames:
 		if int(f[0]) == 2:
 			seq.append(snappedf(float(f[1]) * 1000.0, 0.1))
+			comp.append(int(f[2]))
 	var idx: Array = range(seq.size())
 	idx.sort_custom(func(a: int, b: int) -> bool: return float(seq[a]) > float(seq[b]))
-	print("[SmokeAbrir3D] abrir: worst frames [index, ms] %s (of %d)" % [idx.slice(0, 5).map(func(i: int) -> Array: return [i, seq[i]]), seq.size()])
+	print("[SmokeAbrir3D] abrir: worst frames [index, ms, pipelines compiled] %s (of %d; %d pipelines in all)" % [
+		idx.slice(0, 5).map(func(i: int) -> Array: return [i, seq[i], comp.slice(maxi(0, i - 2), i + 3)]), seq.size(),
+		comp.reduce(func(a, b): return a + b, 0)])
+	var where: Array = []
+	for i: int in comp.size():
+		if int(comp[i]) > 0:
+			where.append([i, comp[i], seq[i]])
+	print("[SmokeAbrir3D] abrir: frames that compiled [index, pipelines, ms] %s" % [where.slice(0, 12)])
+	_perf["pipelines_abrir"] = comp.reduce(func(a, b): return a + b, 0)
 	for st: int in [2, 3]:
 		var n := 0
 		var sum := 0.0
