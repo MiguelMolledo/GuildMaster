@@ -279,6 +279,12 @@ func _apply(t: float) -> void:
 			yaw = atan2(vel.x, -vel.y)
 		else:
 			e.v = 0.0
+			# GuildMaster-3d: a fight the sim ends within a game minute or two (the watch comes at once) is still shown
+			# for BRAWL_HOLD_MS of real time while they stand where they fought; if the sim walks them off, the steps rule
+			if doing == "brawl":
+				e.brawl_until = Time.get_ticks_msec() + BRAWL_HOLD_MS
+			elif Time.get_ticks_msec() < int(e.get("brawl_until", 0)) and not doing in ["walk", "sleep", "inside"]:
+				doing = "brawl"
 			anim = String(STILL_ANIM.get(doing, "Idle"))
 			if doing in ["work", "work_out"] and String(e.def.job_anim) != "":
 				anim = String(e.def.job_anim)
@@ -344,12 +350,16 @@ func _has_anim(e: Dictionary, anim: String) -> bool:
 	return String((CharBuilder as Script).call("anim_name", e.ap, anim)) != ""
 
 
-## GuildMaster-3d: where the nearest other person doing `what` stands (Vector3.INF if nobody within 6 m).
+const BRAWL_HOLD_MS := 2600   # GuildMaster-3d: a fight shows at least this long (real ms) after the sim's last brawl
+
+## GuildMaster-3d: where the nearest other person doing `what` stands (Vector3.INF if nobody within 6 m; a brawl held
+## by the view counts as one).
 func _nearest_doing(id: Variant, at: Vector3, what: String) -> Vector3:
 	var best := Vector3.INF
 	var bd := 6.0
 	for o: Variant in people:
-		if o == id or String(people[o].doing) != what or not (people[o].node as Node3D).visible:
+		var held := what == "brawl" and _chr.has(o) and Time.get_ticks_msec() < int(_chr[o].get("brawl_until", 0))
+		if o == id or (String(people[o].doing) != what and not held) or not (people[o].node as Node3D).visible:
 			continue
 		var q: Vector3 = (people[o].node as Node3D).position
 		var d := q.distance_to(at)

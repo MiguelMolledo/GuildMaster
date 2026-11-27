@@ -9,6 +9,7 @@ var app: Node = null
 var timeout: float = 90.0
 var _total: float = 0.0
 var _fails: int = 0
+var _pair: Array = []
 
 
 func _ready() -> void:
@@ -48,7 +49,7 @@ func _run() -> void:
 	var shot := false
 	var last := ""
 	var t := 0.0
-	while t < 60.0 and good < 20:
+	while t < 60.0 and good < 1:
 		await get_tree().process_frame
 		t += get_process_delta_time()
 		var fighters: Array = []
@@ -72,6 +73,7 @@ func _run() -> void:
 		last = line
 		if ok:
 			good += 1
+			_pair = [fighters[0], fighters[1]]
 			if not shot and DisplayServer.get_name() != "headless":
 				shot = true
 				Game.set_paused(true)
@@ -88,5 +90,27 @@ func _run() -> void:
 	print("[SmokePelea3D] frames with two brawling: %d, showing it (blows, facing): %d; last: %s" % [seen, good, last])
 	_check(seen > 0, "the sim has two people brawling in the plaza")
 	_check(good >= 1, "their bodies trade blows facing each other")
+	# how long the fight shows (real s at ×1): while both stand and throw or take blows; it may end sooner only if the sim
+	# walks one of them off (then the steps rule)
+	var pair: Array = _pair
+	var shown := 0.0
+	var walked := false
+	if pair.size() == 2:
+		var u := 0.0
+		while u < 6.0:
+			await get_tree().process_frame
+			var dt := get_process_delta_time()
+			u += dt
+			var both := true
+			for id: String in pair:
+				var anim := str(w3.town._chr[id].anim)
+				if w3.town.motion_at(w3.town.people[id], w3.town.t_min) != Vector2.ZERO:
+					walked = true
+				both = both and (anim.begins_with("Punch") or anim.begins_with("Hit"))
+			if not both:
+				break
+			shown += dt
+	print("[SmokePelea3D] the fight shows %.1f s after it was first seen (walked off: %s)" % [shown, walked])
+	_check(shown >= 2.0 or walked, "the fight shows at least 2 s of real time at ×1 (%.1f s)" % shown)
 	print("[SmokePelea3D] %s (%d fails)" % ["ok" if _fails == 0 else "FAIL", _fails])
 	get_tree().quit(0 if _fails == 0 else 1)
