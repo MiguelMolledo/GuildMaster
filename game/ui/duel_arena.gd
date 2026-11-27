@@ -81,6 +81,8 @@ func setup(chars: Array, families: Array) -> void:
 
 ## The 3D town of the game, if the view is 3D (its people's bodies), else null.
 func _town3d() -> Node:
+	if not is_inside_tree():
+		return null   # the tests: the arena out of the tree, the 2D sprites
 	var app := get_node_or_null("/root/App")
 	var w3: Variant = app.call("world3d") if app != null and app.has_method("world3d") else null
 	return (w3 as Node).get("town") if w3 != null else null
