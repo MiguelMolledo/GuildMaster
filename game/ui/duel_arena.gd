@@ -20,7 +20,8 @@ const MISSING_ART: String = "duel_poses"
 ## The effect drawn for each lance and its art id (VisualPaths.duel_vfx).
 const VFX: Dictionary = {"slash": "strike", "spark": "parry", "swirl": "feint", "hit": "hit"}
 
-var fighters: Array[CharacterView] = []
+var fighters: Array[Node2D] = []    # CharacterView (2D) or, with the 3D town, DuelBody3D (the person's own body)
+const BODY3D := preload("res://game/world3d/duel_body3d.gd")
 var _fx: Array = []                 # code-drawn: [{kind, at, t}]; with art: [{anim, who, mirror, elapsed, t}]
 var _frames: Dictionary = {}        # code effect kind -> VisualPaths.duel_vfx of its art id ({} = drawn by code)
 var _words: Label = null
@@ -57,17 +58,32 @@ func _ensure() -> void:
 ## The two duellists (characters of the state with their families): side 0 on the left facing east.
 func setup(chars: Array, families: Array) -> void:
 	_ensure()
-	for f: CharacterView in fighters:
+	for f: Node2D in fighters:
 		f.queue_free()
 	fighters.clear()
+	var town := _town3d()
 	for i: int in 2:
+		var b3: Node2D = BODY3D.make(town, str((chars[i] as Dictionary).get("id", ""))) if town != null else null
+		if b3 != null:   # M3D-5: the duellists' 3D bodies, not the provisional 2D sprites
+			add_child(b3)
+			fighters.append(b3)
+			continue
 		var v := CharacterView.new()
 		v.setup(chars[i], families[i])
 		v.scale = Vector2(SCALE, SCALE)
 		add_child(v)
 		fighters.append(v)
+	if _missing != null:
+		_missing.visible = town == null   # the 3D bodies have their sword clips: no poses missing
 	_layout()
 	idle()
+
+
+## The 3D town of the game, if the view is 3D (its people's bodies), else null.
+func _town3d() -> Node:
+	var app := get_node_or_null("/root/App")
+	var w3: Variant = app.call("world3d") if app != null and app.has_method("world3d") else null
+	return (w3 as Node).get("town") if w3 != null else null
 
 
 func _layout() -> void:
@@ -83,7 +99,7 @@ func _layout() -> void:
 
 func idle() -> void:
 	for i: int in fighters.size():
-		fighters[i].play_motion("idle", "e" if i == 0 else "w")
+		fighters[i].call("play_motion", "idle", "e" if i == 0 else "w")
 
 
 ## Plays the animation of one lance record (Duel.lances_log() entry); emits lance_shown when done (~0.6 s).
@@ -96,7 +112,7 @@ func play(rec: Dictionary, fast: bool = false) -> void:
 	for i: int in fighters.size():
 		var a := str(acts[i])
 		var dir := 1.0 if i == 0 else -1.0
-		fighters[i].play_motion(str(POSE.get(a, "idle")), "e" if i == 0 else "w")
+		fighters[i].call("play_motion", str(POSE.get(a, "idle")), "e" if i == 0 else "w")
 		match a:
 			"strike":
 				UiAnim.lunge(fighters[i], 18.0 * dir)
