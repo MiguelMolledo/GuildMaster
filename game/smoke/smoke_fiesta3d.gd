@@ -77,7 +77,8 @@ func _start(id: String, d: Dictionary) -> String:
 		day = int(d.get("day_of_year", 0))
 		while day < 1:
 			day += dpy
-	var hour := mini(int(d.get("start_hour", 0)) + 2, 22)
+	# by day (11:00) a festival of the whole day; an evening one two hours in (the bonfires, the carnival, the weddings)
+	var hour := 11 if int(d.get("hours", 24)) >= 20 else mini(int(d.get("start_hour", 0)) + 2, 22)
 	st.clock["minute"] = day * Clock.MINUTES_PER_DAY + hour * 60
 	(app.new_game_screen() as NewGameScreen).started.emit(st)
 	await _wait(0.3)
@@ -106,12 +107,39 @@ func _one(id: String, d: Dictionary) -> void:
 	var n := _mounted(fp, id) if fp != null else 0
 	_check(n > 0, "%s dressed in the 3D town (%d pieces up)" % [id, n])
 	_res[id] = {"instance": inst, "pieces_up": n}
-	w3.town.target = Vector3(40.0, 1.2, 32.0)   # the plaza (smoke_abrir3d's view)
-	w3.town.cam.size = 34.0
+	_frame_pieces(w3, fp, id)
+	await _wait(1.5)
+	await _shot("fiesta3d_%s" % id, true)
+
+
+## The camera over the festival's own pieces: the middle of the ones that stand together (those more than 30 m from
+## the median, out by the gates, left out), zoomed to hold them.
+func _frame_pieces(w3: WorldView3D, fp: Node3D, id: String) -> void:
+	var pts: Array = []
+	if fp != null:
+		for inst: Dictionary in fp.get("insts"):
+			if str(inst.get("def", "")) != id or not bool(inst.get("mounted", false)):
+				continue
+			for pl: Dictionary in inst.get("placed", []):
+				for n: Variant in pl.get("nodes", []):
+					if n is Node3D and is_instance_valid(n):
+						pts.append((n as Node3D).global_position)
+	var mid := Vector3(40.0, 0.0, 32.0)
+	if not pts.is_empty():
+		var xs: Array = pts.map(func(p: Vector3) -> float: return p.x)
+		var zs: Array = pts.map(func(p: Vector3) -> float: return p.z)
+		xs.sort()
+		zs.sort()
+		# the median (the thick of the dressing, not pulled out by a tent at the gate), and zoomed to hold the nearer
+		# two thirds of the pieces: close enough to tell the festival by them
+		mid = Vector3(xs[xs.size() / 2], 0.0, zs[zs.size() / 2])
+		var d: Array = pts.map(func(p: Vector3) -> float: return Vector2(p.x - mid.x, p.z - mid.z).length())
+		d.sort()
+		var reach: float = d[int((d.size() - 1) * 0.66)]
+		w3.town.cam.size = clampf(reach * 2.0 + 6.0, 12.0, 26.0)
+	w3.town.target = Vector3(mid.x, 1.2, mid.z)
 	w3.town.yaw = 225.0
 	w3.town._update_camera()
-	await _wait(1.5)
-	await _shot("fiesta3d_%s" % id)
 
 
 func _fp(w3: WorldView3D) -> Node3D:
@@ -177,11 +205,20 @@ func _perf(defs: Dictionary) -> void:
 	print("[SmokeFiesta3D] perf %s" % JSON.stringify(out))
 
 
-func _shot(name: String) -> void:
+## clear: the cards (the crier's, the festival's, the notices) out of the picture for this shot only.
+func _shot(name: String, clear := false) -> void:
 	if DisplayServer.get_name() == "headless":
 		return
+	var cards := app.get_node_or_null("CardsLayer") as CanvasLayer
+	var was := cards.visible if cards != null else true
+	if clear and cards != null:
+		cards.visible = false
+		app.hud().close_panels()
+		await get_tree().process_frame
 	await RenderingServer.frame_post_draw
 	var dir := ProjectSettings.globalize_path("res://reports/shots")
 	DirAccess.make_dir_recursive_absolute(dir)
 	get_viewport().get_texture().get_image().save_png(dir.path_join(name + ".png"))
+	if cards != null:
+		cards.visible = was
 	print("[SmokeFiesta3D] shot %s.png" % name)
