@@ -228,7 +228,7 @@ func test_save_round_trip_of_a_trade_game() -> void:
 func test_new_game_screen_offers_the_trades() -> void:
 	var s: NewGameScreen = (load("res://game/ui/new_game_screen.tscn") as PackedScene).instantiate()
 	s.setup(cat, 7)
-	var box := s.get_node("%Profession") as HBoxContainer
+	var box := s.get_node("%Profession") as Container
 	eq(box.get_child_count(), 9, "a button per artisan trade, (H12 Patrón) the patron's farmer, (H12.2) the scholar's physician and banker and (H12) the rogue's thief and spy")
 	check(box.visible, "shown")
 	var calls: Array = []

@@ -171,7 +171,7 @@ func _build_difficulty() -> void:
 ## H12: a toggle per profession with a start, the classes in their order (data/politics.json reputation.classes: the artisan's
 ## trades, then H12.2 the scholar's physician); the start's own one pressed. Hidden with a single one.
 func _build_professions() -> void:
-	var box := %Profession as HBoxContainer
+	var box := %Profession as Container
 	MenuKit.clear(box)
 	var ids: Array = []
 	for cls: Variant in catalog.politics.get("reputation", {}).get("classes", ["artisan"]):
@@ -190,7 +190,8 @@ func _build_professions() -> void:
 		b.pressed.connect(func() -> void: set_profession(p))
 		box.add_child(b)
 	box.visible = box.get_child_count() > 1
-	(%ProfessionLabel as Label).visible = box.visible
+	(%ProfessionLabel as Label).visible = box.visible   # on a row of their own under the title: nine starts do not fit
+	(box.get_parent() as Control).visible = box.visible  # beside it in 960 px
 
 
 ## H12: plays the start of profession `p` (its data/professions "start"); the name and family that still hold the
@@ -223,7 +224,7 @@ func set_profession(p: String) -> void:
 	if class_changed:  # H12.2: another class starts from other stats: the points spread go back
 		stats_add.clear()
 		_build_stats()
-	for b: Node in (%Profession as HBoxContainer).get_children():
+	for b: Node in (%Profession as Container).get_children():
 		(b as Button).set_pressed_no_signal(b.name == p.to_pascal_case())
 	_build_cities()
 	_update_difficulty_hint()  # H12 Patrón: the farmer's line speaks of the harvest

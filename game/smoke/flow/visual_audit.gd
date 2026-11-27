@@ -158,6 +158,17 @@ static func screen_rect(c: Control) -> Rect2:
 	return c.get_global_transform_with_canvas() * Rect2(Vector2.ZERO, c.size)
 
 
+## What is seen of `c`: its rect cut by every ancestor that clips its children (a ScrollContainer, clip_contents).
+static func shown_rect(c: Control) -> Rect2:
+	var r := screen_rect(c)
+	var n := c.get_parent()
+	while n != null and not n is CanvasLayer:
+		if n is Control and ((n as Control).clip_contents or n is ScrollContainer):
+			r = r.intersection(screen_rect(n as Control))
+		n = n.get_parent()
+	return r
+
+
 ## A label of the town or a room (a sign, a name over a person): it lives in the world, under a Node2D.
 static func in_world(c: Node) -> bool:
 	var n := c.get_parent()
@@ -441,7 +452,9 @@ func _check_overlaps(out: Array, clicks: Array, texts: Array) -> void:
 			var b: Control = clicks[j]
 			if _related(a, b) or _layer_of(a) != _layer_of(b) or _top_panel(a) != _top_panel(b):
 				continue
-			var inter := screen_rect(a).intersection(screen_rect(b))
+			# what is seen of each: a row of a list scrolled half out of its box is cut by it (a scroll does not let
+			# it reach the panel's footer below: the inn's − / + over its licence button were not over it)
+			var inter := shown_rect(a).intersection(shown_rect(b))
 			if inter.size.x > 2 and inter.size.y > 2:
 				_finding(out, "overlap", "fallo", a, inter, "se solapa con %s «%s»" % [UiDriver.path_of(b),
 					UiDriver.text_of(b).left(30)])

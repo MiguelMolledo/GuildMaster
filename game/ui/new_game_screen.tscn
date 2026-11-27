@@ -76,15 +76,21 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ProfessionLabel" type="Label" parent="Center/Panel/VBox/Header"]
+[node name="ProfessionRow" type="HBoxContainer" parent="Center/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ProfessionLabel" type="Label" parent="Center/Panel/VBox/ProfessionRow"]
 layout_mode = 2
 theme_type_variation = &"GoldLabel"
 text = "--"
 unique_name_in_owner = true
 
-[node name="Profession" type="HBoxContainer" parent="Center/Panel/VBox/Header"]
+[node name="Profession" type="HFlowContainer" parent="Center/Panel/VBox/ProfessionRow"]
 layout_mode = 2
-theme_override_constants/separation = 4
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 2
 unique_name_in_owner = true
 
 [node name="Sep" type="HSeparator" parent="Center/Panel/VBox"]
