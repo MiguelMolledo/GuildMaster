@@ -47,8 +47,9 @@ static func transition_arg() -> float:
 ## the Dummy driver (headless: nothing is heard, and a playback stopped while quitting leaks) or with --sonido=no.
 func _sound_on() -> bool:
 	var ad := _audio_director()
-	var dummy := AudioServer.get_driver_name() == "Dummy" and Engine.get_write_movie_path() == ""   # Movie Maker records it
-	if ad == null or dummy or "--sonido=no" in OS.get_cmdline_user_args():
+	# headless (no window): off, a playback stopped while quitting leaks there; with a window and the Dummy driver of a
+	# test run it runs (the mixer goes on, nothing is heard): what it costs is measured like that
+	if ad == null or DisplayServer.get_name() == "headless" or "--sonido=no" in OS.get_cmdline_user_args():
 		return false
 	preload("res://game/world3d/audio/sonido_pool.gd").resolver = ad.streams
 	ad.town_sound = true

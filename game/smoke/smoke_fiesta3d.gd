@@ -147,12 +147,16 @@ func _perf(defs: Dictionary) -> void:
 	w3.town._update_camera()
 	await _wait(2.0)
 	var frames: Array = []
+	var worst5: Array = []   # [ms, frame]
 	var t := 0.0
 	while t < 8.0:
 		await get_tree().process_frame
 		var dt := get_process_delta_time()
 		frames.append(dt)
+		worst5.append([snappedf(dt * 1000.0, 0.1), Engine.get_process_frames()])
 		t += dt
+	worst5.sort_custom(func(a: Array, b: Array) -> bool: return float(a[0]) > float(b[0]))
+	print("[SmokeFiesta3D] worst frames [ms, frame]: %s" % [worst5.slice(0, 5)])
 	var worst := 0.0
 	for x: float in frames:
 		worst = maxf(worst, x)

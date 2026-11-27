@@ -97,6 +97,8 @@ func _ready() -> void:
 			_layer(String(cfg.interior[typ]))
 	for r in cfg.musica.reglas:
 		pool.streams(String(r.id), true)  # loaded now, not on the frame the music changes
+	if _gm():
+		_preload_all()
 	vida = Vida.new(self)
 	fiestas = Fiestas.new(self, vida)
 	dbg("ready: %d ambient layers with file, music rules %d, buses %s, mute %s, music offset %.0f dB" % [
@@ -144,6 +146,33 @@ const GM_SEND := {"Musica": "Music", "Ambiente": "Ambient", "Efectos": "Sfx", "V
 
 func _gm() -> bool:
 	return Pool.resolver.is_valid()
+
+
+## GuildMaster-3d: every sound the town may play, loaded with the town (about 0.1 s) instead of on its first play (a
+## dog, a door: 3-5 ms in the middle of a frame, several at once made the worst frame of a festival 30 ms).
+func _preload_all() -> void:
+	var ad: Node = (Engine.get_main_loop() as SceneTree).root.get_node_or_null("App/AudioDirector")
+	if ad == null:
+		return
+	var t0 := Time.get_ticks_usec()
+	var ids := {}
+	_ids_in(cfg, ad, ids)
+	for id: String in ids:
+		pool.streams(id)
+	dbg("preloaded %d sounds in %.0f ms" % [ids.size(), (Time.get_ticks_usec() - t0) / 1000.0])
+
+
+func _ids_in(v: Variant, ad: Node, out: Dictionary) -> void:
+	if v is String:
+		if str(ad.call("section_of", v)) != "":
+			out[v] = true
+	elif v is Dictionary:
+		for k: Variant in v:
+			_ids_in(k, ad, out)
+			_ids_in(v[k], ad, out)
+	elif v is Array:
+		for x: Variant in v:
+			_ids_in(x, ad, out)
 
 
 func _buses() -> void:

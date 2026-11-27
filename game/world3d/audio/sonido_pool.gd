@@ -60,6 +60,7 @@ func streams(id: String, loop := false) -> Array:
 	if _lib.has(id):
 		return _lib[id]
 	var out: Array = []
+	var t0 := Time.get_ticks_usec()
 	if resolver.is_valid():   # GuildMaster: by id through the AudioDirector (data/audio.json)
 		out = resolver.call(id)
 	for sec in SECTIONS if not resolver.is_valid() else []:
@@ -82,7 +83,8 @@ func streams(id: String, loop := false) -> Array:
 		_missing[id] = true
 		dbg("no file for %s (silence)" % id)
 	elif OS.is_debug_build():
-		dbg("loaded %s: %d file(s)%s" % [id, out.size(), " loop" if loop else ""])
+		dbg("loaded %s: %d file(s)%s in %.1f ms (frame %d)" % [id, out.size(), " loop" if loop else "",
+			(Time.get_ticks_usec() - t0) / 1000.0, Engine.get_process_frames()])
 	return out
 
 
