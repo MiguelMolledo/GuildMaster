@@ -14,6 +14,7 @@ var _sim: Sim = null
 
 func _ready() -> void:
 	super._ready()
+	urgent = true   # the incident waits for the player's answer: never behind a festival's news
 	button_pressed.connect(_on_button)
 	var ev := get_node_or_null("/root/Events")
 	if ev != null:

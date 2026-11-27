@@ -46,6 +46,8 @@ var _corner_reach: int = 0          # how far the corner ornaments reach in from
 var _left: float = 0.0
 var docked: bool = false            # shown in the side stack (a card of the town that does not pause)
 var suspended: bool = false         # docked, but stepped aside while a modal is up (it comes back when it closes)
+var urgent: bool = false            # a card that asks a decision now (a kidnapping): docked at the top of the stack, the
+                                    # older cards of news below it (or waiting) instead of it waiting behind them
 
 static var _stack: Array = []       # the docked cards shown, oldest first
 static var _waiting: Array = []     # [PageCard, data] docked cards that did not fit, and modals behind another modal
@@ -110,7 +112,10 @@ func show_page(d: Dictionary) -> void:
 			build(compact(d, true))
 			reset_size()
 		if not _stack.has(self):
-			_stack.append(self)
+			if urgent:
+				_stack.insert(0, self)
+			else:
+				_stack.append(self)
 		if not _fits(self):
 			visible = false
 			_stack.erase(self)
