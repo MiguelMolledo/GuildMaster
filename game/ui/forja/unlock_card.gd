@@ -123,8 +123,12 @@ func close() -> void:
 	var g := get_node_or_null("/root/Game")
 	if g != null and g.get("sim") != null and id != "":
 		var sim: Sim = g.get("sim")
-		var head := str(sim.state.families.get(SimQuery.player_family(sim.state), {}).get("head", ""))
-		if head != "":
+		var fam := SimQuery.player_family(sim.state)
+		var head := str(sim.state.families.get(fam, {}).get("head", ""))
+		# a card of the game before, closed by a new game or a load: its unlock is not this game's (the order was
+		# refused and «Aún no está desbloqueado» showed over the new game)
+		var mine: Variant = sim.state.unlocks.get(fam, {})
+		if head != "" and mine is Dictionary and (mine as Dictionary).get(id) is Dictionary:
 			g.call("give", {"type": "unlock_seen", "actor": head, "unlock": id, "what": "card"})
 	current = ""
 	if not _queue.is_empty():
