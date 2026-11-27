@@ -89,6 +89,7 @@ incorpora al catálogo. Guía completa: ~/Code/arte-comun/README.md.
 - Exportar (cuando toque): el filtro de exportación debe incluir `*.json` (data/ no son recursos).
 
 ## Rituales (antes de dar algo por hecho)
+- Ninguna prueba suena: todo lo que se lance a mano (smokes, perf, capturas, clips) lleva `--audio-driver Dummy`, y un arranque con `--smoke-script`, `--flow(s)`, `--shots`, `--gallery` o un test de duelo/juegos silencia el bus Master por sí solo (salvo `--con-sonido`; `--write-movie` graba igual).
 - Reglas: `/opt/homebrew/bin/godot --headless --path . -s tests/run_tests.gd [-- --only=<texto>]`. Cada `tests/test_*.gd`
   hace `extends "res://tests/test_case.gd"`; cualquier `ERROR` o `SCRIPT ERROR` durante una prueba la hace fallar.
 - Contenido: `python3 tools/validate_content.py` (0 errores) al tocar `data/`, `i18n/`, `game/visuals/` o escenas

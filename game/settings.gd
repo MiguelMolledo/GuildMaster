@@ -129,12 +129,30 @@ static func _base_of(bus: String) -> float:
 	return float(_base_db[bus])
 
 
+## A test or capture run (a smoke script, flows, shots, the gallery, a duel or games test) never sounds through the
+## speakers, even if whoever launched it forgot --audio-driver Dummy: the Master bus is muted (the saved volumes are
+## untouched). --con-sonido lets it sound. Movie Maker (--write-movie) records the Master bus (muted, the clip is
+## silent: checked) and runs on the Dummy driver, so nothing comes out of the speakers: it is left alone.
+static func test_mute() -> bool:
+	var args := OS.get_cmdline_user_args()
+	if args.has("--con-sonido") or Engine.get_write_movie_path() != "":
+		return false
+	for a: String in args:
+		if a in ["--smoke", "--gallery", "--duel-test"] or a.begins_with("--smoke-script=") or a.begins_with("--flow=") \
+				or a.begins_with("--flows=") or a.begins_with("--shots=") or a.begins_with("--games-test="):
+			return true
+	return false
+
+
 static func _apply_bus(bus: String, percent: int) -> void:
 	var i := AudioServer.get_bus_index(bus)
 	if i < 0:
 		return
 	_base_of(bus)
-	AudioServer.set_bus_mute(i, percent <= 0)
+	var quiet := bus == "Master" and test_mute()
+	AudioServer.set_bus_mute(i, percent <= 0 or quiet)
+	if quiet and OS.is_debug_build():
+		print("[Settings] a test run: the Master bus muted (--con-sonido to hear it)")
 	AudioServer.set_bus_volume_db(i, bus_db(bus, percent))
 
 

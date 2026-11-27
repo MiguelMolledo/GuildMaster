@@ -484,6 +484,8 @@ func _layer_txt() -> String:
 
 
 func _unhandled_input(e: InputEvent) -> void:
+	if _gm():
+		return   # GuildMaster: M is the upgrades' key; the volume is the options' (and a test run stays muted)
 	if e is InputEventKey and e.pressed and not e.echo and e.keycode == KEY_M:
 		AudioServer.set_bus_mute(0, not AudioServer.is_bus_mute(0))
 		dbg("mute %s" % AudioServer.is_bus_mute(0))
