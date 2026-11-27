@@ -560,6 +560,12 @@ func _click_popup_item_once(menu: Variant, index: int) -> String:
 		pop = (f["node"] as OptionButton).get_popup()
 	if pop == null or not pop.visible:
 		return "%s no tiene su menú abierto" % path_of(f["node"])
+	# a menu just opened lays out and takes its place over the next frames: aimed at before that, the click fell beside
+	# it (the errand's «Enviar → Forja», with a window)
+	for i: int in 3:
+		await tree.process_frame
+	if not pop.visible:
+		return "%s no tiene su menú abierto" % path_of(f["node"])
 	if index >= pop.item_count:
 		return "el menú tiene %d entradas" % pop.item_count
 	if pop.is_item_disabled(index):
