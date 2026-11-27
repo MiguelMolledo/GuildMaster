@@ -92,6 +92,13 @@ func _process(delta: float) -> void:
 
 
 func _write() -> void:
+	var seq: Array = []   # the abrir frames in order: where the worst ones fall (the frame of the order, the cut...)
+	for f: Array in _frames:
+		if int(f[0]) == 2:
+			seq.append(snappedf(float(f[1]) * 1000.0, 0.1))
+	var idx: Array = range(seq.size())
+	idx.sort_custom(func(a: int, b: int) -> bool: return float(seq[a]) > float(seq[b]))
+	print("[SmokeAbrir3D] abrir: worst frames [index, ms] %s (of %d)" % [idx.slice(0, 5).map(func(i: int) -> Array: return [i, seq[i]]), seq.size()])
 	for st: int in [2, 3]:
 		var n := 0
 		var sum := 0.0

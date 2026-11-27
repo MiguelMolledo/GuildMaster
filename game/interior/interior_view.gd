@@ -191,7 +191,9 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	var b: Dictionary = s.state.buildings.get(bld, {})
 	shop_stall = SimQuery.shop_stall(s.state, s.catalog, bld)
 	_player_family = SimQuery.player_family(s.state)
+	var _t0 := Time.get_ticks_usec()
 	_build_room(str(b.get("type", "")), b.get("zones", {}))
+	var _t1 := Time.get_ticks_usec()
 	_zoom = maxi(1, int(_cfg.get("zoom", 2)))
 	var wall_h := wall_height
 	var left := Iso.tile_to_world(Vector2i(0, size_tiles.y - 1)).x - Iso.TILE_W / 2.0
@@ -225,6 +227,7 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	if not station_menu().production_requested.is_connected(show_production):
 		station_menu().production_requested.connect(show_production.bind(true))
 	station_menu().close()
+	var _t2 := Time.get_ticks_usec()
 	storage_panel().order_sink = _give
 	storage_panel().setup(s, bld, actor())
 	production_panel().order_sink = _give
@@ -239,6 +242,7 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	upgrade_panel().close()
 	# a building without an upgrade tree (a house...) has nothing to show
 	(%UpgradesButton as Button).visible = shop_stall == "" and Upgrades.tree_of(s, bld) != ""
+	var _t3 := Time.get_ticks_usec()
 	apply_unlocks()
 	for n: String in ["StorageButton", "ProductionButton", "StaffButton", "UpgradesButton"]:
 		(get_node("%" + n) as Button).set_pressed_no_signal(false)
@@ -246,9 +250,12 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	_setup_bank(s, bld, who)
 	room_layer().visible = projector == null
 	_floor_button_3d = null
+	var _t4 := Time.get_ticks_usec()
 	sync()
 	ViewConfig.info("Interior", "setup (building=%s, manage=%s, size=%s, door=%s, stations=%d, selected=%s)" % [bld,
 		manage_mode, size_tiles, door_tile, _stations.size(), who])
+	ViewConfig.info("Interior", "setup ms: room %.1f, bar %.1f, panels %.1f, inn/bank %.1f, sync %.1f" % [(_t1 - _t0) / 1000.0,
+		(_t2 - _t1) / 1000.0, (_t3 - _t2) / 1000.0, (_t4 - _t3) / 1000.0, (Time.get_ticks_usec() - _t4) / 1000.0])
 
 
 ## Posada: a Taberna-Posada gets its room layer (guests, beds) and its panel; any other building drops them.

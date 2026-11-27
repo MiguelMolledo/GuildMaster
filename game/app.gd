@@ -822,17 +822,31 @@ func _open_in_place(building: String, manage: bool, panel: String) -> bool:
 	if interior_building != "" and interior_building != building:
 		_close_now()
 	_interior.projector = _w3.bridge
+	var t0 := Time.get_ticks_usec()
 	if not _w3.open_house(building):
 		_interior.projector = null
 		return false
 	interior_building = building
+	Log.info("App", "interior %s open in place (3D): house %.1f ms" % [building, (Time.get_ticks_usec() - t0) / 1000.0])
+	_finish_in_place(building, manage, panel)
+	return true
+
+
+## The game's InteriorView over the house open in place, on the next frame: its setup (the room's stations, the
+## panels: ~45 ms) and the house's opening (the cut, the people: ~40 ms) in one frame made the worst frame of entering.
+func _finish_in_place(building: String, manage: bool, panel: String) -> void:
+	await get_tree().process_frame
+	if interior_building != building or _w3 == null or _w3.in_place != building:
+		return   # closed or another one opened meanwhile
+	var t1 := Time.get_ticks_usec()
 	_interior.setup(Game.sim, building, _selected(), manage)
+	var t2 := Time.get_ticks_usec()
 	_interior.set_active(true)
 	_hud.set_interior(true)
 	if panel == "staff":
 		_interior.show_staff(true, "staff")
-	Log.info("App", "interior %s open in place (3D)" % building)
-	return true
+	Log.info("App", "interior %s view ready: setup %.1f ms, bar %.1f ms" % [building, (t2 - t1) / 1000.0,
+		(Time.get_ticks_usec() - t2) / 1000.0])
 
 
 ## Back to the town, centred on the building's door.
