@@ -1569,7 +1569,7 @@ func _walks(inst: Dictionary, pl: Dictionary) -> bool:
 func _figure(look: String, seed: int) -> Node3D:
 	## an anonymous hooded figure (nazareno, bearer of the giants): the clergy look of sim3d_chars in the festival colour
 	var dye: String = {"penitent": "lila", "corpus": "crudo", "carnival": "rojo", "noble": "granate"}.get(look, "lila")
-	var d := {name = "", sex = "m", seed = 500 + seed, height = 0.98 + float(seed % 5) / 100.0, anim = "Idle",
+	var d := {name = "Figura_%s_%d" % [look, seed], sex = "m", seed = 500 + seed, height = 0.98 + float(seed % 5) / 100.0, anim = "Idle",
 		parts = {torso = "ranger", arms = "ranger", legs = "ranger", feet = "peasant", hair = "hair_buzzed", acc = ["hood"]},
 		paint = {"*": {"tex": "ranger3"}, "torso": [dye, "negro"], "arms": [dye, "negro"], "legs": ["", "negro"],
 			"hood_ranger_m": ["", dye], "feet": {"tex": "peasant"}, "skin": "fair", "hair": "dark"}}
