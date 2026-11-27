@@ -22,6 +22,7 @@ const VFX: Dictionary = {"slash": "strike", "spark": "parry", "swirl": "feint", 
 
 var fighters: Array[Node2D] = []    # CharacterView (2D) or, with the 3D town, DuelBody3D (the person's own body)
 const BODY3D := preload("res://game/world3d/duel_body3d.gd")
+var weapons: Array = ["", ""]       # each duellist's weapon (duel_screen): the 3D bodies box with fists
 var _fx: Array = []                 # code-drawn: [{kind, at, t}]; with art: [{anim, who, mirror, elapsed, t}]
 var _frames: Dictionary = {}        # code effect kind -> VisualPaths.duel_vfx of its art id ({} = drawn by code)
 var _words: Label = null
@@ -65,6 +66,7 @@ func setup(chars: Array, families: Array) -> void:
 	for i: int in 2:
 		var b3: Node2D = BODY3D.make(town, str((chars[i] as Dictionary).get("id", ""))) if town != null else null
 		if b3 != null:   # M3D-5: the duellists' 3D bodies, not the provisional 2D sprites
+			b3.set("fists", str(weapons[i] if i < weapons.size() else "") in ["", "fists"])
 			add_child(b3)
 			fighters.append(b3)
 			continue

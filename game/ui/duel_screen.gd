@@ -168,6 +168,7 @@ func _setup(state: WorldState, a: String, b: String) -> void:
 	for i: int in 2:
 		_touches[i].icon = VisualPaths.duel_icon("touch", true)
 		_breath[i].icon = VisualPaths.duel_icon("breath", true)
+	_arena.weapons = [str(duel.fighter(0)["weapon"]), str(duel.fighter(1)["weapon"])]   # 3D: fists or a blade
 	_arena.setup(_chars, _families)
 	visible = true
 	UiAnim.panel_in(get_node("%Frame") as Control)

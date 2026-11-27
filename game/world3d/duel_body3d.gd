@@ -9,6 +9,10 @@ const VP_SIZE := Vector2i(120, 180)
 const CAM_SIZE := 2.6                  # metres of the view's height: a grown-up and its sword arm
 ## arena motion -> kit clip (Universal Animation Library: kit/chars/derived/animations.res)
 const CLIP := {"idle": "Sword_Idle", "forge": "Sword_Attack", "work": "Punch_Jab", "hit": "Hit_Chest"}
+## a fist fight: the guard and the blows of a boxer (the sword's slash spreads both arms)
+const CLIP_FISTS := {"idle": "Idle", "forge": "Punch_Cross", "work": "Punch_Jab", "hit": "Hit_Chest"}
+
+var fists: bool = false
 
 var vp: SubViewport = null
 var body: Node3D = null
@@ -72,7 +76,7 @@ func play_motion(motion: String, dir: String) -> void:
 		return
 	_facing = dir
 	body.rotation.y = deg_to_rad(90.0 if dir == "e" else -90.0)
-	_clip = str(CLIP.get(motion, "Sword_Idle"))
+	_clip = str((CLIP_FISTS if fists else CLIP).get(motion, "Idle" if fists else "Sword_Idle"))
 	_play()
 
 

@@ -1,5 +1,14 @@
 [
   {
+    "fecha": "2026-11-27",
+    "titulo": "3D: los duelistas con su propio cuerpo",
+    "que": "La pantalla del duelo ya no usa los sprites 2D provisionales: cada duelista es su cuerpo 3D del pueblo (su ropa, los colores de su familia, su edad), de perfil, en guardia y cambiando golpes; a puño, de boxeador (directo, cruzado, golpe recibido); con espada, la guardia y el tajo de espada.",
+    "como_probar": "grimoire heavy -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=duel --view=3d",
+    "capturas": [
+      "docs/novedades/m3d5_duelo3d.png"
+    ]
+  },
+  {
     "fecha": "2026-11-26",
     "titulo": "3D: familia, sociedad y política se juegan en el pueblo 3D",
     "que": "Los 13 flujos de familia, sociedad y política (cortejo y boda, fiesta de boda, regalos, vecinos y familia, edades, escuela, dados, duelo, reto y limosna, juez, tribunal, título y elecciones) pasan a 3D y se juegan de punta a punta con ratón y con teclado. Arreglos: las cartas de una partida anterior ya no se quedan en la pila al cargar otra (el reto esperaba detrás); los hijos ya no salen canosos en 3D; dentro de una casa abierta en sitio ya no se dibujan los sprites 2D de la gente encima del 3D (salían hasta en el tejado vecino) y el anillo de la persona elegida sigue a su cuerpo 3D; el auditor visual de los flujos mide bien en 3D. Tabla en docs/3d/repaso_sociedad.md.",
