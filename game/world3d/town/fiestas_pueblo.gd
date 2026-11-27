@@ -906,7 +906,7 @@ func _unmount(inst: Dictionary) -> void:
 			w.node.queue_free()
 	_walkers = _walkers.filter(func(w): return w.inst != inst)
 	for id in _drive.keys():
-		if _drive[id].use.inst == inst:
+		if (_drive[id].get("use", {}) as Dictionary).get("inst") == inst:   # a walker of the procession has no use
 			_release(id)
 	if "_ob_count" in town:
 		town._ob_count = -1
@@ -1077,6 +1077,10 @@ func _smoke(fire: Dictionary) -> GPUParticles3D:
 	if cl.is_empty() or not ("vida" in cl[0]) or cl[0].vida == null or not cl[0].vida.has_method("_smoke_particles"):
 		return null
 	var p: GPUParticles3D = cl[0].vida._smoke_particles(3, Color(0.55, 0.52, 0.5), 0.7)
+	if p.get_parent() != null:   # vida's _gp hangs it from the town; it goes on the fire (GuildMaster-3d)
+		p.get_parent().remove_child(p)
+	p.visible = true
+	p.emitting = true
 	p.name = "HumoHoguera"
 	p.amount = 16 if float(fire.get("r", 0.5)) > 0.6 else 9
 	var pm: ParticleProcessMaterial = p.process_material
